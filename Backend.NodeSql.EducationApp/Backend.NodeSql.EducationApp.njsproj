@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1152ee01-57e2-4396-ba0d-8537ca021bce}</ProjectGuid>
+    <ProjectHome>
+    </ProjectHome>
+    <ProjectView>ProjectFiles</ProjectView>
+    <StartupFile>index.js</StartupFile>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">16.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <StartWebBrowser>True</StartWebBrowser>
+    <SaveNodeJsSettingsInProjectFile>True</SaveNodeJsSettingsInProjectFile>
+    <DebuggerPort>
+    </DebuggerPort>
+    <NodejsPort>3000</NodejsPort>
+    <Name>Backend.NodeMongoApp</Name>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <ItemGroup>
+    <Content Include=".env" />
+    <Content Include="config.js" />
+    <Content Include="controllers\account.controller.js" />
+    <Content Include="controllers\admin\setup\map.form.role.controller.js" />
+    <Content Include="controllers\admin\setup\role.controller.js" />
+    <Content Include="controllers\admin\setup\form.controller.js" />
+    <Content Include="controllers\admin\setup\user.controller.js" />
+    <Content Include="middleware\credentials.js" />
+    <Content Include="middleware\errorHandler.js" />
+    <Content Include="middleware\logEvents.js" />
+    <Content Include="middleware\verifyJWT.js" />
+    <Content Include="models\admin\setup\form.model.js" />
+    <Content Include="models\admin\setup\userModel.js" />
+    <Content Include="models\admin\setup\userModel.json" />
+    <Content Include="models\serviceResult.model.js" />
+    <Content Include="package-lock.json" />
+    <Content Include="package.json" />
+    <Content Include="routes\account.route.js" />
+    <Content Include="routes\admin\setup\form.route.js" />
+    <Content Include="routes\admin\setup\map.form.role.route.js" />
+    <Content Include="routes\admin\setup\role.route.js" />
+    <Content Include="routes\admin\setup\user.route.js" />
+    <Content Include="swagger.js" />
+    <Content Include="swagger_output.json" />
+    <Content Include="index.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="app_images" />
+    <Folder Include="controllers\admin\" />
+    <Folder Include="controllers\admin\setup\" />
+    <Folder Include="models\" />
+    <Folder Include="models\admin\" />
+    <Folder Include="models\admin\setup\" />
+    <Folder Include="controllers\" />
+    <Folder Include="middleware\" />
+    <Folder Include="routes\" />
+    <Folder Include="routes\admin\" />
+    <Folder Include="routes\admin\setup\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

@@ -1,0 +1,140 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <Name>Mobile.EducationApp</Name>
+    <RootNamespace>NodejsWebApp1</RootNamespace>
+    <SaveNodeJsSettingsInProjectFile>True</SaveNodeJsSettingsInProjectFile>
+    <DebuggerPort>
+    </DebuggerPort>
+    <NodeExePath>
+    </NodeExePath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>50ea15fe-c496-4d64-9210-9102874bb6f5</ProjectGuid>
+    <ProjectHome>
+    </ProjectHome>
+    <StartupFile>App.js</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <NodejsPort>19006</NodejsPort>
+    <StartWebBrowser>True</StartWebBrowser>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Component\" />
+    <Folder Include="Navigation\" />
+    <Folder Include="Screens\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".babelrc" />
+    <Content Include=".env" />
+    <Content Include="App.js" />
+    <Content Include="app.json" />
+    <Content Include="babel.config.js" />
+    <Content Include="Component\cards.js" />
+    <Content Include="Component\checkbok.js" />
+    <Content Include="Component\colors.js" />
+    <Content Include="Component\dateinput.js" />
+    <Content Include="Component\Datepicker.js" />
+    <Content Include="Component\dropdown.js" />
+    <Content Include="Component\DropdownComponent.js" />
+    <Content Include="Component\imagepick.js" />
+    <Content Include="Component\modal.js" />
+    <Content Include="Component\ProfileSelect.js" />
+    <Content Include="Component\SingalinputForm.js" />
+    <Content Include="Component\SubmitButton.js" />
+    <Content Include="Component\table.js" />
+    <Content Include="Component\TimeingDropdown.js" />
+    <Content Include="Component\whiteCheckbok.js" />
+    <Content Include="config.js" />
+    <Content Include="config.remote.json" />
+    <Content Include="Navigation\DrawerContent.js" />
+    <Content Include="Navigation\DrawerNavigatior.js" />
+    <Content Include="Navigation\StackNavigation.js" />
+    <Content Include="Navigation\TopTab.js" />
+    <Content Include="package-lock.json" />
+    <Content Include="package.json" />
+    <Content Include="Screens\AddressDetails.js" />
+    <Content Include="Screens\AdminPanal.js" />
+    <Content Include="Screens\AssignClassSubject.js" />
+    <Content Include="Screens\AssignClassTeacher.js" />
+    <Content Include="Screens\AssignNewStudentClass.js" />
+    <Content Include="Screens\AssignSubjectTeacher.js" />
+    <Content Include="Screens\BackendApproval.js" />
+    <Content Include="Screens\credential.js" />
+    <Content Include="Screens\Dashboard.js" />
+    <Content Include="Screens\Date.js" />
+    <Content Include="Screens\DocumentsDetails.js" />
+    <Content Include="Screens\EducationCategory.js" />
+    <Content Include="Screens\LoginPage.js" />
+    <Content Include="Screens\ManageCategory.js" />
+    <Content Include="Screens\ManageClass.js" />
+    <Content Include="Screens\ManageSubject.js" />
+    <Content Include="Screens\Medium.js" />
+    <Content Include="Screens\OperationDetails.js" />
+    <Content Include="Screens\PackageSelection.js" />
+    <Content Include="Screens\Parents.js" />
+    <Content Include="Screens\PersonalInformation.js" />
+    <Content Include="Screens\PromotedStudent.js" />
+    <Content Include="Screens\Role.js" />
+    <Content Include="Screens\RoleMaster.js" />
+    <Content Include="Screens\RoleRights.js" />
+    <Content Include="Screens\screen3.js" />
+    <Content Include="Screens\Section.js" />
+    <Content Include="Screens\StudentAdmission.js" />
+    <Content Include="Screens\StudentresetPassword.js" />
+    <Content Include="Screens\Teacher.js" />
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

@@ -1,0 +1,1115 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Education App Node.js API",
+    "description": "Description",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/",
+  "schemes": [
+    "http"
+  ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "The token for authentication"
+    }
+  },
+  "paths": {
+    "/post-form1-data": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "dataAwardCategorySelectionId": {
+                  "example": "any"
+                },
+                "NameApplicant": {
+                  "example": "any"
+                },
+                "CertificateNumber": {
+                  "example": "any"
+                },
+                "Email": {
+                  "example": "any"
+                },
+                "AltEmail": {
+                  "example": "any"
+                },
+                "Mobile": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/getAll-form1Data": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/getAll-AwardCategory": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/post-AwardCategory": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/post-UserData": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "Email": {
+                  "example": "any"
+                },
+                "Password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/get-UserData": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "Email": {
+                  "example": "any"
+                },
+                "Password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/delete-Form1Data/{id}": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/getById-form1Data/{_id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/post-form1UpdateData": {
+      "patch": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "example": "any"
+                },
+                "dataAwardCategorySelectionId": {
+                  "example": "any"
+                },
+                "NameApplicant": {
+                  "example": "any"
+                },
+                "CertificateNumber": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/post-AddressDetails-data": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "City": {
+                  "example": "any"
+                },
+                "State": {
+                  "example": "any"
+                },
+                "Address": {
+                  "example": "any"
+                },
+                "Landmark": {
+                  "example": "any"
+                },
+                "Code": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/getAll-AddressDetails-data": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/post-operation-data": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "open": {
+                  "example": "any"
+                },
+                "close": {
+                  "example": "any"
+                },
+                "Monday": {
+                  "example": "any"
+                },
+                "Tuesday": {
+                  "example": "any"
+                },
+                "Wednesday": {
+                  "example": "any"
+                },
+                "Thursday": {
+                  "example": "any"
+                },
+                "Friday": {
+                  "example": "any"
+                },
+                "Saturday": {
+                  "example": "any"
+                },
+                "Sunday": {
+                  "example": "any"
+                },
+                "halfMonday": {
+                  "example": "any"
+                },
+                "halfTuesday": {
+                  "example": "any"
+                },
+                "halfWednesday": {
+                  "example": "any"
+                },
+                "halfThursday": {
+                  "example": "any"
+                },
+                "halfFriday": {
+                  "example": "any"
+                },
+                "halfSaturday": {
+                  "example": "any"
+                },
+                "halfSunday": {
+                  "example": "any"
+                },
+                "online": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/getAll-operation-data": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/getAll-document": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/post-document": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "IdType": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/post-credential-data": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "Email": {
+                  "example": "any"
+                },
+                "Password": {
+                  "example": "any"
+                },
+                "RePassword": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/getAll-credential-data": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/AuthenticateUser": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "UserName": {
+                  "example": "any"
+                },
+                "Password": {
+                  "example": "any"
+                },
+                "GrantType": {
+                  "example": "any"
+                },
+                "RefreshToken": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/admin/form/GetFormDetails/{PK_FormId}/{RowperPage}/{CurrentPage}/{SearchBy}/{SearchValue}": {
+      "get": {
+        "tags": [
+          "Admin.Form"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "PK_FormId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "RowperPage",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "CurrentPage",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "SearchBy",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "SearchValue",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/admin/form/AddEditFormDetails": {
+      "post": {
+        "tags": [
+          "Admin.Form"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "iPK_FormId": {
+                  "example": "any"
+                },
+                "cFormName": {
+                  "example": "any"
+                },
+                "cControllerName": {
+                  "example": "any"
+                },
+                "cActionName": {
+                  "example": "any"
+                },
+                "iFK_ParentId": {
+                  "example": "any"
+                },
+                "iFK_SolutionId": {
+                  "example": "any"
+                },
+                "cClassName": {
+                  "example": "any"
+                },
+                "cArea": {
+                  "example": "any"
+                },
+                "bIsActive": {
+                  "example": "any"
+                },
+                "iUserId": {
+                  "example": "any"
+                },
+                "cImageName": {
+                  "example": "any"
+                },
+                "cPlatFormType": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/admin/form/DeleteFormsDetails": {
+      "delete": {
+        "tags": [
+          "Admin.Form"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "iPK_FormId": {
+                  "example": "any"
+                },
+                "iUserId": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/admin/form/GetParentFormsList": {
+      "get": {
+        "tags": [
+          "Admin.Form"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/admin/Role/GetRoleDetails/{PK_RoleId}/{RowperPage}/{CurrentPage}/{SearchBy}/{SearchValue}": {
+      "get": {
+        "tags": [
+          "Admin.Role"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "PK_RoleId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "RowperPage",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "CurrentPage",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "SearchBy",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "SearchValue",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/admin/Role/AddEditRoleDetails": {
+      "post": {
+        "tags": [
+          "Admin.Role"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "PK_RoleId": {
+                  "example": "any"
+                },
+                "RoleName": {
+                  "example": "any"
+                },
+                "FK_CategoryId": {
+                  "example": "any"
+                },
+                "HomePage": {
+                  "example": "any"
+                },
+                "IsActive": {
+                  "example": "any"
+                },
+                "CreatedBy": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/admin/Role/DeleteRolesDetails": {
+      "delete": {
+        "tags": [
+          "Admin.Role"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "PK_RoleId": {
+                  "example": "any"
+                },
+                "DeletedBy": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/admin/Role/GetRolesList": {
+      "get": {
+        "tags": [
+          "Admin.Role"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/admin/MapFormRole/GetSubMenuDetails/{PK_RoleId}/{PK_FormId}/{MappingFor}": {
+      "get": {
+        "tags": [
+          "Admin.Map.Form.Role"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "PK_RoleId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "PK_FormId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "MappingFor",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/admin/MapFormRole/AddEditMapFormRoleDetails": {
+      "post": {
+        "tags": [
+          "Admin.Map.Form.Role"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "FK_FormId": {
+                  "example": "any"
+                },
+                "FK_RoleId": {
+                  "example": "any"
+                },
+                "CanAdd": {
+                  "example": "any"
+                },
+                "CanEdit": {
+                  "example": "any"
+                },
+                "CanDelete": {
+                  "example": "any"
+                },
+                "CanView": {
+                  "example": "any"
+                },
+                "CanExport": {
+                  "example": "any"
+                },
+                "IsActive": {
+                  "example": "any"
+                },
+                "CreatedBy": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/admin/user/GetUserDetails/{PK_UserId}/{RowperPage}/{CurrentPage}/{SearchBy}/{SearchValue}": {
+      "get": {
+        "tags": [
+          "Admin.User"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "PK_UserId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "RowperPage",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "CurrentPage",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "SearchBy",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "SearchValue",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/admin/user/AddEditUserDetails": {
+      "post": {
+        "tags": [
+          "Admin.User"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "iPK_UserId": {
+                  "example": "any"
+                },
+                "iUserId": {
+                  "example": "any"
+                },
+                "cUserName": {
+                  "example": "any"
+                },
+                "FK_RoleId": {
+                  "example": "any"
+                },
+                "UserPassword": {
+                  "example": "any"
+                },
+                "MobileNo": {
+                  "example": "any"
+                },
+                "AlternateMobileNo": {
+                  "example": "any"
+                },
+                "EmailId": {
+                  "example": "any"
+                },
+                "Gender": {
+                  "example": "any"
+                },
+                "DateOfBirth": {
+                  "example": "any"
+                },
+                "UserAddress": {
+                  "example": "any"
+                },
+                "ZipCode": {
+                  "example": "any"
+                },
+                "IsActive": {
+                  "example": "any"
+                },
+                "Name": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/admin/user/DeleteusersDetails": {
+      "delete": {
+        "tags": [
+          "Admin.User"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "iPK_userId": {
+                  "example": "any"
+                },
+                "iUserId": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "Bearer": []
+    }
+  ]
+}
