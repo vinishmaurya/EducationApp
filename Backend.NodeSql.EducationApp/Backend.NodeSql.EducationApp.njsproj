@@ -26,6 +26,7 @@
     <Content Include=".env" />
     <Content Include="config.js" />
     <Content Include="controllers\account.controller.js" />
+    <Content Include="controllers\admin\setup\common.controller.js" />
     <Content Include="controllers\admin\setup\map.form.role.controller.js" />
     <Content Include="controllers\admin\setup\role.controller.js" />
     <Content Include="controllers\admin\setup\form.controller.js" />
@@ -41,6 +42,7 @@
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
     <Content Include="routes\account.route.js" />
+    <Content Include="routes\admin\setup\common.route.js" />
     <Content Include="routes\admin\setup\form.route.js" />
     <Content Include="routes\admin\setup\map.form.role.route.js" />
     <Content Include="routes\admin\setup\role.route.js" />

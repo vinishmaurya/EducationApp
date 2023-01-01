@@ -16,9 +16,9 @@ import AssignNewStudentClass from '../Screens/AssignNewStudentClass'
 import PromoteStudent from '../Screens/PromotedStudent'
 import ManageCategory from '../Screens/ManageCategory'
 import Parents from '../Screens/Parents'
-import Role from '../Screens/Role'
+import Role from '../Screens/Admin/Setup/RoleRights/RoleMain'
 import Ionicons from 'react-native-vector-icons/Entypo'
-import TopTab from '../Navigation/TopTab'
+import NavAdminRole from './Admin/Setup/navAdminRole'
 import { colors } from '../Component/colors.js';
 import { ScreenStackHeaderRightView } from 'react-native-screens';
 import { Pressable, View, Text } from 'react-native'
@@ -29,7 +29,7 @@ const DrawerNavigatior = ({ navigation }) => {
         <>
             <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />} screenOptions={{ headerStyle: { backgroundColor: colors.colors.headColor }, headerTintColor: 'white', }}>
                 <Drawer.Screen name="Role" component={Role} options={{
-                    title: 'Role', headerRight: () => {
+                    title: 'Role ', headerRight: () => {
                         return (
                             <View style={{ flexDirection: 'row' }}>
                                 <View style={{ marginRight: 20 }}>
@@ -62,7 +62,7 @@ const DrawerNavigatior = ({ navigation }) => {
                 <Drawer.Screen name="ManageCategory" component={ManageCategory} options={{ title: 'Manage Category' }} />
                 <Drawer.Screen name="Parents" component={Parents} options={{ title: 'List Parents' }} />
 
-                <Drawer.Screen name="TopTab" component={TopTab} options={{ title: 'TopTab', }} />
+                <Drawer.Screen name="NavAdminRole" component={NavAdminRole} options={{ title: 'Add/Edit Role & Rights', }} />
             </Drawer.Navigator>
         </>
     );

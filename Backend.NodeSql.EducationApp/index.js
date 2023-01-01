@@ -109,8 +109,8 @@ if (process.env.NODE_ENV == "development") {
 }
 
 
-app.listen(3001, () => {
-    console.log(`Server Started at ${3001}`)
+app.listen(3000, () => {
+    console.log(`Server Started at http://localhost:${3000}`)
 })
 
 

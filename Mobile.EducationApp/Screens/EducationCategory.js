@@ -218,7 +218,7 @@ const EducationCategory = ({ route, props, navigation }) => {
                 <View style={{ flexDirection: 'row', marginHorizontal: 15, marginVertical: 5 }}>
                     <View style={style.ViewBok}>
                         <Text style={{ fontWeight: '600', fontSize: 20, marginTop: 10 }}>Education Category</Text>
-                        <Dropdown bindDataAwardCategory={dataAwardCategory} my_value={dataAwardCategorySelectionId} my_onChangeText={setdataAwardCategorySelectionId} />
+                        <Dropdown bindData={dataAwardCategory} my_value={dataAwardCategorySelectionId} my_onChangeText={setdataAwardCategorySelectionId} />
                         <Text style={{ fontWeight: '300', fontSize: 15, color: "red" }}>
                             {
                                 isValidAwardCategory == "false"

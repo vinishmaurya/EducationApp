@@ -1,9 +1,9 @@
 import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import { Picker } from '@react-native-picker/picker';
-import SubmitButton from '../Component/SubmitButton';
-import { colors } from '../Component/colors';
-import CheckBox from '../Component/checkbok';
+import SubmitButton from '../../../../Component/SubmitButton';
+import { colors } from '../../../../Component/colors';
+import CheckBox from '../../../../Component/checkbok';
 const RoleRights = () => {
   const [selectedLanguage, setSelectedLanguage] = useState();
   return (

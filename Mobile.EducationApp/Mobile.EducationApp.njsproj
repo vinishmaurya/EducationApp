@@ -34,12 +34,17 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="Navigation\Admin\" />
+    <Folder Include="Navigation\Admin\Setup\" />
+    <Folder Include="Constants\" />
+    <Folder Include="Screens\Admin\Setup\" />
     <Folder Include="Component\" />
     <Folder Include="Navigation\" />
+    <Folder Include="Screens\Admin\" />
     <Folder Include="Screens\" />
+    <Folder Include="Screens\Admin\Setup\RoleRights\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include=".babelrc" />
     <Content Include=".env" />
     <Content Include="App.js" />
     <Content Include="app.json" />
@@ -53,6 +58,9 @@
     <Content Include="Component\DropdownComponent.js" />
     <Content Include="Component\imagepick.js" />
     <Content Include="Component\modal.js" />
+    <Content Include="Component\paging.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="Component\ProfileSelect.js" />
     <Content Include="Component\SingalinputForm.js" />
     <Content Include="Component\SubmitButton.js" />
@@ -61,14 +69,16 @@
     <Content Include="Component\whiteCheckbok.js" />
     <Content Include="config.js" />
     <Content Include="config.remote.json" />
+    <Content Include="Constants\AppStyle.js" />
     <Content Include="Navigation\DrawerContent.js" />
     <Content Include="Navigation\DrawerNavigatior.js" />
     <Content Include="Navigation\StackNavigation.js" />
-    <Content Include="Navigation\TopTab.js" />
+    <Content Include="Navigation\Admin\Setup\navAdminRole.js" />
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
     <Content Include="Screens\AddressDetails.js" />
     <Content Include="Screens\AdminPanal.js" />
+    <Content Include="Screens\Admin\Setup\RoleRights\RoleMain - Copy.js" />
     <Content Include="Screens\AssignClassSubject.js" />
     <Content Include="Screens\AssignClassTeacher.js" />
     <Content Include="Screens\AssignNewStudentClass.js" />
@@ -79,7 +89,7 @@
     <Content Include="Screens\Date.js" />
     <Content Include="Screens\DocumentsDetails.js" />
     <Content Include="Screens\EducationCategory.js" />
-    <Content Include="Screens\LoginPage.js" />
+    <Content Include="Screens\Login.js" />
     <Content Include="Screens\ManageCategory.js" />
     <Content Include="Screens\ManageClass.js" />
     <Content Include="Screens\ManageSubject.js" />
@@ -89,9 +99,9 @@
     <Content Include="Screens\Parents.js" />
     <Content Include="Screens\PersonalInformation.js" />
     <Content Include="Screens\PromotedStudent.js" />
-    <Content Include="Screens\Role.js" />
-    <Content Include="Screens\RoleMaster.js" />
-    <Content Include="Screens\RoleRights.js" />
+    <Content Include="Screens\Admin\Setup\RoleRights\RoleMain.js" />
+    <Content Include="Screens\Admin\Setup\RoleRights\RoleMaster.js" />
+    <Content Include="Screens\Admin\Setup\RoleRights\RoleRights.js" />
     <Content Include="Screens\screen3.js" />
     <Content Include="Screens\Section.js" />
     <Content Include="Screens\StudentAdmission.js" />

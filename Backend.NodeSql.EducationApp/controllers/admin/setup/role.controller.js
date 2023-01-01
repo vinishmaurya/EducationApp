@@ -58,8 +58,10 @@ const GetRoleDetails = async (req, res, next) => {
                 }
                 else {
                     var data = {
-                        dataList: recordset.recordsets[1],
-                        dataCount: recordset.recordsets[2]
+                        dataHeader: recordset.recordsets[1],
+                        dataList: recordset.recordsets[2],
+                        dataCount: recordset.recordsets[3],
+                        
                     };
                     ServiceResult.Message = recordset.recordsets[0][0].Message;
                     ServiceResult.Description = "";
@@ -144,7 +146,7 @@ const DeleteRolesDetails = async (req, res, next) => {
             request.input('iPK_RoleId', sql.BigInt, iPK_RoleId);
             request.input('iUserId', sql.BigInt, iUserId);
 
-            request.execute("[dbo].[JK_USP_DeleteRole]", function (err, recordset) {
+            request.execute("[dbo].[USP_DeleteRole]", function (err, recordset) {
                 if (err) {
                     console.log(err);
                     sql.close();

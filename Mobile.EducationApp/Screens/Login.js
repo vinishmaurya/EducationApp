@@ -4,6 +4,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import axios from "axios";
 import BaseURL from '../config';
 import { colors } from '../Component/colors'
+import AppStyle, { newTextBox } from '../Constants/AppStyle';
 const LoginPage = ({ navigation }) => {
     const [Email, setEmail] = useState("");
     const [Password, setPassword] = useState("");
@@ -15,7 +16,7 @@ const LoginPage = ({ navigation }) => {
         setPassword("");
     }
     function submit() {
-        
+
         // debugger;
         if (Email == "") {
             setIsEmail('false');
@@ -47,7 +48,7 @@ const LoginPage = ({ navigation }) => {
                     let userInfo = res.data;
                     // console.log(userInfo);
                     if (userInfo.getUserData.length) {
-                        
+
                         // console.log(userInfo.getUserData[0].Password);
                         navigation.navigate('Drawer', { screen: 'Dashboard' });
                         // navigation.navigate('Dashboard',
@@ -79,21 +80,21 @@ const LoginPage = ({ navigation }) => {
             <View style={{ flexDirection: 'row', marginHorizontal: 15, marginVertical: 0 }}>
                 <View style={style.ViewBok}>
                     <View style={{ paddingVertical: 10 }}>
-                        <Text style={{ fontWeight: '400', fontSize: 20, marginTop: 10 }}>Email</Text>
-                        <TextInput placeholder='Email' keyboardType={'default'} style={{ borderWidth: 1, borderColor: 'black', marginTop: 10, padding: 10, borderRadius: 4 }} value={Email} onChangeText={setEmail} />
-                        <Text style={{ fontWeight: '400', fontSize: 15, color: 'red' }}>
+                        <Text style={[AppStyle.inputParentView]}>Email</Text>
+                        <TextInput placeholder='Email' keyboardType={'default'} style={[AppStyle.textBox]} value={Email} onChangeText={setEmail} />
+                        <Text style={{ fontWeight: '400', fontSize: 15, color: 'red', display: (isEmail == 'false' ? 'flex' : 'none') }}>
                             {
                                 isEmail == "false"
-                                    ? "email is Required*"
+                                    ? "Email is required*"
                                     : ''
                             }
                         </Text>
                         <Text style={{ fontWeight: '400', fontSize: 20, marginTop: 5 }}>Password</Text>
-                        <TextInput keyboardType={'phone-pad'} placeholder='Password' style={{ borderWidth: 1, borderColor: 'black', marginTop: 10, padding: 10, borderRadius: 4 }} value={Password} onChangeText={setPassword} />
-                        <Text style={{ fontWeight: '400', fontSize: 15, color: 'red' }}>
+                        <TextInput keyboardType={'phone-pad'} placeholder='Password' style={[AppStyle.textBox]} value={Password} onChangeText={setPassword} />
+                        <Text style={{ fontWeight: '400', fontSize: 15, color: 'red', display: (isPassword == 'false' ? 'flex' : 'none') }}>
                             {
                                 isPassword == "false"
-                                    ? "Password is Required*"
+                                    ? "Password is required*"
                                     : ""
                             }
                         </Text>
@@ -101,13 +102,15 @@ const LoginPage = ({ navigation }) => {
                 </View>
             </View>
             <View style={{ marginHorizontal: 30, justifyContent: 'center', marginTop: 0 }}>
-                {/* <View style={{ paddingHorizontal: 10 }}> */}
-                <Pressable style={{ backgroundColor: colors.colors.headColor, padding: 6, marginVertical: 5, borderRadius: 4, textAlign: 'center' }} onPress={submit} ><Text style={{ color: 'white', textAlign: 'center', fontSize: 18 }}>Submit</Text></Pressable>
-                {/* </View> */}
-                {/* <View style={{ paddingHorizontal: 10 }}> */}
-                <Pressable style={{ backgroundColor: colors.colors.headColor, padding: 6, marginVertical: 5, borderRadius: 4, textAlign: 'center' }} onPress={reset} ><Text style={{ color: 'white', textAlign: 'center', fontSize: 18 }}>Reset</Text></Pressable>
-                <Pressable style={{ padding: 6, marginVertical: 5, borderRadius: 4, textAlign: 'center' }} onPress={() => navigation.navigate('EducationRegistration')} ><Text style={{ color: 'blue', textAlign: 'center', fontSize: 16 }}>New Registration</Text></Pressable>
-                {/* </View> */}
+                <Pressable style={[AppStyle.btnPressable]} onPress={submit} >
+                    <Text style={{ color: 'white', textAlign: 'center', fontSize: 18 }}>Submit</Text>
+                </Pressable>
+                <Pressable style={[AppStyle.btnPressable]} onPress={reset} >
+                    <Text style={[AppStyle.btnText]}>Reset</Text>
+                </Pressable>
+                <Pressable style={[AppStyle.btnLinkTextPressable]} onPress={() => navigation.navigate('EducationRegistration')} >
+                    <Text style={[ AppStyle.btnLinkText ]}>New Registration</Text>
+                </Pressable>
             </View>
         </ScrollView>
     )
@@ -115,12 +118,6 @@ const LoginPage = ({ navigation }) => {
 
 export default LoginPage;
 const style = StyleSheet.create({
-    inputBok: {
-        borderWidth: 1,
-        borderColor: 'black',
-        borderRadius: 5,
-        marginTop: 10
-    },
     ViewBok: {
         width: '100%',
     }

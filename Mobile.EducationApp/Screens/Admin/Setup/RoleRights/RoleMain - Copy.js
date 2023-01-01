@@ -1,9 +1,9 @@
 import { View, Text, Pressable, Alert, ScrollView, FlatList, TextInput, TouchableOpacity, Platform, StatusBar, StyleSheet } from 'react-native'
-import { Picker } from '@react-native-picker/picker';
+//import { Picker } from '@react-native-picker/picker';
 import Tooltip from "react-native-walkthrough-tooltip";
-import React, { useState } from 'react'
-import Checkbok from '../Component/whiteCheckbok'
-import Checkbok2 from '../Component/checkbok'
+import React, { useState, useEffect } from 'react'
+import Checkbok from '../../..//../Component/whiteCheckbok'
+import Checkbok2 from '../../../../Component/checkbok'
 import Icon from 'react-native-vector-icons/EvilIcons';
 import Delete from 'react-native-vector-icons/MaterialIcons';
 import Pluscircleo from 'react-native-vector-icons/AntDesign';
@@ -11,12 +11,14 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Foundation from 'react-native-vector-icons/Foundation';
 import NumericInput from 'react-native-numeric-input';
 import { FloatingAction } from "react-native-floating-action";
-import { colors } from '../Component/colors';
+import { colors } from '../../../../Component/colors';
+import axios from "axios";
+import BaseURL from '../../../../config';
 const Role = ({ navigation }) => {
     const [selectedLanguage, setSelectedLanguage] = useState();
     const [showTip, setTip] = useState(false);
     function alert() {
-        Alert.alert('remove ' + List.id)
+        Alert.alert('remove ' + BodyList.id)
     }
     function search() {
         Alert.alert('search ')
@@ -35,7 +37,7 @@ const Role = ({ navigation }) => {
     const action = <Delete name={'delete'} size={25} color={'#E64848'} onPress={alert} />
     const action1 = <Icon name={'pencil'} size={25} color={'#7FB77E'} onPress={edit} />
     const whiteCheckbok = <Checkbok2 />
-    const List = [
+    const BodyList = [
         { id: 1, FName: 'First Name 1', LName: 'Last Name 1', Gender: 'Gender', Email: 'Email@gmail.com', Dob: 'DD/MM/YYYY', Image: 'Image', Action: action, action1: action1 },
         { id: 2, FName: 'First Name 2', LName: 'Last Name 2', Gender: 'Gender', Email: 'Email@gmail.com', Dob: 'DD/MM/YYYY', Image: 'Image', Action: action, action1: action1 },
         { id: 3, FName: 'First Name 3', LName: 'Last Name 3', Gender: 'Gender', Email: 'Email@gmail.com', Dob: 'DD/MM/YYYY', Image: 'Image', Action: action, action1: action1 },
@@ -48,8 +50,51 @@ const Role = ({ navigation }) => {
         { id: 10, FName: 'First Name 3', LName: 'Last Name 3', Gender: 'Gender', Email: 'Email@gmail.com', Dob: 'DD/MM/YYYY', Image: 'Image', Action: action, action1: action1 },
         { id: 11, FName: 'First Name 3', LName: 'Last Name 3', Gender: 'Gender', Email: 'Email@gmail.com', Dob: 'DD/MM/YYYY', Image: 'Image', Action: action, action1: action1 },
         { id: 12, FName: 'First Name 3', LName: 'Last Name 3', Gender: 'Gender', Email: 'Email@gmail.com', Dob: 'DD/MM/YYYY', Image: 'Image', Action: action, action1: action1 },
+        { id: 13, FName: 'First Name 3', LName: 'Last Name 3', Gender: 'Gender', Email: 'Email@gmail.com', Dob: 'DD/MM/YYYY', Image: 'Image', Action: action, action1: action1 },
     ];
-    const item = ({ item }) => (
+    //const HeaderList = [
+    //    { id: "ID", FName: 'First Name 1231', LName: 'Last Name 1', Gender: 'Gender', Email: 'Email@gmail.com', Dob: 'DD/MM/YYYY', Image: 'Image', Action: action, action1: action1 }
+    //];
+
+    //New Development Start...
+
+    const [HeaderList, setTableHeader] = useState();
+    useEffect(() => {
+        setTableHeader(["ID",'First Name 1231','Last Name 1','Gender','Email@gmail.com']);
+        loadPageData();
+    }, []);
+    function loadPageData() {
+
+        try {
+            axios.get(`${BaseURL.BASE_URL}/admin/Role/GetRoleDetails/0/10/1/%20/%20`, {
+                headers: { Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjcxODgyODQxLCJleHAiOjE2NzE4ODY0NDF9.N45Ntn_16qs0rA5Tpuk8Vqh6M_bybgwsTaQXVeBvLKg" }
+            })
+                .then(res => {
+                    // debugger;
+                    //setTableHeader(res.data.Data.dataHeader);
+                    //console.log(tableHeader);
+                    //console.log("----------");
+                    //setTableHeader(undefined);
+                    //console.log(tableHeader.HeaderList);
+                    //console.log(res.data.Data.dataHeader);
+                    //var HeaderListObject = [];
+                    //for (var i = 0; i < res.data.Data.dataHeader.length; i++) {
+                    //    //console.log(res.data.Data.dataHeader[i].ColumnName);
+                    //    HeaderListObject.push(res.data.Data.dataHeader[i].ColumnName);
+                    //}
+                    //setTableHeader(res.data.Data.dataHeader);
+                    //console.log(res.data.Data.dataHeader);
+                })
+                .catch(e => {
+                    console.log(`/admin/Role/GetRoleDetails/0/10/1/%20/%20 error ${e}`);
+                });
+        }
+        catch (e) {
+            console.log(`/admin/Role/GetRoleDetails/0/10/1/%20/%20 error ${e}`);
+        }
+    }
+
+    const BodyItem = ({ item, index }) => (
         <View style={{ flexDirection: 'row', borderColor: 'lightgray', paddingVertical: 0, backgroundColor: item.id % 2 == 0 ? '#f2f2f2' : '#F9F9F9' }}>
             <View style={{ width: 40 }}>
                 <Text style={{ fontSize: 11, fontWeight: 'bold', textAlign: 'center' }}>{whiteCheckbok}</Text>
@@ -80,6 +125,18 @@ const Role = ({ navigation }) => {
                 <Pressable onPress={alert}><Text style={{ marginTop: 5 }}>{item.Action}</Text></Pressable>
             </View>
         </View >);
+
+
+    const HeaderItem = ({ item, index }) => (
+        <View style={{ flexDirection: 'row', borderWidth: 1, flexWrap: 'wrap' }}>
+
+            <View style={{ width: 40, backgroundColor: colors.colors.buttonColor, borderWidth: 1, borderColor: 'white' }}>
+                <Text style={{ fontSize: 11, marginTop: 10, fontWeight: 'bold', textAlign: 'center', color: '#ffffff' }}>{item}</Text>
+            </View>
+
+
+
+        </View >);
     // const actions = [
     //     {
     //         // text: "Role Right",
@@ -87,6 +144,9 @@ const Role = ({ navigation }) => {
     //     },
 
     // ];
+
+
+    
     return (
         <>
             <ScrollView style={{ marginHorizontal: 10, marginVertical: 0 }}>
@@ -110,12 +170,17 @@ const Role = ({ navigation }) => {
                             paddingHorizontal: 10
                         }} >
                         <View style={{ flexDirection: 'row', borderWidth: 1, borderColor: 'gray', marginVertical: 10, borderRadius: 5, justifyContent: 'space-between', height: 40, marginTop: -10 }}>
-                            <View style={{ width: '15%', marginTop: -8, marginLeft: -10 }}><Picker
-                                selectedValue={selectedLanguage}
-                                onValueChange={(itemValue, itemIndex) => setSelectedLanguage(itemValue)}>
-                                <Picker.Item label="Role name" value="java" />
-                                <Picker.Item label="Role id" value="js" />
-                            </Picker></View>
+
+                            <View style={{ width: '15%', marginTop: -8, marginLeft: -10 }}>
+                                {
+                                    //<Picker
+                                    //    selectedValue={selectedLanguage}
+                                    //    onValueChange={(itemValue, itemIndex) => setSelectedLanguage(itemValue)}>
+                                    //    <Picker.Item label="Role name" value="java" />
+                                    //    <Picker.Item label="Role id" value="js" />
+                                    //</Picker>
+                                }
+                            </View>
                             <View style={{ width: '75%', }}><TextInput placeholder='Role Name' style={{ marginTop: 4 }} /></View>
                             <Pressable style={{ width: '10%', backgroundColor: '#f2f2f2', borderLeftWidth: 2, borderColor: 'gray', borderTopRightRadius: 3, borderBottomRightRadius: 3 }}><Text style={{ marginTop: 6, marginLeft: 3 }}><Icon color={'#000000'} name={'search'} size={25} onPress={search} /></Text></Pressable>
                         </View>
@@ -159,44 +224,54 @@ const Role = ({ navigation }) => {
                                 </View>
                             </View>
                         </View>
+
+
                         <ScrollView showsVerticalScrollIndicator={false} horizontal={true} >
                             <View>
+
+
                                 <View>
-                                    <View style={{ flexDirection: 'row', borderWidth: 1 }}>
-                                        <View style={{ width: 40, backgroundColor: colors.colors.buttonColor, borderWidth: 1, borderColor: 'white' }}>
-                                            <Text style={{ fontSize: 11, fontWeight: 'bold', textAlign: 'center', color: '#ffffff' }}><Checkbok /></Text>
+                                    <View style={{ flexDirection: 'row', borderWidth: 1, flexWrap: 'wrap' }}>
+                                        <View style={{ width: 40 }}>
+                                            <Text style={{ fontSize: 11, fontWeight: 'bold', textAlign: 'center' }}><Checkbok2 /></Text>
                                         </View>
-                                        <View style={{ width: 40, backgroundColor: colors.colors.buttonColor, borderWidth: 1, borderColor: 'white' }}>
-                                            <Text style={{ fontSize: 11, marginTop: 10, fontWeight: 'bold', textAlign: 'center', color: '#ffffff' }}>id</Text>
+                                        <View style={{ width: 40, }}>
+                                            <Text style={{ fontSize: 11, marginTop: 10, fontWeight: 'bold', textAlign: 'center' }}>id</Text>
                                         </View>
-                                        <View style={{ width: 80, backgroundColor: colors.colors.buttonColor, borderWidth: 1, borderColor: 'white' }}>
-                                            <Text style={{ fontSize: 11, marginTop: 10, fontWeight: 'bold', textAlign: 'center', color: '#ffffff' }}>First Name</Text>
+                                        <View style={{ width: 80 }}>
+                                            <Text style={{ fontSize: 11, marginTop: 10, fontWeight: 'bold', textAlign: 'center' }}>FName</Text>
                                         </View>
-                                        <View style={{ width: 80, backgroundColor: colors.colors.buttonColor, borderWidth: 1, borderColor: 'white' }}>
-                                            <Text style={{ fontSize: 11, marginTop: 10, fontWeight: 'bold', textAlign: 'center', color: '#ffffff' }}>Last name</Text>
+                                        <View style={{ width: 80, }}>
+                                            <Text style={{ fontSize: 11, marginTop: 10, fontWeight: 'bold', textAlign: 'center' }}>LName</Text>
                                         </View>
-                                        <View style={{ width: 80, backgroundColor: colors.colors.buttonColor, borderWidth: 1, borderColor: 'white' }}>
-                                            <Text style={{ fontSize: 11, marginTop: 10, fontWeight: 'bold', textAlign: 'center', color: '#ffffff' }}>Gender</Text>
+                                        <View style={{ width: 80, }}>
+                                            <Text style={{ fontSize: 11, marginTop: 10, fontWeight: 'bold', textAlign: 'center' }}>Gender</Text>
                                         </View>
-                                        <View style={{ width: 80, backgroundColor: colors.colors.buttonColor, borderWidth: 1, borderColor: 'white' }}>
-                                            <Text style={{ fontSize: 11, marginTop: 10, fontWeight: 'bold', textAlign: 'center', color: '#ffffff' }}>Email</Text>
+                                        <View style={{ width: 80, }}>
+                                            <Text style={{ fontSize: 11, marginTop: 10, fontWeight: 'bold', textAlign: 'center' }}>Email</Text>
                                         </View>
-                                        <View style={{ width: 80, backgroundColor: colors.colors.buttonColor, borderWidth: 1, borderColor: 'white' }}>
-                                            <Text style={{ fontSize: 11, marginTop: 10, fontWeight: 'bold', textAlign: 'center', color: '#ffffff' }}>Dob</Text>
+                                        <View style={{ width: 80 }}>
+                                            <Text style={{ fontSize: 11, marginTop: 10, fontWeight: 'bold', textAlign: 'center' }}>Dob</Text>
                                         </View>
-                                        <View style={{ width: 80, backgroundColor: colors.colors.buttonColor, borderWidth: 1, borderColor: 'white' }}>
-                                            <Text style={{ fontSize: 11, marginTop: 10, fontWeight: 'bold', textAlign: 'center', color: '#ffffff' }}>Image</Text>
+                                        <View style={{ width: 80 }}>
+                                            <Text style={{ fontSize: 11, marginTop: 10, fontWeight: 'bold', textAlign: 'center' }}>Image</Text>
                                         </View>
-                                        <View style={{ width: 100, backgroundColor: colors.colors.buttonColor, borderWidth: 1, borderColor: 'white' }}>
-                                            <Text style={{ fontSize: 11, marginTop: 10, fontWeight: 'bold', textAlign: 'center', color: '#ffffff' }}>Action</Text>
+                                        <View style={{ width: 80 }}>
+                                            <Text style={{ fontSize: 11, marginTop: 10, fontWeight: 'bold', textAlign: 'center' }}>Action</Text>
                                         </View>
                                     </View>
                                     <View style={{ marginTop: 10 }}>
-                                        <FlatList data={List} renderItem={item} keyExtractor={item => item.id.toString()} />
+                                        <FlatList
+                                            data={BodyList}
+                                            renderItem={BodyItem}
+                                            keyExtractor={item => item.id.toString()}
+
+                                        />
                                     </View>
                                 </View>
                             </View >
                         </ScrollView>
+
                         <View style={{ marginBottom: -20 }}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
                                 <Text style={{ marginTop: 5 }}>Page 1 of 1 (4 Records)</Text>
@@ -211,8 +286,8 @@ const Role = ({ navigation }) => {
                 </View>
             </ScrollView>
             <View>
-                        <FloatingAction color={'#351401'} onPressMain={() => navigation.navigate('TopTab')}   distanceToEdge={{ vertical:10, horizontal: 25 }}/>
-                        </View>
+                <FloatingAction color={'#351401'} onPressMain={() => navigation.navigate('NavAdminRole')} distanceToEdge={{ vertical: 10, horizontal: 25 }} />
+            </View>
         </>
     )
 }
