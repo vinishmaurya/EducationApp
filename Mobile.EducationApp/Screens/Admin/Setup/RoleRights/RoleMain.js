@@ -13,20 +13,24 @@ import NumericInput from 'react-native-numeric-input';
 import { FloatingAction } from "react-native-floating-action";
 import { colors } from '../../../../Component/colors';
 import axios from "axios";
-import BaseURL from '../../../../config';
+import Config from '../../../../config';
 import Paging from '../../../../Component/paging';
 import paging from '../../../../Component/paging';
 
 const Role = ({ navigation }) => {
 
-    const [SearchValue, setSearchValue] = useState();
+    let [SearchValue, setSearchValue] = useState("");
     const [selectedLanguage, setSelectedLanguage] = useState();
     const [showTip, setTip] = useState(false);
+    const [showTipSB, setTipSB] = useState(false);
     function alert() {
         Alert.alert('remove ' + BodyList.id)
     }
+    const onChangeTextSearchValue = value => {
+        setSearchValue(value);
+    }
     function search(sv) {
-        Alert.alert('RoleName : ' + sv)
+        console.log(SearchValue)
         loadPageData(RowParPage, PagingList.CurrentPage, 'RoleName', SearchValue);
     }
     function edit() {
@@ -85,9 +89,10 @@ const Role = ({ navigation }) => {
     const [HaveDBData, setHaveDBData] = useState(false);
     const [HeaderList, setTableHeader] = useState();
     const [BodyList, setTableBody] = useState();
-    const [RowParPage, setRowParPage] = useState(1);
+    const [SearchBy, setSearchBy] = useState("");
+    const [RowParPage, setRowParPage] = useState(Config.RowPerPage);
     const [PagingList, setPagingList] = useState({
-        CurrentPage: 1,
+        CurrentPage: Config.CurrentPage,
         TotalItems: 0,
         RowParPage: RowParPage,
         TotalPage: 0
@@ -149,39 +154,149 @@ const Role = ({ navigation }) => {
         //        "ID": 5
         //    }
         //]);
-        //console.log(HeaderList);
+        
         loadPageData(RowParPage, PagingList.CurrentPage);
+        BindData(undefined);
         //console.log(HaveDBData);
       
     }, []);
     function loadPageData(r,c,sb,sv) {
-        sb = "%20";
-        sv = "%20";
+        sb = !sb ? "%20" : sb;
+        sv = !sv ? "%20" : sv;
+        
         try {
-            axios.get(`${BaseURL.BASE_URL}/admin/Role/GetRoleDetails/0/${r}/${c}/${sb}/${sv}`, {
-                headers: { Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjcyNTY5NjcyLCJleHAiOjE2NzI1NzMyNzJ9.5yvS8eh--z7zUv0WPcgSF5wSP6ld4STqFIi0BsH00V8" }
+            axios.get(`${Config.BASE_URL}/admin/Role/GetRoleDetails/0/${r}/${c}/${sb}/${sv}`, {
+                headers: { Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjczMTU5NTk5LCJleHAiOjE2NzMxNjMxOTl9.nwaISF8nvCjc8w_Z1Laz1ePy1IzkbAYOqi19ZRrc73k" }
             })
                 .then(res => {
-                    setTableHeader(res.data.Data.dataHeader);
-                    setTableBody(res.data.Data.dataList);
-                    setHaveDBData(true);
-                    let TotalItem = res.data.Data.dataCount[0].TotalItem;
-                    setPagingList({
-                        CurrentPage: 1,
-                        TotalItems: TotalItem,
-                        RowParPage: RowParPage,
-                        TotalPage: parseInt(TotalItem % RowParPage == 0 ? TotalItem / RowParPage : TotalItem / RowParPage + 1)
-                    });
-                    console.log(PagingList);
-                    //console.log(TotalItem);
+                    BindData(res.data);
                 })
                 .catch(e => {
+                    
                     console.log(`/admin/Role/GetRoleDetails/0/10/1/%20/%20 error ${e}`);
                 });
         }
         catch (e) {
+            
             console.log(`/admin/Role/GetRoleDetails/0/10/1/%20/%20 error ${e}`);
         }
+    }
+
+    function BindData(Data) {
+
+        const res_data = !Data ? {
+            "Message": "Success",
+            "Description": "",
+            "Result": true,
+            "Data": {
+                "dataHeader": [
+                    {
+                        "ColumnName": "--Select--",
+                        "ID": 0
+                    },
+                    {
+                        "ColumnName": "Role Name",
+                        "ID": 1
+                    },
+                    {
+                        "ColumnName": "Landing Page",
+                        "ID": 2
+                    },
+                    {
+                        "ColumnName": "Created Date",
+                        "ID": 3
+                    },
+                    {
+                        "ColumnName": "Status",
+                        "ID": 4
+                    },
+                    {
+                        "ColumnName": "Action",
+                        "ID": 5
+                    }
+                ],
+                "dataList": [
+                    {
+                        "PK_Roleid": "3",
+                        "RoleName": "Test Node",
+                        "RoleFor": "",
+                        "CustomerName": "",
+                        "CompanyName": "",
+                        "FK_CustomerId": "0",
+                        "FK_CompanyId": "0",
+                        "FK_CategoryId": "0",
+                        "CategoryName": "",
+                        "FK_AccountId": "0",
+                        "AccountName": "",
+                        "FormName": "Dashboard",
+                        "IsActive": true,
+                        "Status": "Active",
+                        "CreatedDateTime": "23/09/2022 10:41:59",
+                        "HomePage": "1",
+                        "AccountCategoryId": "0"
+                    },
+                    {
+                        "PK_Roleid": "2",
+                        "RoleName": "Admin",
+                        "RoleFor": "",
+                        "CustomerName": "",
+                        "CompanyName": "",
+                        "FK_CustomerId": "0",
+                        "FK_CompanyId": "0",
+                        "FK_CategoryId": "2",
+                        "CategoryName": "",
+                        "FK_AccountId": "2",
+                        "AccountName": "Gyanmitras Admin",
+                        "FormName": "Admin Dashboard",
+                        "IsActive": true,
+                        "Status": "Active",
+                        "CreatedDateTime": "01/05/2020 04:55:41",
+                        "HomePage": "8",
+                        "AccountCategoryId": "2"
+                    },
+                    {
+                        "PK_Roleid": "1",
+                        "RoleName": "Super Admin",
+                        "RoleFor": "",
+                        "CustomerName": "",
+                        "CompanyName": "",
+                        "FK_CustomerId": "0",
+                        "FK_CompanyId": "0",
+                        "FK_CategoryId": "1",
+                        "CategoryName": "",
+                        "FK_AccountId": "1",
+                        "AccountName": "Gyanmitras",
+                        "FormName": "Accounts",
+                        "IsActive": true,
+                        "Status": "Active",
+                        "CreatedDateTime": "-NA-",
+                        "HomePage": "9",
+                        "AccountCategoryId": "1"
+                    }
+                ],
+                "dataCount": [
+                    {
+                        "TotalItem": 3,
+                        "TotalCurrentMonth": 0,
+                        "TotalActive": 3,
+                        "TotalInActive": 0
+                    }
+                ]
+            }
+        } : Data;
+
+        setTableHeader(res_data.Data.dataHeader);
+        setTableBody(res_data.Data.dataList);
+        setHaveDBData(true);
+        let TotalItem = res_data.Data.dataCount[0].TotalItem;
+        setPagingList({
+            CurrentPage: Config.CurrentPage,
+            TotalItems: TotalItem,
+            RowParPage: RowParPage,
+            TotalPage: parseInt(TotalItem % RowParPage == 0 ? TotalItem / RowParPage : TotalItem / RowParPage + 1)
+        });
+                    //console.log(PagingList);
+                    //console.log(TotalItem);
     }
     const HeaderPopList = !HaveDBData ? "" : HeaderList.map((item, index) => {
         if (index == 0) {
@@ -194,7 +309,7 @@ const Role = ({ navigation }) => {
 
         return (
             <View style={{ width: 80 }} key={item.ID}>
-                <Text style={{ fontSize: 11, marginTop: 10, fontWeight: 'bold', textAlign: 'center' }}>{item.ColumnName}</Text>
+                <Text style={{ fontSize: 13, marginTop: 10, fontWeight: 'bold', textAlign: 'center' }}>{item.ColumnName}</Text>
             </View>
         );
 
@@ -247,22 +362,32 @@ const Role = ({ navigation }) => {
                         <View style={{ flexDirection: 'row', borderWidth: 1, borderColor: 'gray', marginVertical: 10, borderRadius: 5, justifyContent: 'space-between', height: 40, marginTop: -10 }}>
 
                             <View style={{ width: '15%', marginTop: -8, marginLeft: -10 }}>
-                                {
-                                    //<Picker
-                                    //    selectedValue={selectedLanguage}
-                                    //    onValueChange={(itemValue, itemIndex) => setSelectedLanguage(itemValue)}>
-                                    //    <Picker.Item label="Role name" value="java" />
-                                    //    <Picker.Item label="Role id" value="js" />
-                                    //</Picker>
-                                }
+                                <Tooltip
+                                    isVisible={showTipSB}
+                                    content={
+                                        <>
+                                            <View style={{ width: 80, marginTop: 10, marginLeft: 15, marginBottom: 5 }}>
+                                                <View style={{ flexDirection: 'row', }}><MaterialCommunityIcons name={'microsoft-excel'} size={16} color={'#351401'} onPress={edit} /><Text style={{ marginLeft: 6 }}>Role Name</Text></View>
+                                            </View>
+                                        </>
+                                    }
+                                    onClose={() => setTipSB(false)}
+                                    placement="bottom"
+                                    // below is for the status bar of react navigation bar
+                                    topAdjustment={Platform.OS === 'android' ? -StatusBar.currentHeight : 0}
+                                >
+                                    <Pressable
+                                        onPress={() => setTipSB(true)}
+                                        style={{ backgroundColor: '#351401', padding: 8, borderWidth: 1, borderRadius: 5 }}><Text style={{ color: '#FFFFFF', marginLeft: 4 }}><Pluscircleo name={'down'} size={12} /></Text></Pressable>
+                                </Tooltip>
                             </View>
                             <View style={{ width: '75%', }}>
-                                <TextInput placeholder='Role Name' style={{ marginTop: 4 }} onChange={setSearchValue} value={SearchValue} />
+                                <TextInput placeholder='Role Name' style={{ marginTop: 4 }} onChangeText={(value) => { onChangeTextSearchValue(value) }} value={SearchValue} />
 
                             </View>
                             <Pressable style={{ width: '10%', backgroundColor: '#f2f2f2', borderLeftWidth: 2, borderColor: 'gray', borderTopRightRadius: 3, borderBottomRightRadius: 3 }}>
-                                <Text style={{ marginTop: 6, marginLeft: 3 }} onChange={setSearchValue} value={SearchValue}>
-                                    <Icon color={'#000000'} name={'search'} size={25} onPress={() => search(SearchValue)} />
+                                <Text style={{ marginTop: 6, marginLeft: 3 }} >
+                                    <Icon color={'#000000'} name={'search'} size={25} onPress={() => search()} />
                                 </Text>
                             </Pressable>
                         </View>
@@ -282,32 +407,43 @@ const Role = ({ navigation }) => {
                                 </View>
                             </View>
                             <View style={{ flexDirection: 'row' }}>
-                                <View style={{ width: 80, }}>
-                                    <Tooltip
-                                        isVisible={showTip}
-                                        content={
-                                            <>
-                                                <View style={{ width: 80, marginTop: 10, marginLeft: 15, marginBottom: 5 }}>
-                                                    <View style={{ flexDirection: 'row', }}><MaterialCommunityIcons name={'microsoft-excel'} size={16} color={'#351401'} onPress={edit} /><Text style={{ marginLeft: 6 }}>EXCEL</Text></View>
-                                                </View>
-                                                <View style={{ width: 80, marginTop: 10, marginLeft: 15, marginBottom: 5 }}>
-                                                    <View style={{ flexDirection: 'row', }}><Pluscircleo name={'pdffile1'} size={16} color={'#351401'} onPress={edit} /><Text style={{ marginLeft: 6 }}>PDF</Text></View>
-                                                </View>
-                                                <View style={{ width: 80, marginTop: 10, marginLeft: 15, marginBottom: 4 }}>
-                                                    <View style={{ flexDirection: 'row', }}><Foundation name={'page-export-csv'} size={16} color={'#351401'} onPress={edit} /><Text style={{ marginLeft: 6 }}>PDF</Text></View>
-                                                </View>
-                                            </>
-                                        }
-                                        onClose={() => setTip(false)}
-                                        placement="bottom"
-                                        // below is for the status bar of react navigation bar
-                                        topAdjustment={Platform.OS === 'android' ? -StatusBar.currentHeight : 0}
-                                    >
-                                        <Pressable
-                                            onPress={() => setTip(true)}
-                                            style={{ backgroundColor: '#351401', padding: 8, borderWidth: 1, borderRadius: 5 }}><Text style={{ color: '#FFFFFF', marginLeft: 4 }}>Export <Pluscircleo name={'down'} size={12} /></Text></Pressable>
-                                    </Tooltip>
-                                </View>
+
+                                {
+                                    HaveDBData
+                                        ?
+                                        <View style={{ width: 80, }}>
+                                            <Tooltip
+                                                isVisible={showTip}
+                                                content={
+                                                    <>
+                                                        <View style={{ width: 80, marginTop: 10, marginLeft: 15, marginBottom: 5 }}>
+                                                            <View style={{ flexDirection: 'row', }}><MaterialCommunityIcons name={'microsoft-excel'} size={16} color={'#351401'} onPress={edit} /><Text style={{ marginLeft: 6 }}>EXCEL</Text></View>
+                                                        </View>
+                                                        <View style={{ width: 80, marginTop: 10, marginLeft: 15, marginBottom: 5 }}>
+                                                            <View style={{ flexDirection: 'row', }}><Pluscircleo name={'pdffile1'} size={16} color={'#351401'} onPress={edit} /><Text style={{ marginLeft: 6 }}>PDF</Text></View>
+                                                        </View>
+                                                        <View style={{ width: 80, marginTop: 10, marginLeft: 15, marginBottom: 4 }}>
+                                                            <View style={{ flexDirection: 'row', }}><Foundation name={'page-export-csv'} size={16} color={'#351401'} onPress={edit} /><Text style={{ marginLeft: 6 }}>PDF</Text></View>
+                                                        </View>
+                                                    </>
+                                                }
+                                                onClose={() => setTip(false)}
+                                                placement="bottom"
+                                                // below is for the status bar of react navigation bar
+                                                topAdjustment={Platform.OS === 'android' ? -StatusBar.currentHeight : 0}
+                                            >
+                                                <Pressable
+                                                    onPress={() => setTip(true)}
+                                                    style={{ backgroundColor: '#351401', padding: 8, borderWidth: 1, borderRadius: 5 }}><Text style={{ color: '#FFFFFF', marginLeft: 4 }}>Export <Pluscircleo name={'down'} size={12} /></Text></Pressable>
+                                            </Tooltip>
+                                        </View>
+                                        :
+                                        <View style={{ width: 80 }}>
+                                            
+                                        </View>
+                                }
+
+                               
                             </View>
                         </View>
 

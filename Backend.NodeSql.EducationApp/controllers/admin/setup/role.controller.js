@@ -42,7 +42,7 @@ const GetRoleDetails = async (req, res, next) => {
             request.input('iRowperPage', sql.BigInt, iRowperPage);
             request.input('iCurrentPage', sql.BigInt, iCurrentPage);
             request.input('cSearchBy', sql.VarChar(500), cSearchBy);
-            request.input('cSearchValue', sql.BigInt, cSearchValue);
+            request.input('cSearchValue', sql.VarChar(500), cSearchValue);
             request.execute("[dbo].[USP_GetRoleDetails]", function (err, recordset) {
                 if (err) {
                     console.log(err);
