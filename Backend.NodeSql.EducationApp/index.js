@@ -6,6 +6,7 @@ const url = 'mongodb://127.0.0.1:27017/DEV_EducationAppDB';
 mongoose.connect(url, { useNewUrlParser: true })
 //const mongo_database = mongoose.connection;
 var cors = require('cors');
+const commonRoute = require('./routes/admin/setup/common.route');
 const formRoute = require('./routes/admin/setup/form.route');
 const roleRoute = require('./routes/admin/setup/role.route');
 const mapFormRoleRoute = require('./routes/admin/setup/map.form.role.route');
@@ -83,6 +84,7 @@ app.use('/api', commonRoutes);
 app.use(verifyJWT);
 
 app.use('/api', [
+    commonRoute,
     formRoute,
     roleRoute,
     mapFormRoleRoute,

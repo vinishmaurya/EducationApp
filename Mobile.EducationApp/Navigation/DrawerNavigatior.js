@@ -16,7 +16,7 @@ import AssignNewStudentClass from '../Screens/AssignNewStudentClass'
 import PromoteStudent from '../Screens/PromotedStudent'
 import ManageCategory from '../Screens/ManageCategory'
 import Parents from '../Screens/Parents'
-import Role from '../Screens/Admin/Setup/RoleRights/RoleMain'
+import RoleMain from '../Screens/Admin/Setup/RoleRights/RoleMain'
 import Ionicons from 'react-native-vector-icons/Entypo'
 import NavAdminRole from './Admin/Setup/navAdminRole'
 import { colors } from '../Component/colors.js';
@@ -28,7 +28,7 @@ const DrawerNavigatior = ({ navigation }) => {
     return (
         <>
             <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />} screenOptions={{ headerStyle: { backgroundColor: colors.colors.headColor }, headerTintColor: 'white', }}>
-                <Drawer.Screen name="Role" component={Role} options={{
+                <Drawer.Screen name="RoleMain" component={RoleMain} options={{
                     title: 'Role ', headerRight: () => {
                         return (
                             <View style={{ flexDirection: 'row' }}>

@@ -21,8 +21,25 @@ const GetAllCategoryList = async (req, res, next) => {
                     sql.close();
                 }
                 sql.close();
-                res.send(recordset.recordsets);
+                if (recordset == null || recordset.recordsets.length <= 0) {
+                    ServiceResult.Message = "Failed!";
+                    ServiceResult.Description = "Process failed!";
+                    ServiceResult.Result = false;
+                    ServiceResult.Data = null;
+                    res.send(ServiceResult);
+                }
+                else {
+                    var data = {
+                        dataMessage: recordset.recordsets[0],
+                        dataList: recordset.recordsets[1]
 
+                    };
+                    ServiceResult.Message = "Success";
+                    ServiceResult.Description = "";
+                    ServiceResult.Result = true;
+                    ServiceResult.Data = data;
+                    res.send(ServiceResult);
+                }
             });
         });
     } catch (error) {

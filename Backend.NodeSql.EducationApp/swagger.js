@@ -27,6 +27,7 @@ const endpointsFiles =
     [
         './common.routes.js',
         './routes/account.route',
+        './routes/admin/setup/common.route.js',
         './routes/admin/setup/form.route.js',
         './routes/admin/setup/role.route.js',
         './routes/admin/setup/map.form.role.route.js',

@@ -523,6 +523,66 @@
         }
       }
     },
+    "/admin/common/GetAllCategoryList": {
+      "get": {
+        "tags": [
+          "Admin.Common"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/admin/common/GetAllAccountList": {
+      "get": {
+        "tags": [
+          "Admin.Common"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/admin/common/GetAllParentFormsList": {
+      "get": {
+        "tags": [
+          "Admin.Common"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
     "/admin/form/GetFormDetails/{PK_FormId}/{RowperPage}/{CurrentPage}/{SearchBy}/{SearchValue}": {
       "get": {
         "tags": [
@@ -676,7 +736,7 @@
         }
       }
     },
-    "/admin/form/GetParentFormsList": {
+    "/admin/form/GetAllParentFormsList": {
       "get": {
         "tags": [
           "Admin.Form"

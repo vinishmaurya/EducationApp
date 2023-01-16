@@ -115,10 +115,14 @@ const AddEditRoleDetails = async (req, res, next) => {
                     res.send(ServiceResult);
                 }
                 else {
+                    var PK_RoleId = null;
+                    if (recordset.recordsets[0][0].Message_Id == 1) {
+                        PK_RoleId = recordset.recordsets[0][1].PK_RoleId;
+                    }
                     ServiceResult.Message = recordset.recordsets[0][0].Message;
                     ServiceResult.Description = "";
                     ServiceResult.Result = true;
-                    ServiceResult.Data = null;
+                    ServiceResult.Data = PK_RoleId;
                     res.send(ServiceResult);
                 }
             });

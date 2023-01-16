@@ -2,11 +2,12 @@ import { View, Text, Pressable, Alert, ScrollView, FlatList, TextInput, Touchabl
 //import { Picker } from '@react-native-picker/picker';
 import Tooltip from "react-native-walkthrough-tooltip";
 import React, { useState, useEffect } from 'react'
-import Checkbok from '../../..//../Component/whiteCheckbok'
+import Checkbok from '../../../../Component/checkbok'
 import Checkbok2 from '../../../../Component/checkbok'
 import Icon from 'react-native-vector-icons/EvilIcons';
 import Delete from 'react-native-vector-icons/MaterialIcons';
 import Pluscircleo from 'react-native-vector-icons/AntDesign';
+import Controllerplay from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Foundation from 'react-native-vector-icons/Foundation';
 import NumericInput from 'react-native-numeric-input';
@@ -15,10 +16,10 @@ import { colors } from '../../../../Component/colors';
 import axios from "axios";
 import Config from '../../../../config';
 import Paging from '../../../../Component/paging';
-import paging from '../../../../Component/paging';
+import Spinner from 'react-native-loading-spinner-overlay';
 
-const Role = ({ navigation }) => {
-
+const RoleMain = ({ navigation }) => {
+    const [isLoading, setIsLoading] = useState(false);
     let [SearchValue, setSearchValue] = useState("");
     const [selectedLanguage, setSelectedLanguage] = useState();
     const [showTip, setTip] = useState(false);
@@ -33,9 +34,12 @@ const Role = ({ navigation }) => {
         console.log(SearchValue)
         loadPageData(RowParPage, PagingList.CurrentPage, 'RoleName', SearchValue);
     }
-    function edit() {
-        Alert.alert('Manage Category', 'Do you want to edit')
-
+    function onEditPress(PK_Roleid) {
+        navigation.navigate(
+            'NavAdminRole',
+            {
+                edit_id: PK_Roleid
+            });
     }
 
     function next() {
@@ -44,8 +48,6 @@ const Role = ({ navigation }) => {
     function previous() {
         Alert.alert('previous')
     }
-    const action = <Delete name={'delete'} size={25} color={'#E64848'} onPress={alert} />
-    const action1 = <Icon name={'pencil'} size={25} color={'#7FB77E'} onPress={edit} />
     const whiteCheckbok = <Checkbok2 />
     //const BodyList = [
     //    { "PK_Roleid": "3", "RoleName": "Test Node", "FormName": "Dashboard", "CreatedDateTime": "23/09/2022", "Status": "Active", Action: action, action1: action1 }
@@ -75,7 +77,7 @@ const Role = ({ navigation }) => {
                 <Text style={{ fontSize: 11, marginTop: 10, fontWeight: 'bold', textAlign: 'center', color: item.IsActive == true ? '#7FB77E' : '#E64848' }} >{item.Status}</Text>
             </View>
             <View style={{ width: 100, flexDirection: 'row', justifyContent: 'space-evenly', }}>
-                <Pressable onPress={alert}><Text style={{ marginTop: 5 }}><Icon name={'pencil'} size={25} color={'#7FB77E'} onPress={edit} /></Text></Pressable>
+                <Pressable onPress={alert}><Text style={{ marginTop: 5 }}><Icon name={'pencil'} size={25} color={'#7FB77E'} onPress={() => onEditPress(item.PK_Roleid)} /></Text></Pressable>
                 <Pressable onPress={alert}><Text style={{ marginTop: 5 }}><Delete name={'delete'} size={25} color={'#E64848'} onPress={alert} /></Text></Pressable>
             </View>
         </View >);
@@ -97,7 +99,7 @@ const Role = ({ navigation }) => {
         RowParPage: RowParPage,
         TotalPage: 0
     });
-    
+
     //const [HeaderList, setTableHeader] = useState([
     //    {
     //        "ColumnName": "Select",
@@ -128,6 +130,10 @@ const Role = ({ navigation }) => {
     //    { "PK_Roleid": "3", "RoleName": "Test Node", "FormName": "Dashboard", "CreatedDateTime": "23/09/2022", "Status": "Active", Action: action, action1: action1 }
     //]);
     useEffect(() => {
+        setIsLoading(false);
+        setHaveDBData(false);
+        setTableHeader(false);
+        setTableBody(false);
         //setTableHeader([
         //    {
         //        "ColumnName": "Select",
@@ -154,136 +160,144 @@ const Role = ({ navigation }) => {
         //        "ID": 5
         //    }
         //]);
-        
+
         loadPageData(RowParPage, PagingList.CurrentPage);
-        BindData(undefined);
+        //BindData(undefined);
         //console.log(HaveDBData);
-      
+
     }, []);
-    function loadPageData(r,c,sb,sv) {
+    function loadPageData(r, c, sb, sv) {
         sb = !sb ? "%20" : sb;
         sv = !sv ? "%20" : sv;
-        
+        //console.log("Config.BASE_URL"+Config.BASE_URL);
+
         try {
+            setIsLoading(true);
             axios.get(`${Config.BASE_URL}/admin/Role/GetRoleDetails/0/${r}/${c}/${sb}/${sv}`, {
-                headers: { Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjczMTU5NTk5LCJleHAiOjE2NzMxNjMxOTl9.nwaISF8nvCjc8w_Z1Laz1ePy1IzkbAYOqi19ZRrc73k" }
+                headers: { Authorization: "Bearer " + Config.AccessToken }
             })
                 .then(res => {
+                    console.log(res.data);
                     BindData(res.data);
+                    setIsLoading(false);
                 })
                 .catch(e => {
-                    
+                    setIsLoading(false);
                     console.log(`/admin/Role/GetRoleDetails/0/10/1/%20/%20 error ${e}`);
                 });
         }
         catch (e) {
-            
+            setIsLoading(false);
             console.log(`/admin/Role/GetRoleDetails/0/10/1/%20/%20 error ${e}`);
         }
     }
 
     function BindData(Data) {
-
-        const res_data = !Data ? {
-            "Message": "Success",
-            "Description": "",
-            "Result": true,
-            "Data": {
-                "dataHeader": [
-                    {
-                        "ColumnName": "--Select--",
-                        "ID": 0
-                    },
-                    {
-                        "ColumnName": "Role Name",
-                        "ID": 1
-                    },
-                    {
-                        "ColumnName": "Landing Page",
-                        "ID": 2
-                    },
-                    {
-                        "ColumnName": "Created Date",
-                        "ID": 3
-                    },
-                    {
-                        "ColumnName": "Status",
-                        "ID": 4
-                    },
-                    {
-                        "ColumnName": "Action",
-                        "ID": 5
-                    }
-                ],
-                "dataList": [
-                    {
-                        "PK_Roleid": "3",
-                        "RoleName": "Test Node",
-                        "RoleFor": "",
-                        "CustomerName": "",
-                        "CompanyName": "",
-                        "FK_CustomerId": "0",
-                        "FK_CompanyId": "0",
-                        "FK_CategoryId": "0",
-                        "CategoryName": "",
-                        "FK_AccountId": "0",
-                        "AccountName": "",
-                        "FormName": "Dashboard",
-                        "IsActive": true,
-                        "Status": "Active",
-                        "CreatedDateTime": "23/09/2022 10:41:59",
-                        "HomePage": "1",
-                        "AccountCategoryId": "0"
-                    },
-                    {
-                        "PK_Roleid": "2",
-                        "RoleName": "Admin",
-                        "RoleFor": "",
-                        "CustomerName": "",
-                        "CompanyName": "",
-                        "FK_CustomerId": "0",
-                        "FK_CompanyId": "0",
-                        "FK_CategoryId": "2",
-                        "CategoryName": "",
-                        "FK_AccountId": "2",
-                        "AccountName": "Gyanmitras Admin",
-                        "FormName": "Admin Dashboard",
-                        "IsActive": true,
-                        "Status": "Active",
-                        "CreatedDateTime": "01/05/2020 04:55:41",
-                        "HomePage": "8",
-                        "AccountCategoryId": "2"
-                    },
-                    {
-                        "PK_Roleid": "1",
-                        "RoleName": "Super Admin",
-                        "RoleFor": "",
-                        "CustomerName": "",
-                        "CompanyName": "",
-                        "FK_CustomerId": "0",
-                        "FK_CompanyId": "0",
-                        "FK_CategoryId": "1",
-                        "CategoryName": "",
-                        "FK_AccountId": "1",
-                        "AccountName": "Gyanmitras",
-                        "FormName": "Accounts",
-                        "IsActive": true,
-                        "Status": "Active",
-                        "CreatedDateTime": "-NA-",
-                        "HomePage": "9",
-                        "AccountCategoryId": "1"
-                    }
-                ],
-                "dataCount": [
-                    {
-                        "TotalItem": 3,
-                        "TotalCurrentMonth": 0,
-                        "TotalActive": 3,
-                        "TotalInActive": 0
-                    }
-                ]
-            }
-        } : Data;
+        const res_data = Data;
+        //console.log(Data);
+        //#region hard-coded value...
+        //const res_data = !Data ? {
+        //    "Message": "Success",
+        //    "Description": "",
+        //    "Result": true,
+        //    "Data": {
+        //        "dataHeader": [
+        //            {
+        //                "ColumnName": "--Select--",
+        //                "ID": 0
+        //            },
+        //            {
+        //                "ColumnName": "Role Name",
+        //                "ID": 1
+        //            },
+        //            {
+        //                "ColumnName": "Landing Page",
+        //                "ID": 2
+        //            },
+        //            {
+        //                "ColumnName": "Created Date",
+        //                "ID": 3
+        //            },
+        //            {
+        //                "ColumnName": "Status",
+        //                "ID": 4
+        //            },
+        //            {
+        //                "ColumnName": "Action",
+        //                "ID": 5
+        //            }
+        //        ],
+        //        "dataList": [
+        //            {
+        //                "PK_Roleid": "3",
+        //                "RoleName": "Test Node",
+        //                "RoleFor": "",
+        //                "CustomerName": "",
+        //                "CompanyName": "",
+        //                "FK_CustomerId": "0",
+        //                "FK_CompanyId": "0",
+        //                "FK_CategoryId": "0",
+        //                "CategoryName": "",
+        //                "FK_AccountId": "0",
+        //                "AccountName": "",
+        //                "FormName": "Dashboard",
+        //                "IsActive": true,
+        //                "Status": "Active",
+        //                "CreatedDateTime": "23/09/2022 10:41:59",
+        //                "HomePage": "1",
+        //                "AccountCategoryId": "0"
+        //            },
+        //            {
+        //                "PK_Roleid": "2",
+        //                "RoleName": "Admin",
+        //                "RoleFor": "",
+        //                "CustomerName": "",
+        //                "CompanyName": "",
+        //                "FK_CustomerId": "0",
+        //                "FK_CompanyId": "0",
+        //                "FK_CategoryId": "2",
+        //                "CategoryName": "",
+        //                "FK_AccountId": "2",
+        //                "AccountName": "Gyanmitras Admin",
+        //                "FormName": "Admin Dashboard",
+        //                "IsActive": true,
+        //                "Status": "Active",
+        //                "CreatedDateTime": "01/05/2020 04:55:41",
+        //                "HomePage": "8",
+        //                "AccountCategoryId": "2"
+        //            },
+        //            {
+        //                "PK_Roleid": "1",
+        //                "RoleName": "Super Admin",
+        //                "RoleFor": "",
+        //                "CustomerName": "",
+        //                "CompanyName": "",
+        //                "FK_CustomerId": "0",
+        //                "FK_CompanyId": "0",
+        //                "FK_CategoryId": "1",
+        //                "CategoryName": "",
+        //                "FK_AccountId": "1",
+        //                "AccountName": "Gyanmitras",
+        //                "FormName": "Accounts",
+        //                "IsActive": true,
+        //                "Status": "Active",
+        //                "CreatedDateTime": "-NA-",
+        //                "HomePage": "9",
+        //                "AccountCategoryId": "1"
+        //            }
+        //        ],
+        //        "dataCount": [
+        //            {
+        //                "TotalItem": 3,
+        //                "TotalCurrentMonth": 0,
+        //                "TotalActive": 3,
+        //                "TotalInActive": 0
+        //            }
+        //        ]
+        //    }
+        //} : Data;
+        //#endregion
+        
 
         setTableHeader(res_data.Data.dataHeader);
         setTableBody(res_data.Data.dataList);
@@ -295,8 +309,8 @@ const Role = ({ navigation }) => {
             RowParPage: RowParPage,
             TotalPage: parseInt(TotalItem % RowParPage == 0 ? TotalItem / RowParPage : TotalItem / RowParPage + 1)
         });
-                    //console.log(PagingList);
-                    //console.log(TotalItem);
+        //console.log(PagingList);
+        //console.log(TotalItem);
     }
     const HeaderPopList = !HaveDBData ? "" : HeaderList.map((item, index) => {
         if (index == 0) {
@@ -317,17 +331,6 @@ const Role = ({ navigation }) => {
     });
 
 
-    const HeaderItem = ({ item, index }) => (
-        <View style={{ flexDirection: 'row', borderWidth: 1, flexWrap: 'wrap' }}>
-
-            <View style={{ width: 40, backgroundColor: colors.colors.buttonColor, borderWidth: 1, borderColor: 'white' }}>
-                <Text style={{ fontSize: 11, marginTop: 10, fontWeight: 'bold', textAlign: 'center', color: '#ffffff' }}>{item}</Text>
-            </View>
-
-
-
-        </View >);
-
     function onPressNextPage(CurrentPage) {
         //Alert.alert(String(CurrentPage))
         loadPageData(RowParPage, CurrentPage);
@@ -340,6 +343,8 @@ const Role = ({ navigation }) => {
     return (
         <>
             <ScrollView style={{ marginHorizontal: 10, marginVertical: 0 }}>
+                <Spinner visible={isLoading} textContent={'Please Wait ..'}
+                    textStyle={{ color: colors.colors.white, fontWeight: '400' }} />
                 {/* <View>
                     <View style={{ marginTop: 10, width: 100 }}>
                         <Pressable style={{ backgroundColor: '#351401', padding: 8, borderWidth: 1, borderRadius: 20 }}><Text style={{ color: '#FFFFFF', marginLeft: 4 }}><Pluscircleo name={'pluscircleo'} size={12} /> Add New</Text></Pressable>
@@ -361,13 +366,13 @@ const Role = ({ navigation }) => {
                         }} >
                         <View style={{ flexDirection: 'row', borderWidth: 1, borderColor: 'gray', marginVertical: 10, borderRadius: 5, justifyContent: 'space-between', height: 40, marginTop: -10 }}>
 
-                            <View style={{ width: '15%', marginTop: -8, marginLeft: -10 }}>
+                            <View style={{ width: '10%', marginTop: 3.5, marginLeft: 3, }}>
                                 <Tooltip
                                     isVisible={showTipSB}
                                     content={
                                         <>
-                                            <View style={{ width: 80, marginTop: 10, marginLeft: 15, marginBottom: 5 }}>
-                                                <View style={{ flexDirection: 'row', }}><MaterialCommunityIcons name={'microsoft-excel'} size={16} color={'#351401'} onPress={edit} /><Text style={{ marginLeft: 6 }}>Role Name</Text></View>
+                                            <View style={{ width: 120, marginTop: 10, marginLeft: 15, marginBottom: 5 }}>
+                                                <View style={{ flexDirection: 'row', }}><MaterialCommunityIcons name={'microsoft-excel'} size={16} color={'#351401'} /><Text style={{ marginLeft: 6 }}>Role Name</Text></View>
                                             </View>
                                         </>
                                     }
@@ -378,10 +383,10 @@ const Role = ({ navigation }) => {
                                 >
                                     <Pressable
                                         onPress={() => setTipSB(true)}
-                                        style={{ backgroundColor: '#351401', padding: 8, borderWidth: 1, borderRadius: 5 }}><Text style={{ color: '#FFFFFF', marginLeft: 4 }}><Pluscircleo name={'down'} size={12} /></Text></Pressable>
+                                        style={{ backgroundColor: '#FFF', padding: 8, borderWidth: 0, borderRadius: 5 }}><Text style={{ color: '#000', marginLeft: 5, }}><Pluscircleo name={'caretdown'} size={12} color={'gray'} /></Text></Pressable>
                                 </Tooltip>
                             </View>
-                            <View style={{ width: '75%', }}>
+                            <View style={{ width: '70%', }}>
                                 <TextInput placeholder='Role Name' style={{ marginTop: 4 }} onChangeText={(value) => { onChangeTextSearchValue(value) }} value={SearchValue} />
 
                             </View>
@@ -399,7 +404,7 @@ const Role = ({ navigation }) => {
                                         totalHeight={32} onChange={setRowParPage} value={RowParPage}
                                         maxValue={PagingList.TotalItems}
                                         minValue={1}
-                                        onPress={ onPressRowPerPage}
+                                        onPress={onPressRowPerPage}
                                     />
                                 </View></View>
                                 <View style={{ marginLeft: 10 }}>
@@ -417,13 +422,10 @@ const Role = ({ navigation }) => {
                                                 content={
                                                     <>
                                                         <View style={{ width: 80, marginTop: 10, marginLeft: 15, marginBottom: 5 }}>
-                                                            <View style={{ flexDirection: 'row', }}><MaterialCommunityIcons name={'microsoft-excel'} size={16} color={'#351401'} onPress={edit} /><Text style={{ marginLeft: 6 }}>EXCEL</Text></View>
+                                                            <View style={{ flexDirection: 'row', }}><MaterialCommunityIcons name={'microsoft-excel'} size={16} color={'#351401'}  /><Text style={{ marginLeft: 6 }}>EXCEL</Text></View>
                                                         </View>
                                                         <View style={{ width: 80, marginTop: 10, marginLeft: 15, marginBottom: 5 }}>
-                                                            <View style={{ flexDirection: 'row', }}><Pluscircleo name={'pdffile1'} size={16} color={'#351401'} onPress={edit} /><Text style={{ marginLeft: 6 }}>PDF</Text></View>
-                                                        </View>
-                                                        <View style={{ width: 80, marginTop: 10, marginLeft: 15, marginBottom: 4 }}>
-                                                            <View style={{ flexDirection: 'row', }}><Foundation name={'page-export-csv'} size={16} color={'#351401'} onPress={edit} /><Text style={{ marginLeft: 6 }}>PDF</Text></View>
+                                                            <View style={{ flexDirection: 'row', }}><Pluscircleo name={'pdffile1'} size={16} color={'#351401'}  /><Text style={{ marginLeft: 6 }}>PDF</Text></View>
                                                         </View>
                                                     </>
                                                 }
@@ -439,11 +441,11 @@ const Role = ({ navigation }) => {
                                         </View>
                                         :
                                         <View style={{ width: 80 }}>
-                                            
+
                                         </View>
                                 }
 
-                               
+
                             </View>
                         </View>
 
@@ -457,7 +459,7 @@ const Role = ({ navigation }) => {
                                             HeaderPopList
                                             :
                                             <View style={{ width: 100 }}>
-                                                <Text style={{ fontSize: 15, marginTop: 10, fontWeight: 'bold', textAlign: 'center', color:'red' }}>
+                                                <Text style={{ fontSize: 15, marginTop: 10, fontWeight: 'bold', textAlign: 'center', color: 'red' }}>
                                                     No Record Found!
                                                 </Text>
                                             </View>
@@ -486,10 +488,10 @@ const Role = ({ navigation }) => {
                                 </View>
                             </View>
                              */}
-                           
+
 
                             <Paging
-                                pressCurrentPage={ onPressNextPage}
+                                pressCurrentPage={onPressNextPage}
                                 CurrentPage={PagingList.CurrentPage}
                                 TotalItems={PagingList.TotalItems}
                                 RowParPage={PagingList.RowParPage}
@@ -506,7 +508,7 @@ const Role = ({ navigation }) => {
     )
 }
 
-export default Role;
+export default RoleMain;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
