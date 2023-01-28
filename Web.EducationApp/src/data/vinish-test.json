@@ -1,0 +1,17 @@
+{
+    "title": "vinish-test",
+    "store": "./src/data/vinish-test.json",
+    "route": "/components/VinishTest",
+    "link": "https://getbootstrap.com/docs/5.1/components/card/",
+    "content": [
+        {
+            "title": "About",
+            "contents": [
+                {
+                    "type": "desc",
+                    "element": "A <strong>card</strong> is a flexible and extensible content container. It includes options for headers and footers, a wide variety of content, contextual background colors, and powerful display options. If you’re familiar with Bootstrap 3, cards replace our old panels, wells, and thumbnails. Similar functionality to those components is available as modifier classes for cards."
+                }
+            ]
+        }
+    ]
+}

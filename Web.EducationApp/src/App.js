@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import "bootstrap";
+import "./assets/styles/styles.scss";
+import "./assets/styles/demo.scss";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import AdminLayout from "./components/AdminLayout";
+import Todo from "./pages/Todo";
+import VinishTest from "./pages/VinishTest";
+import data from "./data/data";
+import BootstrapComponent from "./pages/BootstrapComponent";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <BrowserRouter>
+            <AdminLayout>
+                <Switch>
+
+                    {data.map((val, index) => (
+                        <Route path={val.route} key={index}>
+                            <BootstrapComponent data={val} />
+                        </Route>
+                    ))}
+                    <Route path="/vinish" component={VinishTest} />
+                    <Route path="/" component={Todo} />
+                </Switch>
+            </AdminLayout>
+        </BrowserRouter>
+    );
 }
 
 export default App;
