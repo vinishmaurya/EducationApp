@@ -19,9 +19,9 @@ const RoleMaster = ({ route, props, navigation }) => {
 
     const [selectedLanguage, setSelectedLanguage] = useState();
     const [IsActive, setIsActive] = useState(null);
-    let edit_id = route.params ? route.params.edit_id : 0;
+    let edit_id = config.CurrentEditId;
     const [isLoading, setIsLoading] = useState(false);
-
+    
 
     const [dataRoleFor, setdataRoleFor] = useState(function () {
         //let api_data = 

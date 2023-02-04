@@ -35,6 +35,7 @@ const RoleMain = ({ navigation }) => {
         loadPageData(RowParPage, PagingList.CurrentPage, 'RoleName', SearchValue);
     }
     function onEditPress(PK_Roleid) {
+        //console.log(PK_Roleid);
         navigation.navigate(
             'NavAdminRole',
             {
@@ -177,8 +178,13 @@ const RoleMain = ({ navigation }) => {
                 headers: { Authorization: "Bearer " + Config.AccessToken }
             })
                 .then(res => {
-                    console.log(res.data);
-                    BindData(res.data);
+                    //console.log(res.data);
+                    if (res.data.Result) {
+                        BindData(res.data);
+                    }
+                    else {
+                        Alert.alert(res.data.Message, res.data.Description);
+                    }
                     setIsLoading(false);
                 })
                 .catch(e => {

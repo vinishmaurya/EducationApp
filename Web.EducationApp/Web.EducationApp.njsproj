@@ -130,6 +130,9 @@
     <Content Include="src\index.js" />
     <Content Include="src\logo.svg" />
     <Content Include="src\pages\BootstrapComponent.js" />
+    <Content Include="src\pages\login.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="src\pages\Todo.js" />
     <Content Include="src\pages\VinishTest.js" />
     <Content Include="src\reportWebVitals.js" />

@@ -3,8 +3,12 @@ import RoleMaster from '../../../Screens/Admin/Setup/RoleRights/RoleMaster';
 import RoleRights from '../../../Screens/Admin/Setup/RoleRights/RoleRights';
 import { colors } from '../../../Component/colors';
 const Tab = createMaterialTopTabNavigator();
+import config from '../../../config';
 
-function NavAdminRole() {
+function NavAdminRole({ route }) {
+    config.CurrentEditId = route.params ? route.params.edit_id : 0;
+    //console.log(config.CurrentEditId);
+    //console.log(route.params?.edit_id);
   return (
     <Tab.Navigator screenOptions={{
       tabBarInactiveTintColor:'#351401',
@@ -14,9 +18,12 @@ function NavAdminRole() {
         // tabBarStyle: { backgroundColor: colors.colors.buttonColor },
           tabBarActiveTintColor: colors.colors.buttonColor,
           tabBarInactiveTintColor:'black',
-      }}>
-      <Tab.Screen  options={{ tabBarLabel: 'Role Master' }} name="RoleMaster" component={RoleMaster}/>
+      }}
+          
+      >
+          <Tab.Screen options={{ tabBarLabel: 'Role Master' }} name="RoleMaster" component={RoleMaster} initialParams={{ edit: 0 }} />
       <Tab.Screen  options={{ tabBarLabel: 'Role Right' }} name="RoleRights" component={RoleRights} />
+
     </Tab.Navigator>
   );
 }
