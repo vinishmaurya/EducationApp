@@ -1,10 +1,9 @@
-import "bootstrap";
-import "./assets/styles/styles.scss";
-import "./assets/styles/demo.scss";
-import React, { useState, useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Route, useNavigate } from "react-router-dom";
 
-function App() {
+const ProtectedRoute = (props) => {
+
+    const navigate = useNavigate();
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -12,20 +11,22 @@ function App() {
         const userToken = localStorage.getItem('user-token');
         if (!userToken || userToken === 'undefined') {
             setIsLoggedIn(false);
+            return navigate('/auth/login');
         }
         setIsLoggedIn(true);
     }
 
     useEffect(() => {
         checkUserToken();
-
     }, [isLoggedIn]);
 
     return (
         <React.Fragment>
-            <Outlet />
+            {
+                isLoggedIn ? props.children : null
+            }
         </React.Fragment>
     );
-};
+}
 
-export default App;
+export default ProtectedRoute;

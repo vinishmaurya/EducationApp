@@ -75,6 +75,8 @@
     <Content Include="src\assets\styles\_sidebar.scss" />
     <Content Include="src\assets\styles\_sidepage.scss" />
     <Content Include="src\assets\styles\_variables.scss" />
+    <Content Include="src\auth\Auth.js" />
+    <Content Include="src\auth\login\ForgetPassword.js" />
     <Content Include="src\components\AdminLayout.js" />
     <Content Include="src\Components\Navbar.js" />
     <Content Include="src\Components\Sidebar.js" />
@@ -127,16 +129,19 @@
     <Content Include="src\data\typography.json" />
     <Content Include="src\data\validation.json" />
     <Content Include="src\data\vinish-test.json" />
+    <Content Include="src\error\Error404.js" />
     <Content Include="src\index.js" />
     <Content Include="src\logo.svg" />
     <Content Include="src\pages\BootstrapComponent.js" />
-    <Content Include="src\pages\login.js">
+    <Content Include="src\auth\login\Register.js" />
+    <Content Include="src\auth\login\Login.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="src\pages\Todo.js" />
     <Content Include="src\pages\VinishTest.js" />
     <Content Include="src\reportWebVitals.js" />
     <Content Include="src\setupTests.js" />
+    <Content Include="src\util\ProtectedRoute.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="public\" />
@@ -144,6 +149,7 @@
     <Folder Include="src\assets\" />
     <Folder Include="src\assets\images\" />
     <Folder Include="src\assets\styles\" />
+    <Folder Include="src\auth\login\" />
     <Folder Include="src\Components\" />
     <Folder Include="src\core\" />
     <Folder Include="src\core\components\" />
@@ -157,6 +163,9 @@
     <Folder Include="src\core\components\sidebar\" />
     <Folder Include="src\core\utility\" />
     <Folder Include="src\data\" />
+    <Folder Include="src\auth\" />
+    <Folder Include="src\error\" />
+    <Folder Include="src\util\" />
     <Folder Include="src\pages\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />

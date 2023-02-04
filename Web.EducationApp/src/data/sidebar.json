@@ -335,15 +335,15 @@
     "icon": "exclamation-circle",
     "child": [
       {
-        "href": "/pages/login",
+        "href": "/auth/login",
         "label": "Login"
       },
       {
-        "href": "/pages/register",
+        "href": "/auth/register",
         "label": "Register"
       },
       {
-        "href": "/pages/forget-password",
+        "href": "/auth/forget-password",
         "label": "Forget Password"
       }
     ]
