@@ -1,0 +1,44 @@
+[
+  {
+    "component": "MstCompany",
+    "title": "Company Master",
+    "componentPath": "../pages/super-admin/setup/masters/MstCompany",
+    "route": "/pages/super-admin/setup/masters/MstCompany"
+  },
+  {
+    "component": "MstForm",
+    "title": "Form Master",
+    "componentPath": "../pages/super-admin/setup/masters/MstForm",
+    "route": "/pages/super-admin/setup/masters/MstForm"
+  },
+  {
+    "component": "MstUser",
+    "title": "User Master",
+    "componentPath": "../pages/super-admin/setup/masters/MstUser",
+    "route": "/pages/super-admin/setup/masters/MstUser"
+  },
+  {
+    "component": "MstRole",
+    "title": "Role Master",
+    "componentPath": "../pages/super-admin/setup/masters/MstRole",
+    "route": "/pages/super-admin/setup/masters/MstRole"
+  },
+  {
+    "component": "MapFormCompany",
+    "title": "Form Company Mapping",
+    "componentPath": "../pages/super-admin/setup/masters-mapping/MapFormCompany",
+    "route": "/pages/super-admin/setup/masters-mapping/MapFormCompany"
+  },
+  {
+    "component": "MapFormRole",
+    "title": "Form Role Mapping",
+    "componentPath": "../pages/super-admin/setup/masters-mapping/MapFormRole",
+    "route": "/pages/super-admin/setup/masters-mapping/MapFormRole"
+  },
+  {
+    "component": "AcadAdminDashboard",
+    "title": "Admin Dashboard",
+    "componentPath": "../pages/organization/academics/dashboard/AcadAdminDashboard",
+    "route": "/pages/organization/academics/dashboard/AcadAdminDashboard"
+  }
+]

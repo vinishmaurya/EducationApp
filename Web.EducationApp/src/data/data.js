@@ -29,5 +29,6 @@ const data = [
     require("./spinners.json"), 
     require("./toasts.json"), 
     require("./placeholders.json")
+
 ]; 
 export default data;

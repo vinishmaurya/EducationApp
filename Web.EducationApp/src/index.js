@@ -8,13 +8,18 @@ import ForgetPassword from './auth/login/ForgetPassword';
 import Auth from './auth/Auth';
 import AdminLayout from "./components/AdminLayout";
 import Todo from "./pages/Todo";
-import Blank from "./pages/Blank";
+import Blank from "./pages/blank";
 import VinishTest from "./pages/VinishTest";
+import MstCompany from "./pages/super-admin/setup/masters/MstCompany";
 import data from "./data/data";
+import CustomRoute from "./custom-route/custom-route";
 import BootstrapComponent from "./pages/BootstrapComponent";
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import SharedComponent from "./pages/SharedComponent";
+import { BrowserRouter, Route, Routes, NavLink } from 'react-router-dom';
 import ProtectedRoute from './util/ProtectedRoute';
 import Error404 from "./error/Error404";
+
+
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter basename={'/'}>
@@ -33,7 +38,7 @@ ReactDOM.render(
                 }>
                 </Route>
                 {
-                    //Dynamic auth protected component routing
+                    //Dynamic auth protected component routing for dynamic components
                     data.map((val, index) => (
                         <Route path={val.route} key={index} element={
                             <ProtectedRoute>
@@ -44,7 +49,25 @@ ReactDOM.render(
                         }>
                         </Route>
                     ))
+
+                    
                 }
+                {
+                    //Super Admin : Dynamic auth protected component routing
+                    CustomRoute.map((val, index) => (
+                        <Route path={val.route} key={index} element={
+                            <ProtectedRoute>
+                                <AdminLayout>
+                                    <SharedComponent data={val} />
+                                </AdminLayout>
+                            </ProtectedRoute>
+                        }>
+                        </Route>
+                    ))
+
+                }
+
+
 
                 <Route path="/vinish" element={
                     <ProtectedRoute>

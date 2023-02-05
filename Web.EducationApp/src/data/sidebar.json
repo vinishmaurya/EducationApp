@@ -7,22 +7,22 @@
     "icon": "info-circle",
     "child": [
       {
-        "href": "/setup/company",
+        "href": "/pages/super-admin/setup/masters/MstCompany",
         "label": "Company Master",
         "icon": "chart-line"
       },
       {
-        "href": "/setup/user",
+        "href": "/pages/super-admin/setup/masters/MstUser",
         "label": "User Master",
         "icon": "comment"
       },
       {
-        "href": "/setup/form",
+        "href": "/pages/super-admin/setup/masters/MstForm",
         "label": "Form Master",
         "icon": "comment"
       },
       {
-        "href": "/setup/role",
+        "href": "/pages/super-admin/setup/masters/MstRole",
         "label": "Role Master",
         "icon": "comment"
       }
@@ -33,12 +33,12 @@
     "icon": "info-circle",
     "child": [
       {
-        "href": "/setup/mapFormCompany",
+        "href": "/pages/super-admin/setup/masters-mapping/MapFormCompany",
         "label": "Form Company Mapping",
         "icon": "comment"
       },
       {
-        "href": "/setup/mapFormRole",
+        "href": "/pages/super-admin/setup/masters-mapping/MapFormRole",
         "label": "Form Role Mapping",
         "icon": "comment"
       }
@@ -50,7 +50,13 @@
   },
   {
     "label": "Admin",
-    "icon": "info-circle"
+    "icon": "info-circle",
+    "child": [
+      {
+        "href": "/pages/organization/academics/dashboard/AcadAdminDashboard",
+        "label": "Dashboard"
+      }
+    ]
   },
   {
     "label": "Teacher",

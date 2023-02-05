@@ -107,6 +107,8 @@
     <Content Include="src\data\carousel.json" />
     <Content Include="src\data\checks-radios.json" />
     <Content Include="src\data\collapse.json" />
+    <Content Include="src\custom-route\custom-route.json" />
+    <Content Include="src\custom-route\custom-route.js" />
     <Content Include="src\data\data.js" />
     <Content Include="src\data\dropdowns.json" />
     <Content Include="src\data\floating-labels.json" />
@@ -164,6 +166,7 @@
     <Content Include="src\pages\organization\academics\setup\masters\AcadMstSetupClass.js" />
     <Content Include="src\pages\organization\academics\setup\masters\AcadMstSetupSection.js" />
     <Content Include="src\pages\organization\academics\setup\masters\AcadMstSetupMedium.js" />
+    <Content Include="src\pages\SharedComponent.js" />
     <Content Include="src\pages\super-admin\setup\masters-mapping\MapFormCompany.js" />
     <Content Include="src\pages\super-admin\setup\masters-mapping\MapFormRole.js" />
     <Content Include="src\pages\super-admin\setup\masters\MstCompany.js" />
@@ -211,6 +214,7 @@
     <Folder Include="src\data\" />
     <Folder Include="src\auth\" />
     <Folder Include="src\error\" />
+    <Folder Include="src\custom-route\" />
     <Folder Include="src\pages\organization\academics\dashboard\" />
     <Folder Include="src\pages\organization\academics\master\" />
     <Folder Include="src\pages\organization\academics\master\TimeTable\" />
