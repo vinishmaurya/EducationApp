@@ -45,9 +45,28 @@
     ]
   },
 
+  {
+    "label": "SCHOOL MANAGEMENT"
+  },
+  {
+    "label": "Admin",
+    "icon": "info-circle"
+  },
+  {
+    "label": "Teacher",
+    "icon": "info-circle"
+  },
+  {
+    "label": "Student",
+    "icon": "info-circle"
+  },
+  {
+    "label": "Parent",
+    "icon": "info-circle"
+  },
 
-  
- 
+
+
   {
     "label": "MAIN MENU"
   },
@@ -287,7 +306,7 @@
     "icon": "file",
     "child": [
       {
-        "href": "/pages/",
+        "href": "/pages/blank",
         "label": "Blank Page"
       },
       {
