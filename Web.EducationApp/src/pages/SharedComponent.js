@@ -8,6 +8,9 @@ import MstRole from "../pages/super-admin/setup/masters/MstRole";
 import MapFormCompany from "../pages/super-admin/setup/masters-mapping/MapFormCompany";
 import MapFormRole from "../pages/super-admin/setup/masters-mapping/MapFormRole";
 import AcadAdminDashboard from "../pages/organization/academics/dashboard/AcadAdminDashboard";
+import AcadParentDashboard from "../pages/organization/academics/dashboard/AcadParentDashboard";
+import AcadStudentDashboard from "../pages/organization/academics/dashboard/AcadStudentDashboard";
+import AcadTeacherDashboard from "../pages/organization/academics/dashboard/AcadTeacherDashboard";
 const SharedComponent = ({ data }) => {
     const pageTitle = data.title;
     const breadcrumb = [{ href: "/", label: pageTitle, current: true }];
@@ -48,6 +51,15 @@ const SharedComponent = ({ data }) => {
                         }
                         else if (data.component == "AcadAdminDashboard") {
                             return <AcadAdminDashboard />
+                        }
+                        else if (data.component == "AcadParentDashboard") {
+                            return <AcadParentDashboard />
+                        }
+                        else if (data.component == "AcadStudentDashboard") {
+                            return <AcadStudentDashboard />
+                        }
+                        else if (data.component == "AcadTeacherDashboard") {
+                            return <AcadTeacherDashboard />
                         }
                     })()}
                 </div>

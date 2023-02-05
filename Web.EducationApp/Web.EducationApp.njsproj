@@ -153,8 +153,8 @@
     <Content Include="src\pages\organization\academics\setup\masters\AcadMstAddEditLesson.js" />
     <Content Include="src\pages\organization\academics\master\teacher\AcadMstAddEditTeacher.js" />
     <Content Include="src\pages\organization\academics\master\teacher\AcadTeacherDetails.js" />
-    <Content Include="src\pages\organization\academics\master\TimeTable\AcadMstAddEditTimeTable.js" />
-    <Content Include="src\pages\organization\academics\master\TimeTable\AcadMstAddEditClassTeacherTimeTable.js" />
+    <Content Include="src\pages\organization\academics\master\timeTable\AcadMstAddEditTimeTable.js" />
+    <Content Include="src\pages\organization\academics\master\timeTable\AcadMstAddEditClassTeacherTimeTable.js" />
     <Content Include="src\pages\organization\academics\setup\masters-mapping\AcadMapStudentPromote.js" />
     <Content Include="src\pages\organization\academics\setup\masters-mapping\AcadMapStudentClass.js" />
     <Content Include="src\pages\organization\academics\setup\masters-mapping\AcadMapSubjectTeacher.js" />
@@ -179,13 +179,11 @@
     <Content Include="src\auth\login\Login.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="src\pages\super-admin\setup\settings\AcadAnnouncement - Copy %282%29.js" />
     <Content Include="src\pages\super-admin\setup\settings\OrgAppEmailConfigSetting.js" />
     <Content Include="src\pages\super-admin\setup\settings\OrgAppLanguageSetting.js" />
     <Content Include="src\pages\super-admin\setup\settings\OrgWebAppGeneralSetting.js" />
     <Content Include="src\pages\super-admin\setup\settings\OrgMobileAppSetting.js" />
     <Content Include="src\pages\super-admin\setup\website\OrgWebSiteContentSetup.js" />
-    <Content Include="src\pages\super-admin\setup\website\OrgWebSiteSliderSetup.js" />
     <Content Include="src\pages\Todo.js" />
     <Content Include="src\pages\VinishTest.js" />
     <Content Include="src\reportWebVitals.js" />
@@ -217,7 +215,7 @@
     <Folder Include="src\custom-route\" />
     <Folder Include="src\pages\organization\academics\dashboard\" />
     <Folder Include="src\pages\organization\academics\master\" />
-    <Folder Include="src\pages\organization\academics\master\TimeTable\" />
+    <Folder Include="src\pages\organization\academics\master\timeTable\" />
     <Folder Include="src\pages\organization\academics\master\teacher\" />
     <Folder Include="src\pages\organization\academics\master\student\" />
     <Folder Include="src\pages\organization\academics\master\parent\" />

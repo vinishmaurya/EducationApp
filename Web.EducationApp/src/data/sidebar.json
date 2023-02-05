@@ -49,30 +49,179 @@
     "label": "SCHOOL MANAGEMENT"
   },
   {
-    "label": "Admin",
+    "label": "Dashboard",
     "icon": "info-circle",
     "child": [
       {
         "href": "/pages/organization/academics/dashboard/AcadAdminDashboard",
-        "label": "Dashboard"
+        "label": "Admin"
+      },
+      {
+        "href": "/pages/organization/academics/dashboard/AcadParentDashboard",
+        "label": "Parent"
+      },
+      {
+        "href": "/pages/organization/academics/dashboard/AcadStudentDashboard",
+        "label": "Student"
+      },
+      {
+        "href": "/pages/organization/academics/dashboard/AcadTeacherDashboard",
+        "label": "Teacher"
+      }
+    ]
+  },
+  {
+    "label": "Academics",
+    "icon": "info-circle",
+    "child": [
+      {
+        "href": "/pages/organization/academics/setup/master/AcadMstSetupMedium",
+        "label": "Medium"
+      },
+      {
+        "href": "/pages/organization/academics/setup/master/AcadMstSetupSection",
+        "label": "Section"
+      },
+      {
+        "href": "/pages/organization/academics/setup/master/AcadMstSetupSubject",
+        "label": "Subject"
+      },
+      {
+        "href": "/pages/organization/academics/setup/master/AcadMstSetupClass",
+        "label": "Class"
+      },
+      {
+        "href": "/pages/organization/academics/setup/masters-mapping/AcadMapClassSubject",
+        "label": "Assign Class Subject"
+      },
+      {
+        "href": "/pages/organization/academics/setup/masters-mapping/AcadMapClassTeacher",
+        "label": "Assign Class Teacher"
+      },
+      {
+        "href": "/pages/organization/academics/setup/masters-mapping/AcadMapSubjectTeacher",
+        "label": "Assign Subject Teacher"
+      },
+      {
+        "href": "/pages/organization/academics/setup/masters-mapping/AcadMapStudentClass",
+        "label": "Assign New Student Class"
+      },
+      {
+        "href": "/pages/organization/academics/setup/masters-mapping/AcadMapStudentPromote",
+        "label": "Promote Student"
+      }
+    ]
+  },
+  {
+    "label": "Students",
+    "icon": "info-circle",
+    "child": [
+      {
+        "href": "/pages/organization/academics/master/student/AcadMstAddEditStudentAdmission",
+        "label": "Students Admission"
+      },
+      {
+        "href": "/pages/organization/academics/master/student/AcadStudentDetails",
+        "label": "Students Details"
+      },
+      {
+        "href": "/pages/organization/academics/setup/masters/AcadMstSetupStudentCategory",
+        "label": "Students Category"
+      },
+      {
+        "href": "/pages/organization/academics/master/AcadMstStudentAssignment",
+        "label": "Students Assignment Submission"
       }
     ]
   },
   {
     "label": "Teacher",
-    "icon": "info-circle"
-  },
-  {
-    "label": "Student",
-    "icon": "info-circle"
+    "icon": "info-circle",
+    "child": [
+      {
+        "href": "/pages/organization/academics/dashboard/teacher/AcadTeacherDetails",
+        "label": "Details Teacher"
+      },
+      {
+        "href": "/pages/organization/academics/dashboard/teacher/AcadMstAddEditTeacher",
+        "label": "Add Edit Teacher"
+      }
+    ]
   },
   {
     "label": "Parent",
-    "icon": "info-circle"
+    "icon": "info-circle",
+    "child": [
+      {
+        "href": "/pages/organization/academics/dashboard/parent/AcadParentDetails",
+        "label": "Details Parent"
+      },
+      {
+        "href": "/pages/organization/academics/dashboard/parent/AcadMstAddEditParent",
+        "label": "Add Edit Parent"
+      }
+    ]
   },
-
-
-
+  {
+    "label": "Timetable",
+    "icon": "info-circle",
+    "child": [
+      {
+        "href": "/pages/organization/academics/master/timeTable/AcadMstAddEditTimeTable",
+        "label": "Create Timetable"
+      },
+      {
+        "href": "/pages/organization/academics/master/timeTable/AcadMstAddEditClassTeacherTimeTable",
+        "label": "Class & Teacher Timetable"
+      }
+    ]
+  },
+  {
+    "label": "Holiday Management",
+    "icon": "info-circle",
+    "href": "/pages/organization/academics/master/AcadMstHoliday"
+  },
+  {
+    "label": "Announcements",
+    "icon": "info-circle",
+    "href": "/pages/organization/academics/master/AcadMstAttendance"
+  },
+  {
+    "label": "Exam Management",
+    "icon": "info-circle",
+    "href": "/pages/organization/academics/master/AcadMstExam"
+  },
+  {
+    "label": "Session Management",
+    "icon": "info-circle",
+    "href": "/pages/organization/academics/setup/masters/AcadMstSetupSession"
+  },
+  {
+    "label": "System Settings",
+    "icon": "info-circle",
+    "child": [
+      {
+        "href": "/pages/organization/super-admin/setup/settings/OrgMobileAppSetting",
+        "label": "App Settings"
+      },
+      {
+        "href": "/pages/organization/super-admin/setup/settings/OrgWebAppGeneralSetting",
+        "label": "General Settings"
+      },
+      {
+        "href": "/pages/organization/super-admin/setup/settings/OrgAppLanguageSetting",
+        "label": "Language Settings"
+      },
+      {
+        "href": "/pages/organization/super-admin/setup/settings/OrgAppEmailConfigSetting",
+        "label": "Email Configuration"
+      },
+      {
+        "href": "/pages/organization/super-admin/setup/settings/OrgWebSiteContentSetup",
+        "label": "Website Content Settings"
+      }
+    ]
+  },
   {
     "label": "MAIN MENU"
   },

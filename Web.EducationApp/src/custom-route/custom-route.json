@@ -40,5 +40,191 @@
     "title": "Admin Dashboard",
     "componentPath": "../pages/organization/academics/dashboard/AcadAdminDashboard",
     "route": "/pages/organization/academics/dashboard/AcadAdminDashboard"
+  },
+  {
+    "component": "AcadParentDashboard",
+    "title": "Parent Dashboard",
+    "componentPath": "../pages/organization/academics/dashboard/AcadParentDashboard",
+    "route": "/pages/organization/academics/dashboard/AcadParentDashboard"
+  },
+  {
+    "component": "AcadStudentDashboard",
+    "title": "Student Dashboard",
+    "componentPath": "../pages/organization/academics/dashboard/AcadStudentDashboard",
+    "route": "/pages/organization/academics/dashboard/AcadStudentDashboard"
+  },
+  {
+    "component": "AcadTeacherDashboard",
+    "title": "Teacher Dashboard",
+    "componentPath": "../pages/organization/academics/dashboard/AcadTeacherDashboard",
+    "route": "/pages/organization/academics/dashboard/AcadTeacherDashboard"
+  },
+  {
+    "component": "AcadMstSetupMedium",
+    "title": "Medium",
+    "componentPath": "../pages/organization/academics/setup/master/AcadMstSetupMedium",
+    "route": "/pages/organization/academics/setup/master/AcadMstSetupMedium"
+  },
+  {
+    "component": "AcadMstSetupSection",
+    "title": "Section",
+    "componentPath": "../pages/organization/academics/setup/master/AcadMstSetupSection",
+    "route": "/pages/organization/academics/setup/master/AcadMstSetupSection"
+  },
+  {
+    "component": "AcadMstSetupSubject",
+    "title": "Subject",
+    "componentPath": "../pages/organization/academics/setup/master/AcadMstSetupSubject",
+    "route": "/pages/organization/academics/setup/master/AcadMstSetupSubject"
+  },
+  {
+    "component": "AcadMstSetupClass",
+    "title": "Class",
+    "componentPath": "../pages/organization/academics/setup/master/AcadMstSetupClass",
+    "route": "/pages/organization/academics/setup/master/AcadMstSetupClass"
+  },
+  {
+    "component": "AcadMapClassSubject",
+    "title": "Assign Class Subject",
+    "componentPath": "../pages/organization/academics/setup/masters-mapping/AcadMapClassSubject",
+    "route": "/pages/organization/academics/setup/masters-mapping/AcadMapClassSubject"
+  },
+  {
+    "component": "AcadMapClassTeacher",
+    "title": "Assign Class Teacher",
+    "componentPath": "../pages/organization/academics/setup/masters-mapping/AcadMapClassTeacher",
+    "route": "/pages/organization/academics/setup/masters-mapping/AcadMapClassTeacher"
+  },
+  {
+    "component": "AcadMapSubjectTeacher",
+    "title": "Assign Subject Teacher",
+    "componentPath": "../pages/organization/academics/setup/masters-mapping/AcadMapSubjectTeacher",
+    "route": "/pages/organization/academics/setup/masters-mapping/AcadMapSubjectTeacher"
+  },
+  {
+    "component": "AcadMapStudentClass",
+    "title": "Assign Student Class",
+    "componentPath": "../pages/organization/academics/setup/masters-mapping/AcadMapStudentClass",
+    "route": "/pages/organization/academics/setup/masters-mapping/AcadMapStudentClass"
+  },
+  {
+    "component": "AcadMapStudentPromote",
+    "title": "Promote Student",
+    "componentPath": "../pages/organization/academics/setup/masters-mapping/AcadMapStudentPromote",
+    "route": "/pages/organization/academics/setup/masters-mapping/AcadMapStudentPromote"
+  },
+  {
+    "component": "AcadMstAddEditStudentAdmission",
+    "title": "Students Admission",
+    "componentPath": "../pages/organization/academics/master/student/AcadMstAddEditStudentAdmission",
+    "route": "/pages/organization/academics/master/student/AcadMstAddEditStudentAdmission"
+  },
+  {
+    "component": "AcadStudentDetails",
+    "title": "Students Details",
+    "componentPath": "../pages/organization/academics/master/student/AcadStudentDetails",
+    "route": "/pages/organization/academics/master/student/AcadStudentDetails"
+  },
+  {
+    "component": "AcadMstSetupStudentCategory",
+    "title": "Students Category",
+    "componentPath": "../pages/organization/academics/setup/masters/AcadMstSetupStudentCategory",
+    "route": "/pages/organization/academics/setup/masters/AcadMstSetupStudentCategory"
+  },
+  {
+    "component": "AcadMstStudentAssignment",
+    "title": "Students Assignment Submission",
+    "componentPath": "../pages/organization/academics/master/AcadMstStudentAssignment",
+    "route": "/pages/organization/academics/master/AcadMstStudentAssignment"
+  },
+  {
+    "component": "AcadTeacherDetails",
+    "title": "Details Teacher",
+    "componentPath": "../pages/organization/academics/dashboard/teacher/AcadTeacherDetails",
+    "route": "/pages/organization/academics/dashboard/teacher/AcadTeacherDetails"
+  },
+  {
+    "component": "AcadMstAddEditTeacher",
+    "title": "Add Edit Teacher",
+    "componentPath": "../pages/organization/academics/dashboard/teacher/AcadMstAddEditTeacher",
+    "route": "/pages/organization/academics/dashboard/teacher/AcadMstAddEditTeacher"
+  },
+  {
+    "component": "AcadTeacherDetails",
+    "title": "Details Parent",
+    "componentPath": "../pages/organization/academics/dashboard/parent/AcadParentDetails",
+    "route": "/pages/organization/academics/dashboard/parent/AcadParentDetails"
+  },
+  {
+    "component": "AcadMstAddEditTeacher",
+    "title": "Add Edit Parent",
+    "componentPath": "../pages/organization/academics/dashboard/parent/AcadMstAddEditParent",
+    "route": "/pages/organization/academics/dashboard/parent/AcadMstAddEditParent"
+  },
+  {
+    "component": "AcadMstAddEditTimeTable",
+    "title": "Create Timetable",
+    "componentPath": "../pages/organization/academics/master/timeTable/AcadMstAddEditTimeTable",
+    "route": "/pages/organization/academics/master/timeTable/AcadMstAddEditTimeTable"
+  },
+  {
+    "component": "AcadMstAddEditClassTeacherTimeTable",
+    "title": "Class & Teacher Timetable",
+    "componentPath": "../pages/organization/academics/master/timeTable/AcadMstAddEditClassTeacherTimeTable",
+    "route": "/pages/organization/academics/master/timeTable/AcadMstAddEditClassTeacherTimeTable"
+  },
+  {
+    "component": "AcadMstHoliday",
+    "title": "Holiday Management",
+    "componentPath": "../pages/organization/academics/master/AcadMstHoliday",
+    "route": "/pages/organization/academics/master/AcadMstHoliday"
+  },
+  {
+    "component": "AcadMstAttendance",
+    "title": "Announcements",
+    "componentPath": "../pages/organization/academics/master/AcadMstAttendance",
+    "route": "/pages/organization/academics/master/AcadMstAttendance"
+  },
+  {
+    "component": "AcadMstExam",
+    "title": "Exam Management",
+    "componentPath": "../pages/organization/academics/master/AcadMstExam",
+    "route": "/pages/organization/academics/master/AcadMstExam"
+  },
+  {
+    "component": "AcadMstSetupSession",
+    "title": "Session Management",
+    "componentPath": "../pages/organization/academics/setup/masters/AcadMstSetupSession",
+    "route": "/pages/organization/academics/setup/masters/AcadMstSetupSession"
+  },
+  {
+    "component": "OrgMobileAppSetting",
+    "title": "App Settings",
+    "componentPath": "../pages/organization/super-admin/setup/settings/OrgMobileAppSetting",
+    "route": "/pages/organization/super-admin/setup/settings/OrgMobileAppSetting"
+  },
+  {
+    "component": "OrgWebAppGeneralSetting",
+    "title": "General Settings",
+    "componentPath": "../pages/organization/super-admin/setup/settings/OrgWebAppGeneralSetting",
+    "route": "/pages/organization/super-admin/setup/settings/OrgWebAppGeneralSetting"
+  },
+  {
+    "component": "OrgAppLanguageSetting",
+    "title": "Language Settings",
+    "componentPath": "../pages/organization/super-admin/setup/settings/OrgAppLanguageSetting",
+    "route": "/pages/organization/super-admin/setup/settings/OrgAppLanguageSetting"
+  },
+  {
+    "component": "OrgAppEmailConfigSetting",
+    "title": "Email Settings",
+    "componentPath": "../pages/organization/super-admin/setup/settings/OrgAppEmailConfigSetting",
+    "route": "/pages/organization/super-admin/setup/settings/OrgAppEmailConfigSetting"
+  },
+  {
+    "component": "OrgWebSiteContentSetup",
+    "title": "Website Content Settings",
+    "componentPath": "../pages/organization/super-admin/setup/settings/OrgWebSiteContentSetup",
+    "route": "/pages/organization/super-admin/setup/settings/OrgWebSiteContentSetup"
   }
 ]
