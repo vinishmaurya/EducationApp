@@ -40,10 +40,16 @@
     "route": "/pages/super-admin/setup/masters/mst-role/MstRole"
   },
   {
-    "component": "MapFormCompany",
-    "title": "Form Company Mapping",
-    "componentPath": "../pages/super-admin/setup/masters-mapping/MapFormCompany",
-    "route": "/pages/super-admin/setup/masters-mapping/MapFormCompany"
+    "component": "MapUserAccount",
+    "title": "Form User Mapping",
+    "componentPath": "../pages/super-admin/setup/masters-mapping/MapUserAccount",
+    "route": "/pages/super-admin/setup/masters-mapping/MapUserAccount"
+  },
+  {
+    "component": "MapFormAccount",
+    "title": "Form Account Mapping",
+    "componentPath": "../pages/super-admin/setup/masters-mapping/MapFormAccount",
+    "route": "/pages/super-admin/setup/masters-mapping/MapFormAccount"
   },
   {
     "component": "MapFormRole",

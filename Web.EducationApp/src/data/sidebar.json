@@ -33,8 +33,13 @@
     "icon": "info-circle",
     "child": [
       {
-        "href": "/pages/super-admin/setup/masters-mapping/MapFormCompany",
-        "label": "Form Company Mapping",
+        "href": "/pages/super-admin/setup/masters-mapping/MapUserAccount",
+        "label": "Form User Mapping",
+        "icon": "comment"
+      },
+      {
+        "href": "/pages/super-admin/setup/masters-mapping/MapFormAccount",
+        "label": "Form Account Mapping",
         "icon": "comment"
       },
       {

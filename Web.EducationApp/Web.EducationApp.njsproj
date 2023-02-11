@@ -167,7 +167,8 @@
     <Content Include="src\pages\organization\academics\setup\masters\AcadMstSetupSection.js" />
     <Content Include="src\pages\organization\academics\setup\masters\AcadMstSetupMedium.js" />
     <Content Include="src\pages\SharedComponent.js" />
-    <Content Include="src\pages\super-admin\setup\masters-mapping\MapFormCompany.js" />
+    <Content Include="src\pages\super-admin\setup\masters-mapping\MapUserAccount.js" />
+    <Content Include="src\pages\super-admin\setup\masters-mapping\MapFormAccount.js" />
     <Content Include="src\pages\super-admin\setup\masters-mapping\MapFormRole.js" />
     <Content Include="src\pages\super-admin\setup\masters\mst-account\AddEditMstAccount.js" />
     <Content Include="src\pages\super-admin\setup\masters\mst-account\IndexMstAccount.js" />
@@ -180,10 +181,7 @@
     <Content Include="src\pages\super-admin\setup\masters\mst-user\AddEditMstUser.js" />
     <Content Include="src\pages\super-admin\setup\masters\mst-user\IndexMstUser.js" />
     <Content Include="src\pages\super-admin\setup\masters\mst-user\MstUser.js" />
-    <Content Include="src\pages\super-admin\setup\masters\MstAccount.js" />
     <Content Include="src\pages\super-admin\setup\masters\mst-form\MstForm.js" />
-    <Content Include="src\pages\super-admin\setup\masters\MstRole.js" />
-    <Content Include="src\pages\super-admin\setup\masters\MstUser.js" />
     <Content Include="src\pages\Blank.js" />
     <Content Include="src\pages\BootstrapComponent.js" />
     <Content Include="src\auth\login\Register.js" />

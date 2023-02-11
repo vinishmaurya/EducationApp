@@ -1,4 +1,4 @@
-const MapFormRole = () => {
+const MapFormAccount = () => {
     return (
         <>
             <div className="card card-demo">
@@ -7,9 +7,9 @@ const MapFormRole = () => {
                         <div class="content-body">
 
                             <div className="row">
-                                <div className="col-6 mt-2">
+                                <div className="col-6">
                                     <div className="form-group">
-                                        <label className="label-control mb-2">Mapping For<span
+                                        <label className="label-control mb-2">Select Account<span
                                             className="red">*</span></label>
                                         <select className="form-control select2-hidden-accessible"
                                         >
@@ -18,29 +18,9 @@ const MapFormRole = () => {
                                         </select>
                                     </div>
                                 </div>
-                                <div className="col-6 mt-2">
+                                <div className="col-6">
                                     <div className="form-group">
-                                        <label className="label-control mb-2">Select Account<span
-                                            className="red">*</span></label>
-                                        <select class="form-control select2 select2-hidden-accessible" data-val="true" data-val-number="The field Role For must be a number." data-val-required="Please Select Role For" id="RoleForId" name="RoleForId" tabindex="-1" aria-hidden="true"><option value="">--select--</option>
-                                            <option value="2">Admin</option>
-                                            <option value="1">Super Admin</option>
-                                            <option value="2">Gyanmitras Admin</option></select>
-                                    </div>
-                                </div>
-                                <div className="col-6 mt-2">
-                                    <div className="form-group">
-                                        <label className="label-control mb-2">Select Role<span
-                                            className="red">*</span></label>
-                                        <select class="form-control select2 select2-hidden-accessible" data-val="true" data-val-number="The field Role For must be a number." data-val-required="Please Select Role For" id="RoleForId" name="RoleForId" tabindex="-1" aria-hidden="true"><option value="">--select--</option>
-                                            <option value="2">Admin</option>
-                                            <option value="1">Super Admin</option>
-                                            <option value="2">Gyanmitras Admin</option></select>
-                                    </div>
-                                </div>
-                                <div className="col-6 mt-2">
-                                    <div className="form-group">
-                                        <label className="label-control mb-2">Parent Form<span
+                                        <label className="label-control mb-2">Select Form<span
                                             className="red">*</span></label>
                                         <select class="form-control select2 select2-hidden-accessible" data-val="true" data-val-number="The field Role For must be a number." data-val-required="Please Select Role For" id="RoleForId" name="RoleForId" tabindex="-1" aria-hidden="true"><option value="">--select--</option>
                                             <option value="2">Admin</option>
@@ -131,4 +111,4 @@ const MapFormRole = () => {
     );
 };
 
-export default MapFormRole;
+export default MapFormAccount;

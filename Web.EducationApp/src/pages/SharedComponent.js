@@ -3,7 +3,8 @@ import MstAccount from "../pages/super-admin/setup/masters/mst-account/MstAccoun
 import MstForm from "../pages/super-admin/setup/masters/mst-form/MstForm";
 import MstUser from "../pages/super-admin/setup/masters/mst-user/MstUser";
 import MstRole from "../pages/super-admin/setup/masters/mst-role/MstRole";
-import MapFormCompany from "../pages/super-admin/setup/masters-mapping/MapFormCompany";
+import MapFormAccount from "../pages/super-admin/setup/masters-mapping/MapFormAccount";
+import MapUserAccount from "../pages/super-admin/setup/masters-mapping/MapUserAccount";
 import MapFormRole from "../pages/super-admin/setup/masters-mapping/MapFormRole";
 import AcadAdminDashboard from "../pages/organization/academics/dashboard/AcadAdminDashboard";
 import AcadParentDashboard from "../pages/organization/academics/dashboard/AcadParentDashboard";
@@ -16,7 +17,7 @@ const SharedComponent = ({ data }) => {
     //console.log(data.landingPage);
     return (
         <>
-            <h3 className="page-title">{pageTitle}</h3>
+            <h5 className="page-title">{pageTitle}</h5>
             <KotaBreadcrumb navItems={breadcrumb} />
             
             <div className="row">
@@ -42,8 +43,11 @@ const SharedComponent = ({ data }) => {
                         else if (data.component == "MstRole") {
                             return <MstRole data={data} />
                         }
-                        else if (data.component == "MapFormCompany") {
-                            return <MapFormCompany />
+                        else if (data.component == "MapFormAccount") {
+                            return <MapFormAccount />
+                        }
+                        else if (data.component == "MapUserAccount") {
+                            return <MapUserAccount />
                         }
                         else if (data.component == "MapFormRole") {
                             return <MapFormRole />

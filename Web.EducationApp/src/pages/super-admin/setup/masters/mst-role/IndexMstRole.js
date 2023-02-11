@@ -217,7 +217,7 @@ const IndexMstRole = (props) => {
                                                     </div>
                                                     <div className="col-sm-12 col-md-3">
                                                         <div className="dataTables_paginate paging_simple_numbers" id="">
-                                                            <ul className="pagination pagination-flat" style={{ paddingLeft: "91px " }}>
+                                                            <ul className="pagination pagination-flat" style={{ paddingLeft: "56px " }}>
 
 
 
