@@ -17,7 +17,7 @@
         "icon": "comment"
       },
       {
-        "href": "/pages/super-admin/setup/masters/MstForm",
+        "href": "/pages/super-admin/setup/masters/mst-form/MstForm",
         "label": "Form Master",
         "icon": "comment"
       },

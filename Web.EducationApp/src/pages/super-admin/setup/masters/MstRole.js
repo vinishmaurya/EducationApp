@@ -100,6 +100,7 @@ const MstRole = () => {
                                                     <label className="form-check-label">
                                                         <input className="form-check-input" type="checkbox" name="remember"></input> Active
                                                 </label>
+                                                    &emsp;
                                                     <label className="form-check-label">
                                                         <input className="form-check-input" type="checkbox" name="remember"></input> In-Active
                                                 </label>

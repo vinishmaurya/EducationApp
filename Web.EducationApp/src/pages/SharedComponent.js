@@ -1,8 +1,6 @@
-import { faBook, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import KotaBreadcrumb from "../core/components/breadcrumb/KotaBreadcrumb";
 import MstAccount from "../pages/super-admin/setup/masters/MstAccount";
-import MstForm from "../pages/super-admin/setup/masters/MstForm";
+import MstForm from "../pages/super-admin/setup/masters/mst-form/MstForm";
 import MstUser from "../pages/super-admin/setup/masters/MstUser";
 import MstRole from "../pages/super-admin/setup/masters/MstRole";
 import MapFormCompany from "../pages/super-admin/setup/masters-mapping/MapFormCompany";
@@ -15,20 +13,12 @@ const SharedComponent = ({ data }) => {
     const pageTitle = data.title;
     const breadcrumb = [{ href: "/", label: pageTitle, current: true }];
     //const DynamicComponent = React.lazy(() => import('../pages/super-admin/setup/masters/MstAccount'));
-    //console.log(data.component);
+    //console.log(data.landingPage);
     return (
         <>
             <h3 className="page-title">{pageTitle}</h3>
             <KotaBreadcrumb navItems={breadcrumb} />
-            <div className="full-doc">
-                <a
-                    href="#"
-                    className="btn btn-secondary btn-sm"
-                    rel="noreferrer"
-                >
-                    <FontAwesomeIcon icon={faPlus} /> Add New
-        </a>
-            </div>
+            
             <div className="row">
                 <div className="col">
 
@@ -44,7 +34,7 @@ const SharedComponent = ({ data }) => {
                             return <MstAccount />
                         }
                         else if (data.component == "MstForm") {
-                            return <MstForm />
+                            return <MstForm data={data} />
                         }
                         else if (data.component == "MstUser") {
                             return <MstUser />

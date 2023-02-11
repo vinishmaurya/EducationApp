@@ -169,8 +169,10 @@
     <Content Include="src\pages\SharedComponent.js" />
     <Content Include="src\pages\super-admin\setup\masters-mapping\MapFormCompany.js" />
     <Content Include="src\pages\super-admin\setup\masters-mapping\MapFormRole.js" />
+    <Content Include="src\pages\super-admin\setup\masters\mst-form\AddEditMstForm.js" />
+    <Content Include="src\pages\super-admin\setup\masters\mst-form\IndexMstForm.js" />
     <Content Include="src\pages\super-admin\setup\masters\MstAccount.js" />
-    <Content Include="src\pages\super-admin\setup\masters\MstForm.js" />
+    <Content Include="src\pages\super-admin\setup\masters\mst-form\MstForm.js" />
     <Content Include="src\pages\super-admin\setup\masters\MstRole.js" />
     <Content Include="src\pages\super-admin\setup\masters\MstUser.js" />
     <Content Include="src\pages\Blank.js" />
@@ -228,6 +230,7 @@
     <Folder Include="src\pages\super-admin\setup\masters\" />
     <Folder Include="src\pages\super-admin\setup\masters-mapping\" />
     <Folder Include="src\pages\organization\academics\" />
+    <Folder Include="src\pages\super-admin\setup\masters\mst-form\" />
     <Folder Include="src\pages\super-admin\setup\settings\" />
     <Folder Include="src\pages\super-admin\setup\website\" />
     <Folder Include="src\util\" />

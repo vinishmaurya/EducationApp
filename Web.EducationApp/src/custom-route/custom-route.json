@@ -7,9 +7,13 @@
   },
   {
     "component": "MstForm",
+    "landingComponent": "IndexMstForm",
+    "innerComponentName": "Add New",
+    "backMainComponentName": "Back To Index",
+    "innerComponentList": "AddEditMstForm",
     "title": "Form Master",
-    "componentPath": "../pages/super-admin/setup/masters/MstForm",
-    "route": "/pages/super-admin/setup/masters/MstForm"
+    "componentPath": "../pages/super-admin/setup/masters/mst-form/MstForm",
+    "route": "/pages/super-admin/setup/masters/mst-form/MstForm"
   },
   {
     "component": "MstUser",
