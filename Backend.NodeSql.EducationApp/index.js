@@ -107,12 +107,12 @@ if (process.env.NODE_ENV == "development") {
     var parent_dir_path = require('path').resolve(__dirname, '..')
     var config_file_path = parent_dir_path + "\\Mobile.EducationApp\\.env";
     //var data = fs.readFileSync(config_file_path, 'utf-8');
-    fs.writeFileSync(config_file_path, "REACT_APP_BASE_URL=http://"+ip.address()+":3000/api", 'utf-8');
+    fs.writeFileSync(config_file_path, "REACT_APP_BASE_URL=http://"+ip.address()+":2000/api", 'utf-8');
 }
 
 
 app.listen(3000, () => {
-    console.log(`Server Started at http://localhost:${3000}`)
+    console.log(`Server Started at http://localhost:${2000}`)
 })
 
 

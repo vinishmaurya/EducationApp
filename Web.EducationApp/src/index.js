@@ -10,7 +10,7 @@ import AdminLayout from "./components/AdminLayout";
 import Todo from "./pages/Todo";
 import Blank from "./pages/blank";
 import VinishTest from "./pages/VinishTest";
-import MstCompany from "./pages/super-admin/setup/masters/MstCompany";
+import MstAccount from "./pages/super-admin/setup/masters/MstAccount";
 import data from "./data/data";
 import CustomRoute from "./custom-route/custom-route";
 import BootstrapComponent from "./pages/BootstrapComponent";

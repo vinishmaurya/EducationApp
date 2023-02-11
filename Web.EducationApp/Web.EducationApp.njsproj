@@ -169,7 +169,7 @@
     <Content Include="src\pages\SharedComponent.js" />
     <Content Include="src\pages\super-admin\setup\masters-mapping\MapFormCompany.js" />
     <Content Include="src\pages\super-admin\setup\masters-mapping\MapFormRole.js" />
-    <Content Include="src\pages\super-admin\setup\masters\MstCompany.js" />
+    <Content Include="src\pages\super-admin\setup\masters\MstAccount.js" />
     <Content Include="src\pages\super-admin\setup\masters\MstForm.js" />
     <Content Include="src\pages\super-admin\setup\masters\MstRole.js" />
     <Content Include="src\pages\super-admin\setup\masters\MstUser.js" />

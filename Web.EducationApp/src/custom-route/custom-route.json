@@ -1,9 +1,9 @@
 [
   {
-    "component": "MstCompany",
-    "title": "Company Master",
-    "componentPath": "../pages/super-admin/setup/masters/MstCompany",
-    "route": "/pages/super-admin/setup/masters/MstCompany"
+    "component": "MstAccount",
+    "title": "Account Master",
+    "componentPath": "../pages/super-admin/setup/masters/MstAccount",
+    "route": "/pages/super-admin/setup/masters/MstAccount"
   },
   {
     "component": "MstForm",

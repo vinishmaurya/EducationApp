@@ -4,7 +4,7 @@ const KotaFooter = () => {
       <p>
         Copyright © 2020{" "}
         <a href="/" target="_blank">
-          Kotaplate
+          EducationSystem
         </a>
         . All rights reserved
       </p>

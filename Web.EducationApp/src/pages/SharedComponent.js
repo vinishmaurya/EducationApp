@@ -1,7 +1,7 @@
-import { faBook } from "@fortawesome/free-solid-svg-icons";
+import { faBook, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import KotaBreadcrumb from "../core/components/breadcrumb/KotaBreadcrumb";
-import MstCompany from "../pages/super-admin/setup/masters/MstCompany";
+import MstAccount from "../pages/super-admin/setup/masters/MstAccount";
 import MstForm from "../pages/super-admin/setup/masters/MstForm";
 import MstUser from "../pages/super-admin/setup/masters/MstUser";
 import MstRole from "../pages/super-admin/setup/masters/MstRole";
@@ -14,12 +14,21 @@ import AcadTeacherDashboard from "../pages/organization/academics/dashboard/Acad
 const SharedComponent = ({ data }) => {
     const pageTitle = data.title;
     const breadcrumb = [{ href: "/", label: pageTitle, current: true }];
-    //const DynamicComponent = React.lazy(() => import('../pages/super-admin/setup/masters/MstCompany'));
+    //const DynamicComponent = React.lazy(() => import('../pages/super-admin/setup/masters/MstAccount'));
     //console.log(data.component);
     return (
         <>
-            <h2 className="page-title">{pageTitle}</h2>
+            <h3 className="page-title">{pageTitle}</h3>
             <KotaBreadcrumb navItems={breadcrumb} />
+            <div className="full-doc">
+                <a
+                    href="#"
+                    className="btn btn-secondary btn-sm"
+                    rel="noreferrer"
+                >
+                    <FontAwesomeIcon icon={faPlus} /> Add New
+        </a>
+            </div>
             <div className="row">
                 <div className="col">
 
@@ -31,8 +40,8 @@ const SharedComponent = ({ data }) => {
 
                     {(() => {
                         //console.log(data);
-                        if (data.component == "MstCompany") {
-                            return <MstCompany />
+                        if (data.component == "MstAccount") {
+                            return <MstAccount />
                         }
                         else if (data.component == "MstForm") {
                             return <MstForm />

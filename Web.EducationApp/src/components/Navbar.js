@@ -13,7 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import sidebarMenu from "../data/sidebar.json";
 
-const title = "Kotaplate";
+const title = "EducationSystem";
 
 const notifications = [
   {

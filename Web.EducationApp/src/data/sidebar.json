@@ -7,8 +7,8 @@
     "icon": "info-circle",
     "child": [
       {
-        "href": "/pages/super-admin/setup/masters/MstCompany",
-        "label": "Company Master",
+        "href": "/pages/super-admin/setup/masters/MstAccount",
+        "label": "Account Master",
         "icon": "chart-line"
       },
       {
