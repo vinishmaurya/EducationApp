@@ -169,8 +169,17 @@
     <Content Include="src\pages\SharedComponent.js" />
     <Content Include="src\pages\super-admin\setup\masters-mapping\MapFormCompany.js" />
     <Content Include="src\pages\super-admin\setup\masters-mapping\MapFormRole.js" />
+    <Content Include="src\pages\super-admin\setup\masters\mst-account\AddEditMstAccount.js" />
+    <Content Include="src\pages\super-admin\setup\masters\mst-account\IndexMstAccount.js" />
+    <Content Include="src\pages\super-admin\setup\masters\mst-account\MstAccount.js" />
     <Content Include="src\pages\super-admin\setup\masters\mst-form\AddEditMstForm.js" />
     <Content Include="src\pages\super-admin\setup\masters\mst-form\IndexMstForm.js" />
+    <Content Include="src\pages\super-admin\setup\masters\mst-role\AddEditMstRole.js" />
+    <Content Include="src\pages\super-admin\setup\masters\mst-role\IndexMstRole.js" />
+    <Content Include="src\pages\super-admin\setup\masters\mst-role\MstRole.js" />
+    <Content Include="src\pages\super-admin\setup\masters\mst-user\AddEditMstUser.js" />
+    <Content Include="src\pages\super-admin\setup\masters\mst-user\IndexMstUser.js" />
+    <Content Include="src\pages\super-admin\setup\masters\mst-user\MstUser.js" />
     <Content Include="src\pages\super-admin\setup\masters\MstAccount.js" />
     <Content Include="src\pages\super-admin\setup\masters\mst-form\MstForm.js" />
     <Content Include="src\pages\super-admin\setup\masters\MstRole.js" />
@@ -231,6 +240,9 @@
     <Folder Include="src\pages\super-admin\setup\masters-mapping\" />
     <Folder Include="src\pages\organization\academics\" />
     <Folder Include="src\pages\super-admin\setup\masters\mst-form\" />
+    <Folder Include="src\pages\super-admin\setup\masters\mst-account\" />
+    <Folder Include="src\pages\super-admin\setup\masters\mst-role\" />
+    <Folder Include="src\pages\super-admin\setup\masters\mst-user\" />
     <Folder Include="src\pages\super-admin\setup\settings\" />
     <Folder Include="src\pages\super-admin\setup\website\" />
     <Folder Include="src\util\" />

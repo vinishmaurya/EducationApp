@@ -1,11 +1,11 @@
-const MstUser = () => {
+const IndexMstUser = (props) => {
     return (
         <>
             <div className="card card-demo">
                 <div className="card-body">
                     <h3 className="card-title">Using dropdowns</h3>
                     <div className="content-demo">
-                       
+
                         <ul className="nav nav-tabs mb-3" id="myTab" role="tablist">
                             <li className="nav-item" role="presentation">
                                 <button className="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">User Details</button>
@@ -274,4 +274,4 @@ const MstUser = () => {
     );
 };
 
-export default MstUser;
+export default IndexMstUser;

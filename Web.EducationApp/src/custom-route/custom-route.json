@@ -2,8 +2,12 @@
   {
     "component": "MstAccount",
     "title": "Account Master",
-    "componentPath": "../pages/super-admin/setup/masters/MstAccount",
-    "route": "/pages/super-admin/setup/masters/MstAccount"
+    "landingComponent": "IndexMstAccount",
+    "innerComponentName": "Add New",
+    "backMainComponentName": "Back To Index",
+    "innerComponentList": "AddEditMstAccount",
+    "componentPath": "../pages/super-admin/setup/masters/mst-account/MstAccount",
+    "route": "/pages/super-admin/setup/masters/mst-account/MstAccount"
   },
   {
     "component": "MstForm",
@@ -18,14 +22,22 @@
   {
     "component": "MstUser",
     "title": "User Master",
-    "componentPath": "../pages/super-admin/setup/masters/MstUser",
-    "route": "/pages/super-admin/setup/masters/MstUser"
+    "landingComponent": "IndexMstUser",
+    "innerComponentName": "Add New",
+    "backMainComponentName": "Back To Index",
+    "innerComponentList": "AddEditMstUser",
+    "componentPath": "../pages/super-admin/setup/masters/mst-user/MstUser",
+    "route": "/pages/super-admin/setup/masters/mst-user/MstUser"
   },
   {
     "component": "MstRole",
     "title": "Role Master",
-    "componentPath": "../pages/super-admin/setup/masters/MstRole",
-    "route": "/pages/super-admin/setup/masters/MstRole"
+    "landingComponent": "IndexMstRole",
+    "innerComponentName": "Add New",
+    "backMainComponentName": "Back To Index",
+    "innerComponentList": "AddEditMstRole",
+    "componentPath": "../pages/super-admin/setup/masters/mst-role/MstRole",
+    "route": "/pages/super-admin/setup/masters/mst-role/MstRole"
   },
   {
     "component": "MapFormCompany",

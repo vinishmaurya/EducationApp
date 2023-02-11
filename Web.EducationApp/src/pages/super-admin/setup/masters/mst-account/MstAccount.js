@@ -1,12 +1,12 @@
-import IndexMstForm from "../../../../../pages/super-admin/setup/masters/mst-form/IndexMstForm";
-import AddEditMstForm from "../../../../../pages/super-admin/setup/masters/mst-form/AddEditMstForm";
+import IndexMstAccount from "../../../../../pages/super-admin/setup/masters/mst-account/IndexMstAccount";
+import AddEditMstAccount from "../../../../../pages/super-admin/setup/masters/mst-account/AddEditMstAccount";
 import { faBook, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { React, useState } from "react";
 import { NavLink } from "react-router-dom";
-const MstForm = (props) => {
+const MstAccount = (props) => {
     const data = props.data;
-    //console.log(props.landingComponent);
+    //console.log(data);
     // Declare a new state variable, which we'll call "Component"
     const [MyComponent, setMyComponent] = useState(data.landingComponent);
     const [MyInnerComponentName, setMyInnerComponentName] = useState(data.innerComponentName);
@@ -38,15 +38,15 @@ const MstForm = (props) => {
                     }
             </div>
             {(() => {
-                if (MyComponent == "IndexMstForm") {
-                    return <IndexMstForm />
+                if (MyComponent == "IndexMstAccount") {
+                    return <IndexMstAccount />
                 }
-                else if (MyComponent == "AddEditMstForm") {
-                    return <AddEditMstForm pageTitle={data.innerComponentName}  />
+                else if (MyComponent == "AddEditMstAccount") {
+                    return <AddEditMstAccount pageTitle={data.innerComponentName}  />
                 }
             })()}
         </>
     );
 };
 
-export default MstForm;
+export default MstAccount;

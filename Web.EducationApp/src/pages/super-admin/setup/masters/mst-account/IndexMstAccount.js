@@ -1,6 +1,6 @@
 import { faBook, faFileCsv, faFileExcel, faFilePdf, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-const IndexMstForm = (props) => {
+const IndexMstAccount = (props) => {
     return (
         <>
             <div className="content-demo">
@@ -248,4 +248,4 @@ const IndexMstForm = (props) => {
     );
 };
 
-export default IndexMstForm;
+export default IndexMstAccount;

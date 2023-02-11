@@ -1,8 +1,8 @@
 import KotaBreadcrumb from "../core/components/breadcrumb/KotaBreadcrumb";
-import MstAccount from "../pages/super-admin/setup/masters/MstAccount";
+import MstAccount from "../pages/super-admin/setup/masters/mst-account/MstAccount";
 import MstForm from "../pages/super-admin/setup/masters/mst-form/MstForm";
-import MstUser from "../pages/super-admin/setup/masters/MstUser";
-import MstRole from "../pages/super-admin/setup/masters/MstRole";
+import MstUser from "../pages/super-admin/setup/masters/mst-user/MstUser";
+import MstRole from "../pages/super-admin/setup/masters/mst-role/MstRole";
 import MapFormCompany from "../pages/super-admin/setup/masters-mapping/MapFormCompany";
 import MapFormRole from "../pages/super-admin/setup/masters-mapping/MapFormRole";
 import AcadAdminDashboard from "../pages/organization/academics/dashboard/AcadAdminDashboard";
@@ -31,16 +31,16 @@ const SharedComponent = ({ data }) => {
                     {(() => {
                         //console.log(data);
                         if (data.component == "MstAccount") {
-                            return <MstAccount />
+                            return <MstAccount data={data} />
                         }
                         else if (data.component == "MstForm") {
                             return <MstForm data={data} />
                         }
                         else if (data.component == "MstUser") {
-                            return <MstUser />
+                            return <MstUser data={data} />
                         }
                         else if (data.component == "MstRole") {
-                            return <MstRole />
+                            return <MstRole data={data} />
                         }
                         else if (data.component == "MapFormCompany") {
                             return <MapFormCompany />

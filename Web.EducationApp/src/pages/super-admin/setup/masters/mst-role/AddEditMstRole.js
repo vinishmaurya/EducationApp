@@ -1,4 +1,4 @@
-const MstRole = () => {
+const AddEditMstRole = (props) => {
     return (
         <>
             <div className="card card-demo">
@@ -285,7 +285,7 @@ const MstRole = () => {
                                         </div>
                                     </div>
                                 </div>
-                               
+
                             </section>
                         </div>
                     </div>
@@ -296,4 +296,4 @@ const MstRole = () => {
     );
 };
 
-export default MstRole;
+export default AddEditMstRole;

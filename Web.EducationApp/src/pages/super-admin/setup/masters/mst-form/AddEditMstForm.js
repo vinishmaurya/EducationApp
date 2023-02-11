@@ -5,10 +5,10 @@ const AddEditMstForm = (props) => {
                 <div className="card-body">
                     <h3 className="card-title">{props.pageTitle}</h3>
                     <div className="content-demo">
-                        <div class="content-body">
-                            <section class="NewformTabs">
-                                <ul class="nav nav-tabs nav-top-border no-hover-bg">
-                                    <li class="nav-item"> <a class="nav-link active" id="base-tab11" data-toggle="tab" aria-controls="tab11" href="#tab11" aria-expanded="true">Form Details</a> </li>
+                        <div className="content-body">
+                            <section className="NewformTabs">
+                                <ul className="nav nav-tabs nav-top-border no-hover-bg">
+                                    <li className="nav-item"> <a className="nav-link active" id="base-tab11" data-toggle="tab" aria-controls="tab11" href="#tab11" aria-expanded="true">Form Details</a> </li>
                                 </ul>
 
                                 <div className="tab-content px-1 py-1">

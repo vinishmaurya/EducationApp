@@ -7,12 +7,12 @@
     "icon": "info-circle",
     "child": [
       {
-        "href": "/pages/super-admin/setup/masters/MstAccount",
+        "href": "/pages/super-admin/setup/masters/mst-account/MstAccount",
         "label": "Account Master",
         "icon": "chart-line"
       },
       {
-        "href": "/pages/super-admin/setup/masters/MstUser",
+        "href": "/pages/super-admin/setup/masters/mst-user/MstUser",
         "label": "User Master",
         "icon": "comment"
       },
@@ -22,7 +22,7 @@
         "icon": "comment"
       },
       {
-        "href": "/pages/super-admin/setup/masters/MstRole",
+        "href": "/pages/super-admin/setup/masters/mst-role/MstRole",
         "label": "Role Master",
         "icon": "comment"
       }
