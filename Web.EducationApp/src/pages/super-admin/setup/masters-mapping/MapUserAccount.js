@@ -33,15 +33,18 @@ const MapUserAccount = () => {
                             <div className="col-6 mt-2">
                                 <div className="form-group">
                                     <label className="label-control mb-2">Status<span
-                                        className="red">*</span></label>
+                                        className="red">*</span>
+                                    </label>
                                     <br />
-                                    <label className="form-check-label">
-                                        <input className="form-check-input" type="checkbox" name="remember"></input> Active
-                                                </label>
-                                                    &emsp;
-                                                    <label className="form-check-label">
-                                        <input className="form-check-input" type="checkbox" name="remember"></input> In-Active
-                                                </label>
+                                    <div class="form-check form-check-inline">
+                                        <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
+                                        <label className="form-check-label" for="inlineRadio1">Active</label>
+                                    </div>
+                                    <div className="form-check form-check-inline">
+                                        <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" />
+                                        <label className="form-check-label" for="inlineRadio2">Inactive</label>
+                                    </div>
+
                                 </div>
                             </div>
 

@@ -12,6 +12,15 @@ import AcadStudentDashboard from "../pages/organization/academics/dashboard/Acad
 import AcadTeacherDashboard from "../pages/organization/academics/dashboard/AcadTeacherDashboard";
 import AcadMstSetupMedium from "../pages/organization/academics/setup/masters/AcadMstSetupMedium";
 import AcadMstSetupSection from "../pages/organization/academics/setup/masters/AcadMstSetupSection";
+import AcadMstSetupSubject from "../pages/organization/academics/setup/masters/AcadMstSetupSubject";
+import AcadMstSetupClass from "../pages/organization/academics/setup/masters/AcadMstSetupClass";
+//Acedmic Master Mapings 
+import AcadMapClassSubject from "../pages/organization/academics/setup/masters-mapping/AcadMapClassSubject";
+import AcadMapClassTeacher from "../pages/organization/academics/setup/masters-mapping/AcadMapClassTeacher";
+import AcadMapSubjectTeacher from "../pages/organization/academics/setup/masters-mapping/AcadMapSubjectTeacher";
+import AcadMapStudentClass from "../pages/organization/academics/setup/masters-mapping/AcadMapStudentClass";
+import AcadMapStudentPromote from "../pages/organization/academics/setup/masters-mapping/AcadMapStudentPromote";
+
 const SharedComponent = ({ data }) => {
     const pageTitle = data.title;
     const breadcrumb = [{ href: "/", label: pageTitle, current: true }];
@@ -71,6 +80,30 @@ const SharedComponent = ({ data }) => {
                         }
                         else if (data.component == "AcadMstSetupSection") {
                             return <AcadMstSetupSection />
+                        }
+                        else if (data.component == "AcadMstSetupSubject") {
+                            return <AcadMstSetupSubject />
+                        }
+                        else if (data.component == "AcadMstSetupClass") {
+                            return <AcadMstSetupClass />
+                        }
+                        else if (data.component == "AcadMapClassSubject") {
+                            return <AcadMapClassSubject />
+                        }
+                        else if (data.component == "AcadMapClassTeacher") {
+                            return <AcadMapClassTeacher />
+                        }
+                        else if (data.component == "AcadMapClassSubject") {
+                            return <AcadMapClassTeacher />
+                        }
+                        else if (data.component == "AcadMapSubjectTeacher") {
+                            return <AcadMapSubjectTeacher />
+                        }
+                        else if (data.component == "AcadMapStudentClass") {
+                            return <AcadMapStudentClass />
+                        }
+                        else if (data.component == "AcadMapStudentPromote") {
+                            return <AcadMapStudentPromote />
                         }
                     })()}
                 </div>

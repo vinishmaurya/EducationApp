@@ -96,14 +96,14 @@
   {
     "component": "AcadMstSetupSubject",
     "title": "Subject",
-    "componentPath": "../pages/organization/academics/setup/master/AcadMstSetupSubject",
-    "route": "/pages/organization/academics/setup/master/AcadMstSetupSubject"
+    "componentPath": "../pages/organization/academics/setup/masters/AcadMstSetupSubject",
+    "route": "/pages/organization/academics/setup/masters/AcadMstSetupSubject"
   },
   {
     "component": "AcadMstSetupClass",
     "title": "Class",
-    "componentPath": "../pages/organization/academics/setup/master/AcadMstSetupClass",
-    "route": "/pages/organization/academics/setup/master/AcadMstSetupClass"
+    "componentPath": "../pages/organization/academics/setup/masters/AcadMstSetupClass",
+    "route": "/pages/organization/academics/setup/masters/AcadMstSetupClass"
   },
   {
     "component": "AcadMapClassSubject",

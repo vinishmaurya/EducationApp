@@ -10,6 +10,8 @@ const IndexMstUser = (props) => {
                             <div className="card overflow-hidden" >
                                 <div className="card-content" id="total">
                                     <div style={{ justifyContent: 'space-between' }} className="media align-items-stretch d-flex">
+                                        <div className="media-left p-1 media-middle btn-primary" style={{ "background-color": "#0099e5" }}>
+                                        </div>
                                         <div className="media-body p-2">
                                             <h4>Total </h4>
                                         </div>
@@ -24,6 +26,8 @@ const IndexMstUser = (props) => {
                             <div className="card" >
                                 <div className="card-content" id="active">
                                     <div style={{ justifyContent: 'space-between' }} className="media align-items-stretch d-flex">
+                                        <div className="media-left p-1 media-middle btn-primary" style={{ "background-color": "#0099e5" }}>
+                                        </div>
                                         <div className="media-body p-2">
                                             <h4>Active</h4>
                                         </div>
@@ -38,6 +42,8 @@ const IndexMstUser = (props) => {
                             <div className="card overflow-hidden">
                                 <div className="card-content" id="inactive">
                                     <div style={{ justifyContent: 'space-between' }} className="media align-items-stretch d-flex">
+                                        <div className="media-left p-1 media-middle btn-primary" style={{ "background-color": "#0099e5" }}>
+                                        </div>
                                         <div className="media-body p-2">
                                             <h4>Inactive</h4>
                                         </div>
@@ -52,6 +58,8 @@ const IndexMstUser = (props) => {
                             <div className="card" >
                                 <div className="card-content" id="this_month">
                                     <div style={{ justifyContent: 'space-between' }} className="media align-items-stretch d-flex">
+                                        <div className="media-left p-1 media-middle btn-primary" style={{ "background-color": "#0099e5" }}>
+                                        </div>
                                         <div className="media-body p-2">
                                             <h4>This Month</h4>
                                         </div>
