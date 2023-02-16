@@ -1,6 +1,6 @@
-import logo from "../assets/images/kotaplate-full-logo.png";
-import KotaDropdownNotification from "../core/components/dropdown/KotaDropdownNotification";
-import KotaNavbar from "../core/components/navbar/KotaNavbar";
+import logo from "../assets/images/full-logo.jpeg";
+import DropdownNotification from "../core/components/dropdown/DropdownNotification";
+import Navbar from "../core/components/navbar/Navbar";
 import usFlag from "../assets/images/usa-50.png";
 import profilePic from "../assets/images/portrait.png";
 import {
@@ -69,7 +69,7 @@ const menuItems = [
     icon: faBell,
     color: "danger",
     dropdownContent: (
-      <KotaDropdownNotification
+      <DropdownNotification
         header="100+ New Notificaions"
         items={notifications}
         viewAllCallback={() => console.log("view all")}
@@ -135,8 +135,8 @@ const handleSearchBar = (e) => {
   return searchList;
 };
 
-const Navbar = () => (
-  <KotaNavbar
+const NavbarHandler = () => (
+  <Navbar
     menuItems={menuItems}
     onSearch={handleSearchBar}
     searchlabel="Search components"
@@ -145,4 +145,4 @@ const Navbar = () => (
   />
 );
 
-export default Navbar;
+export default NavbarHandler;

@@ -80,19 +80,19 @@
     "icon": "info-circle",
     "child": [
       {
-        "href": "/pages/organization/academics/setup/master/AcadMstSetupMedium",
+        "href": "/pages/organization/academics/setup/masters/AcadMstSetupMedium",
         "label": "Medium"
       },
       {
-        "href": "/pages/organization/academics/setup/master/AcadMstSetupSection",
+        "href": "/pages/organization/academics/setup/masters/AcadMstSetupSection",
         "label": "Section"
       },
       {
-        "href": "/pages/organization/academics/setup/master/AcadMstSetupSubject",
+        "href": "/pages/organization/academics/setup/masters/AcadMstSetupSubject",
         "label": "Subject"
       },
       {
-        "href": "/pages/organization/academics/setup/master/AcadMstSetupClass",
+        "href": "/pages/organization/academics/setup/masters/AcadMstSetupClass",
         "label": "Class"
       },
       {

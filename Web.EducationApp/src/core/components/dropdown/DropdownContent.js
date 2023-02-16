@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
-const KotaDropdownContent = (props) => {
+const DropdownContent = (props) => {
   const { items } = props;
 
   return (
@@ -53,4 +53,4 @@ const KotaDropdownContent = (props) => {
   );
 };
 
-export default KotaDropdownContent;
+export default DropdownContent;

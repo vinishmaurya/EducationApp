@@ -2,8 +2,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dropdown, Tooltip } from "bootstrap";
 import { useEffect, useRef, useState } from "react";
 import { faBars, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
-import KotaDropdown from "../dropdown/KotaDropdown";
-import KotaDropdownContent from "../dropdown/KotaDropdownContent";
+import DropdownHandler from "../dropdown/DropdownHandler";
+import DropdownContent from "../dropdown/DropdownContent";
 import { useHotkeys } from "react-hotkeys-hook";
 
 const FormatLabel = ({ item }) => {
@@ -68,10 +68,10 @@ const MenuItem = ({ item }) => {
 
   if (item.type === "dropdown") {
     const dropdownContent = item.dropdownContent || (
-      <KotaDropdownContent items={item.dropdown} />
+      <DropdownContent items={item.dropdown} />
     );
     return (
-      <KotaDropdown
+       <DropdownHandler
         label={<FormatLabel item={item} />}
         dropdownContent={dropdownContent}
         className="nav-item ms-2"
@@ -164,7 +164,7 @@ const SearchBar = ({ onSearch, searchlabel }) => {
             autoComplete="off"
             value={searchValue}
           />
-          <KotaDropdownContent items={searchResult} />
+          <DropdownContent items={searchResult} />
         </div>
         {searchClear && (
           <button
@@ -181,7 +181,7 @@ const SearchBar = ({ onSearch, searchlabel }) => {
   );
 };
 
-const KotaNavbar = ({ title, srcLogo, menuItems, onSearch, searchlabel }) => {
+const Navbar = ({ title, srcLogo, menuItems, onSearch, searchlabel }) => {
   const toggleSidebar = () => {
     const sidebar = document.querySelector(".sidebar-wrapper");
     if (!sidebar) {
@@ -220,4 +220,4 @@ const KotaNavbar = ({ title, srcLogo, menuItems, onSearch, searchlabel }) => {
   );
 };
 
-export default KotaNavbar;
+export default Navbar;

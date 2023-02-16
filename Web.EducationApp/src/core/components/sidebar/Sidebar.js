@@ -116,7 +116,7 @@ const MenuItem = ({ menu, perfectScroll }) => {
   );
 };
 
-const KotaSidebar = ({ menuItems, autoActiveMenu }) => {
+const Sidebar = ({ menuItems, autoActiveMenu }) => {
   const [perfectScroll, setPerfectScroll] = useState(null);
   const sidebarWrapper = useRef();
   const location = useLocation();
@@ -170,4 +170,4 @@ const KotaSidebar = ({ menuItems, autoActiveMenu }) => {
   );
 };
 
-export default KotaSidebar;
+export default Sidebar;

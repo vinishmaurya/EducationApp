@@ -1,18 +1,18 @@
-import KotaContent from "../core/components/content/KotaContent";
-import KotaFooter from "../core/components/footer/KotaFooter";
-import Sidebar from "./Sidebar";
-import Navbar from "./Navbar";
+import Content from "../core/components/content/Content";
+import Footer from "../core/components/footer/Footer";
+import SidebarHandler from "./SidebarHandler";
+import NavbarHandler from "./NavbarHandler";
 
 const AdminLayout = ({ children }) => {
   return (
     <div className="main">
-      <Navbar />
+      <NavbarHandler />
       <div className="page-wrapper">
-        <Sidebar />
-        <KotaContent>
+        <SidebarHandler />
+        <Content>
           {children}
-          <KotaFooter />
-        </KotaContent>
+          <Footer />
+        </Content>
       </div>
     </div>
   );

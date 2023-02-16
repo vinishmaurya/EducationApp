@@ -1,4 +1,4 @@
-const kotaPrismStyle = {
+const PrismStyle = {
   'code[class*="language-"]': {
     color: "#ccc",
     background: "none",
@@ -152,4 +152,4 @@ const kotaPrismStyle = {
   },
 };
 
-export default kotaPrismStyle;
+export default PrismStyle;

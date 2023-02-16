@@ -1,7 +1,7 @@
-![EducationSystem Logo](https://github.com/asrul10/kotaplate-open/blob/main/src/assets/images/kotaplate-full-logo.png?raw=true)
+![EducationSystem Logo](https://github.com/asrul10/plate-open/blob/main/src/assets/images/plate-full-logo.png?raw=true)
 
 ## EducationSystem
-EducationSystem is web app template based on [Create React App](https://github.com/facebook/create-react-app) and [Bootstrap 5](https://github.com/twbs/bootstrap)
+EducationSystem is web app template based on [Create React App](https://github.com/facebook/create-react-app) and [Bootstrap 5](https://github.com/twbs/bootstrap) and refrence from [Template KOTAPLATE](https://github.com/asrul10/kotaplate-open?ref=reactjsexample.com)
 
 ## Usage
 - Install [pnpm](https://pnpm.io/installation)

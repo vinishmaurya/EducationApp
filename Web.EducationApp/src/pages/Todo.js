@@ -1,4 +1,4 @@
-import KotaBreadcrumb from "../core/components/breadcrumb/KotaBreadcrumb";
+import Breadcrumb from "../core/components/breadcrumb/Breadcrumb";
 
 const pageTitle = "Todo";
 const breadcrumb = [{ href: "/", label: "Todo", current: true }];
@@ -7,7 +7,7 @@ const Todo = () => {
   return (
     <>
       <h2 className="page-title">{pageTitle}</h2>
-      <KotaBreadcrumb navItems={breadcrumb} />
+      <Breadcrumb navItems={breadcrumb} />
     </>
   );
 };

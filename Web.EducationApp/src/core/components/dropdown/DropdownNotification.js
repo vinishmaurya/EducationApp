@@ -53,7 +53,7 @@ const NotificationIcon = ({ item }) => {
   );
 };
 
-const KotaDropdownNotification = (props) => {
+const DropdownNotification = (props) => {
   const { header, clearAllCallback, items, viewAllCallback } = props;
 
   return (
@@ -90,4 +90,4 @@ const KotaDropdownNotification = (props) => {
   );
 };
 
-export default KotaDropdownNotification;
+export default DropdownNotification;

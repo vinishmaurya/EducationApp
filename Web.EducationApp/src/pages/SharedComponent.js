@@ -1,4 +1,4 @@
-import KotaBreadcrumb from "../core/components/breadcrumb/KotaBreadcrumb";
+import Breadcrumb from "../core/components/breadcrumb/Breadcrumb";
 import MstAccount from "../pages/super-admin/setup/masters/mst-account/MstAccount";
 import MstForm from "../pages/super-admin/setup/masters/mst-form/MstForm";
 import MstUser from "../pages/super-admin/setup/masters/mst-user/MstUser";
@@ -10,6 +10,8 @@ import AcadAdminDashboard from "../pages/organization/academics/dashboard/AcadAd
 import AcadParentDashboard from "../pages/organization/academics/dashboard/AcadParentDashboard";
 import AcadStudentDashboard from "../pages/organization/academics/dashboard/AcadStudentDashboard";
 import AcadTeacherDashboard from "../pages/organization/academics/dashboard/AcadTeacherDashboard";
+import AcadMstSetupMedium from "../pages/organization/academics/setup/masters/AcadMstSetupMedium";
+import AcadMstSetupSection from "../pages/organization/academics/setup/masters/AcadMstSetupSection";
 const SharedComponent = ({ data }) => {
     const pageTitle = data.title;
     const breadcrumb = [{ href: "/", label: pageTitle, current: true }];
@@ -18,7 +20,7 @@ const SharedComponent = ({ data }) => {
     return (
         <>
             <h5 className="page-title">{pageTitle}</h5>
-            <KotaBreadcrumb navItems={breadcrumb} />
+            <Breadcrumb navItems={breadcrumb} />
             
             <div className="row">
                 <div className="col">
@@ -63,6 +65,12 @@ const SharedComponent = ({ data }) => {
                         }
                         else if (data.component == "AcadTeacherDashboard") {
                             return <AcadTeacherDashboard />
+                        }
+                        else if (data.component == "AcadMstSetupMedium") {
+                            return <AcadMstSetupMedium />
+                        }
+                        else if (data.component == "AcadMstSetupSection") {
+                            return <AcadMstSetupSection />
                         }
                     })()}
                 </div>

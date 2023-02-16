@@ -5,7 +5,7 @@ import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
 import jsx from "react-syntax-highlighter/dist/esm/languages/prism/jsx";
 import htmlAutoIndent from "../../utility/htmlAutoIndent";
 import jsxString from "../../utility/jsxString";
-import style from "../../utility/kotaPrismStyle";
+import style from "../../utility/PrismStyle";
 
 SyntaxHighlighter.registerLanguage("jsx", jsx);
 
@@ -16,7 +16,7 @@ const jsxAsExample = (component) => {
   return jsxString(component);
 };
 
-const KotaExampleCode = ({ children, className, ...props }) => {
+const ExampleCode = ({ children, className, ...props }) => {
   const [toggleCode, setToggleCode] = useState(false);
   const rawHtml = children.props?.dangerouslySetInnerHTML?.__html;
   const jsxExample = jsxAsExample(children);
@@ -53,7 +53,7 @@ const KotaExampleCode = ({ children, className, ...props }) => {
   );
 };
 
-const KotaCardDemo = ({ title, children }) => {
+const CardDemo = ({ title, children }) => {
   return (
     <div className="card card-demo">
       <div className="card-body">
@@ -64,5 +64,5 @@ const KotaCardDemo = ({ title, children }) => {
   );
 };
 
-export { KotaExampleCode };
-export default KotaCardDemo;
+export { ExampleCode };
+export default CardDemo;

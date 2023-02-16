@@ -10,6 +10,8 @@ const IndexMstAccount = (props) => {
                             <div className="card overflow-hidden" >
                                 <div className="card-content" id="total">
                                     <div style={{ justifyContent: 'space-between' }} className="media align-items-stretch d-flex">
+                                        <div className="media-left p-1 media-middle btn-primary" style={{ "background-color": "#0099e5" }}>
+                                        </div>
                                         <div className="media-body p-2">
                                             <h4>Total </h4>
                                         </div>
@@ -24,6 +26,8 @@ const IndexMstAccount = (props) => {
                             <div className="card" >
                                 <div className="card-content" id="active">
                                     <div style={{ justifyContent: 'space-between' }} className="media align-items-stretch d-flex">
+                                        <div className="media-left p-1 media-middle btn-primary" style={{ "background-color": "#0099e5" }}>
+                                        </div>
                                         <div className="media-body p-2">
                                             <h4>Active</h4>
                                         </div>
@@ -38,6 +42,8 @@ const IndexMstAccount = (props) => {
                             <div className="card overflow-hidden">
                                 <div className="card-content" id="inactive">
                                     <div style={{ justifyContent: 'space-between' }} className="media align-items-stretch d-flex">
+                                        <div className="media-left p-1 media-middle btn-primary" style={{ "background-color": "#0099e5" }}>
+                                        </div>
                                         <div className="media-body p-2">
                                             <h4>Inactive</h4>
                                         </div>
@@ -52,6 +58,8 @@ const IndexMstAccount = (props) => {
                             <div className="card" >
                                 <div className="card-content" id="this_month">
                                     <div style={{ justifyContent: 'space-between' }} className="media align-items-stretch d-flex">
+                                        <div className="media-left p-1 media-middle btn-primary" style={{ "background-color": "#0099e5" }}>
+                                        </div>
                                         <div className="media-body p-2">
                                             <h4>This Month</h4>
                                         </div>
@@ -155,7 +163,7 @@ const IndexMstAccount = (props) => {
                                             </div>
 
                                             <div id="GridDiv ">
-                                                <div className="table-responsive mt-4" style={{ maxHeight: '465px' }}>
+                                                <div className="table-responsive mt-4 mb-2" style={{ maxHeight: '465px' }}>
                                                     <table cellSpacing="0" cellPadding="0" border="0" className="table table-bordered table-hover" width="100%" style={{ cursor: 'auto' }}>
                                                         <thead>
                                                             <tr>
@@ -216,20 +224,34 @@ const IndexMstAccount = (props) => {
                                                         <div className="dataTables_info" id="" style={{ marginTop: "5px" }} role="status" aria-live="polite">Page 1 of 1 ( 2 Records ) </div>
                                                     </div>
                                                     <div className="col-sm-12 col-md-3">
-                                                        <div className="dataTables_paginate paging_simple_numbers" id="">
-                                                            <ul className="pagination pagination-flat" style={{ paddingLeft: "56px " }}>
+                                                        <nav aria-label="Page navigation example">
+                                                            <ul className="pagination">
+                                                                <li className="page-item">
+                                                                    <a className="page-link" href="#" aria-label="Previous">
+                                                                        <span aria-hidden="true">
+                                                                            {"<<"}
+                                                                        </span>
+                                                                    </a>
+                                                                </li>
+                                                                <li className="page-item">
+                                                                    <a className="page-link" href="#">1</a>
+                                                                </li>
+                                                                <li className="page-item">
+                                                                    <a className="page-link" href="#">2</a>
+                                                                </li>
+                                                                <li className="page-item">
+                                                                    <a className="page-link" href="#">3</a>
+                                                                </li>
 
-
-
-                                                                <li className="paginate_button page-item previous disabled"><a href="#" className="page-link">Previous</a></li>
-
-                                                                <li className="paginate_button page-item active"><a href="#" className="page-link">1</a></li>
-
-                                                                <li className="paginate_button page-item next"><a href="#" className="page-link">Next</a></li>
-
-
+                                                                <li className="page-item">
+                                                                    <a className="page-link" href="#" aria-label="Next">
+                                                                        <span aria-hidden="true">
+                                                                            {">>"}
+                                                                        </span>
+                                                                    </a>
+                                                                </li>
                                                             </ul>
-                                                        </div>
+                                                        </nav>
                                                     </div>
                                                 </div>
                                             </div>

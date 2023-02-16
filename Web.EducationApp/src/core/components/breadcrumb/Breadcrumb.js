@@ -28,7 +28,7 @@ const NavItem = ({ nav }) => {
   );
 };
 
-const KotaBreadcrumb = ({ navItems, home }) => {
+const Breadcrumb = ({ navItems, home }) => {
   if (!home) {
     home = {
       href: "/",
@@ -57,4 +57,4 @@ const KotaBreadcrumb = ({ navItems, home }) => {
   );
 };
 
-export default KotaBreadcrumb;
+export default Breadcrumb;

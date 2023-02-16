@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useResizeDetector } from "react-resize-detector";
 
-const KotaContent = ({ children }) => {
+const Content = ({ children }) => {
   const [perfectScroll, setPerfectScroll] = useState(null);
   const contentWrapper = useRef();
   const location = useLocation();
@@ -35,4 +35,4 @@ const KotaContent = ({ children }) => {
   );
 };
 
-export default KotaContent;
+export default Content;

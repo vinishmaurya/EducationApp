@@ -1,16 +1,15 @@
-const KotaFooter = () => {
+const Footer = () => {
   return (
     <footer className="footer">
       <p>
-        Copyright © 2020{" "}
+              Copyright © {(new Date().getFullYear()) + " "}
         <a href="/" target="_blank">
-          EducationSystem
+          Education System
         </a>
         . All rights reserved
       </p>
-      <p>Crafted with 🍜</p>
     </footer>
   );
 };
 
-export default KotaFooter;
+export default Footer;

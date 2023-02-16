@@ -1,9 +1,9 @@
 import { faBook } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import KotaCardDemo, {
-  KotaExampleCode,
-} from "../core/components/card/KotaCardDemo";
-import KotaBreadcrumb from "../core/components/breadcrumb/KotaBreadcrumb";
+import CardDemo, {
+  ExampleCode,
+} from "../core/components/card/CardDemo";
+import Breadcrumb from "../core/components/breadcrumb/Breadcrumb";
 
 const CardContent = ({ content }) => {
   if (!content.element) {
@@ -14,9 +14,9 @@ const CardContent = ({ content }) => {
   }
   if (content.type === "code") {
     return (
-      <KotaExampleCode>
+      <ExampleCode>
         <div dangerouslySetInnerHTML={{ __html: content.element }} />
-      </KotaExampleCode>
+      </ExampleCode>
     );
   }
   return <></>;
@@ -38,7 +38,7 @@ const BootstrapComponent = ({ data }) => {
   return (
     <>
       <h2 className="page-title">{pageTitle}</h2>
-      <KotaBreadcrumb navItems={breadcrumb} />
+      <Breadcrumb navItems={breadcrumb} />
       <div className="full-doc">
         <a
           href={docs}
@@ -56,11 +56,11 @@ const BootstrapComponent = ({ data }) => {
               return "";
             }
             return (
-              <KotaCardDemo title={val.title} key={index}>
+              <CardDemo title={val.title} key={index}>
                 {val.contents.map((content, idx) => (
                   <CardContent content={content} key={idx} />
                 ))}
-              </KotaCardDemo>
+              </CardDemo>
             );
           })}
         </div>
@@ -70,11 +70,11 @@ const BootstrapComponent = ({ data }) => {
               return "";
             }
             return (
-              <KotaCardDemo title={val.title} key={index}>
+              <CardDemo title={val.title} key={index}>
                 {val.contents.map((content, idx) => (
                   <CardContent content={content} key={idx} />
                 ))}
-              </KotaCardDemo>
+              </CardDemo>
             );
           })}
         </div>

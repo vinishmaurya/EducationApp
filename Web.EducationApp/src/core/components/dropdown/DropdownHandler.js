@@ -1,4 +1,4 @@
-const KotaDropdown = (props) => {
+const DropdownHandler = (props) => {
   const { label, dropdownContent, className, btnClassName } = props;
 
   return (
@@ -17,4 +17,4 @@ const KotaDropdown = (props) => {
   );
 };
 
-export default KotaDropdown;
+export default DropdownHandler;

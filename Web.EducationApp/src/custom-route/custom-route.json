@@ -84,14 +84,14 @@
   {
     "component": "AcadMstSetupMedium",
     "title": "Medium",
-    "componentPath": "../pages/organization/academics/setup/master/AcadMstSetupMedium",
-    "route": "/pages/organization/academics/setup/master/AcadMstSetupMedium"
+    "componentPath": "../pages/organization/academics/setup/masters/AcadMstSetupMedium",
+    "route": "/pages/organization/academics/setup/masters/AcadMstSetupMedium"
   },
   {
     "component": "AcadMstSetupSection",
     "title": "Section",
-    "componentPath": "../pages/organization/academics/setup/master/AcadMstSetupSection",
-    "route": "/pages/organization/academics/setup/master/AcadMstSetupSection"
+    "componentPath": "../pages/organization/academics/setup/masters/AcadMstSetupSection",
+    "route": "/pages/organization/academics/setup/masters/AcadMstSetupSection"
   },
   {
     "component": "AcadMstSetupSubject",
