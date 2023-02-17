@@ -20,6 +20,10 @@ import AcadMapClassTeacher from "../pages/organization/academics/setup/masters-m
 import AcadMapSubjectTeacher from "../pages/organization/academics/setup/masters-mapping/AcadMapSubjectTeacher";
 import AcadMapStudentClass from "../pages/organization/academics/setup/masters-mapping/AcadMapStudentClass";
 import AcadMapStudentPromote from "../pages/organization/academics/setup/masters-mapping/AcadMapStudentPromote";
+//Student
+import AcadStudentDetails from "../pages/organization/academics/master/student/AcadStudentDetails";
+import AcadMstSetupStudentCategory from "../pages/organization/academics/setup/masters/AcadMstSetupStudentCategory";
+import AcadMstStudentAssignment from "../pages/organization/academics/master/AcadMstStudentAssignment";
 
 const SharedComponent = ({ data }) => {
     const pageTitle = data.title;
@@ -105,6 +109,16 @@ const SharedComponent = ({ data }) => {
                         else if (data.component == "AcadMapStudentPromote") {
                             return <AcadMapStudentPromote />
                         }
+                        else if (data.component == "AcadStudentDetails") {
+                            return <AcadStudentDetails data={data} />
+                        }
+                        else if (data.component == "AcadMstSetupStudentCategory") {
+                            return <AcadMstSetupStudentCategory />
+                        }
+                        else if (data.component == "AcadMstStudentAssignment") {
+                            return <AcadMstStudentAssignment />
+                        }
+                        
                     })()}
                 </div>
             </div>

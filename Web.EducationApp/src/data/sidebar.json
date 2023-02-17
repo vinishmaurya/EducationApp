@@ -122,12 +122,8 @@
     "icon": "info-circle",
     "child": [
       {
-        "href": "/pages/organization/academics/master/student/AcadMstAddEditStudentAdmission",
-        "label": "Students Admission"
-      },
-      {
         "href": "/pages/organization/academics/master/student/AcadStudentDetails",
-        "label": "Students Details"
+        "label": "Students Management"
       },
       {
         "href": "/pages/organization/academics/setup/masters/AcadMstSetupStudentCategory",
@@ -145,11 +141,7 @@
     "child": [
       {
         "href": "/pages/organization/academics/dashboard/teacher/AcadTeacherDetails",
-        "label": "Details Teacher"
-      },
-      {
-        "href": "/pages/organization/academics/dashboard/teacher/AcadMstAddEditTeacher",
-        "label": "Add Edit Teacher"
+        "label": "Teacher Management"
       }
     ]
   },

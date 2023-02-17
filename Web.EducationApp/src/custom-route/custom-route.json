@@ -136,16 +136,14 @@
     "route": "/pages/organization/academics/setup/masters-mapping/AcadMapStudentPromote"
   },
   {
-    "component": "AcadMstAddEditStudentAdmission",
-    "title": "Students Admission",
-    "componentPath": "../pages/organization/academics/master/student/AcadMstAddEditStudentAdmission",
-    "route": "/pages/organization/academics/master/student/AcadMstAddEditStudentAdmission"
-  },
-  {
     "component": "AcadStudentDetails",
-    "title": "Students Details",
+    "title": "Students Management",
     "componentPath": "../pages/organization/academics/master/student/AcadStudentDetails",
-    "route": "/pages/organization/academics/master/student/AcadStudentDetails"
+    "route": "/pages/organization/academics/master/student/AcadStudentDetails",
+    "landingComponent": "AcadStudentIndex",
+    "innerComponentName": "New Students Admission",
+    "backMainComponentName": "Back To Index",
+    "innerComponentList": "AcadMstAddEditStudentAdmission"
   },
   {
     "component": "AcadMstSetupStudentCategory",
