@@ -153,12 +153,13 @@
     <Content Include="src\pages\organization\academics\master\student\AcadStudentDetails.js" />
     <Content Include="src\pages\organization\academics\master\student\AcadMstAddEditStudentAdmission.js" />
     <Content Include="src\pages\organization\academics\master\teacher\AcadTeacherIndex.js" />
+    <Content Include="src\pages\organization\academics\master\timeTable\AcadTimeTableIndex.js" />
     <Content Include="src\pages\organization\academics\setup\masters\AcadMstAddEditLessonTopic.js" />
     <Content Include="src\pages\organization\academics\setup\masters\AcadMstAddEditLesson.js" />
     <Content Include="src\pages\organization\academics\master\teacher\AcadMstAddEditTeacher.js" />
     <Content Include="src\pages\organization\academics\master\teacher\AcadTeacherDetails.js" />
     <Content Include="src\pages\organization\academics\master\timeTable\AcadMstAddEditTimeTable.js" />
-    <Content Include="src\pages\organization\academics\master\timeTable\AcadMstAddEditClassTeacherTimeTable.js" />
+    <Content Include="src\pages\organization\academics\master\timeTable\AcadTimeTableDetails.js" />
     <Content Include="src\pages\organization\academics\setup\masters-mapping\AcadMapStudentPromote.js" />
     <Content Include="src\pages\organization\academics\setup\masters-mapping\AcadMapStudentClass.js" />
     <Content Include="src\pages\organization\academics\setup\masters-mapping\AcadMapSubjectTeacher.js" />

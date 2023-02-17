@@ -26,9 +26,24 @@ import AcadMstSetupStudentCategory from "../pages/organization/academics/setup/m
 import AcadMstStudentAssignment from "../pages/organization/academics/master/AcadMstStudentAssignment";
 //Teacher
 import AcadTeacherDetails from "../pages/organization/academics/master/teacher/AcadTeacherDetails";
-
 //Parent
 import AcadParentDetails from "../pages/organization/academics/master/parent/AcadParentDetails";
+//Time Table
+import AcadTimeTableDetails from "../pages/organization/academics/master/timeTable/AcadTimeTableDetails";
+//Holiday
+import AcadMstHoliday from "../pages/organization/academics/master/AcadMstHoliday";
+//Announcement
+import AcadAnnouncement from "../pages/organization/academics/AcadAnnouncement";
+//Exam
+import AcadMstExam from "../pages/organization/academics/master/AcadMstExam";
+//Time Table
+import AcadMstSetupSession from "../pages/organization/academics/setup/masters/AcadMstSetupSession";
+//System Settings
+import OrgMobileAppSetting from "../pages/super-admin/setup/settings/OrgMobileAppSetting";
+import OrgWebAppGeneralSetting from "../pages/super-admin/setup/settings/OrgWebAppGeneralSetting";
+import OrgAppLanguageSetting from "../pages/super-admin/setup/settings/OrgAppLanguageSetting";
+import OrgAppEmailConfigSetting from "../pages/super-admin/setup/settings/OrgAppEmailConfigSetting";
+import OrgWebSiteContentSetup from "../pages/super-admin/setup/website/OrgWebSiteContentSetup";
 
 const SharedComponent = ({ data }) => {
     const pageTitle = data.title;
@@ -129,7 +144,38 @@ const SharedComponent = ({ data }) => {
                         else if (data.component == "AcadParentDetails") {
                             return <AcadParentDetails data={data} />
                         }
+                        else if (data.component == "AcadTimeTableDetails") {
+                            return <AcadTimeTableDetails data={data} />
+                        }
+                        else if (data.component == "AcadMstHoliday") {
+                            return <AcadMstHoliday data={data} />
+                        }
+                        else if (data.component == "AcadAnnouncement") {
+                            return <AcadAnnouncement data={data} />
+                        }
+                        else if (data.component == "AcadMstExam") {
+                            return <AcadMstExam data={data} />
+                        }
+                        else if (data.component == "AcadMstSetupSession") {
+                            return <AcadMstSetupSession data={data} />
+                        }
+                        else if (data.component == "OrgMobileAppSetting") {
+                            return <OrgMobileAppSetting data={data} />
+                        }
+                        else if (data.component == "OrgWebAppGeneralSetting") {
+                            return <OrgWebAppGeneralSetting data={data} />
+                        }
+                        else if (data.component == "OrgAppLanguageSetting") {
+                            return <OrgAppLanguageSetting data={data} />
+                        }
+                        else if (data.component == "OrgAppEmailConfigSetting") {
+                            return <OrgAppEmailConfigSetting data={data} />
+                        }
+                        else if (data.component == "OrgWebSiteContentSetup") {
+                            return <OrgWebSiteContentSetup data={data} />
+                        }
                         
+
                         
                     })()}
                 </div>

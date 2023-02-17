@@ -178,16 +178,14 @@
     "innerComponentList": "AcadMstAddEditParent"
   },
   {
-    "component": "AcadMstAddEditTimeTable",
-    "title": "Create Timetable",
-    "componentPath": "../pages/organization/academics/master/timeTable/AcadMstAddEditTimeTable",
-    "route": "/pages/organization/academics/master/timeTable/AcadMstAddEditTimeTable"
-  },
-  {
-    "component": "AcadMstAddEditClassTeacherTimeTable",
-    "title": "Class & Teacher Timetable",
-    "componentPath": "../pages/organization/academics/master/timeTable/AcadMstAddEditClassTeacherTimeTable",
-    "route": "/pages/organization/academics/master/timeTable/AcadMstAddEditClassTeacherTimeTable"
+    "component": "AcadTimeTableDetails",
+    "title": "TimeTable Management",
+    "componentPath": "../pages/organization/academics/master/timeTable/AcadTimeTableDetails",
+    "route": "/pages/organization/academics/master/timeTable/AcadTimeTableDetails",
+    "landingComponent": "AcadTimeTableIndex",
+    "innerComponentName": "New TimeTable",
+    "backMainComponentName": "Back To Index",
+    "innerComponentList": "AcadMstAddEditTimeTable"
   },
   {
     "component": "AcadMstHoliday",
@@ -196,10 +194,10 @@
     "route": "/pages/organization/academics/master/AcadMstHoliday"
   },
   {
-    "component": "AcadMstAttendance",
+    "component": "AcadAnnouncement",
     "title": "Announcements",
-    "componentPath": "../pages/organization/academics/master/AcadMstAttendance",
-    "route": "/pages/organization/academics/master/AcadMstAttendance"
+    "componentPath": "../pages/organization/academics/AcadAnnouncement",
+    "route": "/pages/organization/academics/AcadAnnouncement"
   },
   {
     "component": "AcadMstExam",
@@ -216,31 +214,31 @@
   {
     "component": "OrgMobileAppSetting",
     "title": "App Settings",
-    "componentPath": "../pages/organization/super-admin/setup/settings/OrgMobileAppSetting",
-    "route": "/pages/organization/super-admin/setup/settings/OrgMobileAppSetting"
+    "componentPath": "../pages/super-admin/setup/settings/OrgMobileAppSetting",
+    "route": "/pages/super-admin/setup/settings/OrgMobileAppSetting"
   },
   {
     "component": "OrgWebAppGeneralSetting",
     "title": "General Settings",
-    "componentPath": "../pages/organization/super-admin/setup/settings/OrgWebAppGeneralSetting",
-    "route": "/pages/organization/super-admin/setup/settings/OrgWebAppGeneralSetting"
+    "componentPath": "../pages/super-admin/setup/settings/OrgWebAppGeneralSetting",
+    "route": "/pages/super-admin/setup/settings/OrgWebAppGeneralSetting"
   },
   {
     "component": "OrgAppLanguageSetting",
     "title": "Language Settings",
-    "componentPath": "../pages/organization/super-admin/setup/settings/OrgAppLanguageSetting",
-    "route": "/pages/organization/super-admin/setup/settings/OrgAppLanguageSetting"
+    "componentPath": "../pages/super-admin/setup/settings/OrgAppLanguageSetting",
+    "route": "/pages/super-admin/setup/settings/OrgAppLanguageSetting"
   },
   {
     "component": "OrgAppEmailConfigSetting",
     "title": "Email Settings",
-    "componentPath": "../pages/organization/super-admin/setup/settings/OrgAppEmailConfigSetting",
-    "route": "/pages/organization/super-admin/setup/settings/OrgAppEmailConfigSetting"
+    "componentPath": "../pages/super-admin/setup/settings/OrgAppEmailConfigSetting",
+    "route": "/pages/super-admin/setup/settings/OrgAppEmailConfigSetting"
   },
   {
     "component": "OrgWebSiteContentSetup",
     "title": "Website Content Settings",
-    "componentPath": "../pages/organization/super-admin/setup/settings/OrgWebSiteContentSetup",
-    "route": "/pages/organization/super-admin/setup/settings/OrgWebSiteContentSetup"
+    "componentPath": "../pages/super-admin/setup/website/OrgWebSiteContentSetup",
+    "route": "/pages/super-admin/setup/website/OrgWebSiteContentSetup"
   }
 ]

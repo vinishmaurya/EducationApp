@@ -160,12 +160,8 @@
     "icon": "info-circle",
     "child": [
       {
-        "href": "/pages/organization/academics/master/timeTable/AcadMstAddEditTimeTable",
-        "label": "Create Timetable"
-      },
-      {
-        "href": "/pages/organization/academics/master/timeTable/AcadMstAddEditClassTeacherTimeTable",
-        "label": "Class & Teacher Timetable"
+        "href": "/pages/organization/academics/master/timeTable/AcadTimeTableDetails",
+        "label": "Timetable Management"
       }
     ]
   },
@@ -177,7 +173,7 @@
   {
     "label": "Announcements",
     "icon": "info-circle",
-    "href": "/pages/organization/academics/master/AcadMstAttendance"
+    "href": "/pages/organization/academics/AcadAnnouncement"
   },
   {
     "label": "Exam Management",
@@ -194,23 +190,23 @@
     "icon": "info-circle",
     "child": [
       {
-        "href": "/pages/organization/super-admin/setup/settings/OrgMobileAppSetting",
+        "href": "/pages/super-admin/setup/settings/OrgMobileAppSetting",
         "label": "App Settings"
       },
       {
-        "href": "/pages/organization/super-admin/setup/settings/OrgWebAppGeneralSetting",
+        "href": "/pages/super-admin/setup/settings/OrgWebAppGeneralSetting",
         "label": "General Settings"
       },
       {
-        "href": "/pages/organization/super-admin/setup/settings/OrgAppLanguageSetting",
+        "href": "/pages/super-admin/setup/settings/OrgAppLanguageSetting",
         "label": "Language Settings"
       },
       {
-        "href": "/pages/organization/super-admin/setup/settings/OrgAppEmailConfigSetting",
+        "href": "/pages/super-admin/setup/settings/OrgAppEmailConfigSetting",
         "label": "Email Configuration"
       },
       {
-        "href": "/pages/organization/super-admin/setup/settings/OrgWebSiteContentSetup",
+        "href": "/pages/super-admin/setup/website/OrgWebSiteContentSetup",
         "label": "Website Content Settings"
       }
     ]
