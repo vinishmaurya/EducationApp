@@ -140,7 +140,7 @@
     "icon": "info-circle",
     "child": [
       {
-        "href": "/pages/organization/academics/dashboard/teacher/AcadTeacherDetails",
+        "href": "/pages/organization/academics/master/teacher/AcadTeacherDetails",
         "label": "Teacher Management"
       }
     ]
@@ -150,12 +150,8 @@
     "icon": "info-circle",
     "child": [
       {
-        "href": "/pages/organization/academics/dashboard/parent/AcadParentDetails",
-        "label": "Details Parent"
-      },
-      {
-        "href": "/pages/organization/academics/dashboard/parent/AcadMstAddEditParent",
-        "label": "Add Edit Parent"
+        "href": "/pages/organization/academics/master/parent/AcadParentDetails",
+        "label": "Parent Management"
       }
     ]
   },

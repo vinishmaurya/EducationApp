@@ -159,27 +159,23 @@
   },
   {
     "component": "AcadTeacherDetails",
-    "title": "Details Teacher",
-    "componentPath": "../pages/organization/academics/dashboard/teacher/AcadTeacherDetails",
-    "route": "/pages/organization/academics/dashboard/teacher/AcadTeacherDetails"
+    "title": "Teacher Management",
+    "componentPath": "../pages/organization/academics/master/teacher/AcadTeacherDetails",
+    "route": "/pages/organization/academics/master/teacher/AcadTeacherDetails",
+    "landingComponent": "AcadTeacherIndex",
+    "innerComponentName": "New Teacher Registration",
+    "backMainComponentName": "Back To Index",
+    "innerComponentList": "AcadMstAddEditTeacher"
   },
   {
-    "component": "AcadMstAddEditTeacher",
-    "title": "Add Edit Teacher",
-    "componentPath": "../pages/organization/academics/dashboard/teacher/AcadMstAddEditTeacher",
-    "route": "/pages/organization/academics/dashboard/teacher/AcadMstAddEditTeacher"
-  },
-  {
-    "component": "AcadTeacherDetails",
-    "title": "Details Parent",
-    "componentPath": "../pages/organization/academics/dashboard/parent/AcadParentDetails",
-    "route": "/pages/organization/academics/dashboard/parent/AcadParentDetails"
-  },
-  {
-    "component": "AcadMstAddEditTeacher",
-    "title": "Add Edit Parent",
-    "componentPath": "../pages/organization/academics/dashboard/parent/AcadMstAddEditParent",
-    "route": "/pages/organization/academics/dashboard/parent/AcadMstAddEditParent"
+    "component": "AcadParentDetails",
+    "title": "Parent Management",
+    "componentPath": "../pages/organization/academics/master/parent/AcadParentDetails",
+    "route": "/pages/organization/academics/master/parent/AcadParentDetails",
+    "landingComponent": "AcadParentIndex",
+    "innerComponentName": "New Parent Registration",
+    "backMainComponentName": "Back To Index",
+    "innerComponentList": "AcadMstAddEditParent"
   },
   {
     "component": "AcadMstAddEditTimeTable",

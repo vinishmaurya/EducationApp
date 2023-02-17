@@ -146,6 +146,7 @@
     <Content Include="src\pages\organization\academics\master\AcadMstHoliday.js" />
     <Content Include="src\pages\organization\academics\master\AcadMstAttendance.js" />
     <Content Include="src\pages\organization\academics\master\parent\AcadMstAddEditParent.js" />
+    <Content Include="src\pages\organization\academics\master\parent\AcadParentIndex.js" />
     <Content Include="src\pages\organization\academics\master\parent\AcadParentDetails.js" />
     <Content Include="src\pages\organization\academics\master\AcadMstStudentAssignment.js" />
     <Content Include="src\pages\organization\academics\master\student\AcadStudentIndex.js" />

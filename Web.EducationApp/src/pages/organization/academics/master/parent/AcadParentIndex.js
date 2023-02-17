@@ -1,7 +1,7 @@
 import { faBook, faFileCsv, faFileExcel, faFilePdf, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const AcadTeacherDetails = () => {
+const AcadParentIndex = () => {
     return (
         <>
             <div className="content-demo">
@@ -271,4 +271,4 @@ const AcadTeacherDetails = () => {
     );
 };
 
-export default AcadTeacherDetails;
+export default AcadParentIndex;

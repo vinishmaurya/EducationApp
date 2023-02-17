@@ -24,6 +24,11 @@ import AcadMapStudentPromote from "../pages/organization/academics/setup/masters
 import AcadStudentDetails from "../pages/organization/academics/master/student/AcadStudentDetails";
 import AcadMstSetupStudentCategory from "../pages/organization/academics/setup/masters/AcadMstSetupStudentCategory";
 import AcadMstStudentAssignment from "../pages/organization/academics/master/AcadMstStudentAssignment";
+//Teacher
+import AcadTeacherDetails from "../pages/organization/academics/master/teacher/AcadTeacherDetails";
+
+//Parent
+import AcadParentDetails from "../pages/organization/academics/master/parent/AcadParentDetails";
 
 const SharedComponent = ({ data }) => {
     const pageTitle = data.title;
@@ -118,6 +123,13 @@ const SharedComponent = ({ data }) => {
                         else if (data.component == "AcadMstStudentAssignment") {
                             return <AcadMstStudentAssignment />
                         }
+                        else if (data.component == "AcadTeacherDetails") {
+                            return <AcadTeacherDetails data={data} />
+                        }
+                        else if (data.component == "AcadParentDetails") {
+                            return <AcadParentDetails data={data} />
+                        }
+                        
                         
                     })()}
                 </div>
