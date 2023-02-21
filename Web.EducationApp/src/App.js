@@ -3,9 +3,11 @@ import "./assets/styles/styles.scss";
 import "./assets/styles/demo.scss";
 import React, { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
+//import { useLocation } from 'react-router-dom';
 
 function App() {
-
+    //const location = useLocation();
+    //console.log(location);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const checkUserToken = () => {
@@ -18,7 +20,6 @@ function App() {
 
     useEffect(() => {
         checkUserToken();
-
     }, [isLoggedIn]);
 
     return (

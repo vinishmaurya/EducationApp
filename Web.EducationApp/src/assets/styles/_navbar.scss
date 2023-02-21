@@ -19,6 +19,7 @@
     display: flex;
     height: 100%;
     align-items: center;
+    color:$white !important;
     svg.svg-inline--fa {
       width: 1rem;
       height: 1rem;
@@ -31,8 +32,9 @@
     height: 100%;
     align-items: center;
     & > img {
-      margin-top: -1px;
-      height: 25px;
+          margin-top: 1px;
+          height: 60px;
+          margin-left: -15px;
     }
   }
 
@@ -88,9 +90,9 @@
     max-width: 1rem;
     max-height: 1rem;
     &.profile {
-      height: 33px;
+      height: 36px;
       max-width: fit-content;
-      max-height: 33px;
+      max-height: 36px;
       border-radius: $border-radius;
       margin-left: -0.5rem;
     }
@@ -114,7 +116,7 @@
     display: flex;
     height: 100%;
     align-items: center;
-    color: $black;
+    color: $white;
     &:hover {
       color: $black;
     }

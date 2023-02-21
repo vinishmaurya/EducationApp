@@ -1,3 +1,4 @@
+import srcLogo from "../../assets/images/full-logo.jpeg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons"
 import { NavLink } from "react-router-dom";
@@ -12,10 +13,12 @@ const Register = () => {
                     <div className="container">
                         <div className="row gx-lg-5 align-items-center">
                             <div className="col-lg-6 mb-5 mb-lg-0">
-                                <h1 className="my-5 display-3 fw-bold ls-tight">
+                                <div className="text-center">
+                                </div>
+                                <h5 className="my-5 display-5 fw-bold ls-tight">
                                     The best education app <br />
                                     <span className="text-primary">manage your sytem</span>
-                                </h1>
+                                </h5>
                                 <p >
                                     The best education app for simplify processes and
                                     intelligently manage your school, institute or coaching centre and manage every need of your school on a single platform

@@ -29,6 +29,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include=".env" />
     <Content Include="docScrapper.js" />
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
@@ -40,6 +41,8 @@
     <Content Include="public\manifest.json" />
     <Content Include="public\robots.txt" />
     <Content Include="README.md" />
+    <Content Include="src\context\UFContext.js" />
+    <Content Include="src\models\reqBody.Model.js" />
     <Content Include="src\App.js" />
     <Content Include="src\App.test.js" />
     <Content Include="src\assets\images\australia-50.png" />
@@ -79,8 +82,8 @@
     <Content Include="src\auth\Auth.js" />
     <Content Include="src\auth\login\ForgetPassword.js" />
     <Content Include="src\components\AdminLayout.js" />
-    <Content Include="src\Components\NavbarHandler.js" />
-    <Content Include="src\Components\SidebarHandler.js" />
+    <Content Include="src\components\NavbarHandler.js" />
+    <Content Include="src\components\SidebarHandler.js" />
     <Content Include="src\core\components\breadcrumb\Breadcrumb.js" />
     <Content Include="src\core\components\card\CardDemo.js" />
     <Content Include="src\core\components\content\Content.js" />
@@ -135,6 +138,7 @@
     <Content Include="src\error\Error404.js" />
     <Content Include="src\index.js" />
     <Content Include="src\logo.svg" />
+    <Content Include="src\models\authenticateUser.model.js" />
     <Content Include="src\pages\organization\academics\AcadAnnouncement.js" />
     <Content Include="src\pages\organization\academics\AcadIndex.js" />
     <Content Include="src\pages\organization\academics\AcadMstAddEdit.js" />
@@ -201,6 +205,8 @@
     <Content Include="src\pages\Todo.js" />
     <Content Include="src\pages\VinishTest.js" />
     <Content Include="src\reportWebVitals.js" />
+    <Content Include="src\services\auth.services.js" />
+    <Content Include="src\services\instance.service.js" />
     <Content Include="src\setupTests.js" />
     <Content Include="src\util\ProtectedRoute.js" />
   </ItemGroup>
@@ -211,7 +217,7 @@
     <Folder Include="src\assets\images\" />
     <Folder Include="src\assets\styles\" />
     <Folder Include="src\auth\login\" />
-    <Folder Include="src\Components\" />
+    <Folder Include="src\components\" />
     <Folder Include="src\core\" />
     <Folder Include="src\core\components\" />
     <Folder Include="src\core\components\breadcrumb\" />
@@ -227,6 +233,9 @@
     <Folder Include="src\auth\" />
     <Folder Include="src\error\" />
     <Folder Include="src\custom-route\" />
+    <Folder Include="src\context\" />
+    <Folder Include="src\services\" />
+    <Folder Include="src\models\" />
     <Folder Include="src\pages\organization\academics\dashboard\" />
     <Folder Include="src\pages\organization\academics\master\" />
     <Folder Include="src\pages\organization\academics\master\timeTable\" />

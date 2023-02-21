@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import UFContext from "../context/UFContext";
 import logo from "../assets/images/full-logo.jpeg";
 import DropdownNotification from "../core/components/dropdown/DropdownNotification";
 import Navbar from "../core/components/navbar/Navbar";
@@ -15,6 +17,48 @@ import sidebarMenu from "../data/sidebar.json";
 
 const title = "EducationSystem";
 
+const funcLogout = () => {
+
+    //cookieStore.getAll().then(cookies => cookies.forEach(cookie => {
+    //    console.log('Cookie deleted:', cookie);
+    //    cookieStore.delete(cookie.name);
+    //}));
+    //console.log(document.cookie);
+
+    // retrieve all cookies
+    var Cookies = document.cookie.split(';');
+    // set past expiry to all cookies
+    for (var i = 0; i < Cookies.length; i++) {
+        document.cookie = Cookies[i] + "=; expires=" + new Date(0).toUTCString();
+    }
+    window.location.href = '/auth/login';
+    //const [Cookie, setCookie] = useCookies(['accessToken', 'refreshToken']);
+    //const navigate = useNavigate();
+
+
+    //let token_expires = new Date();
+    //setCookie('accessToken', "", { path: '/', token_expires });
+
+    //let refreshToken_expires = new Date();
+    //setCookie('refreshToken', "", { path: '/', refreshToken_expires });
+
+    //setTimeout(() => {
+    //    navigate('/');
+    //}, 100);
+
+    //try {
+    //    AuthService.Logout().then(
+    //        (response) => {
+    //            console.log('logout');
+    //        },
+    //        (error) => {
+    //            alert("Oops! Some error occured.");
+    //        }
+    //    );
+    //} catch (e) {
+        
+    //}
+}
 const notifications = [
   {
     href: "#",
@@ -81,17 +125,17 @@ const menuItems = [
     type: "dropdown",
     image: {
       src: profilePic,
-      alt: "Mawar",
+      alt: "profile",
       className: "profile",
     },
-    label: "Mawar",
+    label: "Profile",
     dropdown: [
-      { href: "/", icon: faEdit, label: "Mawar" },
+      { href: "/", icon: faEdit, label: "Profile" },
       {
-        href: "/",
+        href: "/auth/login",
         icon: faSignOutAlt,
         label: "Logout",
-        onClick: () => console.log("logout"),
+        onClick: funcLogout,
       },
     ],
   },
@@ -102,6 +146,7 @@ const menuItems = [
     tooltip: "Settings",
   },
 ];
+
 
 const filterMenu = (menus) => {
   let newList = [];
@@ -135,14 +180,23 @@ const handleSearchBar = (e) => {
   return searchList;
 };
 
-const NavbarHandler = () => (
-  <Navbar
-    menuItems={menuItems}
-    onSearch={handleSearchBar}
-    searchlabel="Search components"
-    srcLogo={logo}
-    title={title}
-  />
-);
+const NavbarHandler = (props) => {
+    
+    const myContext = useContext(UFContext);
+    console.log();
+    myContext.GetUserInfo().then(function (result) {
+        // here you can use the result of promise
+        console.log(result);
+    });
+    return(
+        <Navbar
+            menuItems={menuItems}
+            onSearch={handleSearchBar}
+            searchlabel="Search components"
+            srcLogo={logo}
+            title={title}
+        />
+    );
+};
 
 export default NavbarHandler;

@@ -43,7 +43,7 @@ app.use(logger);
 
 
 
-const commonRoutes = require('./common.routes');
+//const commonRoutes = require('./common.routes');
 
 app.use(cors()); // Use this after the variable declaration
 // Add headers before the routes are defined
@@ -80,7 +80,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.get('/', function (req, res) {
     res.redirect('/api-docs');
 });
-app.use('/api', commonRoutes);
+//app.use('/api', commonRoutes);
 app.use(verifyJWT);
 
 app.use('/api', [
@@ -107,12 +107,12 @@ if (process.env.NODE_ENV == "development") {
     var parent_dir_path = require('path').resolve(__dirname, '..')
     var config_file_path = parent_dir_path + "\\Mobile.EducationApp\\.env";
     //var data = fs.readFileSync(config_file_path, 'utf-8');
-    fs.writeFileSync(config_file_path, "REACT_APP_BASE_URL=http://"+ip.address()+":2000/api", 'utf-8');
+    fs.writeFileSync(config_file_path, "REACT_APP_BASE_URL=http://" + ip.address() + ":" + process.env.PORT+"/api", 'utf-8');
 }
 
 
-app.listen(3000, () => {
-    console.log(`Server Started at http://localhost:${2000}`)
+app.listen(process.env.PORT, () => {
+    console.log(`Server Started at http://localhost:${process.env.PORT}`)
 })
 
 

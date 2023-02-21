@@ -1,6 +1,7 @@
 'use strict';
 const config = require('../../../config');
 const sql = require('mssql');
+const ServiceResult = require('../../../models/serviceResult.model');
 
 
 const GetUserDetails = async (req, res, next) => {
@@ -127,6 +128,10 @@ const DeleteUsersDetails = async (req, res, next) => {
         res.status(400).send(error.message);
     }
 }
+
+
+
+
 
 module.exports = {
     GetUserDetails,

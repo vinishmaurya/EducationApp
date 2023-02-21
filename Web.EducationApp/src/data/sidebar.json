@@ -4,7 +4,7 @@
   },
   {
     "label": "Masters",
-    "icon": "info-circle",
+    "icon": "cog",
     "child": [
       {
         "href": "/pages/super-admin/setup/masters/mst-account/MstAccount",
@@ -30,7 +30,7 @@
   },
   {
     "label": "Masters Mapping",
-    "icon": "info-circle",
+    "icon": "sitemap",
     "child": [
       {
         "href": "/pages/super-admin/setup/masters-mapping/MapUserAccount",
@@ -55,7 +55,7 @@
   },
   {
     "label": "Dashboard",
-    "icon": "info-circle",
+    "icon": "chart-line",
     "child": [
       {
         "href": "/pages/organization/academics/dashboard/AcadAdminDashboard",
@@ -77,7 +77,7 @@
   },
   {
     "label": "Academics",
-    "icon": "info-circle",
+    "icon": "school",
     "child": [
       {
         "href": "/pages/organization/academics/setup/masters/AcadMstSetupMedium",
@@ -119,7 +119,7 @@
   },
   {
     "label": "Students",
-    "icon": "info-circle",
+    "icon": "graduation-cap",
     "child": [
       {
         "href": "/pages/organization/academics/master/student/AcadStudentDetails",
@@ -137,7 +137,7 @@
   },
   {
     "label": "Teacher",
-    "icon": "info-circle",
+    "icon": "user-secret",
     "child": [
       {
         "href": "/pages/organization/academics/master/teacher/AcadTeacherDetails",
@@ -147,7 +147,7 @@
   },
   {
     "label": "Parent",
-    "icon": "info-circle",
+    "icon": "users",
     "child": [
       {
         "href": "/pages/organization/academics/master/parent/AcadParentDetails",
@@ -157,7 +157,7 @@
   },
   {
     "label": "Timetable",
-    "icon": "info-circle",
+    "icon": "calendar",
     "child": [
       {
         "href": "/pages/organization/academics/master/timeTable/AcadTimeTableDetails",
@@ -167,27 +167,27 @@
   },
   {
     "label": "Holiday Management",
-    "icon": "info-circle",
+    "icon": "business-time",
     "href": "/pages/organization/academics/master/AcadMstHoliday"
   },
   {
     "label": "Announcements",
-    "icon": "info-circle",
+    "icon": "envelope",
     "href": "/pages/organization/academics/AcadAnnouncement"
   },
   {
     "label": "Exam Management",
-    "icon": "info-circle",
+    "icon": "book",
     "href": "/pages/organization/academics/master/AcadMstExam"
   },
   {
     "label": "Session Management",
-    "icon": "info-circle",
+    "icon": "circle",
     "href": "/pages/organization/academics/setup/masters/AcadMstSetupSession"
   },
   {
     "label": "System Settings",
-    "icon": "info-circle",
+    "icon": "users-cog",
     "child": [
       {
         "href": "/pages/super-admin/setup/settings/OrgMobileAppSetting",

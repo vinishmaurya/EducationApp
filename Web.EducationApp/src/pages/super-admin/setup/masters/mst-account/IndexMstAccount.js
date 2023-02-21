@@ -1,5 +1,7 @@
-import { faBook, faFileCsv, faFileExcel, faFilePdf, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFileCsv, faFileExcel, faFilePdf} from "@fortawesome/free-solid-svg-icons";
+//import {  } from "@fortawesome/free-brands-svg-icons";
+//import { faGears } from "@fortawesome/fontawesome-svg-core";
 const IndexMstAccount = (props) => {
     return (
         <>

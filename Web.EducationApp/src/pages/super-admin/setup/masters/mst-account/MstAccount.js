@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { React, useState } from "react";
 import { NavLink } from "react-router-dom";
 const MstAccount = (props) => {
+    
     const data = props.data;
     //console.log(data);
     // Declare a new state variable, which we'll call "Component"

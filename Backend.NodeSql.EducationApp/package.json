@@ -1,5 +1,5 @@
 {
-  "name": "nodejs-test-api-app",
+  "name": "EducationAppNodeJsAPI",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
