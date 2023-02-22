@@ -6,7 +6,7 @@
     <ProjectGuid>{1152ee01-57e2-4396-ba0d-8537ca021bce}</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
     <StartupFile>index.js</StartupFile>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -17,15 +17,19 @@
     <SaveNodeJsSettingsInProjectFile>True</SaveNodeJsSettingsInProjectFile>
     <DebuggerPort>
     </DebuggerPort>
-    <NodejsPort>3000</NodejsPort>
+    <NodejsPort>2000</NodejsPort>
     <Name>Backend.NodeMongoApp</Name>
+    <LaunchUrl>http://localhost:2000/api-docs/</LaunchUrl>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
     <Content Include=".env" />
     <Content Include="config.js" />
-    <Content Include="controllers\account.controller.js" />
+    <Content Include="controllers\admin\auth.controller.js" />
+    <Content Include="controllers\admin\setup\account.controller.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="controllers\admin\setup\common.controller.js" />
     <Content Include="controllers\admin\setup\map.form.role.controller.js" />
     <Content Include="controllers\admin\setup\role.controller.js" />
@@ -41,7 +45,8 @@
     <Content Include="models\serviceResult.model.js" />
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
-    <Content Include="routes\account.route.js" />
+    <Content Include="routes\admin\auth.route.js" />
+    <Content Include="routes\admin\setup\account.route.js" />
     <Content Include="routes\admin\setup\common.route.js" />
     <Content Include="routes\admin\setup\form.route.js" />
     <Content Include="routes\admin\setup\map.form.role.route.js" />
@@ -52,7 +57,7 @@
     <Content Include="index.js" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app_images" />
+    <Folder Include="public\images\app_images\" />
     <Folder Include="controllers\admin\" />
     <Folder Include="controllers\admin\setup\" />
     <Folder Include="models\" />
@@ -60,6 +65,9 @@
     <Folder Include="models\admin\setup\" />
     <Folder Include="controllers\" />
     <Folder Include="middleware\" />
+    <Folder Include="public\" />
+    <Folder Include="public\images\" />
+    <Folder Include="public\images\app_images\account_logo\" />
     <Folder Include="routes\" />
     <Folder Include="routes\admin\" />
     <Folder Include="routes\admin\setup\" />

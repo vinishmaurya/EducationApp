@@ -11,7 +11,8 @@ const formRoute = require('./routes/admin/setup/form.route');
 const roleRoute = require('./routes/admin/setup/role.route');
 const mapFormRoleRoute = require('./routes/admin/setup/map.form.role.route');
 const userRoute = require('./routes/admin/setup/user.route');
-const accountRoute = require('./routes/account.route');
+const accountRoute = require('./routes/admin/setup/account.route');
+const authRoute = require('./routes/admin/auth.route');
 const swaggerDocument = require('./swagger_output.json');
 const swaggerUi = require('swagger-ui-express');
 const { logger } = require('./middleware/logEvents');
@@ -73,7 +74,7 @@ app.use(fileUpload());
 app.use(express.static('public'));
 app.use('/images/', express.static('app_images'));
 
-app.use('/api', accountRoute);
+app.use('/api', authRoute);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 //This will redirect any route not handled to the index "/"
@@ -88,7 +89,8 @@ app.use('/api', [
     formRoute,
     roleRoute,
     mapFormRoleRoute,
-    userRoute
+    userRoute,
+    accountRoute
 ]);
 //Invalid Uri
 app.use(function (req, res) {

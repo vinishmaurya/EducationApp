@@ -715,6 +715,11 @@
         ],
         "parameters": [
           {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
             "name": "body",
             "in": "body",
             "schema": {
@@ -736,6 +741,136 @@
           },
           "400": {
             "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/AuthenticatedUserTokenValidation": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/admin/Account/GetAccountDetails": {
+      "get": {
+        "tags": [
+          "Admin.Account"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "AccountId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "RowperPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "CurrentPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchBy",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchValue",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/admin/Account/AddEditAccountDetails": {
+      "post": {
+        "tags": [
+          "Admin.Account"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "AccountDetails": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/Account/DeleteAccountsDetails": {
+      "delete": {
+        "tags": [
+          "Admin.Account"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "AccountId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "DeletedBy",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }

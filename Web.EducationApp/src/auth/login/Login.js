@@ -37,8 +37,6 @@ const Login = () => {
         try {
             AuthService.Login(reqBody).then(
                 (response) => {
-                    btnPointer.innerHTML = 'Login';
-                    btnPointer.removeAttribute('disabled');
                     const data = response.data;
                     //console.log(response);
                     let SideBarData = {};
@@ -99,6 +97,8 @@ const Login = () => {
                                 debugger;
                                 if (response.data) {
                                     SideBarData = response.data.Data;
+                                    btnPointer.innerHTML = 'Login';
+                                    btnPointer.removeAttribute('disabled');
                                     //Redirect home after login success
                                     setTimeout(() => {
                                         navigate('/'
@@ -110,21 +110,28 @@ const Login = () => {
                                                 }
                                             });
                                     }, 100);
+
                                 }
                             })
                                 .catch((e) => {
                                     console.log(e);
                                     //return e;
+                                    btnPointer.innerHTML = 'Login';
+                                    btnPointer.removeAttribute('disabled');
                                 });
 
                             
                         }
                         else {
                             alert(data.Message);
+                            btnPointer.innerHTML = 'Login';
+                            btnPointer.removeAttribute('disabled');
                         }
                     }
                     else {
                         alert("Oops! Some error occured.");
+                        btnPointer.innerHTML = 'Login';
+                        btnPointer.removeAttribute('disabled');
                     }
                 },
                 (error) => {

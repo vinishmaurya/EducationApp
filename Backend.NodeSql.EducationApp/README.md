@@ -18,6 +18,27 @@ Use the command below to start the project without generating the documentation:
 $ npm start
 ```
 
+Use the command below to see runing port:
+
+```
+bash
+$ netstat -ano | findstr :2000
+```
+
+Use the command below to kill the perticular runing port:
+
+```
+bash
+$ netstat -ano | findstr :2000
+```
+
+Use the command below to kill all runing port for node js exec:
+
+```
+bash
+$ taskkill /F /IM node.exe
+```
+
 Run the project and access the documentation at:
 
 [http://localhost:3000/api-docs](http://localhost:3000/api-docs)

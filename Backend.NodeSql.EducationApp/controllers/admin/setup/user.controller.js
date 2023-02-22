@@ -177,28 +177,28 @@ const AuthenticatedUserInfo = async (req, res, next) => {
                                 userInfo: recordset.recordsets[1][0],
                                 formRoleMappingInfo: formRoleMappingInfo,
                             }
-                            res.send(ServiceResult);
+                            return res.send(ServiceResult);
                         } catch (error) {
-                            res.status(400).send(error.message);
+                            return res.status(400).send(error.message);
                         }
                     }
                     else {
                         ServiceResult.Message = recordset.recordsets[0][0].Message;
                         ServiceResult.Result = false;
                         ServiceResult.Data = null;
-                        res.send(ServiceResult);
+                        return res.send(ServiceResult);
                     }
                 }
                 else {
-                    ServiceResult.Message = "Failed";
+                    ServiceResult.Message = "Failed to parse api response!";
                     ServiceResult.Result = false;
                     ServiceResult.Data = null;
-                    res.send(ServiceResult);
+                    return res.send(ServiceResult);
                 }
             });
         });
     } catch (error) {
-        res.status(400).send(error.message);
+        return res.status(400).send(error.message);
     }
 }
 
@@ -217,13 +217,15 @@ const AuthenticatedUserTokenValidation = async (req, res, next) => {
 
         res.setHeader('Content-Type', 'application/json');
         //if (sql.pool) {
-            console.log(sql.pool);
+            //console.log(sql.pool);
         //}
 
-        sql.connect(config.sql, function (err) {
-            if (err) console.log(err);
+
+        var conn = new sql.ConnectionPool(config.sql);
+        conn.connect().then(function (conn) {
+            //if (err) console.log(err);
             // create Request object
-            var request = new sql.Request();
+            var request = new sql.Request(conn);
 
             request.input('cAccessToken', sql.NVarChar(300), accessToken);
 
@@ -240,28 +242,32 @@ const AuthenticatedUserTokenValidation = async (req, res, next) => {
                             ServiceResult.Description = recordset.recordsets[0][0].Message;
                             ServiceResult.Result = true;
                             ServiceResult.Data = recordset.recordsets[1];
-                            res.send(ServiceResult);
+                            return res.send(ServiceResult);
                         } catch (error) {
-                            res.status(400).send(error.message);
+                            return res.status(400).send(error.message);
                         }
                     }
                     else {
                         ServiceResult.Message = recordset.recordsets[0][0].Message;
                         ServiceResult.Result = false;
                         ServiceResult.Data = null;
-                        res.send(ServiceResult);
+                        return res.send(ServiceResult);
                     }
                 }
                 else {
-                    ServiceResult.Message = "Failed";
+                    ServiceResult.Message = "Failed to parse api response!";
                     ServiceResult.Result = false;
                     ServiceResult.Data = null;
-                    res.send(ServiceResult);
+                    return res.send(ServiceResult);
                 }
             });
         });
     } catch (error) {
-        res.status(400).send(error.message);
+        ServiceResult.Message = "Failed to connect db!";
+        ServiceResult.Result = false;
+        ServiceResult.Description = error.message;
+        ServiceResult.Data = null;
+        return res.send(ServiceResult);
     }
 }
 

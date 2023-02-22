@@ -11,29 +11,29 @@ import { useNavigate } from "react-router-dom";
 //    });
 //};
 
-const Login = (reqBody) => {
+const Login = async (reqBody) => {
     return instance({
         'method': 'POST',
         'url': '/AuthenticateUser',
         'data': reqBody.body
     }).then((response) => {
         return response;
-    }).catch((e) => {
-        return e;
-    });
+    })
+    //    .catch((e) => {
+    //    return e;
+    //});
 };
 
 
-const GetUserInfoService = () => {
+const GetUserInfoService = async () => {
     return instance({
         'method': 'POST',
         'url': '/AuthenticatedUserInfo'
     }).then((response) => {
-        debugger;
         return response;
     })
-    //.catch((e) => {
-    //    //return e;
+    //    .catch((e) => {
+    //    return e;
     //});
 };
 

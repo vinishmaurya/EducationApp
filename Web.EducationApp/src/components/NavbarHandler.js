@@ -12,6 +12,7 @@ import {
   faEdit,
   faEnvelope,
   faSignOutAlt,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import sidebarMenu from "../data/sidebar.json";
 
@@ -84,35 +85,35 @@ const notifications = [
 ];
 
 const menuItems = [
-  {
-    type: "dropdown",
-    image: {
-      src: usFlag,
-      alt: "Translation",
-    },
-    label: "EN",
-    dropdown: [
-      { href: "/", label: "English" },
-      { href: "/", label: "Bahasa" },
-    ],
-  },
-  {
-    type: "link",
-    href: "/",
-    icon: faCalendar,
-    tooltip: "Calendar",
-  },
-  {
-    type: "link",
-    href: "/",
-    icon: faEnvelope,
-    tooltip: "Mail",
-  },
+  //{
+  //  type: "dropdown",
+  //  image: {
+  //    src: usFlag,
+  //    alt: "Translation",
+  //  },
+  //  label: "EN",
+  //  dropdown: [
+  //    { href: "/", label: "English" },
+  //    { href: "/", label: "Bahasa" },
+  //  ],
+  //},
+  //{
+  //  type: "link",
+  //  href: "/",
+  //  icon: faCalendar,
+  //  tooltip: "Calendar",
+  //},
+  //{
+  //  type: "link",
+  //  href: "/",
+  //  icon: faEnvelope,
+  //  tooltip: "Mail",
+  //},
   {
     type: "dropdown",
     href: "/",
     icon: faBell,
-    color: "danger",
+    //color: "danger",
     dropdownContent: (
       <DropdownNotification
         header="100+ New Notificaions"
@@ -124,11 +125,13 @@ const menuItems = [
   },
   {
     type: "dropdown",
-    image: {
-      src: profilePic,
-      alt: "profile",
-      className: "profile",
-    },
+    icon: faUser,
+
+    //image: {
+    //  src: profilePic,
+    //  alt: "profile",
+    //  className: "profile",
+    //},
     label: "Profile",
     dropdown: [
       { href: "/", icon: faEdit, label: "Profile" },
@@ -140,12 +143,12 @@ const menuItems = [
       },
     ],
   },
-  {
-    type: "link",
-    href: "/",
-    icon: faCog,
-    tooltip: "Settings",
-  },
+  //{
+  //  type: "link",
+  //  href: "/",
+  //  icon: faCog,
+  //  tooltip: "Settings",
+  //},
 ];
 
 

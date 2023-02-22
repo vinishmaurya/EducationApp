@@ -94,7 +94,7 @@ const AddEditMstAccount = (props) => {
                                     <div className="row mt-3 mb-3">
                                         <div className="col-6">
                                             <div className="form-group">
-                                                <label className="label-control mb-2">Mobile No.<span
+                                                <label className="label-control mb-2">Alternate Mobile No.<span
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
                                                     id="AccountName"
@@ -104,7 +104,7 @@ const AddEditMstAccount = (props) => {
                                         </div>
                                         <div className="col-6">
                                             <div className="form-group">
-                                                <label className="label-control mb-2">Email<span
+                                                <label className="label-control mb-2">Alternate Email<span
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
                                                     id="AccountName"
@@ -202,13 +202,10 @@ const AddEditMstAccount = (props) => {
                                         </div>
                                         <div className="col-6">
                                             <div className="form-group">
-                                                <label className="label-control mb-2">State<span
+                                                <label className="label-control mb-2">Account Logo<span
                                                     className="red">*</span></label>
-                                                <select className="form-control select2-hidden-accessible"
-                                                >
-                                                    <option value="" data-select2-id="18">--select--</option>
-                                                    <option value="" data-select2-id="19">--UP--</option>
-                                                </select>
+                                                <input className="form-control" type="file"
+                                                />
                                             </div>
                                         </div>
                                     </div>

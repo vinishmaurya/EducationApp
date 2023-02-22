@@ -1,5 +1,5 @@
 'use strict';
-const config = require('../config');
+const config = require('../../config');
 const sql = require('mssql');
 
 const jwt = require('jsonwebtoken');
@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 require('dotenv').config();
 // Importing date-and-time module
 const date = require('date-and-time')
-const ServiceResult = require('../models/serviceResult.model');
+const ServiceResult = require('../../models/serviceResult.model');
 
 const AuthenticateUser = async (req, res, next) => {
     ///*  #swagger.tags = ['Authentication']
