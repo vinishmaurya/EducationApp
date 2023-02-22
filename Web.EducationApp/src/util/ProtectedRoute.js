@@ -1,13 +1,15 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from 'react-cookie';
 import AuthService from "../services/auth.services";
 import UFContext from "../context/UFContext";
+import { useLocation } from 'react-router-dom';
 
 
 const ProtectedRoute = (props) => {
     const navigate = useNavigate();
-    const [Cookie, setCookie] = useCookies(['accessToken', 'refreshToken']);
+    const [Cookie, setCookie] = useCookies(['accessToken', 'refreshToken','haveSideBar']);
     //const { deleteCookie, deleteAllCookies } = useCookies();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     //const [UserInfo, setUserInfo] = useState(async () => {
@@ -45,6 +47,7 @@ const ProtectedRoute = (props) => {
     //});
 
     const checkUserToken = () => {
+        //debugger
         const userToken = Cookie.accessToken;
         //console.log(userToken);
         //console.log(cookies.load('exp') - new Date().getTime());
@@ -54,8 +57,55 @@ const ProtectedRoute = (props) => {
             setIsLoggedIn(false);
             return navigate('/auth/login');
         }
-        setIsLoggedIn(true);
+        else {
+            //Check Token Validation from api...
+            const instance = axios.create({
+                baseURL: 'http://localhost:2000/api',//process.env.BackendEducationApp_DevBaseUri,
+                headers: {
+                    'content-type': 'application/json',
+                    'x-api-key': 'test-key'//process.env.BackendEducationApp_Key
+                }
+            });
 
+            instance.interceptors.request.use(
+                request => {
+                    if (!request.url.includes('AuthenticateUser')) {
+                        //console.log(Cookie.accessToken);
+                        request.headers['Authorization'] = "Bearer " + Cookie.accessToken;
+                    }
+                    return request;
+                },
+                error => {
+                    return Promise.reject(error);
+                }
+            );
+
+            instance.interceptors.response.use((response) => {
+                return response;
+            }, (error) => {
+                return Promise.reject(error.message);
+            });
+
+            instance({
+                'method': 'POST',
+                'url': '/AuthenticatedUserTokenValidation'
+            }).then((response) => {
+                //console.log(response.data.Result);
+                if (!response.data.Result) {
+                    setIsLoggedIn(false);
+                    return navigate('/auth/login');
+                }
+                else {
+                    //console.log(response);
+                }
+                
+            }).catch((e) => {
+                setIsLoggedIn(false);
+                return navigate('/auth/login');
+            });
+        }
+       
+        setIsLoggedIn(true);
     }
 
     useEffect(() => {
@@ -64,11 +114,11 @@ const ProtectedRoute = (props) => {
 
     return (
 
-            <React.Fragment key={123}>
-                {
-                    isLoggedIn ? props.children : null
-                }
-            </React.Fragment>
+        <React.Fragment key={1}>
+            {
+                isLoggedIn ? props.children : null
+            }
+        </React.Fragment>
 
     );
 }

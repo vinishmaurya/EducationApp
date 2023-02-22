@@ -1,3 +1,4 @@
+import axios from "axios";
 import srcLogo from "../../assets/images/full-logo.jpeg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons"
@@ -10,6 +11,7 @@ import { useCookies } from 'react-cookie'
 
 const pageTitle = "Login With Education System";
 const Login = () => {
+    localStorage.clear();
     const navigate = useNavigate();
     const [Cookie,setCookie] = useCookies(['accessToken', 'refreshToken']);
     //const { deleteCookie, deleteAllCookies } = useCookies();
@@ -39,6 +41,7 @@ const Login = () => {
                     btnPointer.removeAttribute('disabled');
                     const data = response.data;
                     //console.log(response);
+                    let SideBarData = {};
                     if (data) {
                         if (data.Result) {
                             const resData = data.Data;
@@ -61,17 +64,60 @@ const Login = () => {
 
                             //const expireDate = new Date(2147483647 * 1000).toUTCString();
 
+                            //alert(true);
+                            const instance = axios.create({
+                                baseURL: 'http://localhost:2000/api',//process.env.BackendEducationApp_DevBaseUri,
+                                headers: {
+                                    'content-type': 'application/json',
+                                    'x-api-key': 'test-key'//process.env.BackendEducationApp_Key
+                                }
+                            });
 
-                            setTimeout(() => {
-                                navigate('/'
-                                    , {
-                                        state: 
-                                        {
-                                            UserName: formDataJSON.UserName
-                                            //,Password: formDataJSON.Password
-                                        }
-                                    });
-                            }, 100);
+                            instance.interceptors.request.use(
+                                request => {
+                                    if (!request.url.includes('AuthenticateUser')) {
+                                        //console.log(Cookie.accessToken);
+                                        request.headers['Authorization'] = "Bearer " + resData.accessToken;
+                                    }
+                                    return request;
+                                },
+                                error => {
+                                    return Promise.reject(error);
+                                }
+                            );
+
+                            instance.interceptors.response.use((response) => {
+                                return response;
+                            }, (error) => {
+                                return Promise.reject(error.message);
+                            });
+
+                            instance({
+                                'method': 'POST',
+                                'url': '/AuthenticatedUserInfo'
+                            }).then((response) => {
+                                debugger;
+                                if (response.data) {
+                                    SideBarData = response.data.Data;
+                                    //Redirect home after login success
+                                    setTimeout(() => {
+                                        navigate('/'
+                                            , {
+                                                state:
+                                                {
+                                                    SideBar: response.data
+                                                    //,Password: formDataJSON.Password
+                                                }
+                                            });
+                                    }, 100);
+                                }
+                            })
+                                .catch((e) => {
+                                    console.log(e);
+                                    //return e;
+                                });
+
+                            
                         }
                         else {
                             alert(data.Message);

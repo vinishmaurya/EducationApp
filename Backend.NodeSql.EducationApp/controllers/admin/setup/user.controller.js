@@ -131,10 +131,146 @@ const DeleteUsersDetails = async (req, res, next) => {
 
 
 
+const AuthenticatedUserInfo = async (req, res, next) => {
+    ///*  #swagger.tags = ['Authentication']
+    //    #swagger.description = ''
+    //*/
+    try {
+        const authHeader = req.headers['authorization'];
+        const accessToken = authHeader.split(' ')[1];
+
+        ServiceResult.Message = null;
+        ServiceResult.Description = null;
+        ServiceResult.Result = null;
+        ServiceResult.Data = null;
+
+        res.setHeader('Content-Type', 'application/json');
+
+        var cUserName = req.body.UserName;
+        var cPassword = req.body.Password;
+
+        sql.connect(config.sql, function (err) {
+            if (err) console.log(err);
+            // create Request object
+            var request = new sql.Request();
+
+            request.input('cAccessToken', sql.NVarChar(300), accessToken);
+
+            request.execute("[dbo].[USP_SvcAuthenticatedAPIUserInfo]", function (err, recordset) {
+                if (err) {
+                    console.log(err);
+                    sql.close();
+                }
+                sql.close();
+                if (recordset) {
+                    if (recordset.recordsets[0][0].Message_Id == 1) {
+
+                        try {
+                            let formRoleMappingInfo = [];
+                            recordset.recordsets[2].map((column, i) => {
+                                formRoleMappingInfo.push(column);
+                            });
+                            ServiceResult.Message = recordset.recordsets[0][0].Message;
+                            ServiceResult.Description = recordset.recordsets[0][0].Message;
+                            ServiceResult.Result = true;
+                            ServiceResult.Data = {
+                                userInfo: recordset.recordsets[1][0],
+                                formRoleMappingInfo: formRoleMappingInfo,
+                            }
+                            res.send(ServiceResult);
+                        } catch (error) {
+                            res.status(400).send(error.message);
+                        }
+                    }
+                    else {
+                        ServiceResult.Message = recordset.recordsets[0][0].Message;
+                        ServiceResult.Result = false;
+                        ServiceResult.Data = null;
+                        res.send(ServiceResult);
+                    }
+                }
+                else {
+                    ServiceResult.Message = "Failed";
+                    ServiceResult.Result = false;
+                    ServiceResult.Data = null;
+                    res.send(ServiceResult);
+                }
+            });
+        });
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+const AuthenticatedUserTokenValidation = async (req, res, next) => {
+    ///*  #swagger.tags = ['Authentication']
+    //    #swagger.description = ''
+    //*/
+    try {
+        const authHeader = req.headers['authorization'];
+        const accessToken = authHeader.split(' ')[1];
+
+        ServiceResult.Message = null;
+        ServiceResult.Description = null;
+        ServiceResult.Result = null;
+        ServiceResult.Data = null;
+
+        res.setHeader('Content-Type', 'application/json');
+        //if (sql.pool) {
+            console.log(sql.pool);
+        //}
+
+        sql.connect(config.sql, function (err) {
+            if (err) console.log(err);
+            // create Request object
+            var request = new sql.Request();
+
+            request.input('cAccessToken', sql.NVarChar(300), accessToken);
+
+            request.execute("[dbo].[USP_SvcAuthenticatedAPIUserTokenValidation]", function (err, recordset) {
+                if (err) {
+                    console.log(err);
+                    sql.close();
+                }
+                sql.close();
+                if (recordset) {
+                    if (recordset.recordsets[0][0].Message_Id == 1) {
+                        try {
+                            ServiceResult.Message = recordset.recordsets[0][0].Message;
+                            ServiceResult.Description = recordset.recordsets[0][0].Message;
+                            ServiceResult.Result = true;
+                            ServiceResult.Data = recordset.recordsets[1];
+                            res.send(ServiceResult);
+                        } catch (error) {
+                            res.status(400).send(error.message);
+                        }
+                    }
+                    else {
+                        ServiceResult.Message = recordset.recordsets[0][0].Message;
+                        ServiceResult.Result = false;
+                        ServiceResult.Data = null;
+                        res.send(ServiceResult);
+                    }
+                }
+                else {
+                    ServiceResult.Message = "Failed";
+                    ServiceResult.Result = false;
+                    ServiceResult.Data = null;
+                    res.send(ServiceResult);
+                }
+            });
+        });
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 
 
 module.exports = {
     GetUserDetails,
     AddEditUserDetails,
-    DeleteUsersDetails
+    DeleteUsersDetails,
+    AuthenticatedUserInfo,
+    AuthenticatedUserTokenValidation,
 }

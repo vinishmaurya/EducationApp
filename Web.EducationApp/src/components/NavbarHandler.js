@@ -31,6 +31,7 @@ const funcLogout = () => {
     for (var i = 0; i < Cookies.length; i++) {
         document.cookie = Cookies[i] + "=; expires=" + new Date(0).toUTCString();
     }
+    localStorage.clear();
     window.location.href = '/auth/login';
     //const [Cookie, setCookie] = useCookies(['accessToken', 'refreshToken']);
     //const navigate = useNavigate();
@@ -182,12 +183,12 @@ const handleSearchBar = (e) => {
 
 const NavbarHandler = (props) => {
     
-    const myContext = useContext(UFContext);
-    console.log();
-    myContext.GetUserInfo().then(function (result) {
-        // here you can use the result of promise
-        console.log(result);
-    });
+    //const myContext = useContext(UFContext);
+    //console.log();
+    //myContext.GetUserInfo().then(function (result) {
+    //    // here you can use the result of promise
+    //    console.log(result);
+    //});
     return(
         <Navbar
             menuItems={menuItems}

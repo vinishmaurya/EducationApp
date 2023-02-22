@@ -3,9 +3,12 @@ import AddEditMstAccount from "../../../../../pages/super-admin/setup/masters/ms
 import { faBook, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { React, useState } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 const MstAccount = (props) => {
-    
+    useEffect(() => {
+        
+    }, []);
     const data = props.data;
     //console.log(data);
     // Declare a new state variable, which we'll call "Component"

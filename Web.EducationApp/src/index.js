@@ -25,58 +25,61 @@ import UFContext from "./context/UFContext";
 import AuthService from "./services/auth.services";
 import { useNavigate } from "react-router-dom";
 
-let haveData = false;
-async function GetUserInfo() {
-    debugger;
-    const [Cookie, setCookie] = useCookies(['accessToken', 'refreshToken']);
-    const navigate = useNavigate();
-    if (!haveData) {
-        const instance = axios.create({
-            baseURL: 'http://localhost:2000/api',//process.env.BackendEducationApp_DevBaseUri,
-            headers: {
-                'content-type': 'application/json',
-                'x-api-key': 'test-key'//process.env.BackendEducationApp_Key
-            }
-        });
+//let haveData = false;
+//function GetUserInfo(required) {
+//    debugger;
+//    const [Cookie, setCookie] = useCookies(['accessToken', 'refreshToken']);
+//    const navigate = useNavigate();
+//    //useEffect(() => {
 
-        instance.interceptors.request.use(
-            request => {
-                if (!request.url.includes('AuthenticateUser')) {
-                    console.log(Cookie.accessToken);
-                    request.headers['Authorization'] = "Bearer " + Cookie.accessToken;
-                }
-                return request;
-            },
-            error => {
-                return Promise.reject(error);
-            }
-        );
+//    //alert(true);
+//    const instance = axios.create({
+//        baseURL: 'http://localhost:2000/api',//process.env.BackendEducationApp_DevBaseUri,
+//        headers: {
+//            'content-type': 'application/json',
+//            'x-api-key': 'test-key'//process.env.BackendEducationApp_Key
+//        }
+//    });
 
-        instance.interceptors.response.use((response) => {
-            return response;
-        }, (error) => {
-            return Promise.reject(error.message);
-        });
+//    instance.interceptors.request.use(
+//        request => {
+//            if (!request.url.includes('AuthenticateUser')) {
+//                console.log(Cookie.accessToken);
+//                request.headers['Authorization'] = "Bearer " + Cookie.accessToken;
+//            }
+//            return request;
+//        },
+//        error => {
+//            return Promise.reject(error);
+//        }
+//    );
 
-        return instance({
-            'method': 'POST',
-            'url': '/AuthenticatedUserInfo'
-        }).then((response) => {
-            debugger;
-            haveData = true;
-            return response;
-        })
-        .catch((e) => {
-            //return e;
-        });
-    }
+//    instance.interceptors.response.use((response) => {
+//        return response;
+//    }, (error) => {
+//        return Promise.reject(error.message);
+//    });
 
-}
+//    return instance({
+//        'method': 'POST',
+//        'url': '/AuthenticatedUserInfo'
+//    }).then((response) => {
+//        debugger;
+//        haveData = true;
+//        return response;
+//    })
+//        .catch((e) => {
+//            console.log(e);
+//            //return e;
+//        });
+//    //}, [required]);
+
+//}
 
 
 ReactDOM.render(
     <React.StrictMode>
-        <UFContext.Provider value={{ GetUserInfo }}>
+        <UFContext.Provider value={ true}>
             <BrowserRouter basename={'/'}>
                 <Routes>
                     <Route path='/auth' element={<Auth />}>
@@ -84,15 +87,16 @@ ReactDOM.render(
                         <Route path='register' element={<Register />} />
                         <Route path='forget-password' element={<ForgetPassword />} />
                     </Route>
-
-                    <Route path='/' element={
-                        <ProtectedRoute>
-                            <AdminLayout>
-                                <App />
-                            </AdminLayout>
-                        </ProtectedRoute>
-                    }>
-                    </Route>
+                    {
+                        <Route path='/' element={
+                            <ProtectedRoute>
+                                <AdminLayout>
+                                    <App />
+                                </AdminLayout>
+                            </ProtectedRoute>
+                        }>
+                        </Route>
+                    }
                     {
                         //Dynamic auth protected component routing for dynamic components
                         data.map((val, index) => (
