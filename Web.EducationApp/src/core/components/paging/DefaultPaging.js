@@ -119,7 +119,7 @@ const DefaultPaging = (props) => {
             <div className="row">
                 <div className="col-sm-12 col-md-9">
                     <div className="dataTables_info" id="" style={{ marginTop: "5px" }} role="status" aria-live="polite">
-                        Page {props.CurrentPage} of {props.TotalPage} ( {props.TotalItem} Records ) </div>
+                        Page {props.TotalPage > 0 ? props.CurrentPage : 0} of {props.TotalPage} ( {props.TotalItem} Records ) </div>
                 </div>
                 <div className="col-sm-12 col-md-3">
                     <nav aria-label="Page navigation example">

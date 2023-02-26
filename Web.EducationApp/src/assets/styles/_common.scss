@@ -56,3 +56,8 @@ hr {
 .cursor-card {
     cursor: pointer;
 }
+.load-component-spinner {
+    --bs-spinner-width: 1rem;
+    --bs-spinner-height: 1rem;
+}
+

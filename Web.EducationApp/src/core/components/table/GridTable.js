@@ -1,6 +1,13 @@
 //import { useEffect } from "react";
 import CommonFuncs from "../../../util/common.funcs";
+import Spinner from 'react-bootstrap/Spinner';
+import { React, useState, useEffect } from "react";
+
 const GridTable = (props) => {
+    const [HaveData, setHaveData] = useState(false);
+    useEffect(() => {
+        setHaveData(false);
+    }, []);
     //console.log(props.DataList);
     // get table column
     const column = Object.keys(props.HeaderList);
@@ -41,8 +48,19 @@ const GridTable = (props) => {
         let uniqueKey12 = CommonFuncs.funcUniqueKey(13);
         let uniqueKey13 = CommonFuncs.funcUniqueKey(14);
 
+        if (props.DataList.length <= 0) {
+            return (
+                <>
+                    <tr key={uniqueKey3}>
+                        <td key={uniqueKey13} colSpan={column.length} className="text-center red">Opps, No Record Found!</td>
+                    </tr>
+                </>
+            )
+        }
+
         return props.DataList.map((data, i) => {
             uniqueKey3 = CommonFuncs.funcUniqueKey(3);
+
             return (
                 <tr key={uniqueKey3}>
                     {
@@ -91,17 +109,38 @@ const GridTable = (props) => {
             )
         })
     }
+
     return (
-        <div className="table-responsive mt-4 mb-2" style={{ maxHeight: '465px' }}>
-            <table cellSpacing="0" cellPadding="0" border="0" className="table table-bordered table-hover" width="100%" style={{ cursor: 'auto' }}>
-                <thead>
-                    <tr>{ThData()}</tr>
-                </thead>
-                <tbody>
-                    {tdData()}
-                </tbody>
-            </table>
-        </div>
+        <>
+            {(() => {
+                //if (!HaveData) {
+                //    return (
+                //        <>
+                //            <div className="alert alert-warning" role="alert">
+                //                <Spinner animation="grow" className="load-component-spinner" />
+                //                <span>  Please wait while loading data...</span>
+                //            </div>
+                //        </>
+                //    );
+                //}
+                return (
+                    <>
+                        <div>
+                            <div className="table-responsive mt-4 mb-2" style={{ maxHeight: '465px' }}>
+                                <table cellSpacing="0" cellPadding="0" border="0" className="table table-bordered table-hover" width="100%" style={{ cursor: 'auto' }}>
+                                    <thead>
+                                        <tr>{ThData()}</tr>
+                                    </thead>
+                                    <tbody>
+                                        {tdData()}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </>
+                );
+            })()}
+        </>
     )
 }
 export default GridTable;

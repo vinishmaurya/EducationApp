@@ -10,6 +10,8 @@ import AccountService from "../../../../../services/account.services";
 import { useCookies } from 'react-cookie';
 import { useNavigate } from "react-router-dom";
 import Login from "../../../../../auth/login/Login";
+import Spinner from 'react-bootstrap/Spinner';
+import Button from 'react-bootstrap/Button';
 
 require('dotenv').config();
 
@@ -34,61 +36,64 @@ const MstAccount = (props) => {
     const [MyComponent, setMyComponent] = useState(data.landingComponent);
     const [MyInnerComponentName, setMyInnerComponentName] = useState(data.innerComponentName);
     const fetchParentDefaultData = async (parmAccountId, parmRowPerPage, parmCurrentPage, parmSearchBy, parmSearchValue) => {
-        setRowPerPage(parmRowPerPage);
-        setCurrentPage(parmCurrentPage);
-        setSearchBy(parmSearchBy);
-        setSearchValue(parmSearchValue);
-        setAccountId(parmAccountId);
+        setTimeout(() => {
 
-        const instance = axios.create({
-            baseURL: process.env.REACT_APP_APIBaseUri,
-            headers: {
-                'content-type': 'application/json',
-                'x-api-key': process.env.REACT_APP_APIKey
-            }
-        });
 
-        instance.interceptors.request.use(
-            request => {
-                if (!request.url.includes('AuthenticateUser')) {
-                    request.headers['Authorization'] = "Bearer " + Cookie.accessToken;
+            setRowPerPage(parmRowPerPage);
+            setCurrentPage(parmCurrentPage);
+            setSearchBy(parmSearchBy);
+            setSearchValue(parmSearchValue);
+            setAccountId(parmAccountId);
+
+            const instance = axios.create({
+                baseURL: process.env.REACT_APP_APIBaseUri,
+                headers: {
+                    'content-type': 'application/json',
+                    'x-api-key': process.env.REACT_APP_APIKey
                 }
-                return request;
-            },
-            error => {
-                return Promise.reject(error);
-            }
-        );
+            });
 
-        instance.interceptors.response.use((response) => {
-            return response;
-        }, (error) => {
-            return Promise.reject(error.message);
-        });
-        let reqParams = "?AccountId=" + parmAccountId
-            + "&RowPerPage=" + parmRowPerPage
-            + "&CurrentPage=" + parmCurrentPage
-            + "&SearchBy=" + parmSearchBy
-            + "&SearchValue=" + parmSearchValue;
-        instance({
-            'method': 'GET',
-            'url': '/admin/Account/GetAccountDetails' + reqParams
-        }).then((response) => {
-            //debugger;
-            console.log(response.data);
-            if (response.data && response.data.Result) {
-                setDefaultDynamicAPIResponse(response.data.Data);
-            }
-            else {
-                setHaveAPIError(!response.data.Result);
-                setHaveAPIMessage(response.data.Message);
-                setHaveAPIDescription(JSON.stringify(response.data.Description));
-            }
-        }).catch((e) => {
-            console.log(e);
-        });
+            instance.interceptors.request.use(
+                request => {
+                    if (!request.url.includes('AuthenticateUser')) {
+                        request.headers['Authorization'] = "Bearer " + Cookie.accessToken;
+                    }
+                    return request;
+                },
+                error => {
+                    return Promise.reject(error);
+                }
+            );
 
+            instance.interceptors.response.use((response) => {
+                return response;
+            }, (error) => {
+                return Promise.reject(error.message);
+            });
+            let reqParams = "?AccountId=" + parmAccountId
+                + "&RowPerPage=" + parmRowPerPage
+                + "&CurrentPage=" + parmCurrentPage
+                + "&SearchBy=" + parmSearchBy
+                + "&SearchValue=" + parmSearchValue;
+            instance({
+                'method': 'GET',
+                'url': '/admin/Account/GetAccountDetails' + reqParams
+            }).then((response) => {
+                //debugger;
+                //console.log(response.data);
+                if (response.data && response.data.Result) {
+                    setDefaultDynamicAPIResponse(response.data.Data);
+                }
+                else {
+                    setHaveAPIError(!response.data.Result);
+                    setHaveAPIMessage(response.data.Message);
+                    setHaveAPIDescription(JSON.stringify(response.data.Description));
+                }
+            }).catch((e) => {
+                console.log(e);
+            });
 
+        }, 100);
     };
     function loadComponent() {
         if (MyComponent == data.landingComponent) {
@@ -105,22 +110,42 @@ const MstAccount = (props) => {
     return (
         <>
             <div>
+                {
+                    //<Spinner animation="grow" />
+                    //<div className="card-body">
+                    //    <div className="h1 card-title placeholder-glow">
+                    //        <span className="placeholder col-xl-12 col-md-12"></span>
+                    //    </div>
 
-                <div className="full-doc">
-                    <input type="button"
-                        href="#"
-                        className="btn btn-primary btn-sm"
-                        rel="noreferrer"
-                        onClick={loadComponent}
-                        value={MyInnerComponentName}
-                    />
-                    {
-                        //<FontAwesomeIcon icon={faPlus} />
-                    }
-                </div>
+                    //</div>
+                }
+
             </div>
 
             {(() => {
+                if (!DefaultDynamicAPIResponse) {
+                    return (
+                        <>
+
+                            <div className="alert alert-warning" role="alert">
+                                <Spinner animation="grow" className="load-component-spinner" />
+                                <span>  Please wait while loading data...</span>
+                            </div>
+                            <div className="full-doc">
+                                <Button variant="primary" disabled>
+                                    <Spinner
+                                        as="span"
+                                        animation="grow"
+                                        size="sm"
+                                        role="status"
+                                        aria-hidden="true"
+                                    />
+                                Loading...
+                                </Button>
+                            </div>
+                        </>
+                    );
+                }
                 if (HaveAPIError) {
                     return (
                         <>
@@ -152,15 +177,28 @@ const MstAccount = (props) => {
                 }
                 if (DefaultDynamicAPIResponse) {
                     if (MyComponent == "IndexMstAccount") {
-                        return <IndexMstAccount
-                            defaultDynamicAPIResponse={DefaultDynamicAPIResponse}
-                            fetchParentDefaultData={fetchParentDefaultData}
-                            RowPerPage={RowPerPage}
-                            CurrentPage={CurrentPage}
-                            SearchBy={SearchBy}
-                            SearchValue={SearchValue}
-                            setAccountId={AccountId}
-                        />
+                        return (
+                            <>
+                                <div className="full-doc">
+                                    <input type="button"
+                                        href="#"
+                                        className="btn btn-primary btn-sm"
+                                        rel="noreferrer"
+                                        onClick={loadComponent}
+                                        value={MyInnerComponentName}
+                                    />
+                                </div>
+                                <IndexMstAccount
+                                    defaultDynamicAPIResponse={DefaultDynamicAPIResponse}
+                                    fetchParentDefaultData={fetchParentDefaultData}
+                                    RowPerPage={RowPerPage}
+                                    CurrentPage={CurrentPage}
+                                    SearchBy={SearchBy}
+                                    SearchValue={SearchValue}
+                                    setAccountId={AccountId}
+                                />
+                            </>
+                        );
                     }
                     else if (MyComponent == "AddEditMstAccount") {
                         return <AddEditMstAccount pageTitle={data.innerComponentName} />

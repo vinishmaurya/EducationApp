@@ -1,6 +1,7 @@
+import { React, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileCsv, faFileExcel, faFilePdf } from "@fortawesome/free-solid-svg-icons";
-import { useEffect} from "react";
+import { faFileCsv, faFileExcel, faFilePdf, faSync } from "@fortawesome/free-solid-svg-icons";
+import { useEffect } from "react";
 import CommonFuncs from "../../../../../util/common.funcs";
 import Login from "../../../../../auth/login/Login";
 import GridTable from "../../../../../core/components/table/GridTable";
@@ -9,6 +10,8 @@ import GridShowEntries from "../../../../../core/components/table/GridShowEntrie
 
 require('dotenv').config();
 const IndexMstAccount = (props) => {
+    //let [SearchByPlaceHolder, setSearchByPlaceHolder] = useState('');
+    let SearchByPlaceHolder = "";
     let ShowEntriesDataList = process.env.REACT_APP_DefaultRowPerPageValues.split(',');
     let RowPerPage = props.RowPerPage;
     let CurrentPage = props.CurrentPage;
@@ -36,6 +39,8 @@ const IndexMstAccount = (props) => {
 
     function onSelectSearchBy(e) {
         SearchBy = e.target.getAttribute('search-by-value');
+        //setSearchByPlaceHolder(e.target.getAttribute('search-by-text'));
+        SearchByPlaceHolder = e.target.getAttribute('search-by-text');
     }
     function onChangeSearchValue(e) {
         SearchValue = e.target.value;
@@ -73,14 +78,22 @@ const IndexMstAccount = (props) => {
     }
 
     function funcBindSearchTerms() {
+        //debugger;
         let itemList = [];
         if (!props.defaultDynamicAPIResponse.SearchTermList) { return; }
         if (!props.defaultDynamicAPIResponse.SearchTermList.length > 0) { return; }
+        let bool = false;
         props.defaultDynamicAPIResponse.SearchTermList.map((data, i) => {
+            if (!bool && data.IsDefaultSelection) {
+                SearchByPlaceHolder = data.SearchByText;
+                //setSearchByPlaceHolder(e.target.getAttribute('search-by-text'));
+                SearchBy = data.SearchByValue;
+                bool = true;
+            }
             let uniqueKey = CommonFuncs.funcUniqueKey(1);
             itemList.push(
                 <li key={i}>
-                    <a key={uniqueKey} className="dropdown-item"
+                    <a key={uniqueKey} className={`dropdown-item ${data.IsDefaultSelection ? 'active' : ''}`}
                         search-by-value={data.SearchByValue}
                         onClick={e => onSelectSearchBy(e)}
                         search-by-text={data.SearchByText}
@@ -88,6 +101,7 @@ const IndexMstAccount = (props) => {
                 </li>
             )
         });
+        //console.log(SearchByPlaceHolder);
 
         return itemList;
     }
@@ -184,20 +198,24 @@ const IndexMstAccount = (props) => {
                                                                         {funcBindSearchTerms()}
                                                                     </ul>
                                                                 </div>
-                                                                <input type="text" className="form-control" onChange={e => onChangeSearchValue(e)} placeholder="Account Category" aria-label="Account Category" />
+                                                                <input type="text" className="form-control" onChange={e => onChangeSearchValue(e)} placeholder={SearchByPlaceHolder} aria-label={SearchByPlaceHolder} />
                                                                 <div className="input-group-append" onClick={onChangePagingData}>
                                                                     <span className="input-group-text" >
-                                                                        <i className="ficon ft-search" style={{ lineHeight: '0px' }}></i>
                                                                         <span>&#128269;</span>
                                                                     </span>
+                                                                    
                                                                 </div>
+                                                                
                                                             </div>
                                                         </fieldset>
                                                     </div>
                                                 </div>
                                                 <div className="col-sm-12 col-md-6 text-right">
+                                                   
                                                     <div className="dataTables_length d-flex" style={{ justifyContent: 'flex-end' }} id="exportdiv">
-
+                                                        <span className="input-group-text input-group-append" onClick={e => onClickTotalCard(e)}>
+                                                            <FontAwesomeIcon icon={faSync} />
+                                                        </span>
                                                         {
                                                             <GridShowEntries
                                                                 DataList={ShowEntriesDataList}
@@ -220,7 +238,7 @@ const IndexMstAccount = (props) => {
                                                             //    <label>Entries</label>
                                                             //</div>
                                                         }
-
+                                                        
                                                         <div className="dropdown">
                                                             <button className="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Export</button>
                                                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -247,6 +265,7 @@ const IndexMstAccount = (props) => {
                                                                 </li>
                                                             </ul>
                                                         </div>
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
