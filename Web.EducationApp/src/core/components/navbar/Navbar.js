@@ -210,7 +210,7 @@ const Navbar = ({ title, srcLogo, menuItems, onSearch, searchlabel }) => {
                 >
                     <FontAwesomeIcon icon={faBars} />
                 </button>
-                <a className="navbar-brand" href="#javascript">
+                <a className="navbar-brand" href={void(0)} >
                     <img src={srcLogo} alt={title} />
                 </a>
             </div>

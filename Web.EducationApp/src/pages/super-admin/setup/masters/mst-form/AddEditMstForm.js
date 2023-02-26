@@ -22,7 +22,7 @@ const AddEditMstForm = (props) => {
                                                         className="red">*</span></label>
                                                     <input className="form-control" data-val="true"
                                                         id="AccountName"
-                                                        maxlength="50" name="AccountName" placeholder="Account Name"
+                                                        maxLength="50" name="AccountName" placeholder="Account Name"
                                                         type="text" />
                                                 </div>
                                             </div>
@@ -32,7 +32,7 @@ const AddEditMstForm = (props) => {
                                                         className="red">*</span></label>
                                                     <input className="form-control" data-val="true"
                                                         id="AccountName"
-                                                        maxlength="50" name="AccountName" placeholder="Account Name"
+                                                        maxLength="50" name="AccountName" placeholder="Account Name"
                                                         type="text" />
                                                 </div>
                                             </div>
@@ -45,7 +45,7 @@ const AddEditMstForm = (props) => {
                                                         className="red">*</span></label>
                                                     <input className="form-control" data-val="true"
                                                         id="AccountName"
-                                                        maxlength="50" name="AccountName" placeholder="Account Name"
+                                                        maxLength="50" name="AccountName" placeholder="Account Name"
                                                         type="text" />
                                                 </div>
                                             </div>
@@ -55,7 +55,7 @@ const AddEditMstForm = (props) => {
                                                         className="red">*</span></label>
                                                     <input className="form-control" data-val="true"
                                                         id="AccountName"
-                                                        maxlength="50" name="AccountName" placeholder="Account Name"
+                                                        maxLength="50" name="AccountName" placeholder="Account Name"
                                                         type="text" />
                                                 </div>
                                             </div>
@@ -67,7 +67,7 @@ const AddEditMstForm = (props) => {
                                                         className="red">*</span></label>
                                                     <input className="form-control" data-val="true"
                                                         id="AccountName"
-                                                        maxlength="50" name="AccountName" placeholder="Account Name"
+                                                        maxLength="50" name="AccountName" placeholder="Account Name"
                                                         type="text" />
                                                 </div>
                                             </div>
@@ -77,7 +77,7 @@ const AddEditMstForm = (props) => {
                                                         className="red">*</span></label>
                                                     <input className="form-control" data-val="true"
                                                         id="AccountName"
-                                                        maxlength="50" name="AccountName" placeholder="Account Name"
+                                                        maxLength="50" name="AccountName" placeholder="Account Name"
                                                         type="text" />
                                                 </div>
                                             </div>

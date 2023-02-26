@@ -5,12 +5,7 @@ import authenticateUser from "../models/authenticateUser.model";
 import reqBody from "../models/reqBody.Model";
 import { useNavigate } from "react-router-dom";
 
-const config = require('dotenv').config();
 require('dotenv').config();
-
-//const [cookies] = useCookies(['accessToken', 'refreshToken']);
-////const { deleteCookie, deleteAllCookies } = useCookies();
-//const navigate = useNavigate();
 
 const instance = axios.create({
     baseURL: 'http://localhost:2000/api',//process.env.BackendEducationApp_DevBaseUri,

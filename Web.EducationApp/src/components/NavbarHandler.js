@@ -1,16 +1,16 @@
-import { useContext } from "react";
-import UFContext from "../context/UFContext";
+//import { useContext } from "react";
+//import UFContext from "../context/UFContext";
 import logo from "../assets/images/full-logo.jpeg";
 import DropdownNotification from "../core/components/dropdown/DropdownNotification";
 import Navbar from "../core/components/navbar/Navbar";
-import usFlag from "../assets/images/usa-50.png";
-import profilePic from "../assets/images/portrait.png";
+//import usFlag from "../assets/images/usa-50.png";
+//import profilePic from "../assets/images/portrait.png";
 import {
   faBell,
-  faCalendar,
-  faCog,
+  //faCalendar,
+  //faCog,
   faEdit,
-  faEnvelope,
+  //faEnvelope,
   faSignOutAlt,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";

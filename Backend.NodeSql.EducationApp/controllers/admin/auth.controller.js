@@ -27,7 +27,7 @@ const AuthenticateUser = async (req, res, next) => {
         var cGrantType = req.body.GrantType;
         var cRefreshToken = req.body.RefreshToken;
         
-        sql.connect(config.sql, function (err) {
+        await sql.connect(config.sql, function (err) {
             if (err) console.log(err);
             // create Request object
             var request = new sql.Request();

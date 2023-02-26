@@ -22,7 +22,7 @@ const AcadMstHoliday = () => {
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
                                                     id="AccountName"
-                                                    maxlength="50" name="AccountName" placeholder="Class Name"
+                                                    maxLength="50" name="AccountName" placeholder="Class Name"
                                                     type="date" />
                                             </div>
                                         </div>
@@ -32,7 +32,7 @@ const AcadMstHoliday = () => {
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
                                                     id="AccountName"
-                                                    maxlength="50" name="AccountName" placeholder="Class Name"
+                                                    maxLength="50" name="AccountName" placeholder="Class Name"
                                                     type="text" />
                                             </div>
                                         </div>
@@ -41,7 +41,7 @@ const AcadMstHoliday = () => {
                                                 <label className="label-control mb-2">Description<span
                                                     className="red">*</span></label>
                                                 <textarea className="form-control" cols="20" id="AccountAddress"
-                                                    maxlength="200" name="AccountAddress" placeholder="Address"
+                                                    maxLength="200" name="AccountAddress" placeholder="Address"
                                                     rows="3"></textarea>
                                             </div>
                                         </div>

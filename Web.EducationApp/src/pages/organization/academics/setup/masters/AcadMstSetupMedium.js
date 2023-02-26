@@ -22,7 +22,7 @@ const AcadMstSetupMedium = () => {
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
                                                     id="AccountName"
-                                                    maxlength="50" name="AccountName" placeholder="Medium Name"
+                                                    maxLength="50" name="AccountName" placeholder="Medium Name"
                                                     type="text" />
                                             </div>
                                         </div>

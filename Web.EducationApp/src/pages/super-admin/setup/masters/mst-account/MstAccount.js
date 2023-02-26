@@ -4,17 +4,92 @@ import { faBook, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { React, useState } from "react";
 import { useContext, useEffect, useRef } from "react";
-import { NavLink } from "react-router-dom";
+import axios from "axios";
+import AccountService from "../../../../../services/account.services";
+//import instance from "../../../../../services/instance.services";
+import { useCookies } from 'react-cookie';
+import { useNavigate } from "react-router-dom";
+import Login from "../../../../../auth/login/Login";
+
+require('dotenv').config();
+
 const MstAccount = (props) => {
+    //debugger;
+    const [Cookie, setCookie] = useCookies(['accessToken', 'refreshToken']);
+    const [DefaultDynamicAPIResponse, setDefaultDynamicAPIResponse] = useState(null);
+    const [HaveAPIError, setHaveAPIError] = useState(false);
+    const [HaveAPIMessage, setHaveAPIMessage] = useState(null);
+    const [HaveAPIDescription, setHaveAPIDescription] = useState(null);
+    const [AccountId, setAccountId] = useState(0);
+    const [RowPerPage, setRowPerPage] = useState(process.env.REACT_APP_DefaultRowPerPage);
+    const [CurrentPage, setCurrentPage] = useState(process.env.REACT_APP_DefaultCurrentPage);
+    const [SearchBy, setSearchBy] = useState("");
+    const [SearchValue, setSearchValue] = useState("");
+
     useEffect(() => {
-        
+        fetchParentDefaultData(AccountId, RowPerPage, CurrentPage, SearchBy, SearchValue);
     }, []);
     const data = props.data;
-    //console.log(data);
     // Declare a new state variable, which we'll call "Component"
     const [MyComponent, setMyComponent] = useState(data.landingComponent);
     const [MyInnerComponentName, setMyInnerComponentName] = useState(data.innerComponentName);
+    const fetchParentDefaultData = async (parmAccountId, parmRowPerPage, parmCurrentPage, parmSearchBy, parmSearchValue) => {
+        setRowPerPage(parmRowPerPage);
+        setCurrentPage(parmCurrentPage);
+        setSearchBy(parmSearchBy);
+        setSearchValue(parmSearchValue);
+        setAccountId(parmAccountId);
 
+        const instance = axios.create({
+            baseURL: process.env.REACT_APP_APIBaseUri,
+            headers: {
+                'content-type': 'application/json',
+                'x-api-key': process.env.REACT_APP_APIKey
+            }
+        });
+
+        instance.interceptors.request.use(
+            request => {
+                if (!request.url.includes('AuthenticateUser')) {
+                    request.headers['Authorization'] = "Bearer " + Cookie.accessToken;
+                }
+                return request;
+            },
+            error => {
+                return Promise.reject(error);
+            }
+        );
+
+        instance.interceptors.response.use((response) => {
+            return response;
+        }, (error) => {
+            return Promise.reject(error.message);
+        });
+        let reqParams = "?AccountId=" + parmAccountId
+            + "&RowPerPage=" + parmRowPerPage
+            + "&CurrentPage=" + parmCurrentPage
+            + "&SearchBy=" + parmSearchBy
+            + "&SearchValue=" + parmSearchValue;
+        instance({
+            'method': 'GET',
+            'url': '/admin/Account/GetAccountDetails' + reqParams
+        }).then((response) => {
+            //debugger;
+            console.log(response.data);
+            if (response.data && response.data.Result) {
+                setDefaultDynamicAPIResponse(response.data.Data);
+            }
+            else {
+                setHaveAPIError(!response.data.Result);
+                setHaveAPIMessage(response.data.Message);
+                setHaveAPIDescription(JSON.stringify(response.data.Description));
+            }
+        }).catch((e) => {
+            console.log(e);
+        });
+
+
+    };
     function loadComponent() {
         if (MyComponent == data.landingComponent) {
             //Go to add/edit component
@@ -29,24 +104,70 @@ const MstAccount = (props) => {
     }
     return (
         <>
-            <div className="full-doc">
-                <input type="button"
-                    href="#"
-                    className="btn btn-primary btn-sm"
-                    rel="noreferrer"
-                    onClick={loadComponent}
-                    value={MyInnerComponentName}
-                />
+            <div>
+
+                <div className="full-doc">
+                    <input type="button"
+                        href="#"
+                        className="btn btn-primary btn-sm"
+                        rel="noreferrer"
+                        onClick={loadComponent}
+                        value={MyInnerComponentName}
+                    />
                     {
                         //<FontAwesomeIcon icon={faPlus} />
                     }
+                </div>
             </div>
+
             {(() => {
-                if (MyComponent == "IndexMstAccount") {
-                    return <IndexMstAccount />
+                if (HaveAPIError) {
+                    return (
+                        <>
+                            <div style={{ display: HaveAPIError && process.env.REACT_APP_ENV == 'development' ? 'block' : 'none' }}>
+                                <div className="row">
+                                    <div className="col-xl-12 col-md-12">
+                                        <div className="alert alert-danger" role="alert" >
+                                            {HaveAPIMessage}
+                                        </div>
+                                        <div className="alert alert-danger" role="alert">
+                                            <h4 className="alert-heading">Error Description!</h4>
+                                            <p>{HaveAPIDescription}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style={{ display: HaveAPIError && process.env.REACT_APP_ENV != 'development' ? 'block' : 'none' }}>
+                                <div className="row">
+                                    <div className="col-xl-12 col-md-12">
+                                        <div className="alert alert-danger" role="alert" >
+                                            Opps! Somthing went wrong!
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </>
+                    )
                 }
-                else if (MyComponent == "AddEditMstAccount") {
-                    return <AddEditMstAccount pageTitle={data.innerComponentName}  />
+                if (DefaultDynamicAPIResponse) {
+                    if (MyComponent == "IndexMstAccount") {
+                        return <IndexMstAccount
+                            defaultDynamicAPIResponse={DefaultDynamicAPIResponse}
+                            fetchParentDefaultData={fetchParentDefaultData}
+                            RowPerPage={RowPerPage}
+                            CurrentPage={CurrentPage}
+                            SearchBy={SearchBy}
+                            SearchValue={SearchValue}
+                            setAccountId={AccountId}
+                        />
+                    }
+                    else if (MyComponent == "AddEditMstAccount") {
+                        return <AddEditMstAccount pageTitle={data.innerComponentName} />
+                    }
+                }
+                else {
+                    <Login />
                 }
             })()}
         </>

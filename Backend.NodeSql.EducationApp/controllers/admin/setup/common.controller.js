@@ -10,7 +10,7 @@ const GetAllCategoryList = async (req, res, next) => {
     try {
         res.setHeader('Content-Type', 'application/json');
 
-        sql.connect(config.sql, function (err) {
+        await sql.connect(config.sql, function (err) {
             if (err) console.log(err);
             // create Request object
             var request = new sql.Request();
@@ -55,7 +55,7 @@ const GetAllAccountList = async (req, res, next) => {
     try {
         res.setHeader('Content-Type', 'application/json');
 
-        sql.connect(config.sql, function (err) {
+        await sql.connect(config.sql, function (err) {
             if (err) console.log(err);
             // create Request object
             var request = new sql.Request();
@@ -83,7 +83,7 @@ const GetAllParentFormsList = async (req, res, next) => {
     try {
         res.setHeader('Content-Type', 'application/json');
 
-        sql.connect(config.sql, function (err) {
+        await sql.connect(config.sql, function (err) {
             if (err) console.log(err);
             // create Request object
             var request = new sql.Request();

@@ -13,7 +13,7 @@ const GetSubMenuDetails = async (req, res, next) => {
         var iPK_FormId = req.params.PK_FormId;
         var cMappingFor = req.params.MappingFor;
 
-        sql.connect(config.sql, function (err) {
+        await sql.connect(config.sql, function (err) {
             if (err) console.log(err);
             // create Request object
             var request = new sql.Request();
@@ -51,7 +51,7 @@ const AddEditMapFormRoleDetails = async (req, res, next) => {
         var IsActive = req.body.IsActive;
         var CreatedBy = req.body.CreatedBy;
 
-        sql.connect(config.sql, function (err) {
+        await sql.connect(config.sql, function (err) {
             if (err) console.log(err);
             // create Request object
             var request = new sql.Request();

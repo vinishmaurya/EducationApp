@@ -47,7 +47,7 @@ const AcadMstStudentAssignment = () => {
                                                 <label className="label-control mb-2">Files<span
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
-                                                    maxlength="10" name="ZipCode" placeholder="Zip Code" type="file"
+                                                    maxLength="10" name="ZipCode" placeholder="Zip Code" type="file"
                                                 />
                                             </div>
                                         </div>
@@ -72,7 +72,7 @@ const AcadMstStudentAssignment = () => {
                                                 <label className="label-control mb-2">Points<span
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
-                                                    maxlength="10"  type="number"
+                                                    maxLength="10"  type="number"
                                                 />
                                             </div>
                                         </div>
@@ -82,7 +82,7 @@ const AcadMstStudentAssignment = () => {
                                                 <label className="label-control mb-2">Feedback<span
                                                     className="red">*</span></label>
                                                 <textarea className="form-control" cols="20" id="AccountAddress"
-                                                    maxlength="200" name="AccountAddress" placeholder="Address"
+                                                    maxLength="200" name="AccountAddress" placeholder="Address"
                                                     rows="3"></textarea>
                                             </div>
                                         </div>

@@ -22,7 +22,7 @@ const AcadAnnouncement = () => {
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
                                                     id="AccountName"
-                                                    maxlength="50" name="AccountName" placeholder="Class Name"
+                                                    maxLength="50" name="AccountName" placeholder="Class Name"
                                                     type="text" />
                                             </div>
                                         </div>
@@ -31,7 +31,7 @@ const AcadAnnouncement = () => {
                                                 <label className="label-control mb-2">Description<span
                                                     className="red">*</span></label>
                                                 <textarea className="form-control" cols="20" id="AccountAddress"
-                                                    maxlength="200" name="AccountAddress" placeholder="Address"
+                                                    maxLength="200" name="AccountAddress" placeholder="Address"
                                                     rows="3"></textarea>
                                             </div>
                                         </div>
@@ -118,13 +118,13 @@ const AcadAnnouncement = () => {
                                                                             <button className="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
                                                                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                                                                 <li>
-                                                                                    <a className="dropdown-item" id="Excel" >Account Category</a>
+                                                                                    <a className="dropdown-item" id="Excel" href={void(0)}  >Account Category</a>
                                                                                 </li>
                                                                                 <li>
-                                                                                    <a className="dropdown-item active" id="Excel" >Account Name</a>
+                                                                                    <a className="dropdown-item active" href={void(0)}  id="Excel" >Account Name</a>
                                                                                 </li>
                                                                                 <li>
-                                                                                    <a className="dropdown-item" id="Excel" >User Name</a>
+                                                                                    <a className="dropdown-item" href={void(0)} id="Excel" >User Name</a>
                                                                                 </li>
                                                                             </ul>
                                                                             <div className="dropdown-menu" id="tableMenu">
@@ -152,21 +152,21 @@ const AcadAnnouncement = () => {
                                                                     <button className="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Export</button>
                                                                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                                                         <li>
-                                                                            <a className="dropdown-item" id="Excel" >
+                                                                            <a className="dropdown-item" id="Excel" href={void(0)}  >
                                                                                 <FontAwesomeIcon icon={faFileExcel} />
                                                                         &emsp;
                                                                         Excel
                                                                         </a>
                                                                         </li>
                                                                         <li>
-                                                                            <a className="dropdown-item" id="CSV" >
+                                                                            <a className="dropdown-item" id="CSV" href={void(0)} >
                                                                                 <FontAwesomeIcon icon={faFileCsv} />
                                                                         &emsp;
                                                                         CSV
                                                                         </a>
                                                                         </li>
                                                                         <li>
-                                                                            <a className="dropdown-item" id="PDF" >
+                                                                            <a className="dropdown-item" id="PDF" href={void(0)} >
                                                                                 <FontAwesomeIcon icon={faFilePdf} />
                                                                         &emsp;
                                                                         PDF
@@ -257,17 +257,17 @@ const AcadAnnouncement = () => {
                                                                                 </a>
                                                                             </li>
                                                                             <li className="page-item">
-                                                                                <a className="page-link" href="#">1</a>
+                                                                                <a className="page-link" href={void(0)} >1</a>
                                                                             </li>
                                                                             <li className="page-item">
-                                                                                <a className="page-link" href="#">2</a>
+                                                                                <a className="page-link" href={void(0)} >2</a>
                                                                             </li>
                                                                             <li className="page-item">
-                                                                                <a className="page-link" href="#">3</a>
+                                                                                <a className="page-link" href={void(0)} >3</a>
                                                                             </li>
 
                                                                             <li className="page-item">
-                                                                                <a className="page-link" href="#" aria-label="Next">
+                                                                                <a className="page-link" href={void(0)}  aria-label="Next">
                                                                                     <span aria-hidden="true">
                                                                                         {">>"}
                                                                                     </span>

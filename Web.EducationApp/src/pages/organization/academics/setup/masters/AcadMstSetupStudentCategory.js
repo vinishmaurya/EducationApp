@@ -20,7 +20,7 @@ const AcadMstSetupStudentCategory = () => {
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
                                                     id="AccountName"
-                                                    maxlength="50" name="AccountName" placeholder="Class Name"
+                                                    maxLength="50" name="AccountName" placeholder="Class Name"
                                                     type="text" />
                                             </div>
                                         </div>

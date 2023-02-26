@@ -33,7 +33,7 @@ const OrgWebSiteContentSetup = () => {
                                                         <label className="label-control mb-2">Content<span
                                                             className="red">*</span></label>
                                                         <textarea className="form-control" cols="20" id="AccountAddress"
-                                                            maxlength="200" name="AccountAddress" placeholder="Address"
+                                                            maxLength="200" name="AccountAddress" placeholder="Address"
                                                             rows="3"></textarea>
                                                     </div>
                                                 </div>
@@ -84,7 +84,7 @@ const OrgWebSiteContentSetup = () => {
                                                         <label className="label-control mb-2">Content<span
                                                             className="red">*</span></label>
                                                         <textarea className="form-control" cols="20" id="AccountAddress"
-                                                            maxlength="200" name="AccountAddress" placeholder="Address"
+                                                            maxLength="200" name="AccountAddress" placeholder="Address"
                                                             rows="3"></textarea>
                                                     </div>
                                                 </div>

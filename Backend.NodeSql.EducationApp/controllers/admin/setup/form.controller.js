@@ -16,7 +16,7 @@ const GetFormDetails = async (req, res, next) => {
         var cSearchBy = req.params.SearchBy;
         var cSearchValue = req.params.SearchValue;
 
-        sql.connect(config.sql, function (err) {
+        await sql.connect(config.sql, function (err) {
             if (err) console.log(err);
             // create Request object
             var request = new sql.Request();
@@ -78,7 +78,7 @@ const AddEditFormDetails = async (req, res, next) => {
         var cImageName = req.body.cImageName;
         var cPlatFormType = req.body.cPlatFormType;
 
-        sql.connect(config.sql, function (err) {
+        await sql.connect(config.sql, function (err) {
             if (err) console.log(err);
             // create Request object
             var request = new sql.Request();
@@ -121,7 +121,7 @@ const DeleteFormsDetails = async (req, res, next) => {
         var iPK_FormId = req.body.iPK_FormId;
         var iUserId = req.body.iUserId;
 
-        sql.connect(config.sql, function (err) {
+        await sql.connect(config.sql, function (err) {
             if (err) console.log(err);
             // create Request object
             var request = new sql.Request();
@@ -152,7 +152,7 @@ const GetAllParentFormsList = async (req, res, next) => {
     try {
         res.setHeader('Content-Type', 'application/json');
         
-        sql.connect(config.sql, function (err) {
+        await sql.connect(config.sql, function (err) {
             if (err) console.log(err);
             // create Request object
             var request = new sql.Request();

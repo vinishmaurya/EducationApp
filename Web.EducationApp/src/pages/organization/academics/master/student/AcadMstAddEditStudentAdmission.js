@@ -30,7 +30,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
                                                     id="AccountName"
-                                                    maxlength="50" name="AccountName" placeholder="Account Name"
+                                                    maxLength="50" name="AccountName" placeholder="Account Name"
                                                     type="text" />
                                             </div>
                                         </div>
@@ -40,7 +40,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
                                                     id="AccountName"
-                                                    maxlength="50" name="AccountName" placeholder="Account Name"
+                                                    maxLength="50" name="AccountName" placeholder="Account Name"
                                                     type="text" />
                                             </div>
                                         </div>
@@ -52,7 +52,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
                                                     id="AccountName"
-                                                    maxlength="50" name="AccountName" placeholder="Account Name"
+                                                    maxLength="50" name="AccountName" placeholder="Account Name"
                                                     type="text" />
                                             </div>
                                         </div>
@@ -119,7 +119,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
                                                     id="AccountName"
-                                                    maxlength="50" name="AccountName" placeholder="Account Name"
+                                                    maxLength="50" name="AccountName" placeholder="Account Name"
                                                     type="text" value="2023-S01" readOnly="readOnly" disabled="disabled" />
                                             </div>
                                         </div>
@@ -129,7 +129,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
                                                     id="AccountName"
-                                                    maxlength="50" name="AccountName" placeholder="Account Name"
+                                                    maxLength="50" name="AccountName" placeholder="Account Name"
                                                     type="text" value="S01" readOnly="readOnly" disabled="disabled" />
                                             </div>
                                         </div>
@@ -141,7 +141,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
                                                     id="AccountName"
-                                                    maxlength="50" name="AccountName" placeholder="Account Name"
+                                                    maxLength="50" name="AccountName" placeholder="Account Name"
                                                     type="text" />
                                             </div>
                                         </div>
@@ -151,7 +151,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
                                                     id="AccountName"
-                                                    maxlength="50" name="AccountName" placeholder="Account Name"
+                                                    maxLength="50" name="AccountName" placeholder="Account Name"
                                                     type="text" />
                                             </div>
                                         </div>
@@ -163,7 +163,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
                                                     id="AccountName"
-                                                    maxlength="50" name="AccountName" placeholder="Account Name"
+                                                    maxLength="50" name="AccountName" placeholder="Account Name"
                                                     type="text" value="17-02-2023 08:45 AM" readOnly="readOnly" disabled="disabled" />
                                             </div>
                                         </div>
@@ -186,7 +186,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
                                                     id="AccountName"
-                                                    maxlength="50" name="AccountName" placeholder="Account Name"
+                                                    maxLength="50" name="AccountName" placeholder="Account Name"
                                                     type="text" />
                                             </div>
                                         </div>
@@ -196,7 +196,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
                                                     id="AccountName"
-                                                    maxlength="50" name="AccountName" placeholder="Account Name"
+                                                    maxLength="50" name="AccountName" placeholder="Account Name"
                                                     type="text" />
                                             </div>
                                         </div>
@@ -260,7 +260,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
                                                     id="AccountName"
-                                                    maxlength="50" name="AccountName" placeholder="Account Name"
+                                                    maxLength="50" name="AccountName" placeholder="Account Name"
                                                     type="text" />
                                             </div>
                                         </div>
@@ -269,7 +269,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                 <label className="label-control mb-2">Current Address<span
                                                     className="red">*</span></label>
                                                 <textarea className="form-control" cols="20" id="AccountAddress"
-                                                    maxlength="200" name="AccountAddress" placeholder="Address"
+                                                    maxLength="200" name="AccountAddress" placeholder="Address"
                                                     rows="1"></textarea>
                                             </div>
                                         </div>
@@ -280,7 +280,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                 <label className="label-control mb-2">Permanent Address<span
                                                     className="red">*</span></label>
                                                 <textarea className="form-control" cols="20" id="AccountAddress"
-                                                    maxlength="200" name="AccountAddress" placeholder="Address"
+                                                    maxLength="200" name="AccountAddress" placeholder="Address"
                                                     rows="1"></textarea>
                                             </div>
                                         </div>
@@ -316,7 +316,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                 <label className="label-control">Father Email<span
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
-                                                    maxlength="10" name="ZipCode" placeholder="Zip Code" type="text"
+                                                    maxLength="10" name="ZipCode" placeholder="Zip Code" type="text"
                                                 />
                                             </div>
                                         </div>
@@ -325,7 +325,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                 <label className="label-control">Father First Name<span
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
-                                                    maxlength="10" name="ZipCode" placeholder="Zip Code" type="text"
+                                                    maxLength="10" name="ZipCode" placeholder="Zip Code" type="text"
                                                 />
                                             </div>
                                         </div>
@@ -336,7 +336,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                 <label className="label-control">Father Last Name<span
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
-                                                    maxlength="10" name="ZipCode" placeholder="Zip Code" type="text"
+                                                    maxLength="10" name="ZipCode" placeholder="Zip Code" type="text"
                                                 />
                                             </div>
                                         </div>
@@ -345,7 +345,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                 <label className="label-control">Father Mobile No.<span
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
-                                                    maxlength="10" name="ZipCode" placeholder="Zip Code" type="text"
+                                                    maxLength="10" name="ZipCode" placeholder="Zip Code" type="text"
                                                 />
                                             </div>
                                         </div>
@@ -356,7 +356,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                 <label className="label-control">Father DOB<span
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
-                                                    maxlength="10" name="ZipCode" placeholder="Zip Code" type="date"
+                                                    maxLength="10" name="ZipCode" placeholder="Zip Code" type="date"
                                                 />
                                             </div>
                                         </div>
@@ -365,7 +365,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                 <label className="label-control">Father Occupation<span
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
-                                                    maxlength="10" name="ZipCode" placeholder="Zip Code" type="text"
+                                                    maxLength="10" name="ZipCode" placeholder="Zip Code" type="text"
                                                 />
                                             </div>
                                         </div>
@@ -376,7 +376,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                 <label className="label-control">Father Image<span
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
-                                                    maxlength="10" name="ZipCode" placeholder="Zip Code" type="file"
+                                                    maxLength="10" name="ZipCode" placeholder="Zip Code" type="file"
                                                 />
                                             </div>
                                         </div>
@@ -393,7 +393,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                 <label className="label-control">Mother Email<span
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
-                                                    maxlength="10" name="ZipCode" placeholder="Zip Code" type="text"
+                                                    maxLength="10" name="ZipCode" placeholder="Zip Code" type="text"
                                                 />
                                             </div>
                                         </div>
@@ -402,7 +402,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                 <label className="label-control">Mother First Name<span
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
-                                                    maxlength="10" name="ZipCode" placeholder="Zip Code" type="text"
+                                                    maxLength="10" name="ZipCode" placeholder="Zip Code" type="text"
                                                 />
                                             </div>
                                         </div>
@@ -413,7 +413,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                 <label className="label-control">Mother Last Name<span
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
-                                                    maxlength="10" name="ZipCode" placeholder="Zip Code" type="text"
+                                                    maxLength="10" name="ZipCode" placeholder="Zip Code" type="text"
                                                 />
                                             </div>
                                         </div>
@@ -422,7 +422,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                 <label className="label-control">Mother Mobile No.<span
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
-                                                    maxlength="10" name="ZipCode" placeholder="Zip Code" type="text"
+                                                    maxLength="10" name="ZipCode" placeholder="Zip Code" type="text"
                                                 />
                                             </div>
                                         </div>
@@ -433,7 +433,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                 <label className="label-control">Mother DOB<span
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
-                                                    maxlength="10" name="ZipCode" placeholder="Zip Code" type="date"
+                                                    maxLength="10" name="ZipCode" placeholder="Zip Code" type="date"
                                                 />
                                             </div>
                                         </div>
@@ -442,7 +442,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                 <label className="label-control">Mother Occupation<span
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
-                                                    maxlength="10" name="ZipCode" placeholder="Zip Code" type="text"
+                                                    maxLength="10" name="ZipCode" placeholder="Zip Code" type="text"
                                                 />
                                             </div>
                                         </div>
@@ -453,7 +453,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                 <label className="label-control">Mother Image<span
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
-                                                    maxlength="10" name="ZipCode" placeholder="Zip Code" type="file"
+                                                    maxLength="10" name="ZipCode" placeholder="Zip Code" type="file"
                                                 />
                                             </div>
                                         </div>
@@ -502,7 +502,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                 <label className="label-control">Guardian Email<span
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
-                                                    maxlength="10" name="ZipCode" placeholder="Zip Code" type="text"
+                                                    maxLength="10" name="ZipCode" placeholder="Zip Code" type="text"
                                                 />
                                             </div>
                                         </div>
@@ -511,7 +511,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                 <label className="label-control">Guardian First Name<span
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
-                                                    maxlength="10" name="ZipCode" placeholder="Zip Code" type="text"
+                                                    maxLength="10" name="ZipCode" placeholder="Zip Code" type="text"
                                                 />
                                             </div>
                                         </div>
@@ -522,7 +522,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                 <label className="label-control">Guardian Last Name<span
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
-                                                    maxlength="10" name="ZipCode" placeholder="Zip Code" type="text"
+                                                    maxLength="10" name="ZipCode" placeholder="Zip Code" type="text"
                                                 />
                                             </div>
                                         </div>
@@ -531,7 +531,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                 <label className="label-control">Guardian Mobile No.<span
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
-                                                    maxlength="10" name="ZipCode" placeholder="Zip Code" type="text"
+                                                    maxLength="10" name="ZipCode" placeholder="Zip Code" type="text"
                                                 />
                                             </div>
                                         </div>
@@ -542,7 +542,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                 <label className="label-control">Guardian DOB<span
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
-                                                    maxlength="10" name="ZipCode" placeholder="Zip Code" type="date"
+                                                    maxLength="10" name="ZipCode" placeholder="Zip Code" type="date"
                                                 />
                                             </div>
                                         </div>
@@ -551,7 +551,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                 <label className="label-control">Guardian Occupation<span
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
-                                                    maxlength="10" name="ZipCode" placeholder="Zip Code" type="text"
+                                                    maxLength="10" name="ZipCode" placeholder="Zip Code" type="text"
                                                 />
                                             </div>
                                         </div>
@@ -562,7 +562,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                 <label className="label-control">Guardian Image<span
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
-                                                    maxlength="10" name="ZipCode" placeholder="Zip Code" type="file"
+                                                    maxLength="10" name="ZipCode" placeholder="Zip Code" type="file"
                                                 />
                                             </div>
                                         </div>
@@ -597,7 +597,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                     className="red">*</span></label>
                                                 <input className="form-control valid" data-val="true"
                                                     data-val-required="Please Enter User Name" id="Username"
-                                                    maxlength="20" name="Username" onblur="CheckuserName(this)"
+                                                    maxLength="20" name="Username" onBlur="CheckuserName(this)"
                                                     placeholder="Username" type="text" value="2023-S01" readOnly="readOnly" disabled="disabled"  />
                                             </div>
                                         </div>
@@ -606,7 +606,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                 <label className="label-control mb-2">Password<span
                                                     className="red">*</span></label>
                                                 <input className="form-control valid" id="Password"
-                                                    maxlength="15" name="Password" placeholder="Enter Password"
+                                                    maxLength="15" name="Password" placeholder="Enter Password"
                                                     type="password" />
                                             </div>
                                         </div>
@@ -615,7 +615,7 @@ const AcadMstAddEditStudentAdmission = (props) => {
                                                 <label className="label-control mb-2">Re-Enter Password<span
                                                     className="red">*</span></label>
                                                 <input className="form-control valid" id="Password"
-                                                    maxlength="15" name="Password" placeholder="Enter Password"
+                                                    maxLength="15" name="Password" placeholder="Enter Password"
                                                     type="password" />
                                             </div>
                                         </div>

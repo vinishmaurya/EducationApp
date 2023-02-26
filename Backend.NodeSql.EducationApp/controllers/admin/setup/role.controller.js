@@ -34,7 +34,7 @@ const GetRoleDetails = async (req, res, next) => {
         var cSearchBy = req.params.SearchBy;
         var cSearchValue = req.params.SearchValue;
 
-        sql.connect(config.sql, function (err) {
+        await sql.connect(config.sql, function (err) {
             if (err) console.log(err);
             // create Request object
             var request = new sql.Request();
@@ -90,7 +90,7 @@ const AddEditRoleDetails = async (req, res, next) => {
         var IsActive = req.body.IsActive;
         var CreatedBy = req.body.CreatedBy;
 
-        sql.connect(config.sql, function (err) {
+        await sql.connect(config.sql, function (err) {
             if (err) console.log(err);
             // create Request object
             var request = new sql.Request();
@@ -142,7 +142,7 @@ const DeleteRolesDetails = async (req, res, next) => {
         var iPK_RoleId = req.body.PK_RoleId;
         var iUserId = req.body.DeletedBy;
 
-        sql.connect(config.sql, function (err) {
+        await sql.connect(config.sql, function (err) {
             if (err) console.log(err);
             // create Request object
             var request = new sql.Request();
@@ -184,7 +184,7 @@ const GetRolesList = async (req, res, next) => {
     try {
         res.setHeader('Content-Type', 'application/json');
 
-        sql.connect(config.sql, function (err) {
+        await sql.connect(config.sql, function (err) {
             if (err) console.log(err);
             // create Request object
             var request = new sql.Request();

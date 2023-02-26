@@ -1,5 +1,5 @@
 import axios from "axios";
-import srcLogo from "../../assets/images/full-logo.jpeg";
+//import srcLogo from "../../assets/images/full-logo.jpeg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons"
 import React from "react";
@@ -13,10 +13,10 @@ const pageTitle = "Login With Education System";
 const Login = () => {
     localStorage.clear();
     const navigate = useNavigate();
-    const [Cookie,setCookie] = useCookies(['accessToken', 'refreshToken']);
+    const [Cookie, setCookie] = useCookies(['accessToken', 'refreshToken']);
     //const { deleteCookie, deleteAllCookies } = useCookies();
     const submitLoginForm = async (event) => {
-        debugger;
+        //debugger;
         event.preventDefault();
         
         const formElement = document.querySelector('#loginForm');
@@ -39,7 +39,7 @@ const Login = () => {
                 (response) => {
                     const data = response.data;
                     //console.log(response);
-                    let SideBarData = {};
+                    //let SideBarData = {};
                     if (data) {
                         if (data.Result) {
                             const resData = data.Data;
@@ -94,9 +94,9 @@ const Login = () => {
                                 'method': 'POST',
                                 'url': '/AuthenticatedUserInfo'
                             }).then((response) => {
-                                debugger;
+                                //debugger;
                                 if (response.data) {
-                                    SideBarData = response.data.Data;
+                                    //SideBarData = response.data.Data;
                                     btnPointer.innerHTML = 'Login';
                                     btnPointer.removeAttribute('disabled');
                                     //Redirect home after login success
@@ -129,7 +129,7 @@ const Login = () => {
                         }
                     }
                     else {
-                        alert("Oops! Some error occured.");
+                        alert("Oops! Some error occured please try after sometimes.");
                         btnPointer.innerHTML = 'Login';
                         btnPointer.removeAttribute('disabled');
                     }
@@ -138,13 +138,13 @@ const Login = () => {
                     //console.log(error);
                     btnPointer.innerHTML = 'Login';
                     btnPointer.removeAttribute('disabled');
-                    alert("Oops! Some error occured.");
+                    alert("Oops! Some error occured please try after sometimes.");
                 }
             );
         } catch (e) {
             btnPointer.innerHTML = 'Login';
             btnPointer.removeAttribute('disabled');
-            alert("Oops! Some error occured.");
+            alert("Oops! Some error occured please try after sometimes.");
         }
 
     }
@@ -161,7 +161,7 @@ const Login = () => {
                                 </div>
                                 <h5 className="my-5 display-5 fw-bold ls-tight">
                                     The best education app <br />
-                                    <span className="text-primary">manage your sytem</span>
+                                    <span className="text-primary">to manage your sytem</span>
                                 </h5>
                                 <p >
                                     The best education app for simplify processes and
@@ -211,7 +211,12 @@ const Login = () => {
                                             {<NavLink to="/auth/register">New around here? Sign up</NavLink>}
                                         </div>
                                         <div className="text-center ls-tight">
-                                            <p>By continuing, you agree to our <a className="ls-tight">Terms of Service</a> and <a className="ls-tight">Privacy Policy</a></p>
+                                            <p>
+                                                By continuing, you agree to our
+                                                <a className="ls-tight" href={void(0)} >Terms of Service</a>
+                                                and
+                                                <a className="ls-tight" href={void(0)} >Privacy Policy</a>
+                                            </p>
 
                                         </div>
 

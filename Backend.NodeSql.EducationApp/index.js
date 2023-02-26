@@ -31,7 +31,7 @@ dotenv.config();
 //})
 
 //const sql = require("mssql");
-//sql.connect(config.sql, () => {
+//await sql.connect(config.sql, () => {
 //    console.log('SQL Database Connected');
 //})
 

@@ -1,4 +1,4 @@
-import srcLogo from "../../assets/images/full-logo.jpeg";
+//import srcLogo from "../../assets/images/full-logo.jpeg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons"
 import { NavLink } from "react-router-dom";
@@ -18,7 +18,7 @@ const ForgetPassword = () => {
                                 </div>
                                 <h5 className="my-5 display-5 fw-bold ls-tight">
                                     The best education app <br />
-                                    <span className="text-primary">manage your sytem</span>
+                                    <span className="text-primary">to manage your sytem</span>
                                 </h5>
                                 <p >
                                     The best education app for simplify processes and
@@ -71,7 +71,12 @@ const ForgetPassword = () => {
                                             {<NavLink to="/auth/login">Back to sign in</NavLink>}
                                         </div>
                                         <div className="text-center ls-tight">
-                                            <p>By continuing, you agree to our <a className="ls-tight">Terms of Service</a> and <a className="ls-tight">Privacy Policy</a></p>
+                                            <p>
+                                                By continuing, you agree to our
+                                                <a className="ls-tight" href={void(0)} >Terms of Service</a>
+                                                and
+                                                <a className="ls-tight" href={void(0)} >Privacy Policy</a>
+                                            </p>
 
                                         </div>
 

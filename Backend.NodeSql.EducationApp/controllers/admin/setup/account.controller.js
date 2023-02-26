@@ -20,18 +20,19 @@ const GetAccountDetails = async (req, res, next) => {
         debugger;
         res.setHeader('Content-Type', 'application/json');
         var AccountId = req.query.AccountId;
-        var RowperPage = req.query.RowperPage;
+        var RowperPage = req.query.RowPerPage;
         var CurrentPage = req.query.CurrentPage;
         var SearchBy = req.query.SearchBy;
         var SearchValue = req.query.SearchValue;
+
         if ((Number(RowperPage) <= 0 || Number(CurrentPage) <= 0) || (isNaN(Number(RowperPage)) || isNaN(Number(CurrentPage)))) {
             ServiceResult.Message = "Validation Error!";
-            ServiceResult.Description = '(RowperPage & CurrentPage) query params must be required a number & grater than zero!';
+            ServiceResult.Description = '(RowPerPage & CurrentPage) query params must be required a number & grater than zero!';
             ServiceResult.Result = false;
             ServiceResult.Data = null;
             return res.send(ServiceResult);
         }
-        sql.connect(config.sql, function (err) {
+        await sql.connect(config.sql, function (err) {
             if (err) console.log(err);
             // create Request object
             var request = new sql.Request();
@@ -39,8 +40,9 @@ const GetAccountDetails = async (req, res, next) => {
             request.input('iRowperPage', sql.BigInt, RowperPage);
             request.input('iCurrentPage', sql.BigInt, CurrentPage);
             request.input('cSearchBy', sql.VarChar(500), SearchBy);
-            request.input('cSearchValue', sql.BigInt, SearchValue);
+            request.input('cSearchValue', sql.VarChar(500), SearchValue);
             request.execute("[dbo].[USP_GetAccountDetails]", function (err, recordset) {
+                
                 if (err) {
                     sql.close();
                     ServiceResult.Message = "Failed to parse api response!";
@@ -50,6 +52,7 @@ const GetAccountDetails = async (req, res, next) => {
                     return res.send(ServiceResult);
                 }
                 sql.close();
+                
                 if (recordset) {
                     if (recordset.recordsets[0][0].Message_Id == 1) {
                         try {
@@ -57,8 +60,10 @@ const GetAccountDetails = async (req, res, next) => {
                             ServiceResult.Description = null;
                             ServiceResult.Result = true;
                             ServiceResult.Data = {
+                                DataList: recordset.recordsets[1],
                                 CountArray: recordset.recordsets[2][0],
-                                DataList: recordset.recordsets[1]
+                                HeaderList: recordset.recordsets[3][0],
+                                SearchTermList: recordset.recordsets[4],
                             };
                             return res.send(ServiceResult);
                         } catch (error) {
@@ -182,7 +187,7 @@ const AddEditAccountDetails = async (req, res, next) => {
             var Username = Body_AccountDetails.Username;
             var Password = Body_AccountDetails.Password;
 
-            sql.connect(config.sql, function (err) {
+            await sql.connect(config.sql, function (err) {
                 if (err) console.log(err);
                 // create Request object
                 var request = new sql.Request();
@@ -299,7 +304,7 @@ const DeleteAccountsDetails = async (req, res, next) => {
             ServiceResult.Data = null;
             return res.send(ServiceResult);
         }
-        sql.connect(config.sql, function (err) {
+        await sql.connect(config.sql, function (err) {
             if (err) {
                 ServiceResult.Message = "Failed to parse api response!";
                 ServiceResult.Description = err;

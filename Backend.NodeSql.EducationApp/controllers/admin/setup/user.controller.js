@@ -16,7 +16,7 @@ const GetUserDetails = async (req, res, next) => {
         var cSearchBy = req.params.SearchBy;
         var cSearchValue = req.params.SearchValue;
 
-        sql.connect(config.sql, function (err) {
+        await sql.connect(config.sql, function (err) {
             if (err) console.log(err);
             // create Request object
             var request = new sql.Request();
@@ -61,7 +61,7 @@ const AddEditUserDetails = async (req, res, next) => {
         var bIsActive = req.body.IsActive;
         var Name = req.body.Name;
 
-        sql.connect(config.sql, function (err) {
+        await sql.connect(config.sql, function (err) {
             if (err) console.log(err);
             // create Request object
             var request = new sql.Request();
@@ -106,7 +106,7 @@ const DeleteUsersDetails = async (req, res, next) => {
         var iPK_userId = req.body.iPK_userId;
         var iUserId = req.body.iUserId;
 
-        sql.connect(config.sql, function (err) {
+        await sql.connect(config.sql, function (err) {
             if (err) console.log(err);
             // create Request object
             var request = new sql.Request();
@@ -149,7 +149,7 @@ const AuthenticatedUserInfo = async (req, res, next) => {
         var cUserName = req.body.UserName;
         var cPassword = req.body.Password;
 
-        sql.connect(config.sql, function (err) {
+        await sql.connect(config.sql, function (err) {
             if (err) console.log(err);
             // create Request object
             var request = new sql.Request();

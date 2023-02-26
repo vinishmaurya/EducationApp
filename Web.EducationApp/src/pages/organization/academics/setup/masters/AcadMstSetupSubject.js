@@ -39,7 +39,7 @@ const AcadMstSetupSubject = () => {
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
                                                     id="AccountName"
-                                                    maxlength="50" name="AccountName" placeholder="Subject Name"
+                                                    maxLength="50" name="AccountName" placeholder="Subject Name"
                                                     type="text" />
                                             </div>
                                         </div>
@@ -65,7 +65,7 @@ const AcadMstSetupSubject = () => {
                                                 <label className="label-control mb-2">Subject Code</label>
                                                 <input className="form-control" data-val="true"
                                                     id="AccountName"
-                                                    maxlength="50" name="AccountName" placeholder="Class Name"
+                                                    maxLength="50" name="AccountName" placeholder="Class Name"
                                                     type="text" />
                                             </div>
                                         </div>
@@ -74,7 +74,7 @@ const AcadMstSetupSubject = () => {
                                                 <label className="label-control mb-2">Background Color</label>
                                                 <input className="form-control" data-val="true"
                                                     id="AccountName"
-                                                    maxlength="50" name="AccountName" placeholder="Class Name"
+                                                    maxLength="50" name="AccountName" placeholder="Class Name"
                                                     type="text" />
                                             </div>
                                         </div>

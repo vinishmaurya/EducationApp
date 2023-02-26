@@ -1,4 +1,12 @@
+import { useEffect, useState } from "react";
+
 const AddEditMstAccount = (props) => {
+
+    useEffect(() => {
+        
+    }, []);
+
+
     return (
         <>
             <div className="card card-demo">
@@ -41,7 +49,7 @@ const AddEditMstAccount = (props) => {
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
                                                     id="AccountName"
-                                                    maxlength="50" name="AccountName" placeholder="Account Name"
+                                                    maxLength="50" name="AccountName" placeholder="Account Name"
                                                     type="text" />
                                             </div>
                                         </div>
@@ -64,7 +72,7 @@ const AddEditMstAccount = (props) => {
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
                                                     id="AccountName"
-                                                    maxlength="50" name="AccountName" placeholder="Account Name"
+                                                    maxLength="50" name="AccountName" placeholder="Account Name"
                                                     type="text" />
                                             </div>
                                         </div>
@@ -76,7 +84,7 @@ const AddEditMstAccount = (props) => {
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
                                                     id="AccountName"
-                                                    maxlength="50" name="AccountName" placeholder="Account Name"
+                                                    maxLength="50" name="AccountName" placeholder="Account Name"
                                                     type="text" />
                                             </div>
                                         </div>
@@ -86,7 +94,7 @@ const AddEditMstAccount = (props) => {
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
                                                     id="AccountName"
-                                                    maxlength="50" name="AccountName" placeholder="Account Name"
+                                                    maxLength="50" name="AccountName" placeholder="Account Name"
                                                     type="text" />
                                             </div>
                                         </div>
@@ -98,7 +106,7 @@ const AddEditMstAccount = (props) => {
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
                                                     id="AccountName"
-                                                    maxlength="50" name="AccountName" placeholder="Account Name"
+                                                    maxLength="50" name="AccountName" placeholder="Account Name"
                                                     type="text" />
                                             </div>
                                         </div>
@@ -108,7 +116,7 @@ const AddEditMstAccount = (props) => {
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
                                                     id="AccountName"
-                                                    maxlength="50" name="AccountName" placeholder="Account Name"
+                                                    maxLength="50" name="AccountName" placeholder="Account Name"
                                                     type="text" />
                                             </div>
                                         </div>
@@ -147,7 +155,7 @@ const AddEditMstAccount = (props) => {
                                                 <label className="label-control">Address<span
                                                     className="red">*</span></label>
                                                 <textarea className="form-control" cols="20" id="AccountAddress"
-                                                    maxlength="200" name="AccountAddress" placeholder="Address"
+                                                    maxLength="200" name="AccountAddress" placeholder="Address"
                                                     rows="1"></textarea>
                                             </div>
                                         </div>
@@ -156,7 +164,7 @@ const AddEditMstAccount = (props) => {
                                                 <label className="label-control mb-2">Zip Code<span
                                                     className="red">*</span></label>
                                                 <input className="form-control" data-val="true"
-                                                    maxlength="10" name="ZipCode" placeholder="Zip Code" type="text"
+                                                    maxLength="10" name="ZipCode" placeholder="Zip Code" type="text"
                                                 />
                                             </div>
                                         </div>
@@ -239,7 +247,7 @@ const AddEditMstAccount = (props) => {
                                                     className="red">*</span></label>
                                                 <input className="form-control valid" data-val="true"
                                                     data-val-required="Please Enter User Name" id="Username"
-                                                    maxlength="20" name="Username" onblur="CheckuserName(this)"
+                                                    maxLength="20" name="Username"
                                                     placeholder="Username" type="text" />
                                             </div>
                                         </div>
@@ -248,7 +256,7 @@ const AddEditMstAccount = (props) => {
                                                 <label className="label-control mb-2">Password<span
                                                     className="red">*</span></label>
                                                 <input className="form-control valid" id="Password"
-                                                    maxlength="15" name="Password" placeholder="Enter Password"
+                                                    maxLength="15" name="Password" placeholder="Enter Password"
                                                     type="password" />
                                             </div>
                                         </div>
@@ -259,7 +267,7 @@ const AddEditMstAccount = (props) => {
                                                 <label className="label-control mb-2">Re-Enter Password<span
                                                     className="red">*</span></label>
                                                 <input className="form-control valid" id="Password"
-                                                    maxlength="15" name="Password" placeholder="Enter Password"
+                                                    maxLength="15" name="Password" placeholder="Enter Password"
                                                     type="password" />
                                             </div>
                                         </div>

@@ -55,6 +55,7 @@ const ProtectedRoute = (props) => {
         if (!userToken || userToken === 'undefined') {
             //deleteAllCookies();
             setIsLoggedIn(false);
+            //alert('Protect');
             return navigate('/auth/login');
         }
         else {
@@ -93,6 +94,7 @@ const ProtectedRoute = (props) => {
                 //console.log(response.data.Result);
                 if (!response.data.Result) {
                     setIsLoggedIn(false);
+                    //alert('Protect');
                     return navigate('/auth/login');
                 }
                 else {
@@ -101,6 +103,7 @@ const ProtectedRoute = (props) => {
                 
             }).catch((e) => {
                 setIsLoggedIn(false);
+                //alert('Protect');
                 return navigate('/auth/login');
             });
         }

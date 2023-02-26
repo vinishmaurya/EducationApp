@@ -29,6 +29,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include=".babelrc" />
     <Content Include=".env" />
     <Content Include="docScrapper.js" />
     <Content Include="package-lock.json" />
@@ -42,6 +43,9 @@
     <Content Include="public\robots.txt" />
     <Content Include="README.md" />
     <Content Include="src\context\UFContext.js" />
+    <Content Include="src\core\components\paging\DefaultPaging.js" />
+    <Content Include="src\core\components\table\GridShowEntries.js" />
+    <Content Include="src\core\components\table\GridTable.js" />
     <Content Include="src\models\reqBody.Model.js" />
     <Content Include="src\App.js" />
     <Content Include="src\App.test.js" />
@@ -205,10 +209,13 @@
     <Content Include="src\pages\Todo.js" />
     <Content Include="src\pages\VinishTest.js" />
     <Content Include="src\reportWebVitals.js" />
+    <Content Include="src\services\account.services.js" />
     <Content Include="src\services\auth.services.js" />
-    <Content Include="src\services\instance.service.js" />
+    <Content Include="src\services\instance.services.js" />
     <Content Include="src\setupTests.js" />
+    <Content Include="src\util\common.funcs.js" />
     <Content Include="src\util\ProtectedRoute.js" />
+    <Content Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="public\" />
@@ -226,6 +233,8 @@
     <Folder Include="src\core\components\dropdown\" />
     <Folder Include="src\core\components\footer\" />
     <Folder Include="src\core\components\navbar\" />
+    <Folder Include="src\core\components\paging\" />
+    <Folder Include="src\core\components\table\" />
     <Folder Include="src\core\components\responsive\" />
     <Folder Include="src\core\components\sidebar\" />
     <Folder Include="src\core\utility\" />

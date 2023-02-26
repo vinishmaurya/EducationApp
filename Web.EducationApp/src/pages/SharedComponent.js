@@ -1,7 +1,7 @@
 import axios from "axios";
-import AuthService from "../services/auth.services";
-import UFContext from "../context/UFContext";
-import React, { useEffect, useState } from "react";
+//import AuthService from "../services/auth.services";
+//import UFContext from "../context/UFContext";
+import React, { useState } from "react";
 
 import Breadcrumb from "../core/components/breadcrumb/Breadcrumb";
 import MstAccount from "../pages/super-admin/setup/masters/mst-account/MstAccount";
@@ -51,9 +51,10 @@ import OrgAppEmailConfigSetting from "../pages/super-admin/setup/settings/OrgApp
 import OrgWebSiteContentSetup from "../pages/super-admin/setup/website/OrgWebSiteContentSetup";
 
 const SharedComponent = ({ data }) => {
+    const [MyData, setMyData] = useState();
     const [UserInfo, setUserInfo] = useState(async () => {
         try {
-            debugger
+            //debugger
             //return 'asd';
             //await AuthService.GetUserInfo().then(
             //    (response) => {
@@ -90,8 +91,8 @@ const SharedComponent = ({ data }) => {
                 'method': 'POST',
                 'url': '/AuthenticatedUserInfo'
             }).then((response) => {
-                debugger;
-                console.log(response);
+                //debugger;
+                //console.log(response);
             }).catch((error) => {
                 console.log(error);
             });
@@ -104,7 +105,7 @@ const SharedComponent = ({ data }) => {
         }
     });
     //UserInfo.then(function (result) {
-    //    debugger
+    //    //debugger
     //    // here you can use the result of promiseB
     //    console.log(result);
     //});
@@ -129,112 +130,112 @@ const SharedComponent = ({ data }) => {
 
                     {(() => {
                         //console.log(data);
-                        if (data.component == "MstAccount") {
+                        if (data.component === "MstAccount") {
                             return <MstAccount data={data} />
                         }
-                        else if (data.component == "MstForm") {
+                        else if (data.component === "MstForm") {
                             return <MstForm data={data} />
                         }
-                        else if (data.component == "MstUser") {
+                        else if (data.component === "MstUser") {
                             return <MstUser data={data} />
                         }
-                        else if (data.component == "MstRole") {
+                        else if (data.component === "MstRole") {
                             return <MstRole data={data} />
                         }
-                        else if (data.component == "MapFormAccount") {
+                        else if (data.component === "MapFormAccount") {
                             return <MapFormAccount />
                         }
-                        else if (data.component == "MapUserAccount") {
+                        else if (data.component === "MapUserAccount") {
                             return <MapUserAccount />
                         }
-                        else if (data.component == "MapFormRole") {
+                        else if (data.component === "MapFormRole") {
                             return <MapFormRole />
                         }
-                        else if (data.component == "AcadAdminDashboard") {
+                        else if (data.component === "AcadAdminDashboard") {
                             return <AcadAdminDashboard />
                         }
-                        else if (data.component == "AcadParentDashboard") {
+                        else if (data.component === "AcadParentDashboard") {
                             return <AcadParentDashboard />
                         }
-                        else if (data.component == "AcadStudentDashboard") {
+                        else if (data.component === "AcadStudentDashboard") {
                             return <AcadStudentDashboard />
                         }
-                        else if (data.component == "AcadTeacherDashboard") {
+                        else if (data.component === "AcadTeacherDashboard") {
                             return <AcadTeacherDashboard />
                         }
-                        else if (data.component == "AcadMstSetupMedium") {
+                        else if (data.component === "AcadMstSetupMedium") {
                             return <AcadMstSetupMedium />
                         }
-                        else if (data.component == "AcadMstSetupSection") {
+                        else if (data.component === "AcadMstSetupSection") {
                             return <AcadMstSetupSection />
                         }
-                        else if (data.component == "AcadMstSetupSubject") {
+                        else if (data.component === "AcadMstSetupSubject") {
                             return <AcadMstSetupSubject />
                         }
-                        else if (data.component == "AcadMstSetupClass") {
+                        else if (data.component === "AcadMstSetupClass") {
                             return <AcadMstSetupClass />
                         }
-                        else if (data.component == "AcadMapClassSubject") {
+                        else if (data.component === "AcadMapClassSubject") {
                             return <AcadMapClassSubject />
                         }
-                        else if (data.component == "AcadMapClassTeacher") {
+                        else if (data.component === "AcadMapClassTeacher") {
                             return <AcadMapClassTeacher />
                         }
-                        else if (data.component == "AcadMapClassSubject") {
+                        else if (data.component === "AcadMapClassSubject") {
                             return <AcadMapClassTeacher />
                         }
-                        else if (data.component == "AcadMapSubjectTeacher") {
+                        else if (data.component === "AcadMapSubjectTeacher") {
                             return <AcadMapSubjectTeacher />
                         }
-                        else if (data.component == "AcadMapStudentClass") {
+                        else if (data.component === "AcadMapStudentClass") {
                             return <AcadMapStudentClass />
                         }
-                        else if (data.component == "AcadMapStudentPromote") {
+                        else if (data.component === "AcadMapStudentPromote") {
                             return <AcadMapStudentPromote />
                         }
-                        else if (data.component == "AcadStudentDetails") {
+                        else if (data.component === "AcadStudentDetails") {
                             return <AcadStudentDetails data={data} />
                         }
-                        else if (data.component == "AcadMstSetupStudentCategory") {
+                        else if (data.component === "AcadMstSetupStudentCategory") {
                             return <AcadMstSetupStudentCategory />
                         }
-                        else if (data.component == "AcadMstStudentAssignment") {
+                        else if (data.component === "AcadMstStudentAssignment") {
                             return <AcadMstStudentAssignment />
                         }
-                        else if (data.component == "AcadTeacherDetails") {
+                        else if (data.component === "AcadTeacherDetails") {
                             return <AcadTeacherDetails data={data} />
                         }
-                        else if (data.component == "AcadParentDetails") {
+                        else if (data.component === "AcadParentDetails") {
                             return <AcadParentDetails data={data} />
                         }
-                        else if (data.component == "AcadTimeTableDetails") {
+                        else if (data.component === "AcadTimeTableDetails") {
                             return <AcadTimeTableDetails data={data} />
                         }
-                        else if (data.component == "AcadMstHoliday") {
+                        else if (data.component === "AcadMstHoliday") {
                             return <AcadMstHoliday data={data} />
                         }
-                        else if (data.component == "AcadAnnouncement") {
+                        else if (data.component === "AcadAnnouncement") {
                             return <AcadAnnouncement data={data} />
                         }
-                        else if (data.component == "AcadMstExam") {
+                        else if (data.component === "AcadMstExam") {
                             return <AcadMstExam data={data} />
                         }
-                        else if (data.component == "AcadMstSetupSession") {
+                        else if (data.component === "AcadMstSetupSession") {
                             return <AcadMstSetupSession data={data} />
                         }
-                        else if (data.component == "OrgMobileAppSetting") {
+                        else if (data.component === "OrgMobileAppSetting") {
                             return <OrgMobileAppSetting data={data} />
                         }
-                        else if (data.component == "OrgWebAppGeneralSetting") {
+                        else if (data.component === "OrgWebAppGeneralSetting") {
                             return <OrgWebAppGeneralSetting data={data} />
                         }
-                        else if (data.component == "OrgAppLanguageSetting") {
+                        else if (data.component === "OrgAppLanguageSetting") {
                             return <OrgAppLanguageSetting data={data} />
                         }
-                        else if (data.component == "OrgAppEmailConfigSetting") {
+                        else if (data.component === "OrgAppEmailConfigSetting") {
                             return <OrgAppEmailConfigSetting data={data} />
                         }
-                        else if (data.component == "OrgWebSiteContentSetup") {
+                        else if (data.component === "OrgWebSiteContentSetup") {
                             return <OrgWebSiteContentSetup data={data} />
                         }
                         
