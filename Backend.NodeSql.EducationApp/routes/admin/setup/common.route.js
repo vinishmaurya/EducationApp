@@ -7,5 +7,8 @@ const router = express.Router();
 router.get('/admin/common/GetAllCategoryList', setupController.GetAllCategoryList);
 router.get('/admin/common/GetAllAccountList', setupController.GetAllAccountList);
 router.get('/admin/common/GetAllParentFormsList', setupController.GetAllParentFormsList);
+router.get('/admin/common/GetAllCountryList', setupController.GetAllCountryList);
+router.get('/admin/common/GetAllStateListCountryId', setupController.GetAllStateListCountryId);
+router.get('/admin/common/GetAllCityListByState', setupController.GetAllCityListByState);
 
 module.exports = router

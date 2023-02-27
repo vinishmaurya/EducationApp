@@ -1,0 +1,14 @@
+{
+  "admin": {
+    "common": {
+      "GetAllCategoryListUri": "/admin/common/GetAllCategoryList",
+      "GetAllCountryListUri": "/admin/common/GetAllCountryList",
+      "GetAllStateListCountryIdUri": "/admin/common/GetAllStateListCountryId",
+      "GetAllCityListByStateUri": "/admin/common/GetAllCityListByState",
+      "GetAllParentFormsListUri": "/admin/common/GetAllParentFormsList"
+    },
+    "account": {
+        "AddEditAccountDetailsUri": "/admin/Account/AddEditAccountDetails"
+      }
+  }
+}

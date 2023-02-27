@@ -42,6 +42,7 @@
     <Content Include="public\manifest.json" />
     <Content Include="public\robots.txt" />
     <Content Include="README.md" />
+    <Content Include="src\config\api.config.json" />
     <Content Include="src\context\UFContext.js" />
     <Content Include="src\core\components\paging\DefaultPaging.js" />
     <Content Include="src\core\components\table\GridShowEntries.js" />
@@ -225,6 +226,7 @@
     <Folder Include="src\assets\styles\" />
     <Folder Include="src\auth\login\" />
     <Folder Include="src\components\" />
+    <Folder Include="src\config\" />
     <Folder Include="src\core\" />
     <Folder Include="src\core\components\" />
     <Folder Include="src\core\components\breadcrumb\" />

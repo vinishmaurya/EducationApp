@@ -15,8 +15,7 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <StartWebBrowser>True</StartWebBrowser>
     <SaveNodeJsSettingsInProjectFile>True</SaveNodeJsSettingsInProjectFile>
-    <DebuggerPort>
-    </DebuggerPort>
+    <DebuggerPort>2000</DebuggerPort>
     <NodejsPort>2000</NodejsPort>
     <Name>Backend.NodeMongoApp</Name>
     <LaunchUrl>http://localhost:2000/api-docs/</LaunchUrl>

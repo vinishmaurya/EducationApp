@@ -12,12 +12,17 @@ import { useNavigate } from "react-router-dom";
 import Login from "../../../../../auth/login/Login";
 import Spinner from 'react-bootstrap/Spinner';
 import Button from 'react-bootstrap/Button';
+import apiconfig from "../../../../../config/api.config.json";
 
 require('dotenv').config();
 
 const MstAccount = (props) => {
     //debugger;
+    const data = props.data;
     const [Cookie, setCookie] = useCookies(['accessToken', 'refreshToken']);
+    // Declare a new state variable, which we'll call "Component"
+    const [MyComponent, setMyComponent] = useState(data.landingComponent);
+    const [MyInnerComponentName, setMyInnerComponentName] = useState(data.innerComponentName);
     const [DefaultDynamicAPIResponse, setDefaultDynamicAPIResponse] = useState(null);
     const [HaveAPIError, setHaveAPIError] = useState(false);
     const [HaveAPIMessage, setHaveAPIMessage] = useState(null);
@@ -29,71 +34,70 @@ const MstAccount = (props) => {
     const [SearchValue, setSearchValue] = useState("");
 
     useEffect(() => {
-        fetchParentDefaultData(AccountId, RowPerPage, CurrentPage, SearchBy, SearchValue);
+        if (MyComponent == "IndexMstAccount") {
+            fetchParentDefaultData(AccountId, RowPerPage, CurrentPage, SearchBy, SearchValue);
+        }
+        else if (MyComponent == "AddEditMstAccount") {
+            fetchParentDefaultData(AccountId, RowPerPage, CurrentPage, SearchBy, SearchValue);
+        }
     }, []);
-    const data = props.data;
-    // Declare a new state variable, which we'll call "Component"
-    const [MyComponent, setMyComponent] = useState(data.landingComponent);
-    const [MyInnerComponentName, setMyInnerComponentName] = useState(data.innerComponentName);
+
+
+
     const fetchParentDefaultData = async (parmAccountId, parmRowPerPage, parmCurrentPage, parmSearchBy, parmSearchValue) => {
-        setTimeout(() => {
+        setRowPerPage(parmRowPerPage);
+        setCurrentPage(parmCurrentPage);
+        setSearchBy(parmSearchBy);
+        setSearchValue(parmSearchValue);
+        setAccountId(parmAccountId);
 
+        const instance = await axios.create({
+            baseURL: process.env.REACT_APP_APIBaseUri,
+            headers: {
+                'content-type': 'application/json',
+                'x-api-key': process.env.REACT_APP_APIKey
+            }
+        });
 
-            setRowPerPage(parmRowPerPage);
-            setCurrentPage(parmCurrentPage);
-            setSearchBy(parmSearchBy);
-            setSearchValue(parmSearchValue);
-            setAccountId(parmAccountId);
-
-            const instance = axios.create({
-                baseURL: process.env.REACT_APP_APIBaseUri,
-                headers: {
-                    'content-type': 'application/json',
-                    'x-api-key': process.env.REACT_APP_APIKey
+        instance.interceptors.request.use(
+            request => {
+                if (!request.url.includes('AuthenticateUser')) {
+                    request.headers['Authorization'] = "Bearer " + Cookie.accessToken;
                 }
-            });
+                return request;
+            },
+            error => {
+                return Promise.reject(error);
+            }
+        );
 
-            instance.interceptors.request.use(
-                request => {
-                    if (!request.url.includes('AuthenticateUser')) {
-                        request.headers['Authorization'] = "Bearer " + Cookie.accessToken;
-                    }
-                    return request;
-                },
-                error => {
-                    return Promise.reject(error);
-                }
-            );
-
-            instance.interceptors.response.use((response) => {
-                return response;
-            }, (error) => {
-                return Promise.reject(error.message);
-            });
-            let reqParams = "?AccountId=" + parmAccountId
-                + "&RowPerPage=" + parmRowPerPage
-                + "&CurrentPage=" + parmCurrentPage
-                + "&SearchBy=" + parmSearchBy
-                + "&SearchValue=" + parmSearchValue;
-            instance({
-                'method': 'GET',
-                'url': '/admin/Account/GetAccountDetails' + reqParams
-            }).then((response) => {
-                //debugger;
-                //console.log(response.data);
-                if (response.data && response.data.Result) {
-                    setDefaultDynamicAPIResponse(response.data.Data);
-                }
-                else {
-                    setHaveAPIError(!response.data.Result);
-                    setHaveAPIMessage(response.data.Message);
-                    setHaveAPIDescription(JSON.stringify(response.data.Description));
-                }
-            }).catch((e) => {
-                console.log(e);
-            });
-
-        }, 100);
+        instance.interceptors.response.use((response) => {
+            return response;
+        }, (error) => {
+            return Promise.reject(error.message);
+        });
+        let reqParams = "?AccountId=" + parmAccountId
+            + "&RowPerPage=" + parmRowPerPage
+            + "&CurrentPage=" + parmCurrentPage
+            + "&SearchBy=" + parmSearchBy
+            + "&SearchValue=" + parmSearchValue;
+        instance({
+            'method': 'GET',
+            'url': '/admin/Account/GetAccountDetails' + reqParams
+        }).then((response) => {
+            //debugger;
+            //console.log(response.data);
+            if (response.data && response.data.Result) {
+                setDefaultDynamicAPIResponse(response.data.Data);
+            }
+            else {
+                setHaveAPIError(!response.data.Result);
+                setHaveAPIMessage(response.data.Message);
+                setHaveAPIDescription(JSON.stringify(response.data.Description));
+            }
+        }).catch((e) => {
+            console.log(e);
+        });
     };
     function loadComponent() {
         if (MyComponent == data.landingComponent) {

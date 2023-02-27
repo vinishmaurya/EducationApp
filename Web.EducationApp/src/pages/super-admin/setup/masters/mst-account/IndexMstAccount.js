@@ -221,22 +221,6 @@ const IndexMstAccount = (props) => {
                                                                 DataList={ShowEntriesDataList}
                                                                 onChangePagingData={onChangePagingData}
                                                             />
-                                                            //<div className="mr-2 d-flex" style={{ justifyContent: 'space-between', width: '30%' }}>
-                                                            //    <label>Show</label>
-                                                            //    <div style={{ width: '35%' }}>
-                                                            //        <select
-                                                            //            className="form-control"
-                                                            //            onChange={onChangePagingData}
-                                                            //            id="eleRowPerPage"
-                                                            //        >
-                                                            //            <option value="10">10</option>
-                                                            //            <option value="20">20</option>
-                                                            //            <option value="30">30</option>
-                                                            //            <option value="40">40</option>
-                                                            //        </select>
-                                                            //    </div>
-                                                            //    <label>Entries</label>
-                                                            //</div>
                                                         }
                                                         
                                                         <div className="dropdown">

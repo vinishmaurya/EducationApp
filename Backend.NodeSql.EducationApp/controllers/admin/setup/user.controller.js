@@ -239,7 +239,7 @@ const AuthenticatedUserTokenValidation = async (req, res, next) => {
                     if (recordset.recordsets[0][0].Message_Id == 1) {
                         try {
                             ServiceResult.Message = recordset.recordsets[0][0].Message;
-                            ServiceResult.Description = recordset.recordsets[0][0].Message;
+                            ServiceResult.Description = null;
                             ServiceResult.Result = true;
                             ServiceResult.Data = recordset.recordsets[1];
                             return res.send(ServiceResult);
