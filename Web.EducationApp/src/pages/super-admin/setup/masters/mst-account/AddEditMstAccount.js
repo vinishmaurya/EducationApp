@@ -14,17 +14,49 @@ const AddEditMstAccount = (props) => {
     const [AllCountryList, setAllCountryList] = useState([]);
     const [AllStateList, setAllStateList] = useState([]);
     const [AllCityList, setAllCityList] = useState([]);
-    const [SaveNextAccountDetailsData, setSaveNextAccountDetailsData] = useState([]);
-    
+    let formDataInitialStateAccountDetails = {
+        CategoryId: 0,
+        AccountName: "",
+        ParentAccountId: 0,
+        ContactPerson: "",
+        MobileNo: "",
+        AlternateMobileNo: "",
+        EmailId: "",
+        AlternateEmailId: ""
+    };
+    const [SaveNextAccountDetailsData, setSaveNextAccountDetailsData] = useState(formDataInitialStateAccountDetails);
+
+    let formDataInitialStateAdditionalInfo = {
+        AccountAddress: "",
+        ZipCode: "",
+        CountryId: 0,
+        StateId: 0,
+        CityId: 0,
+        AccountLogo: File
+    };
+    const [SaveNextAdditionalInfoData, setSaveNextAdditionalInfoData] = useState(formDataInitialStateAdditionalInfo);
+
+    let formDataInitialStateCredentials = {
+        UserName: "",
+        Password: "",
+        ReEnterPassword: "",
+        IsActive: "true"
+    };
+    const [SaveNextCredentialsData, setSaveNextCredentialsData] = useState(formDataInitialStateCredentials);
+
+
     useEffect(() => {
         fetchAllParentAccountList();
         fetchAllCategoryList();
         fetchCountryList();
+        setSaveNextAccountDetailsData(formDataInitialStateAccountDetails);
+        setSaveNextAdditionalInfoData(formDataInitialStateAdditionalInfo);
+        setSaveNextCredentialsData(formDataInitialStateCredentials);
     }, []);
     const fetchAllCategoryList = async () => {
         //debugger;
         let apiUri = apiconfig.admin.common.GetAllCategoryListUri;
-        
+
         const instance = await axios.create({
             baseURL: process.env.REACT_APP_APIBaseUri,
             headers: {
@@ -345,7 +377,8 @@ const AddEditMstAccount = (props) => {
 
     }
 
-    const submitSaveNextAccountDetails = async (event) => {
+    //Step 1 : Account Details 
+    const submitSaveNextAccountDetails = (event) => {
         event.preventDefault();
         const formElement = document.querySelector('#AccountDetailsForm');
         const formData = new FormData(formElement);
@@ -353,21 +386,119 @@ const AddEditMstAccount = (props) => {
         const btnPointer = document.querySelector('#btnSaveNextAccountDetails');
         btnPointer.innerHTML = 'Please wait..';
         btnPointer.setAttribute('disabled', true);
+
         setTimeout(() => {
             setSaveNextAccountDetailsData(formDataJSON);
             btnPointer.innerHTML = 'Save & Next';
             btnPointer.removeAttribute('disabled');
-            console.log(formDataJSON);
         }, 500);
+        document.querySelector('#profile-tab').click();
+        console.log(SaveNextAccountDetailsData);
     }
+    //Step 2 : Additional Info
+    const submitSaveNextAdditionalInfo = (event) => {
+        event.preventDefault();
+        const formElement = document.querySelector('#AdditionalInfoForm');
+        const formData = new FormData(formElement);
+        const formDataJSON = Object.fromEntries(formData);
+        const btnPointer = document.querySelector('#btnSaveNextAdditionalInfo');
+        btnPointer.innerHTML = 'Please wait..';
+        btnPointer.setAttribute('disabled', true);
+
+        setTimeout(() => {
+            setSaveNextAdditionalInfoData(formDataJSON);
+            btnPointer.innerHTML = 'Save & Next';
+            btnPointer.removeAttribute('disabled');
+        }, 500);
+        document.querySelector('#profile-tab1').click();
+        console.log(SaveNextAdditionalInfoData);
+    }
+
+    //Step 3 : Credentials
+    const submitSaveNextCredentials = (event) => {
+        event.preventDefault();
+        const formElement = document.querySelector('#CredentialsForm');
+        const formData = new FormData(formElement);
+        const formDataJSON = Object.fromEntries(formData);
+        const btnPointer = document.querySelector('#btnSaveNextCredentials');
+        btnPointer.innerHTML = 'Please wait..';
+        btnPointer.setAttribute('disabled', true);
+
+        setTimeout(() => {
+            setSaveNextCredentialsData(formDataJSON);
+            btnPointer.innerHTML = 'Save & Next';
+            btnPointer.removeAttribute('disabled');
+        }, 500);
+        document.querySelector('#profile-tab1').click();
+        console.log(SaveNextCredentialsData);
+    }
+
     
+    const btnClearAccountDetails = (event) => {
+        setSaveNextAccountDetailsData(formDataInitialStateAccountDetails);
+    }
+    const btnClearAdditionalInfo = (event) => {
+        setSaveNextAdditionalInfoData(formDataInitialStateAdditionalInfo);
+    }
+
+    const btnClearCredentials = (event) => {
+        setSaveNextCredentialsData(formDataInitialStateCredentials);
+    }
+
+    const onInputChangeControllerAccountDetails = (event) => {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+        let keys = Object.keys(SaveNextAccountDetailsData);
+        let obj = new Object();
+        for (var i = 0; i < keys.length; i++) {
+            if (keys[i] != name) {
+                obj[keys[i]] = SaveNextAccountDetailsData[keys[i]];
+            } else {
+                obj[name] = value;
+            }
+        }
+        setSaveNextAccountDetailsData(obj);
+    };
+
+    const onInputChangeControllerAdditionalInfo = (event) => {
+        const target = event.target;
+        const value = target.type === 'file' ? target.files[0] : target.value;
+        const name = target.name;
+        let keys = Object.keys(SaveNextAdditionalInfoData);
+        let obj = new Object();
+        for (var i = 0; i < keys.length; i++) {
+            if (keys[i] != name) {
+                obj[keys[i]] = SaveNextAdditionalInfoData[keys[i]];
+            } else {
+                obj[name] = value;
+            }
+        }
+        setSaveNextAdditionalInfoData(obj);
+    };
+    const onInputChangeControllerCredentials = (event) => {
+        //debugger;
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+        let keys = Object.keys(SaveNextCredentialsData);
+        let obj = new Object();
+        for (var i = 0; i < keys.length; i++) {
+            if (keys[i] != name) {
+                obj[keys[i]] = SaveNextCredentialsData[keys[i]];
+            } else {
+                obj[name] = value;
+            }
+        }
+        setSaveNextCredentialsData(obj);
+    };
+
     return (
         <>
             <div className="card card-demo">
                 <div className="card-body">
                     <div className="content-body content-demo" style={{ backgroundColor: '#FFFFFF' }}>
                         <section className="NewformTabs">
-
                             <ul className="nav nav-tabs mb-3" id="myTab" role="tablist">
                                 <li className="nav-item" role="presentation">
                                     <button className="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Account Details</button>
@@ -392,6 +523,8 @@ const AddEditMstAccount = (props) => {
                                                         className="red">*</span></label>
                                                     <select className="form-control select2-hidden-accessible"
                                                         name="CategoryId"
+                                                        value={SaveNextAccountDetailsData.CategoryId}
+                                                        onChange={onInputChangeControllerAccountDetails}
                                                     >
                                                         {funcBindSelectOptons(AllCategoryList)}
                                                     </select>
@@ -404,6 +537,8 @@ const AddEditMstAccount = (props) => {
                                                     <input className="form-control" data-val="true"
                                                         maxLength="50" name="AccountName" placeholder="Account Name"
                                                         type="text"
+                                                        value={SaveNextAccountDetailsData.AccountName}
+                                                        onChange={onInputChangeControllerAccountDetails}
                                                     />
                                                 </div>
                                             </div>
@@ -415,6 +550,8 @@ const AddEditMstAccount = (props) => {
                                                         className="red">*</span></label>
                                                     <select className="form-control select2-hidden-accessible"
                                                         name="ParentAccountId"
+                                                        value={SaveNextAccountDetailsData.ParentAccountId}
+                                                        onChange={onInputChangeControllerAccountDetails}
                                                     >
                                                         {funcBindSelectOptons(AllParentAccountList)}
                                                     </select>
@@ -427,6 +564,8 @@ const AddEditMstAccount = (props) => {
                                                     <input className="form-control" data-val="true"
                                                         maxLength="50" name="ContactPerson" placeholder="Contact Person"
                                                         type="text"
+                                                        value={SaveNextAccountDetailsData.ContactPerson}
+                                                        onChange={onInputChangeControllerAccountDetails}
                                                     />
                                                 </div>
                                             </div>
@@ -438,7 +577,10 @@ const AddEditMstAccount = (props) => {
                                                         className="red">*</span></label>
                                                     <input className="form-control" data-val="true"
                                                         maxLength="50" name="MobileNo" placeholder="Mobile No."
-                                                        type="text" />
+                                                        type="text"
+                                                        value={SaveNextAccountDetailsData.MobileNo}
+                                                        onChange={onInputChangeControllerAccountDetails}
+                                                    />
                                                 </div>
                                             </div>
                                             <div className="col-6">
@@ -447,7 +589,10 @@ const AddEditMstAccount = (props) => {
                                                         className="red">*</span></label>
                                                     <input className="form-control" data-val="true"
                                                         maxLength="50" name="AlternateMobileNo" placeholder="Alternate Mobile No."
-                                                        type="text" />
+                                                        type="text"
+                                                        value={SaveNextAccountDetailsData.AlternateMobileNo}
+                                                        onChange={onInputChangeControllerAccountDetails}
+                                                    />
                                                 </div>
                                             </div>
                                         </div>
@@ -458,17 +603,23 @@ const AddEditMstAccount = (props) => {
                                                         className="red">*</span></label>
                                                     <input className="form-control" data-val="true"
                                                         maxLength="50" name="EmailId" placeholder="Email"
-                                                        type="text" />
+                                                        type="text"
+                                                        value={SaveNextAccountDetailsData.EmailId}
+                                                        onChange={onInputChangeControllerAccountDetails}
+                                                    />
                                                 </div>
                                             </div>
-                                            
+
                                             <div className="col-6">
                                                 <div className="form-group">
                                                     <label className="label-control mb-2">Alternate Email<span
                                                         className="red">*</span></label>
                                                     <input className="form-control" data-val="true"
                                                         maxLength="50" name="AlternateEmailId" placeholder="Alternate Email"
-                                                        type="text" />
+                                                        type="text"
+                                                        value={SaveNextAccountDetailsData.AlternateEmailId}
+                                                        onChange={onInputChangeControllerAccountDetails}
+                                                    />
                                                 </div>
                                             </div>
                                         </div>
@@ -488,7 +639,13 @@ const AddEditMstAccount = (props) => {
 
                                                         </div>
                                                         <div style={{ margin: '10px' }}>
-                                                            <a href="../Admin/MstAccount" className="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1">Clear</a>
+                                                            <button type="button"
+                                                                className="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1"
+                                                                id="btnClearAccountDetails"
+                                                                onClick={btnClearAccountDetails}
+                                                            >
+                                                                Clear
+                                                                </button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -499,169 +656,211 @@ const AddEditMstAccount = (props) => {
                                 </div>
 
                                 <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-
-
-
-                                    <div className="row mt-3 mb-3">
-                                        <div className="col-6">
-                                            <div className="form-group">
-                                                <label className="label-control">Address<span
-                                                    className="red">*</span></label>
-                                                <textarea className="form-control" cols="20" id="AccountAddress"
-                                                    maxLength="200" name="AccountAddress" placeholder="Address"
-                                                    rows="1"></textarea>
+                                    <form onSubmit={submitSaveNextAdditionalInfo} id="AdditionalInfoForm">
+                                        <div className="row mt-3 mb-3">
+                                            <div className="col-6">
+                                                <div className="form-group">
+                                                    <label className="label-control mb-2">Address<span
+                                                        className="red">*</span></label>
+                                                    <textarea className="form-control" cols="20" id="AccountAddress"
+                                                        maxLength="200" name="AccountAddress" placeholder="Address"
+                                                        rows="1"
+                                                        value={SaveNextAdditionalInfoData.AccountAddress}
+                                                        onChange={onInputChangeControllerAdditionalInfo}
+                                                    ></textarea>
+                                                </div>
+                                            </div>
+                                            <div className="col-6">
+                                                <div className="form-group">
+                                                    <label className="label-control mb-2">Zip Code<span
+                                                        className="red">*</span></label>
+                                                    <input className="form-control" data-val="true"
+                                                        maxLength="10" name="ZipCode" placeholder="Zip Code" type="text"
+                                                        value={SaveNextAdditionalInfoData.ZipCode}
+                                                        onChange={onInputChangeControllerAdditionalInfo}
+                                                    />
+                                                </div>
                                             </div>
                                         </div>
-                                        <div className="col-6">
-                                            <div className="form-group">
-                                                <label className="label-control mb-2">Zip Code<span
-                                                    className="red">*</span></label>
-                                                <input className="form-control" data-val="true"
-                                                    maxLength="10" name="ZipCode" placeholder="Zip Code" type="text"
-                                                />
+
+
+                                        <div className="row mt-3 mb-3">
+                                            <div className="col-6">
+                                                <div className="form-group">
+                                                    <label className="label-control mb-2">Country<span
+                                                        className="red">*</span></label>
+                                                    <select className="form-control select2-hidden-accessible"
+                                                        onChange={(e) => { funcChangeCountrySelection(e); onInputChangeControllerAdditionalInfo(e) }}
+                                                        value={SaveNextAdditionalInfoData.CountryId}
+                                                        name="CountryId"
+                                                    >
+                                                        {funcBindSelectOptons(AllCountryList)}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div className="col-6">
+                                                <div className="form-group">
+                                                    <label className="label-control mb-2">State<span
+                                                        className="red">*</span></label>
+                                                    <select className="form-control select2-hidden-accessible"
+                                                        onChange={(e) => { funcChangeStateSelection(e); onInputChangeControllerAdditionalInfo(e)}}
+                                                        value={SaveNextAdditionalInfoData.StateId}
+                                                        name="StateId"
+                                                    >
+                                                        {funcBindSelectOptons(AllStateList)}
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+
+                                        <div className="row mt-3 mb-3">
+                                            <div className="col-6">
+                                                <div className="form-group">
+                                                    <label className="label-control mb-2">City<span
+                                                        className="red">*</span></label>
+                                                    <select className="form-control select2-hidden-accessible"
+                                                        value={SaveNextAdditionalInfoData.CityId}
+                                                        onChange={onInputChangeControllerAdditionalInfo}
+                                                        name="CityId"
+                                                    >
+                                                        {funcBindSelectOptons(AllCityList)}
+                                                    </select>
 
 
-                                    <div className="row mt-3 mb-3">
-                                        <div className="col-6">
-                                            <div className="form-group">
-                                                <label className="label-control mb-2">Country<span
-                                                    className="red">*</span></label>
-                                                <select className="form-control select2-hidden-accessible"
-                                                    onChange={(e) => funcChangeCountrySelection(e)}>
-                                                    {funcBindSelectOptons(AllCountryList)}
-                                                </select>
+                                                </div>
+                                            </div>
+                                            <div className="col-6">
+                                                <div className="form-group">
+                                                    <label className="label-control mb-2">Account Logo<span
+                                                        className="red">*</span></label>
+                                                    <input className="form-control" type="file"
+                                                        onChange={onInputChangeControllerAdditionalInfo}
+                                                        name="AccountLogo"
+                                                    />
+                                                </div>
                                             </div>
                                         </div>
-                                        <div className="col-6">
-                                            <div className="form-group">
-                                                <label className="label-control mb-2">State<span
-                                                    className="red">*</span></label>
-                                                <select className="form-control select2-hidden-accessible"
-                                                    onChange={(e) => funcChangeStateSelection(e)}
-                                                >
-                                                    {funcBindSelectOptons(AllStateList)}
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="row mt-3 mb-3">
-                                        <div className="col-6">
-                                            <div className="form-group">
-                                                <label className="label-control mb-2">City<span
-                                                    className="red">*</span></label>
-                                                <select className="form-control select2-hidden-accessible"
-                                                >
-                                                    {funcBindSelectOptons(AllCityList)}
-                                                </select>
-
-
-                                            </div>
-                                        </div>
-                                        <div className="col-6">
-                                            <div className="form-group">
-                                                <label className="label-control mb-2">Account Logo<span
-                                                    className="red">*</span></label>
-                                                <input className="form-control" type="file"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
 
 
 
-                                    <div className="row">
-                                        <div className="col-lg-12">
-                                            <div className="form-body">
-                                                <div style={{ justifyContent: 'center' }} className="form-actions mt-3 d-flex">
+                                        <div className="row">
+                                            <div className="col-lg-12">
+                                                <div className="form-body">
+                                                    <div style={{ justifyContent: 'center' }} className="form-actions mt-3 d-flex">
 
-                                                    <div style={{ margin: '10px' }}>
-                                                        <button type="submit"
-                                                            className="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1">Save & Next</button>
-                                                    </div>
-                                                    <div style={{ margin: '10px' }}>
-                                                        <a href="../Admin/MstAccount" className="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1">Previous</a>
+                                                        <div style={{ margin: '10px' }}>
+                                                            <button type="submit"
+                                                                className="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1"
+                                                                id="btnSaveNextAdditionalInfo">Save & Next</button>
+                                                        </div>
+                                                        <div style={{ margin: '10px' }}>
+                                                            <button type="button"
+                                                                className="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1"
+                                                                onClick={btnClearAdditionalInfo}
+                                                            >Clear</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                                 <div className="tab-pane fade" id="profile1" role="tabpanel" aria-labelledby="profile-tab1">
 
+                                    <form onSubmit={submitSaveNextCredentials} id="CredentialsForm">
+                                        <div className="row mt-3 mb-3">
+                                            <div className="col-6">
+                                                <div className="form-group">
+                                                    <label className="label-control mb-2">User Name<span
+                                                        className="red">*</span></label>
+                                                    <input className="form-control valid" data-val="true"
+                                                        data-val-required="Please Enter User Name" id="UserName"
+                                                        maxLength="20" name="UserName"
+                                                        placeholder="Username" type="text"
+                                                        autoComplete="off"
+                                                        value={SaveNextCredentialsData.UserName}
+                                                        onChange={onInputChangeControllerCredentials}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-6">
+                                                <div className="form-group">
+                                                    <label className="label-control mb-2">Password<span
+                                                        className="red">*</span></label>
+                                                    <input className="form-control valid" id="Password"
+                                                        maxLength="15" name="Password" placeholder="Enter Password"
+                                                        type="password"
+                                                        autoComplete="off"
+                                                        value={SaveNextCredentialsData.Password}
+                                                        onChange={onInputChangeControllerCredentials}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="row mt-3 mb-3">
+                                            <div className="col-6">
+                                                <div className="form-group">
+                                                    <label className="label-control mb-2">Re-Enter Password<span
+                                                        className="red">*</span></label>
+                                                    <input className="form-control valid" id="ReEnterPassword"
+                                                        maxLength="15" name="ReEnterPassword" placeholder="Enter Password"
+                                                        type="password"
+                                                        autoComplete="off"
+                                                        value={SaveNextCredentialsData.ReEnterPassword}
+                                                        onChange={onInputChangeControllerCredentials}
+                                                    />
+                                                </div>
+                                            </div>
 
-                                    <div className="row mt-3 mb-3">
-                                        <div className="col-6">
-                                            <div className="form-group">
-                                                <label className="label-control">User Name<span
-                                                    className="red">*</span></label>
-                                                <input className="form-control valid" data-val="true"
-                                                    data-val-required="Please Enter User Name" id="Username"
-                                                    maxLength="20" name="Username"
-                                                    placeholder="Username" type="text"
-                                                    autoComplete="off"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="col-6">
-                                            <div className="form-group">
-                                                <label className="label-control mb-2">Password<span
-                                                    className="red">*</span></label>
-                                                <input className="form-control valid" id="Password"
-                                                    maxLength="15" name="Password" placeholder="Enter Password"
-                                                    type="password"
-                                                    autoComplete="off"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="row mt-3 mb-3">
-                                        <div className="col-6">
-                                            <div className="form-group">
-                                                <label className="label-control mb-2">Re-Enter Password<span
-                                                    className="red">*</span></label>
-                                                <input className="form-control valid" id="Password"
-                                                    maxLength="15" name="Password" placeholder="Enter Password"
-                                                    type="password"
-                                                    autoComplete="off"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="col-6">
-                                            <div className="form-group">
-                                                <label className="label-control mb-2">Status<span
-                                                    className="red">*</span></label>
-                                                <br />
-                                                <label className="form-check-label">
-                                                    <input className="form-check-input" type="checkbox" name="remember"></input> Active
-                                                </label>
-                                                &emsp;
-                                                <label className="form-check-label">
-                                                    <input className="form-check-input" type="checkbox" name="remember"></input> In-Active
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-lg-12">
-                                            <div className="form-body">
-                                                <div style={{ justifyContent: 'center' }} className="form-actions mt-3 d-flex">
 
-                                                    <div style={{ margin: '10px' }}>
-                                                        <button type="submit"
-                                                            className="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1">Submit</button>
+                                            <div className="col-6">
+                                                <div className="form-group">
+                                                    <label className="label-control mb-2">Status<span
+                                                        className="red">*</span>
+                                                    </label>
+                                                    <br />
+                                                    <div className="form-check form-check-inline">
+                                                        <input className="form-check-input" type="radio" name="IsActive" id="inlineRadio1" 
+                                                            value="true"
+                                                            defaultChecked={SaveNextCredentialsData.IsActive === "true"}
+                                                            onChange={onInputChangeControllerCredentials}
+                                                        />
+                                                        <label className="form-check-label" htmlFor="inlineRadio1">Active</label>
                                                     </div>
-                                                    <div style={{ margin: '10px' }}>
-                                                        <a href="../Admin/MstAccount" className="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1">Previous</a>
+                                                    <div className="form-check form-check-inline">
+                                                        <input className="form-check-input" type="radio" name="IsActive" id="inlineRadio2"
+                                                            value="false"
+                                                            defaultChecked={SaveNextCredentialsData.IsActive === "false"}
+                                                            onChange={onInputChangeControllerCredentials}
+                                                        />
+                                                        <label className="form-check-label" htmlFor="inlineRadio2">Inactive</label>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-lg-12">
+                                                <div className="form-body">
+                                                    <div style={{ justifyContent: 'center' }} className="form-actions mt-3 d-flex">
+
+                                                        <div style={{ margin: '10px' }}>
+                                                            <button type="submit"
+                                                                className="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1"
+                                                                id="btnSaveNextCredentials">Submit</button>
+                                                        </div>
+                                                        <div style={{ margin: '10px' }}>
+                                                            <button type="button"
+                                                                className="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1"
+                                                                onClick={btnClearCredentials}
+                                                            >Clear</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-
+                                    </form>
 
                                 </div>
                             </div>
