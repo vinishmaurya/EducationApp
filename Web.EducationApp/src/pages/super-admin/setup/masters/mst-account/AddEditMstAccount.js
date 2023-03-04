@@ -647,6 +647,7 @@ const AddEditMstAccount = (props) => {
                                                                 Clear
                                                                 </button>
                                                         </div>
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
@@ -759,6 +760,15 @@ const AddEditMstAccount = (props) => {
                                                                 onClick={btnClearAdditionalInfo}
                                                             >Clear</button>
                                                         </div>
+                                                        <div style={{ margin: '10px' }}>
+                                                            <button type="button"
+                                                                className="btn btn-light box-shadow-1 round btn-min-width mr-1 mb-1"
+                                                                id="btnPreviousAccountDetails"
+                                                                onClick={(e) => { document.querySelector('#home-tab').click(); }}
+                                                            >
+                                                                Previous
+                                                                </button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -855,6 +865,15 @@ const AddEditMstAccount = (props) => {
                                                                 className="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1"
                                                                 onClick={btnClearCredentials}
                                                             >Clear</button>
+                                                        </div>
+                                                        <div style={{ margin: '10px' }}>
+                                                            <button type="button"
+                                                                className="btn btn-light box-shadow-1 round btn-min-width mr-1 mb-1"
+                                                                id="btnPreviousAccountDetails"
+                                                                onClick={(e) => { document.querySelector('#profile-tab').click(); }}
+                                                            >
+                                                                Previous
+                                                                </button>
                                                         </div>
                                                     </div>
                                                 </div>
