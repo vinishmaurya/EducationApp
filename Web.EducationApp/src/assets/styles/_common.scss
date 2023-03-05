@@ -60,3 +60,15 @@ hr {
     --bs-spinner-width: 1rem;
     --bs-spinner-height: 1rem;
 }
+
+.has-error{
+    border : 1px solid red;
+}
+
+.has-success {
+    border: 1px solid green;
+}
+.error-label
+{
+    color:red;
+}

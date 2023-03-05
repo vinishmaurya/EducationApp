@@ -187,6 +187,7 @@
     <Content Include="src\pages\super-admin\setup\masters\mst-account\AddEditMstAccount.js" />
     <Content Include="src\pages\super-admin\setup\masters\mst-account\IndexMstAccount.js" />
     <Content Include="src\pages\super-admin\setup\masters\mst-account\MstAccount.js" />
+    <Content Include="src\pages\super-admin\setup\masters\mst-account\useForm.js" />
     <Content Include="src\pages\super-admin\setup\masters\mst-form\AddEditMstForm.js" />
     <Content Include="src\pages\super-admin\setup\masters\mst-form\IndexMstForm.js" />
     <Content Include="src\pages\super-admin\setup\masters\mst-role\AddEditMstRole.js" />

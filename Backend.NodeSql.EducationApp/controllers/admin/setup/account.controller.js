@@ -17,7 +17,7 @@ const GetAccountDetails = async (req, res, next) => {
     ServiceResult.Result = null;
     ServiceResult.Data = null;
     try {
-        debugger;
+        //debugger;
         res.setHeader('Content-Type', 'application/json');
         var AccountId = req.query.AccountId;
         var RowperPage = req.query.RowPerPage;
@@ -116,48 +116,49 @@ const AddEditAccountDetails = async (req, res, next) => {
         else {
             Body_AccountDetails = JSON.parse(req.body.AccountDetails);
         }
-
-        if (Object.hasOwn(Body_AccountDetails, 'Step')) {
-            if (Body_AccountDetails.Step == "AdditionalInfo") {
-                console.log(JSON.stringify(req.body));
-                if (!req.files || Object.keys(req.files).length <= 0) {
-                    message = "No files were uploaded for account logo!";
-                    bool = false;
-                }
-                else if (Object.keys(req.files) != "AccountLogo") {
-                    message = "No files were uploaded for account logo with form data key ('AccountLogo')!";
-                    //res.status(200).json({ Message: "No files were uploaded for Id Type." });
-                    //return;
-                    bool = false;
-                }
-                else {
-                    AccountLogo_Multipart = req.files.AccountLogo;
-                    //Size and format validations
-                    if (
-                        String(AccountLogo_Multipart.name.split('.')[1]).toUpperCase() != "JPG" &&
-                        String(AccountLogo_Multipart.name.split('.')[1]).toUpperCase() != "JPEG" &&
-                        String(AccountLogo_Multipart.name.split('.')[1]).toUpperCase() != "PNG"
-                    ) {
-                        message = "Invalid account logo Image format? only (jpg,jpeg,png) images are required!";
+        if (bool) {
+            if (Object.hasOwn(Body_AccountDetails, 'Step')) {
+                if (Body_AccountDetails.Step == "AdditionalInfo") {
+                    console.log(JSON.stringify(req.body));
+                    if (!req.files || Object.keys(req.files).length <= 0) {
+                        message = "No files were uploaded for account logo!";
                         bool = false;
                     }
-                    else if ((AccountLogo_Multipart.size / (1000 * 1000)) > 1) {
-                        message = "Invalid account logo Image size? Only 1MB image are valid!";
+                    else if (Object.keys(req.files) != "AccountLogo") {
+                        message = "No files were uploaded for account logo with form data key ('AccountLogo')!";
+                        //res.status(200).json({ Message: "No files were uploaded for Id Type." });
+                        //return;
                         bool = false;
                     }
-                }
+                    else {
+                        AccountLogo_Multipart = req.files.AccountLogo;
+                        //Size and format validations
+                        if (
+                            String(AccountLogo_Multipart.name.split('.')[1]).toUpperCase() != "JPG" &&
+                            String(AccountLogo_Multipart.name.split('.')[1]).toUpperCase() != "JPEG" &&
+                            String(AccountLogo_Multipart.name.split('.')[1]).toUpperCase() != "PNG"
+                        ) {
+                            message = "Invalid account logo Image format? only (jpg,jpeg,png) images are required!";
+                            bool = false;
+                        }
+                        else if ((AccountLogo_Multipart.size / (1000 * 1000)) > 1) {
+                            message = "Invalid account logo Image size? Only 1MB image are valid!";
+                            bool = false;
+                        }
+                    }
 
+                }
+                else if (Body_AccountDetails.Step != "AccountDetails" && Body_AccountDetails.Step != "Credentials") {
+                    message = "Failed, Invalid step was found? form data key ('AccountDetails') with key ('Step') value must be in ('AccountDetails','AdditionalInfo','Credentials')!";
+                    bool = false;
+                }
             }
-            else if (Body_AccountDetails.Step != "AccountDetails" && Body_AccountDetails.Step != "Credentials") {
-                message = "Failed, Invalid step was found? form data key ('AccountDetails') with key ('Step') value must be in ('AccountDetails','AdditionalInfo','Credentials')!";
+            else {
+                message = "No were data found within account details form data key ('AccountDetails') with key ('Step') value must be in ('AccountDetails','AdditionalInfo','Credentials')!";
+                //res.status(200).json({ Message: "No files were uploaded for Id Type." });
+                //return;
                 bool = false;
             }
-        }
-        else {
-            message = "No were data found within account details form data key ('AccountDetails') with key ('Step') value must be in ('AccountDetails','AdditionalInfo','Credentials')!";
-            //res.status(200).json({ Message: "No files were uploaded for Id Type." });
-            //return;
-            bool = false;
         }
 
         if (!bool) {

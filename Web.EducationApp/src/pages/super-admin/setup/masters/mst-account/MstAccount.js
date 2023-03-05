@@ -24,9 +24,9 @@ const MstAccount = (props) => {
     const [MyComponent, setMyComponent] = useState(data.landingComponent);
     const [MyInnerComponentName, setMyInnerComponentName] = useState(data.innerComponentName);
     const [DefaultDynamicAPIResponse, setDefaultDynamicAPIResponse] = useState(null);
-    const [HaveAPIError, setHaveAPIError] = useState(false);
-    const [HaveAPIMessage, setHaveAPIMessage] = useState(null);
-    const [HaveAPIDescription, setHaveAPIDescription] = useState(null);
+    const [HasAPIError, setHasAPIError] = useState(false);
+    const [HasAPIMessage, setHasAPIMessage] = useState(null);
+    const [HasAPIDescription, setHasAPIDescription] = useState(null);
     const [AccountId, setAccountId] = useState(0);
     const [RowPerPage, setRowPerPage] = useState(process.env.REACT_APP_DefaultRowPerPage);
     const [CurrentPage, setCurrentPage] = useState(process.env.REACT_APP_DefaultCurrentPage);
@@ -91,9 +91,9 @@ const MstAccount = (props) => {
                 setDefaultDynamicAPIResponse(response.data.Data);
             }
             else {
-                setHaveAPIError(!response.data.Result);
-                setHaveAPIMessage(response.data.Message);
-                setHaveAPIDescription(JSON.stringify(response.data.Description));
+                setHasAPIError(!response.data.Result);
+                setHasAPIMessage(response.data.Message);
+                setHasAPIDescription(JSON.stringify(response.data.Description));
             }
         }).catch((e) => {
             console.log(e);
@@ -144,30 +144,30 @@ const MstAccount = (props) => {
                                         role="status"
                                         aria-hidden="true"
                                     />
-                                Loading...
+                                    {" Loading..."}
                                 </Button>
                             </div>
                         </>
                     );
                 }
-                if (HaveAPIError) {
+                if (HasAPIError) {
                     return (
                         <>
-                            <div style={{ display: HaveAPIError && process.env.REACT_APP_ENV == 'development' ? 'block' : 'none' }}>
+                            <div style={{ display: HasAPIError && process.env.REACT_APP_ENV == 'development' ? 'block' : 'none' }}>
                                 <div className="row">
                                     <div className="col-xl-12 col-md-12">
                                         <div className="alert alert-danger" role="alert" >
-                                            {HaveAPIMessage}
+                                            {HasAPIMessage}
                                         </div>
                                         <div className="alert alert-danger" role="alert">
                                             <h4 className="alert-heading">Error Description!</h4>
-                                            <p>{HaveAPIDescription}</p>
+                                            <p>{HasAPIDescription}</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div style={{ display: HaveAPIError && process.env.REACT_APP_ENV != 'development' ? 'block' : 'none' }}>
+                            <div style={{ display: HasAPIError && process.env.REACT_APP_ENV != 'development' ? 'block' : 'none' }}>
                                 <div className="row">
                                     <div className="col-xl-12 col-md-12">
                                         <div className="alert alert-danger" role="alert" >
