@@ -23,9 +23,9 @@ const GridShowEntries = (props) => {
     }
     return (
         <>
-            <div className="mr-2 d-flex" style={{ justifyContent: 'space-evenly', width: '30%' }}>
+            <div className="mr-2 d-flex">
                 <label>Show</label>
-                <div style={{ width: '38%' }}>
+                <div>
                     <select
                         className="form-control-sm"
                         onChange={e => onChangePaging(e)}

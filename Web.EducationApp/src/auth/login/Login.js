@@ -13,7 +13,7 @@ const pageTitle = "Login With Education System";
 const Login = () => {
     localStorage.clear();
     const navigate = useNavigate();
-    const [Cookie, setCookie] = useCookies(['accessToken', 'refreshToken']);
+    const [Cookie, setCookie] = useCookies(['accessToken', 'refreshToken','loggedInUserId']);
     //const { deleteCookie, deleteAllCookies } = useCookies();
     const submitLoginForm = async (event) => {
         //debugger;
@@ -99,6 +99,7 @@ const Login = () => {
                                     //SideBarData = response.data.Data;
                                     btnPointer.innerHTML = 'Login';
                                     btnPointer.removeAttribute('disabled');
+                                    setCookie('loggedInUserId', response.data.Data.userInfo.UserId, { path: '/', token_expires });
                                     //Redirect home after login success
                                     setTimeout(() => {
                                         navigate('/'

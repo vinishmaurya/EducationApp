@@ -6,38 +6,42 @@ import AccountService from "../../../../../services/account.services";
 //import AccountDetailsModel from "../../../../../models/accountdetails.model";
 import reqBody from "../../../../../models/reqBody.Model";
 import useForm from "../../../../../pages/super-admin/setup/masters/mst-account/useForm";
-
+import { $ } from 'react-jquery-plugin';
 require('dotenv').config();
 
 const AddEditMstAccount = (props) => {
-    
+    let propData = props.dataRow;
+    console.log(propData);
     const [HasAPIError, setHasAPIError] = useState(false);
     const [HasAPISuccess, setHasAPISuccess] = useState(false);
     const [HasAPIMessage, setHasAPIMessage] = useState("");
     const [HasAPIDescription, setHasAPIDescription] = useState("");
-
-    const [Cookie, setCookie] = useCookies(['accessToken', 'refreshToken']);
+    const [Cookie, setCookie] = useCookies(['accessToken', 'refreshToken', 'loggedInUserId']);
     const [AllParentAccountList, setAllParentAccountList] = useState([]);
     const [AllCategoryList, setAllCategoryList] = useState([]);
     const [AllCountryList, setAllCountryList] = useState([]);
     const [AllStateList, setAllStateList] = useState([]);
     const [AllCityList, setAllCityList] = useState([]);
 
+    const [CurrentId, setCurrentId] = useState(propData ? propData.PK_AccountId : 0);
+
     var name1to50Regex = /^[a-z A-Z]{1,50}$/;
     var emailRegex = /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/;
     var phoneRegex = /\+(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d|2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\W*\d\W*\d\W*\d\W*\d\W*\d\W*\d\W*\d\W*\d\W*(\d{1,2})$/;
     var numberRegex = /^[0-9]+$/;
+    var passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    var UsernameRegex = /^[a-z0-9_\.]+$/;
 
     // Define your state schema
     const stateSchemaAccountDetails = {
-        CategoryId: { value: 1, error: "This account category field is required!" },
-        AccountName: { value: "jahsdh", error: "This account name field is required!" },
-        ParentAccountId: { value: 1, error: "This parent account field is required!" },
-        ContactPerson: { value: "823781739", error: "This contact person field is required!!" },
-        MobileNo: { value: "+447838665686", error: "This mobile no. field is required!!" },
-        AlternateMobileNo: { value: "+447838665686", error: "This alternate mobile no. field is required!!" },
-        EmailId: { value: "vinishmaurya@gmail.com", error: "This email id field is required!!" },
-        AlternateEmailId: { value: "vinishmaurya@gmail.com", error: "This alternate email id field is required!!" }
+        CategoryId: { value: propData ? propData.FK_CategoryId : '', error: "This account category field selection is required!" },
+        AccountName: { value: propData ? propData.AccountName : '', error: "This account name field is required!" },
+        ParentAccountId: { value: propData ? propData.ParentAccountId : '', error: "This parent account field selection is required!" },
+        ContactPerson: { value: propData ? propData.ContactPerson : '', error: "This contact person field is required!!" },
+        MobileNo: { value: propData ? propData.MobileNo : '', error: "This mobile no. field is required!!" },
+        AlternateMobileNo: { value: propData ? propData.AlternateMobileNo : '', error: "This alternate mobile no. field is required!!" },
+        EmailId: { value: propData ? propData.EmailId : '', error: "This email id field is required!!" },
+        AlternateEmailId: { value: propData ? propData.AlternateEmailId : '', error: "This alternate email id field is required!!" }
     };
 
     // Create your own validationstateSchemaAccountDetails
@@ -105,13 +109,17 @@ const AddEditMstAccount = (props) => {
 
     // Define your state schema
     const stateSchemaAdditionalInfo = {
-        AccountAddress: { value: 1, error: "This account address field is required!" },
-        ZipCode: { value: "jahsdh", error: "This zipcode field is required!" },
-        CountryId: { value: 1, error: "This country field is required!" },
-        StateId: { value: "823781739", error: "This state field is required!!" },
-        CityId: { value: "+447838665686", error: "This city field is required!!" },
-        AccountLogo: { value: File, error: "This alternate mobile no. field is required!!" }
+        AccountAddress: { value: propData ? propData.AccountAddress : '', error: "This account address field is required!" },
+        ZipCode: { value: propData ? propData.ZipCode : '', error: "This zipcode field is required!" },
+        CountryId: { value: propData ? propData.FK_CountryId : '', error: "This country field selection is required!" },
+        StateId: { value: propData ? propData.FK_CityId : '', error: "This state field selection is required!!" },
+        CityId: { value: propData ? propData.FK_StateId : '', error: "This city field selection is required!!" },
+        AccountLogo: { value: File, error: "This account logo field is required!!" },
+        AccountLogoUrl: { value: propData ? propData.AccountLogo : '', error: "" },
     };
+
+
+    const [SaveNextAdditionalInfoData, setSaveNextAdditionalInfoData] = useState(stateSchemaAdditionalInfo);
 
     // Create your own validationstateSchemaAccountDetails
     // stateSchemaAccountDetails property should be the same in validationstateSchemaAccountDetails
@@ -149,7 +157,7 @@ const AddEditMstAccount = (props) => {
             }
         },
         AccountLogo: {
-            required: true
+            required: (SaveNextAdditionalInfoData.AccountLogo ? false : true)
         },
     };
 
@@ -178,33 +186,105 @@ const AddEditMstAccount = (props) => {
 
     const [SaveNextAccountDetailsData, setSaveNextAccountDetailsData] = useState(stateSchemaAccountDetails);
 
-    let formDataInitialStateAdditionalInfo = {
-        AccountAddress: "",
-        ZipCode: "",
-        CountryId: "",
-        StateId: "",
-        CityId: "",
-        AccountLogo: File
+    //let formDataInitialStateAdditionalInfo = {
+    //    AccountAddress: "",
+    //    ZipCode: "",
+    //    CountryId: "",
+    //    StateId: "",
+    //    CityId: "",
+    //    AccountLogo: File
+    //};
+    // Define your state schema
+    const stateSchemaCredentials = {
+        Username: { value: propData ? propData.Username : '', error: "This username field is required!" },
+        Password: { value: propData ? propData.Password : '', error: "This password field is required!" },
+        ReEnterPassword: { value: propData ? propData.Password : '', error: "This re enter password field is required!" },
+        IsActive: { value: propData ? propData.IsActive : true, error: "This status field selection is required!!" }
     };
-    const [SaveNextAdditionalInfoData, setSaveNextAdditionalInfoData] = useState(formDataInitialStateAdditionalInfo);
 
-    let formDataInitialStateCredentials = {
-        UserName: "",
-        Password: "",
-        ReEnterPassword: "",
-        IsActive: "true"
+    // Create your own validationstateSchemaAccountDetails
+    // stateSchemaAccountDetails property should be the same in validationstateSchemaAccountDetails
+    // in-order a validation to works in your input.
+    const stateValidatorSchemaCredentials = {
+        Username: {
+            required: true,
+            validator: {
+                func: value => UsernameRegex.test(value),
+                error: "Invalid username format only contains (Lowercase Letters (a-z), Numbers(0 - 9), Dots(.), Underscores(_))"
+            }
+        },
+        Password: {
+            required: true,
+            validator: {
+                func: value => passwordRegex.test(value),
+                error: "Invalid password format must contains min 8 letter password, with at least a symbol, upper and lower case letters and a number."
+            }
+        },
+        ReEnterPassword: {
+            required: true,
+            validator: {
+                func: value => {
+                    if (!FinishCredentialsData.Password || FinishCredentialsData.Password != value)
+                        return false;
+                    else
+                        return true;
+                },
+                error: "Password validation has failed."
+            }
+        },
+        IsActive: {
+            required: false
+        }
     };
-    const [SaveNextCredentialsData, setSaveNextCredentialsData] = useState(formDataInitialStateCredentials);
+
+
+
+    //let formDataInitialStateCredentials = {
+    //    Username: "",
+    //    Password: "",
+    //    ReEnterPassword: "",
+    //    IsActive: "true"
+    //};
+    const [FinishCredentialsData, setFinishCredentialsData] = useState(stateSchemaCredentials);
+
+    const {
+        values: valuesCredentials,
+        errors: errorsCredentials,
+        dirty: dirtyCredentials,
+        handleOnChange: handleOnChangeCredentials,
+        handleOnSubmit: handleOnSubmitCredentials,
+        disable: disableCredentials,
+        handleOnClear: handleOnClearCredentials
+    } = useForm(stateSchemaCredentials, stateValidatorSchemaCredentials, onSubmitFormCredentials);
 
 
     useEffect(() => {
+        //debugger;
         fetchAllParentAccountList();
         fetchAllCategoryList();
         fetchCountryList();
         setSaveNextAccountDetailsData(stateSchemaAccountDetails);
-        setSaveNextAdditionalInfoData(formDataInitialStateAdditionalInfo);
-        setSaveNextCredentialsData(formDataInitialStateCredentials);
-        console.log(disableAccountDetails);
+        setSaveNextAdditionalInfoData(stateSchemaAdditionalInfo);
+        setFinishCredentialsData(stateSchemaCredentials);
+        let flagNextStep = false;
+        if (propData && propData.hasOwnProperty('NextStep')) {
+            if (propData.NextStep) {
+                $("#" + propData.NextStep).trigger('click');
+                flagNextStep = true;
+            }
+        }
+        if (!flagNextStep) {
+            $("#AccountDetails").trigger('click');
+        }
+        if (propData && propData.hasOwnProperty('FK_CountryId')) {
+            fetchStateList(propData.FK_CountryId);
+        }
+
+        if (propData && propData.hasOwnProperty('FK_StateId')) {
+            fetchCityList(propData.FK_StateId);
+        }
+
+
     }, []);
     const fetchAllCategoryList = async () => {
         //debugger;
@@ -450,84 +530,15 @@ const AddEditMstAccount = (props) => {
         }
         return itemList;
     }
-
-    function funcChangeCountrySelection(e) {
+    const funcChangeCountrySelection = (e) => {
+        //alert('country changes');
         let CountryId = Number(e.target.value);
         fetchStateList(CountryId);
     }
-
-    function funcChangeStateSelection(e) {
+    const funcChangeStateSelection = (e) => {
         //debugger;
         let StateId = Number(e.target.value);
         fetchCityList(StateId);
-    }
-
-    const submitAccountFinalData = async (event) => {
-        event.preventDefault();
-        let apiUri = apiconfig.admin.common.AddEditAccountDetailsUri;
-        const formElement = document.querySelector('#AccountDetailsForm');
-        const formData = new FormData(formElement);
-        const formDataJSON = Object.fromEntries(formData);
-        const btnPointer = document.querySelector('#btnSaveNextAccountDetails');
-        btnPointer.innerHTML = 'Please wait..';
-        btnPointer.setAttribute('disable', true);
-
-        ////Create request body
-        //AccountDetailsModel.UserName = 'dadmin';
-        //AccountDetailsModel.Password = 'Pass@123';
-        //AccountDetailsModel.GrantType = "Password";
-        //AccountDetailsModel.RefreshToken = "";
-
-        //reqBody.body = AccountDetailsModel;
-        ////console.log(authenticateUser)
-
-        try {
-            const instance = await axios.create({
-                baseURL: process.env.REACT_APP_APIBaseUri,
-                headers: {
-                    'content-type': 'application/json',
-                    'x-api-key': process.env.REACT_APP_APIKey
-                }
-            });
-
-            instance.interceptors.request.use(
-                request => {
-                    request.headers['Authorization'] = "Bearer " + Cookie.accessToken;
-                    return request;
-                },
-                error => {
-                    return Promise.reject(error);
-                }
-            );
-
-            instance.interceptors.response.use((response) => {
-                return response;
-            }, (error) => {
-                return Promise.reject(error.message);
-            });
-
-            instance({
-                'method': 'POST',
-                'url': apiUri ? apiUri : ""
-            }).then((response) => {
-                //debugger;
-                if (response.data) {
-                    btnPointer.innerHTML = 'Save & Next';
-                    btnPointer.removeAttribute('disable');
-                }
-            }).catch((e) => {
-                //console.log(e);
-                //return e;
-                btnPointer.innerHTML = 'Save & Next';
-                btnPointer.removeAttribute('disable');
-            });
-        } catch (e) {
-            //console.log(e);
-            btnPointer.innerHTML = 'Save & Next';
-            btnPointer.removeAttribute('disable');
-            alert("Oops! Some error occured please try after sometimes.");
-        }
-
     }
 
     //Step 1 : Account Details 
@@ -541,8 +552,10 @@ const AddEditMstAccount = (props) => {
             const formElement = document.querySelector('#AccountDetailsForm');
             const formData = new FormData(formElement);
             const formDataJSON = Object.fromEntries(formData);
-            formDataJSON["CreatedBy"] = "0";
-            formDataJSON["Step"] = "AccountDetails";
+            formDataJSON["CreatedBy"] = Cookie.loggedInUserId;
+            formDataJSON["AccountId"] = CurrentId;
+            formDataJSON["StepCompleted"] = "AccountDetails";
+            formDataJSON["NextStep"] = "AdditionalInfo";
 
             const bodyFormData = new FormData();
             bodyFormData.append('AccountDetails', JSON.stringify(formDataJSON));
@@ -582,8 +595,10 @@ const AddEditMstAccount = (props) => {
                     btnPointer.innerHTML = 'Save & Next';
                     btnPointer.removeAttribute('disable');
                     setHasAPISuccess(true);
+                    setHasAPIError(false);
                     setHasAPIMessage(response.data.Message);
-                    document.querySelector('#profile-tab').click();
+                    document.querySelector('#AdditionalInfo').click();
+                    setCurrentId(response.data.Data.CreatedAccountId);
                 }
                 else {
                     setHasAPIError(!response.data.Result);
@@ -614,45 +629,178 @@ const AddEditMstAccount = (props) => {
         //btnPointer.innerHTML = 'Save & Next';
         //btnPointer.removeAttribute('disable');
         //}, 500);
-        //document.querySelector('#profile-tab').click();
+        //document.querySelector('#AdditionalInfo').click();
         //console.log(SaveNextAccountDetailsData);
     }
     //Step 2 : Additional Info
-    function onSubmitFormAdditionalInfo(event, valuesAdditionalInfo){
+    function onSubmitFormAdditionalInfo(event, valuesAdditionalInfo) {
+        //debugger;
         event.preventDefault();
-        const formElement = document.querySelector('#AdditionalInfoForm');
-        const formData = new FormData(formElement);
-        const formDataJSON = Object.fromEntries(formData);
+
         const btnPointer = document.querySelector('#btnSaveNextAdditionalInfo');
         btnPointer.innerHTML = 'Please wait..';
         btnPointer.setAttribute('disable', true);
+        try {
+            let AddEditAccountDetailsUri = apiconfig.admin.account.AddEditAccountDetailsUri;
+            const formElement = document.querySelector('#AdditionalInfoForm');
+            const formData = new FormData(formElement);
+            const formDataJSON = Object.fromEntries(formData);
+            formDataJSON["CreatedBy"] = Cookie.loggedInUserId;
+            formDataJSON["AccountId"] = CurrentId;
+            formDataJSON["StepCompleted"] = "AdditionalInfo";
+            formDataJSON["NextStep"] = "Credentials";
 
-        setTimeout(() => {
-            //setSaveNextAdditionalInfoData(formDataJSON);
+            const bodyFormData = new FormData();
+            bodyFormData.append('AccountDetails', JSON.stringify(formDataJSON));
+            bodyFormData.append('AccountLogo', formDataJSON.AccountLogo);
+
+            //bodyFormData.append('image', imageFile);
+
+            const instance = axios.create({
+                baseURL: process.env.REACT_APP_APIBaseUri,
+                headers: {
+                    'content-type': 'multipart/form-data',
+                    'x-api-key': process.env.REACT_APP_APIKey
+                }
+            });
+
+            instance.interceptors.request.use(
+                request => {
+                    request.headers['Authorization'] = "Bearer " + Cookie.accessToken;
+                    return request;
+                },
+                error => {
+                    return Promise.reject(error);
+                }
+            );
+
+            instance.interceptors.response.use((response) => {
+                return response;
+            }, (error) => {
+                return Promise.reject(error.message);
+            });
+
+            instance({
+                'method': 'POST',
+                'url': AddEditAccountDetailsUri ? AddEditAccountDetailsUri : "",
+                'data': bodyFormData
+            }).then((response) => {
+                if (response.data && response.data.Result) {
+                    btnPointer.innerHTML = 'Save & Next';
+                    btnPointer.removeAttribute('disable');
+                    setHasAPISuccess(true);
+                    setHasAPIError(false);
+                    setHasAPIMessage(response.data.Message);
+                    document.querySelector('#Credentials').click();
+                }
+                else {
+                    setHasAPIError(!response.data.Result);
+                    setHasAPIMessage(response.data.Message);
+                    setHasAPIDescription(response.data.Description);
+                }
+                btnPointer.innerHTML = 'Save & Next';
+                btnPointer.removeAttribute('disable');
+            }).catch((e) => {
+                //console.log(e);
+                //return e;
+                setHasAPIError(true);
+                setHasAPIMessage(e.message);
+                btnPointer.innerHTML = 'Save & Next';
+                btnPointer.removeAttribute('disable');
+            });
+
+        } catch (e) {
+            setHasAPIError(true);
+            setHasAPIMessage(e.message);
+            //console.log(e);
             btnPointer.innerHTML = 'Save & Next';
             btnPointer.removeAttribute('disable');
-        }, 500);
-        document.querySelector('#profile-tab1').click();
-        console.log(SaveNextAdditionalInfoData);
+        }
+
     }
 
     //Step 3 : Credentials
-    const submitSaveNextCredentials = (event) => {
+    function onSubmitFormCredentials(event, valuesCredentials) {
+        //debugger;
         event.preventDefault();
-        const formElement = document.querySelector('#CredentialsForm');
-        const formData = new FormData(formElement);
-        const formDataJSON = Object.fromEntries(formData);
+
         const btnPointer = document.querySelector('#btnSaveNextCredentials');
         btnPointer.innerHTML = 'Please wait..';
         btnPointer.setAttribute('disable', true);
+        try {
+            let AddEditAccountDetailsUri = apiconfig.admin.account.AddEditAccountDetailsUri;
+            const formElement = document.querySelector('#CredentialsForm');
+            const formData = new FormData(formElement);
+            const formDataJSON = Object.fromEntries(formData);
+            formDataJSON["CreatedBy"] = Cookie.loggedInUserId;
+            formDataJSON["AccountId"] = CurrentId;
+            formDataJSON["StepCompleted"] = "Credentials";
+            formDataJSON["NextStep"] = "Completed";
 
-        setTimeout(() => {
-            setSaveNextCredentialsData(formDataJSON);
-            btnPointer.innerHTML = 'Save & Next';
+            const bodyFormData = new FormData();
+            bodyFormData.append('AccountDetails', JSON.stringify(formDataJSON));
+
+            const instance = axios.create({
+                baseURL: process.env.REACT_APP_APIBaseUri,
+                headers: {
+                    'content-type': 'multipart/form-data',
+                    'x-api-key': process.env.REACT_APP_APIKey
+                }
+            });
+
+            instance.interceptors.request.use(
+                request => {
+                    request.headers['Authorization'] = "Bearer " + Cookie.accessToken;
+                    return request;
+                },
+                error => {
+                    return Promise.reject(error);
+                }
+            );
+
+            instance.interceptors.response.use((response) => {
+                return response;
+            }, (error) => {
+                return Promise.reject(error.message);
+            });
+
+            instance({
+                'method': 'POST',
+                'url': AddEditAccountDetailsUri ? AddEditAccountDetailsUri : "",
+                'data': bodyFormData
+            }).then((response) => {
+                if (response.data && response.data.Result) {
+                    btnPointer.innerHTML = 'Finish';
+                    btnPointer.removeAttribute('disable');
+                    setHasAPISuccess(true);
+                    setHasAPIError(false);
+                    setHasAPIMessage(response.data.Message);
+                    document.querySelector('#Credentials').click();
+                    props.funcBackToIndex();
+                }
+                else {
+                    setHasAPIError(!response.data.Result);
+                    setHasAPIMessage(response.data.Message);
+                    setHasAPIDescription(response.data.Description);
+                }
+                btnPointer.innerHTML = 'Finish';
+                btnPointer.removeAttribute('disable');
+            }).catch((e) => {
+                //console.log(e);
+                //return e;
+                setHasAPIError(true);
+                setHasAPIMessage(e.message);
+                btnPointer.innerHTML = 'Finish';
+                btnPointer.removeAttribute('disable');
+            });
+
+        } catch (e) {
+            setHasAPIError(true);
+            setHasAPIMessage(e.message);
+            //console.log(e);
+            btnPointer.innerHTML = 'Finish';
             btnPointer.removeAttribute('disable');
-        }, 500);
-        document.querySelector('#profile-tab1').click();
-        console.log(SaveNextCredentialsData);
+        }
     }
 
 
@@ -666,7 +814,8 @@ const AddEditMstAccount = (props) => {
     }
 
     const btnClearCredentials = (event) => {
-        setSaveNextCredentialsData(formDataInitialStateCredentials);
+        setFinishCredentialsData(stateSchemaCredentials);
+        handleOnClearCredentials(event);
     }
 
     const onInputChangeControllerAccountDetails = (event) => {
@@ -699,6 +848,7 @@ const AddEditMstAccount = (props) => {
             if (keys[i] != name) {
                 obj[keys[i]] = SaveNextAdditionalInfoData[keys[i]];
             } else {
+                obj[name] = SaveNextAdditionalInfoData[name];
                 obj[name] = value;
             }
         }
@@ -709,16 +859,17 @@ const AddEditMstAccount = (props) => {
         const target = event.target;
         const value = target.value;
         const name = target.name;
-        let keys = Object.keys(SaveNextCredentialsData);
+        let keys = Object.keys(FinishCredentialsData);
         let obj = new Object();
         for (var i = 0; i < keys.length; i++) {
             if (keys[i] != name) {
-                obj[keys[i]] = SaveNextCredentialsData[keys[i]];
+                obj[keys[i]] = FinishCredentialsData[keys[i]];
             } else {
+                obj[name] = FinishCredentialsData[name];
                 obj[name] = value;
             }
         }
-        setSaveNextCredentialsData(obj);
+        setFinishCredentialsData(obj);
     };
 
     return (
@@ -746,7 +897,7 @@ const AddEditMstAccount = (props) => {
                             <div className="row">
                                 <div className="col-xl-12 col-md-12">
                                     <div className="alert alert-danger alert-dismissible fade show" role="alert">
-                                        <strong>{HasAPIMessage}</strong>
+                                        <strong>{!HasAPIMessage ? "Opps! Somthing went wrong!" : HasAPIMessage}</strong>
                                         <br />
                                         {HasAPIDescription}
                                         <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -774,22 +925,22 @@ const AddEditMstAccount = (props) => {
                         <section className="NewformTabs">
                             <ul className="nav nav-tabs mb-3" id="myTab" role="tablist">
                                 <li className="nav-item" role="presentation">
-                                    <button className="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Account Details</button>
+                                    <button className="nav-link active" id="AccountDetails" data-bs-toggle="tab" data-bs-target="#AccountDetailsTab" type="button" role="tab" aria-controls="AccountDetailsTab" aria-selected="true">Account Details</button>
                                 </li>
 
                                 <li className="nav-item" role="presentation">
-                                    <button className="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Additional Info</button>
+                                    <button className="nav-link" id="AdditionalInfo" data-bs-toggle="tab" data-bs-target="#AdditionalInfoTab" type="button" role="tab" aria-controls="AdditionalInfoTab" aria-selected="false">Additional Info</button>
                                 </li>
 
                                 <li className="nav-item" role="presentation">
-                                    <button className="nav-link" id="profile-tab1" data-bs-toggle="tab" data-bs-target="#profile1" type="button" role="tab" aria-controls="profile1" aria-selected="false">Credentials</button>
+                                    <button className="nav-link" id="Credentials" data-bs-toggle="tab" data-bs-target="#CredentialsTab" type="button" role="tab" aria-controls="Credentials" aria-selected="false">Credentials</button>
                                 </li>
 
                             </ul>
                             <div className="tab-content" id="myTabContent">
-                                <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <div className="tab-pane fade show active" id="AccountDetailsTab" role="tabpanel" aria-labelledby="AccountDetails">
                                     <form onSubmit={handleOnSubmitAccountDetails} id="AccountDetailsForm">
-                                        
+
                                         <div className="row">
 
                                             <div className="col-6">
@@ -987,8 +1138,7 @@ const AddEditMstAccount = (props) => {
 
                                     </form>
                                 </div>
-
-                                <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <div className="tab-pane fade" id="AdditionalInfoTab" role="tabpanel" aria-labelledby="AdditionalInfo">
                                     <form onSubmit={handleOnSubmitAdditionalInfo} id="AdditionalInfoForm">
                                         <div className="row mt-1 mb-1">
                                             <div className="col-6">
@@ -997,14 +1147,14 @@ const AddEditMstAccount = (props) => {
                                                     <textarea
                                                         className={"form-control " +
                                                             (errorsAdditionalInfo.AccountAddress && dirtyAdditionalInfo.AccountAddress ? 'has-error' :
-                                                            (dirtyAdditionalInfo.AccountAddress ? 'has-success' : ''))
+                                                                (dirtyAdditionalInfo.AccountAddress ? 'has-success' : ''))
                                                         }
                                                         cols="20" id="AccountAddress"
                                                         maxLength="200" name="AccountAddress" placeholder="Address"
                                                         rows="1"
                                                         value={SaveNextAdditionalInfoData.AccountAddress.value}
                                                         onChange={e => { handleOnChangeAdditionalInfo(e); onInputChangeControllerAdditionalInfo(e) }}
-                                                        
+
                                                     ></textarea>
                                                 </div>
                                                 {errorsAdditionalInfo.AccountAddress && dirtyAdditionalInfo.AccountAddress && (
@@ -1017,7 +1167,7 @@ const AddEditMstAccount = (props) => {
                                                     <input
                                                         className={"form-control " +
                                                             (errorsAdditionalInfo.ZipCode && dirtyAdditionalInfo.ZipCode ? 'has-error' :
-                                                            (dirtyAdditionalInfo.ZipCode ? 'has-success' : ''))
+                                                                (dirtyAdditionalInfo.ZipCode ? 'has-success' : ''))
                                                         }
                                                         data-val="true"
                                                         maxLength="10"
@@ -1038,13 +1188,13 @@ const AddEditMstAccount = (props) => {
                                             <div className="col-6">
                                                 <div className="form-group">
                                                     <label className="label-control mb-2">Country{stateValidatorSchemaAdditionalInfo.CountryId.required && (<span className="red">*</span>)}</label>
-                                                    <select 
+                                                    <select
                                                         className={"form-control " +
                                                             (errorsAdditionalInfo.CountryId && dirtyAdditionalInfo.CountryId ? 'has-error' :
-                                                            (dirtyAdditionalInfo.CountryId ? 'has-success' : ''))
+                                                                (dirtyAdditionalInfo.CountryId ? 'has-success' : ''))
                                                         }
                                                         value={SaveNextAdditionalInfoData.CountryId.value}
-                                                        onChange={e => { handleOnChangeAdditionalInfo(e); onInputChangeControllerAdditionalInfo(e) }}
+                                                        onChange={e => { handleOnChangeAdditionalInfo(e); onInputChangeControllerAdditionalInfo(e); funcChangeCountrySelection(e) }}
 
                                                         name="CountryId"
                                                     >
@@ -1058,14 +1208,14 @@ const AddEditMstAccount = (props) => {
                                             <div className="col-6">
                                                 <div className="form-group">
                                                     <label className="label-control mb-2">State{stateValidatorSchemaAdditionalInfo.StateId.required && (<span className="red">*</span>)}</label>
-                                                    <select 
+                                                    <select
                                                         className={"form-control " +
                                                             (errorsAdditionalInfo.StateId && dirtyAdditionalInfo.StateId ? 'has-error' :
-                                                            (dirtyAdditionalInfo.StateId ? 'has-success' : ''))
+                                                                (dirtyAdditionalInfo.StateId ? 'has-success' : ''))
                                                         }
-                                                        
+
                                                         value={SaveNextAdditionalInfoData.StateId.value}
-                                                        onChange={e => { handleOnChangeAdditionalInfo(e); onInputChangeControllerAdditionalInfo(e) }}
+                                                        onChange={e => { handleOnChangeAdditionalInfo(e); onInputChangeControllerAdditionalInfo(e); funcChangeStateSelection(e) }}
 
                                                         name="StateId"
                                                     >
@@ -1082,12 +1232,12 @@ const AddEditMstAccount = (props) => {
                                             <div className="col-6">
                                                 <div className="form-group">
                                                     <label className="label-control mb-2">City{stateValidatorSchemaAdditionalInfo.CityId.required && (<span className="red">*</span>)}</label>
-                                                    <select 
+                                                    <select
                                                         className={"form-control " +
                                                             (errorsAdditionalInfo.CityId && dirtyAdditionalInfo.CityId ? 'has-error' :
-                                                            (dirtyAdditionalInfo.CityId ? 'has-success' : ''))
+                                                                (dirtyAdditionalInfo.CityId ? 'has-success' : ''))
                                                         }
-                                                        
+
                                                         value={SaveNextAdditionalInfoData.CityId.value}
                                                         onChange={e => { handleOnChangeAdditionalInfo(e); onInputChangeControllerAdditionalInfo(e) }}
 
@@ -1108,7 +1258,7 @@ const AddEditMstAccount = (props) => {
                                                     <input
                                                         className={"form-control " +
                                                             (errorsAdditionalInfo.AccountLogo && dirtyAdditionalInfo.AccountLogo ? 'has-error' :
-                                                            (dirtyAdditionalInfo.AccountLogo ? 'has-success' : ''))
+                                                                (dirtyAdditionalInfo.AccountLogo ? 'has-success' : ''))
                                                         }
                                                         type="file"
                                                         onChange={onInputChangeControllerAdditionalInfo}
@@ -1120,6 +1270,21 @@ const AddEditMstAccount = (props) => {
                                                 {errorsAdditionalInfo.AccountLogo && dirtyAdditionalInfo.AccountLogo && (
                                                     <span className="error-label mt-2">{errorsAdditionalInfo.AccountLogo}</span>
                                                 )}
+
+                                                {
+                                                    SaveNextAdditionalInfoData.AccountLogoUrl.value && (
+                                                        <>
+                                                            <a href={SaveNextAdditionalInfoData.AccountLogoUrl.value} target="_blank">
+                                                                <img
+                                                                    src={SaveNextAdditionalInfoData.AccountLogoUrl.value}
+                                                                    style={{ maxWidth: "40px" }}
+                                                                    className="img-thumbnail mt-1"
+                                                                />
+                                                            </a>
+                                                        </>
+                                                    )
+                                                }
+
                                             </div>
                                         </div>
 
@@ -1146,7 +1311,7 @@ const AddEditMstAccount = (props) => {
                                                         <div style={{ margin: '10px' }}>
                                                             <button type="button"
                                                                 className="btn btn-light box-shadow-1 round btn-min-width mr-1 mb-1"
-                                                                onClick={(e) => { document.querySelector('#home-tab').click(); }}
+                                                                onClick={(e) => { document.querySelector('#AccountDetails').click(); }}
                                                             >
                                                                 Previous
                                                                 </button>
@@ -1157,51 +1322,78 @@ const AddEditMstAccount = (props) => {
                                         </div>
                                     </form>
                                 </div>
-                                <div className="tab-pane fade" id="profile1" role="tabpanel" aria-labelledby="profile-tab1">
+                                <div className="tab-pane fade" id="CredentialsTab" role="tabpanel" aria-labelledby="Credentials">
 
-                                    <form onSubmit={submitSaveNextCredentials} id="CredentialsForm">
+                                    <form onSubmit={handleOnSubmitCredentials} id="CredentialsForm">
                                         <div className="row mt-1 mb-1">
                                             <div className="col-6">
                                                 <div className="form-group">
-                                                    <label className="label-control mb-2">User Name<span
-                                                        className="red">*</span></label>
-                                                    <input className="form-control valid" data-val="true"
-                                                        data-val-required="Please Enter User Name" id="UserName"
-                                                        maxLength="20" name="UserName"
-                                                        placeholder="Username" type="text"
+                                                    <label className="label-control mb-2">Username{stateValidatorSchemaCredentials.Username.required && (<span className="red">*</span>)}</label>
+                                                    <input
+                                                        className={"form-control " +
+                                                            (errorsCredentials.Username && dirtyCredentials.Username ? 'has-error' :
+                                                                (dirtyCredentials.Username ? 'has-success' : ''))
+                                                        }
+                                                        data-val="true"
+                                                        maxLength="100" name="Username" placeholder="Username"
+                                                        type="text"
                                                         autoComplete="off"
-                                                        value={SaveNextCredentialsData.UserName}
-                                                        onChange={onInputChangeControllerCredentials}
+                                                        value={FinishCredentialsData.Username.value}
+                                                        onChange={e => { handleOnChangeCredentials(e); onInputChangeControllerCredentials(e) }}
                                                     />
                                                 </div>
+                                                {errorsCredentials.Username && dirtyCredentials.Username && (
+                                                    <span className="error-label mt-2">{errorsCredentials.Username}</span>
+                                                )}
+
                                             </div>
                                             <div className="col-6">
+
+
                                                 <div className="form-group">
-                                                    <label className="label-control mb-2">Password<span
-                                                        className="red">*</span></label>
-                                                    <input className="form-control valid" id="Password"
-                                                        maxLength="15" name="Password" placeholder="Enter Password"
+                                                    <label className="label-control mb-2">Password{stateValidatorSchemaCredentials.Password.required && (<span className="red">*</span>)}</label>
+                                                    <input
+                                                        className={"form-control " +
+                                                            (errorsCredentials.Password && dirtyCredentials.Password ? 'has-error' :
+                                                                (dirtyCredentials.EmailId ? 'has-success' : ''))
+                                                        }
+                                                        data-val="true"
+                                                        maxLength="100" name="Password" placeholder="Password"
                                                         type="password"
                                                         autoComplete="off"
-                                                        value={SaveNextCredentialsData.Password}
-                                                        onChange={onInputChangeControllerCredentials}
+                                                        value={FinishCredentialsData.Password.value}
+                                                        onChange={e => { handleOnChangeCredentials(e); onInputChangeControllerCredentials(e) }}
                                                     />
                                                 </div>
+                                                {errorsCredentials.Password && dirtyCredentials.Password && (
+                                                    <span className="error-label mt-2">{errorsCredentials.Password}</span>
+                                                )}
+
+
                                             </div>
                                         </div>
                                         <div className="row mt-1 mb-1">
                                             <div className="col-6">
+
                                                 <div className="form-group">
-                                                    <label className="label-control mb-2">Re-Enter Password<span
-                                                        className="red">*</span></label>
-                                                    <input className="form-control valid" id="ReEnterPassword"
-                                                        maxLength="15" name="ReEnterPassword" placeholder="Enter Password"
+                                                    <label className="label-control mb-2">Re Enter Password{stateValidatorSchemaCredentials.ReEnterPassword.required && (<span className="red">*</span>)}</label>
+                                                    <input
+                                                        className={"form-control " +
+                                                            (errorsCredentials.ReEnterPassword && dirtyCredentials.ReEnterPassword ? 'has-error' :
+                                                                (dirtyCredentials.EmailId ? 'has-success' : ''))
+                                                        }
+                                                        data-val="true"
+                                                        maxLength="100" name="ReEnterPassword" placeholder="Re Enter Password"
                                                         type="password"
                                                         autoComplete="off"
-                                                        value={SaveNextCredentialsData.ReEnterPassword}
-                                                        onChange={onInputChangeControllerCredentials}
+                                                        value={FinishCredentialsData.ReEnterPassword.value}
+                                                        onChange={e => { handleOnChangeCredentials(e); onInputChangeControllerCredentials(e) }}
                                                     />
                                                 </div>
+                                                {errorsCredentials.ReEnterPassword && dirtyCredentials.ReEnterPassword && (
+                                                    <span className="error-label mt-2">{errorsCredentials.ReEnterPassword}</span>
+                                                )}
+
                                             </div>
 
 
@@ -1214,16 +1406,16 @@ const AddEditMstAccount = (props) => {
                                                     <div className="form-check form-check-inline">
                                                         <input className="form-check-input" type="radio" name="IsActive" id="inlineRadio1"
                                                             value="true"
-                                                            defaultChecked={SaveNextCredentialsData.IsActive === "true"}
-                                                            onChange={onInputChangeControllerCredentials}
+                                                            defaultChecked={FinishCredentialsData.IsActive.value === true}
+                                                            onChange={e => { handleOnChangeCredentials(e); onInputChangeControllerCredentials(e) }}
                                                         />
                                                         <label className="form-check-label" htmlFor="inlineRadio1">Active</label>
                                                     </div>
                                                     <div className="form-check form-check-inline">
                                                         <input className="form-check-input" type="radio" name="IsActive" id="inlineRadio2"
                                                             value="false"
-                                                            defaultChecked={SaveNextCredentialsData.IsActive === "false"}
-                                                            onChange={onInputChangeControllerCredentials}
+                                                            defaultChecked={FinishCredentialsData.IsActive.value === false}
+                                                            onChange={e => { handleOnChangeCredentials(e); onInputChangeControllerCredentials(e) }}
                                                         />
                                                         <label className="form-check-label" htmlFor="inlineRadio2">Inactive</label>
                                                     </div>
@@ -1232,6 +1424,7 @@ const AddEditMstAccount = (props) => {
                                             </div>
 
                                         </div>
+
                                         <div className="row">
                                             <div className="col-lg-12">
                                                 <div className="form-body">
@@ -1240,7 +1433,9 @@ const AddEditMstAccount = (props) => {
                                                         <div style={{ margin: '10px' }}>
                                                             <button type="submit"
                                                                 className="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1"
-                                                                id="btnSaveNextCredentials">Submit</button>
+                                                                id="btnSaveNextCredentials"
+                                                                disabled={disableCredentials}
+                                                            >Finish</button>
                                                         </div>
                                                         <div style={{ margin: '10px' }}>
                                                             <button type="button"
@@ -1251,7 +1446,7 @@ const AddEditMstAccount = (props) => {
                                                         <div style={{ margin: '10px' }}>
                                                             <button type="button"
                                                                 className="btn btn-light box-shadow-1 round btn-min-width mr-1 mb-1"
-                                                                onClick={(e) => { document.querySelector('#profile-tab').click(); }}
+                                                                onClick={(e) => { document.querySelector('#AdditionalInfo').click(); }}
                                                             >
                                                                 Previous
                                                                 </button>
@@ -1260,6 +1455,8 @@ const AddEditMstAccount = (props) => {
                                                 </div>
                                             </div>
                                         </div>
+
+
                                     </form>
 
                                 </div>

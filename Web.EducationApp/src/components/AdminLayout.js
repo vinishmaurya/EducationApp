@@ -23,30 +23,31 @@ const AdminLayout = ({ children, prop }) => {
         let result = location.state.SideBar;
         if (result) {
             let formRoleMappingInfo = result.Data.formRoleMappingInfo;
-            menuItems.push({ label: formRoleMappingInfo[0].RoleName });
-            var filteredParentForm = formRoleMappingInfo.filter(function (obj) {
-                return (obj.ParentId === "0");
-            });
-            var filteredChiledForm = formRoleMappingInfo.filter(function (obj) {
-                return (obj.ParentId !== "0");
-            });
-            for (var i = 0; i < filteredParentForm.length; i++) {
-                let child = [];
-                for (var j = 0; j < filteredChiledForm.length; j++) {
-                    if (filteredChiledForm[j].ParentId === filteredParentForm[i].PK_FormId) {
-                        let href = filteredChiledForm[j].SPA_ComponentHref ? filteredChiledForm[j].SPA_ComponentHref : (filteredChiledForm[j].ControllerName + "/" + filteredChiledForm[j].ActionName);
-                        //console.log("test = " + href);
-                        child.push(
-                            {
-                                label: filteredChiledForm[j].FormName,
-                                href: href,
-                                icon: filteredChiledForm[j].ClassName
-                            });
+            if (formRoleMappingInfo.length > 0) {
+                menuItems.push({ label: formRoleMappingInfo[0].RoleName });
+                var filteredParentForm = formRoleMappingInfo.filter(function (obj) {
+                    return (obj.ParentId === "0");
+                });
+                var filteredChiledForm = formRoleMappingInfo.filter(function (obj) {
+                    return (obj.ParentId !== "0");
+                });
+                for (var i = 0; i < filteredParentForm.length; i++) {
+                    let child = [];
+                    for (var j = 0; j < filteredChiledForm.length; j++) {
+                        if (filteredChiledForm[j].ParentId === filteredParentForm[i].PK_FormId) {
+                            let href = filteredChiledForm[j].SPA_ComponentHref ? filteredChiledForm[j].SPA_ComponentHref : (filteredChiledForm[j].ControllerName + "/" + filteredChiledForm[j].ActionName);
+                            //console.log("test = " + href);
+                            child.push(
+                                {
+                                    label: filteredChiledForm[j].FormName,
+                                    href: href,
+                                    icon: filteredChiledForm[j].ClassName
+                                });
+                        }
                     }
+                    menuItems.push({ label: filteredParentForm[i].FormName, icon: filteredParentForm[i].ClassName, child: child });
                 }
-                menuItems.push({ label: filteredParentForm[i].FormName, icon: filteredParentForm[i].ClassName, child: child });
             }
-            
         }
         menuItems.push({
             "label": "MAIN MENU"

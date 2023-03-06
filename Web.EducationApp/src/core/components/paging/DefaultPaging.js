@@ -123,7 +123,7 @@ const DefaultPaging = (props) => {
                 </div>
                 <div className="col-sm-12 col-md-3">
                     <nav aria-label="Page navigation example">
-                        <ul className="pagination">
+                        <ul className="pagination" style={{ "justify-content": "end" }}>
                             {funcBindPreviousData()}
                             {funcBindPagesData()}
                             {funcBindNextData()}

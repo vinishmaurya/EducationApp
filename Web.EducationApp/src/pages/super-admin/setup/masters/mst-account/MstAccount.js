@@ -32,6 +32,7 @@ const MstAccount = (props) => {
     const [CurrentPage, setCurrentPage] = useState(process.env.REACT_APP_DefaultCurrentPage);
     const [SearchBy, setSearchBy] = useState("");
     const [SearchValue, setSearchValue] = useState("");
+    const [DataRow, setDataRow] = useState(null);
 
     useEffect(() => {
         if (MyComponent == "IndexMstAccount") {
@@ -99,11 +100,16 @@ const MstAccount = (props) => {
             console.log(e);
         });
     };
-    function loadComponent() {
+    function loadComponent(rowIndex) {
+        //debugger;
         if (MyComponent == data.landingComponent) {
-            //Go to add/edit component
+            //Go to add mode component
             setMyInnerComponentName(data.backMainComponentName);
             setMyComponent(data.innerComponentList);
+            if (rowIndex) {
+                setDataRow(DefaultDynamicAPIResponse.DataList[rowIndex]);
+            }
+            
         }
         else {
             //Back to index component
@@ -185,11 +191,12 @@ const MstAccount = (props) => {
                             <>
                                 <div className="full-doc">
                                     <input type="button"
-                                        href="#"
+                                        href={void (0)}
                                         className="btn btn-primary btn-sm"
                                         rel="noreferrer"
                                         onClick={loadComponent}
                                         value={MyInnerComponentName}
+                                        id="btnTopnavigation"
                                     />
                                 </div>
                                 <IndexMstAccount
@@ -200,12 +207,26 @@ const MstAccount = (props) => {
                                     SearchBy={SearchBy}
                                     SearchValue={SearchValue}
                                     setAccountId={AccountId}
+                                    funcLoadComponent={loadComponent}
                                 />
                             </>
                         );
                     }
                     else if (MyComponent == "AddEditMstAccount") {
-                        return <AddEditMstAccount pageTitle={data.innerComponentName} />
+                        return (
+                            <>
+                                <div className="full-doc">
+                                    <input type="button"
+                                        href={void (0)}
+                                        className="btn btn-primary btn-sm"
+                                        rel="noreferrer"
+                                        onClick={loadComponent}
+                                        value={MyInnerComponentName}
+                                    />
+                                </div>
+                                <AddEditMstAccount pageTitle={data.innerComponentName} dataRow={DataRow} funcBackToIndex={loadComponent} />
+                            </>
+                        );
                     }
                 }
                 else {

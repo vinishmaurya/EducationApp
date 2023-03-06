@@ -2,6 +2,7 @@
 import CommonFuncs from "../../../util/common.funcs";
 import Spinner from 'react-bootstrap/Spinner';
 import { React, useState, useEffect } from "react";
+import { prop } from "cheerio/lib/api/attributes";
 
 const GridTable = (props) => {
     const [HaveData, setHaveData] = useState(false);
@@ -87,11 +88,17 @@ const GridTable = (props) => {
                             else if (j === column.length - 1) {
                                 return (
                                     <td key={uniqueKey6} className="text-center text-nowrap">
-                                        <a key={uniqueKey7} className="btn btn-icon btn-dark btn-sm" style={{ marginRight: "1px" }} href="../Admin/MstUser/AddEditUser/2">
+                                        <a key={uniqueKey7}
+                                            className="btn btn-icon btn-dark btn-sm"
+                                            style={{ marginRight: "1px" }}
+                                            href={void (0)}
+                                            onClick={(e) => handelEditClick(e)}
+                                            row-index={i}
+                                        >
                                             <i key={uniqueKey8} className="la la-pencil"></i>
                                             <span key={uniqueKey9}>&#9998;</span>
                                         </a>
-                                        <a key={uniqueKey10} className="btn btn-icon btn-danger btn-sm" href="../Admin/MstUser/DeleteUser/2" >
+                                        <a key={uniqueKey10} className="btn btn-icon btn-danger btn-sm" href={void (0)} >
                                             <i key={uniqueKey11} className="la la-trash-o"></i>
                                             <span key={uniqueKey12}>&#x2421;</span>
                                         </a>
@@ -100,14 +107,25 @@ const GridTable = (props) => {
                                 );
                             }
                             else {
-                                //console.log(data);
-                                return <td key={uniqueKey13} className="text-center">{data[v]}</td>
+                                if (v == "Status" && data[v].toUpperCase() == 'ACTIVE') {
+                                    return <td key={uniqueKey13} align="center" className="success text-success">{data[v]}</td>
+                                }
+                                else if (v == "Status" && data[v].toUpperCase() == 'INACTIVE') {
+                                    return <td key={uniqueKey13} align="center" className="danger text-danger">{data[v]}</td>
+                                }
+                                else {
+                                    return <td key={uniqueKey13} className="text-center">{data[v]}</td>
+                                }
                             }
                         })
                     }
                 </tr>
             )
         })
+    }
+
+    function handelEditClick(e) {
+        props.onClickHandelEditClick(e);
     }
 
     return (

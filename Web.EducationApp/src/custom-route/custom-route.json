@@ -4,7 +4,7 @@
     "title": "Account Master",
     "landingComponent": "IndexMstAccount",
     "innerComponentName": "Add New",
-    "backMainComponentName": "Back To Index",
+    "backMainComponentName": "Back",
     "innerComponentList": "AddEditMstAccount",
     "componentPath": "../pages/super-admin/setup/masters/mst-account/MstAccount",
     "route": "/pages/super-admin/setup/masters/mst-account/MstAccount"
@@ -13,7 +13,7 @@
     "component": "MstForm",
     "landingComponent": "IndexMstForm",
     "innerComponentName": "Add New",
-    "backMainComponentName": "Back To Index",
+    "backMainComponentName": "Back",
     "innerComponentList": "AddEditMstForm",
     "title": "Form Master",
     "componentPath": "../pages/super-admin/setup/masters/mst-form/MstForm",
@@ -24,7 +24,7 @@
     "title": "User Master",
     "landingComponent": "IndexMstUser",
     "innerComponentName": "Add New",
-    "backMainComponentName": "Back To Index",
+    "backMainComponentName": "Back",
     "innerComponentList": "AddEditMstUser",
     "componentPath": "../pages/super-admin/setup/masters/mst-user/MstUser",
     "route": "/pages/super-admin/setup/masters/mst-user/MstUser"
@@ -34,7 +34,7 @@
     "title": "Role Master",
     "landingComponent": "IndexMstRole",
     "innerComponentName": "Add New",
-    "backMainComponentName": "Back To Index",
+    "backMainComponentName": "Back",
     "innerComponentList": "AddEditMstRole",
     "componentPath": "../pages/super-admin/setup/masters/mst-role/MstRole",
     "route": "/pages/super-admin/setup/masters/mst-role/MstRole"
@@ -142,7 +142,7 @@
     "route": "/pages/organization/academics/master/student/AcadStudentDetails",
     "landingComponent": "AcadStudentIndex",
     "innerComponentName": "New Students Admission",
-    "backMainComponentName": "Back To Index",
+    "backMainComponentName": "Back",
     "innerComponentList": "AcadMstAddEditStudentAdmission"
   },
   {
@@ -164,7 +164,7 @@
     "route": "/pages/organization/academics/master/teacher/AcadTeacherDetails",
     "landingComponent": "AcadTeacherIndex",
     "innerComponentName": "New Teacher Registration",
-    "backMainComponentName": "Back To Index",
+    "backMainComponentName": "Back",
     "innerComponentList": "AcadMstAddEditTeacher"
   },
   {
@@ -174,7 +174,7 @@
     "route": "/pages/organization/academics/master/parent/AcadParentDetails",
     "landingComponent": "AcadParentIndex",
     "innerComponentName": "New Parent Registration",
-    "backMainComponentName": "Back To Index",
+    "backMainComponentName": "Back",
     "innerComponentList": "AcadMstAddEditParent"
   },
   {
@@ -184,7 +184,7 @@
     "route": "/pages/organization/academics/master/timeTable/AcadTimeTableDetails",
     "landingComponent": "AcadTimeTableIndex",
     "innerComponentName": "New TimeTable",
-    "backMainComponentName": "Back To Index",
+    "backMainComponentName": "Back",
     "innerComponentList": "AcadMstAddEditTimeTable"
   },
   {

@@ -7,6 +7,7 @@ import Login from "../../../../../auth/login/Login";
 import GridTable from "../../../../../core/components/table/GridTable";
 import DefaultPaging from "../../../../../core/components/paging/DefaultPaging";
 import GridShowEntries from "../../../../../core/components/table/GridShowEntries";
+import { $ } from 'react-jquery-plugin'
 
 require('dotenv').config();
 const IndexMstAccount = (props) => {
@@ -75,6 +76,12 @@ const IndexMstAccount = (props) => {
             SearchBy,
             SearchValue
         );//Call parent function to call backend api
+    }
+
+    function onClickHandelEditClick(childEvent) {
+        //debugger;
+        let rowIndex = $(childEvent.currentTarget).attr('row-index');
+        props.funcLoadComponent(rowIndex);
     }
 
     function funcBindSearchTerms() {
@@ -212,17 +219,16 @@ const IndexMstAccount = (props) => {
                                                 </div>
                                                 <div className="col-sm-12 col-md-6 text-right">
                                                    
-                                                    <div className="dataTables_length d-flex" style={{ justifyContent: 'flex-end' }} id="exportdiv">
-                                                        <span className="input-group-text input-group-append" onClick={e => onClickTotalCard(e)}>
-                                                            <FontAwesomeIcon icon={faSync} />
-                                                        </span>
+                                                    <div className="dataTables_length d-flex" style={{ justifyContent: 'space-between' }} id="exportdiv">
+                                                        
                                                         {
                                                             <GridShowEntries
                                                                 DataList={ShowEntriesDataList}
                                                                 onChangePagingData={onChangePagingData}
                                                             />
                                                         }
-                                                        
+
+
                                                         <div className="dropdown">
                                                             <button className="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Export</button>
                                                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -249,7 +255,10 @@ const IndexMstAccount = (props) => {
                                                                 </li>
                                                             </ul>
                                                         </div>
-                                                        
+
+                                                        <span className="input-group-text input-group-append" onClick={e => onClickTotalCard(e)}>
+                                                            <FontAwesomeIcon icon={faSync} />
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -259,6 +268,7 @@ const IndexMstAccount = (props) => {
                                                     <GridTable
                                                         DataList={props.defaultDynamicAPIResponse.DataList}
                                                         HeaderList={props.defaultDynamicAPIResponse.HeaderList}
+                                                        onClickHandelEditClick={onClickHandelEditClick}
                                                     />
                                                 }
                                                 {
