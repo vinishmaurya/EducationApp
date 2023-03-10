@@ -155,7 +155,7 @@ const SearchBar = ({ onSearch, searchlabel }) => {
     };
 
     return (
-        <div className="navbar-block-content">
+        <div className="navbar-block-content header-search-bar">
             <form className="form-inline searchbar">
                 <div className="dropdown">
                     <input

@@ -1,43 +1,44 @@
 body {
-  overflow: hidden !important;
-  background-color: $background;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    overflow: hidden !important;
+    background-color: $background;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 // Wrapper
 .main {
-  overflow: hidden;
-
-  .page-wrapper {
-    max-height: calc(100vh - #{$navbar-height});
     overflow: hidden;
-    width: 100%;
-    display: flex;
 
-    &::before {
-      content: "";
-      width: 100%;
-      height: 10px;
-      position: fixed;
-      margin-top: -11px;
-      box-shadow: $shadow-level-2;
-      z-index: 1;
+    .page-wrapper {
+        max-height: calc(100vh - #{$navbar-height});
+        overflow: hidden;
+        width: 100%;
+        display: flex;
+
+        &::before {
+            content: "";
+            width: 100%;
+            height: 10px;
+            position: fixed;
+            margin-top: -11px;
+            box-shadow: $shadow-level-2;
+            z-index: 1;
+        }
     }
-  }
 }
 
 // Anchor
 a {
-  font-weight: $font-weight-bold;
-  cursor: pointer;
+    font-weight: $font-weight-bold;
+    cursor: pointer;
 }
 
 // Line
 hr {
-  border-color: rgba($border-color, 1);
+    border-color: rgba($border-color, 1);
 }
+
 .label-control {
     font-weight: bold;
 }
@@ -46,29 +47,75 @@ hr {
     border-color: black;
     margin: 0rem 0;
 }
-.red{
-    color:red;
+
+.red {
+    color: red;
 }
-.input-group-append
-{
-    cursor:pointer;
+
+.input-group-append {
+    cursor: pointer;
 }
+
 .cursor-card {
     cursor: pointer;
 }
+
 .load-component-spinner {
     --bs-spinner-width: 1rem;
     --bs-spinner-height: 1rem;
 }
 
-.has-error{
-    border : 1px solid red;
+.has-error {
+    border: 1px solid red;
 }
 
 .has-success {
     border: 1px solid green;
 }
-.error-label
-{
-    color:red;
+
+.error-label {
+    color: red;
+}
+
+
+.card-header .heading-elements, .card-header .heading-elements-toggle {
+    position: absolute;
+    top: 7px;
+    right: 20px;
+    background-color: inherit;
+}
+
+.rowPageLabel {
+    padding: 5px;
+}
+
+.left-radius-dropdown-toggle {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border: 1px solid #bac3cf;
+    height: 34px;
+}
+
+.right-radius-dropdown-toggle {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border: 1px solid #bac3cf
+}
+
+.overflow-hidden {
+    margin-bottom: 0.875rem;
+}
+
+@media (min-width:200px) and (max-width:900px) {
+    .header-search-bar {
+        display: none !important;
+    }
+    .grid-header {
+        margin-top: 16px;
+    }
+}
+
+
+.card-content-custom:hover {
+    box-shadow: 0 4px 9px 0 rgb(0 0 0 / 10%), 0 4px 4px 0 rgb(9 9 9 / 6%);
 }

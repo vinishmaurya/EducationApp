@@ -1,6 +1,13 @@
+/**
+ * --------------------------------------------------------------------------
+ * By: Vinish
+ * Datetime: 2023-03-11 01:01:53.570
+ * Root Page Account Details
+ * --------------------------------------------------------------------------
+ */
 import IndexMstAccount from "../../../../../pages/super-admin/setup/masters/mst-account/IndexMstAccount";
 import AddEditMstAccount from "../../../../../pages/super-admin/setup/masters/mst-account/AddEditMstAccount";
-import { faBook, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faArrowCircleLeft, faBook, faPlus, faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { React, useState } from "react";
 import { useContext, useEffect, useRef } from "react";
@@ -190,14 +197,15 @@ const MstAccount = (props) => {
                         return (
                             <>
                                 <div className="full-doc">
-                                    <input type="button"
-                                        href={void (0)}
-                                        className="btn btn-primary btn-sm"
-                                        rel="noreferrer"
-                                        onClick={loadComponent}
-                                        value={MyInnerComponentName}
+                                    <button className="btn btn-primary btn-sm"
+                                        type="button"
                                         id="btnTopnavigation"
-                                    />
+                                        onClick={loadComponent}>
+                                        <FontAwesomeIcon icon={faPlusSquare} />
+                                        {" "+ MyInnerComponentName}
+                                        
+                                    </button>
+                                   
                                 </div>
                                 <IndexMstAccount
                                     defaultDynamicAPIResponse={DefaultDynamicAPIResponse}
@@ -216,13 +224,13 @@ const MstAccount = (props) => {
                         return (
                             <>
                                 <div className="full-doc">
-                                    <input type="button"
-                                        href={void (0)}
-                                        className="btn btn-primary btn-sm"
-                                        rel="noreferrer"
-                                        onClick={loadComponent}
-                                        value={MyInnerComponentName}
-                                    />
+                                    <button className="btn btn-primary btn-sm"
+                                        type="button"
+                                        id="btnTopnavigation"
+                                        onClick={loadComponent}>
+                                        <FontAwesomeIcon icon={faArrowCircleLeft} />
+                                        {" " + MyInnerComponentName}
+                                    </button>
                                 </div>
                                 <AddEditMstAccount pageTitle={data.innerComponentName} dataRow={DataRow} funcBackToIndex={loadComponent} />
                             </>

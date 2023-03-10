@@ -24,17 +24,17 @@ const GridShowEntries = (props) => {
     return (
         <>
             <div className="mr-2 d-flex">
-                <label>Show</label>
+                <label className="rowPageLabel">Show</label>
                 <div>
                     <select
-                        className="form-control-sm"
+                        className="form-control"
                         onChange={e => onChangePaging(e)}
                         id="eleRowPerPage"
                     >
                         {BindOptons()}
                     </select>
                 </div>
-                <label>Entries</label>
+                <label className="rowPageLabel">Entries</label>
             </div>
         </>
     )

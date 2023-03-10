@@ -1,3 +1,10 @@
+/**
+ * --------------------------------------------------------------------------
+ * By: Vinish
+ * Datetime: 2023-03-11 01:01:53.570
+ * Add Edit Account Details
+ * --------------------------------------------------------------------------
+ */
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useCookies } from 'react-cookie';
@@ -6,32 +13,25 @@ import AccountService from "../../../../../services/account.services";
 //import AccountDetailsModel from "../../../../../models/accountdetails.model";
 import reqBody from "../../../../../models/reqBody.Model";
 import useForm from "../../../../../pages/super-admin/setup/masters/mst-account/useForm";
+import CustomDropdown from "../../../../../core/components/dropdown/CustomDropdown";
 import { $ } from 'react-jquery-plugin';
 require('dotenv').config();
 
 const AddEditMstAccount = (props) => {
     let propData = props.dataRow;
-    console.log(propData);
-    const [HasAPIError, setHasAPIError] = useState(false);
-    const [HasAPISuccess, setHasAPISuccess] = useState(false);
-    const [HasAPIMessage, setHasAPIMessage] = useState("");
-    const [HasAPIDescription, setHasAPIDescription] = useState("");
-    const [Cookie, setCookie] = useCookies(['accessToken', 'refreshToken', 'loggedInUserId']);
-    const [AllParentAccountList, setAllParentAccountList] = useState([]);
-    const [AllCategoryList, setAllCategoryList] = useState([]);
-    const [AllCountryList, setAllCountryList] = useState([]);
-    const [AllStateList, setAllStateList] = useState([]);
-    const [AllCityList, setAllCityList] = useState([]);
+    //console.log(propData);
 
-    const [CurrentId, setCurrentId] = useState(propData ? propData.PK_AccountId : 0);
 
+    //#region define regular expressions (regex)
     var name1to50Regex = /^[a-z A-Z]{1,50}$/;
     var emailRegex = /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/;
     var phoneRegex = /\+(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d|2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\W*\d\W*\d\W*\d\W*\d\W*\d\W*\d\W*\d\W*\d\W*(\d{1,2})$/;
     var numberRegex = /^[0-9]+$/;
     var passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-    var UsernameRegex = /^[a-z0-9_\.]+$/;
+    var usernameRegex = /^[a-z0-9_\.]+$/;
+    //#endregion
 
+    //#region account details form: define state, schema & validations
     // Define your state schema
     const stateSchemaAccountDetails = {
         CategoryId: { value: propData ? propData.FK_CategoryId : '', error: "This account category field selection is required!" },
@@ -43,7 +43,7 @@ const AddEditMstAccount = (props) => {
         EmailId: { value: propData ? propData.EmailId : '', error: "This email id field is required!!" },
         AlternateEmailId: { value: propData ? propData.AlternateEmailId : '', error: "This alternate email id field is required!!" }
     };
-
+    const [SaveNextAccountDetailsData, setSaveNextAccountDetailsData] = useState(stateSchemaAccountDetails);
     // Create your own validationstateSchemaAccountDetails
     // stateSchemaAccountDetails property should be the same in validationstateSchemaAccountDetails
     // in-order a validation to works in your input.
@@ -105,8 +105,9 @@ const AddEditMstAccount = (props) => {
             }
         }
     };
+    //#endregion
 
-
+    //#region additional info form: define state, schema & validations
     // Define your state schema
     const stateSchemaAdditionalInfo = {
         AccountAddress: { value: propData ? propData.AccountAddress : '', error: "This account address field is required!" },
@@ -117,10 +118,8 @@ const AddEditMstAccount = (props) => {
         AccountLogo: { value: File, error: "This account logo field is required!!" },
         AccountLogoUrl: { value: propData ? propData.AccountLogo : '', error: "" },
     };
-
-
+    //define form hook
     const [SaveNextAdditionalInfoData, setSaveNextAdditionalInfoData] = useState(stateSchemaAdditionalInfo);
-
     // Create your own validationstateSchemaAccountDetails
     // stateSchemaAccountDetails property should be the same in validationstateSchemaAccountDetails
     // in-order a validation to works in your input.
@@ -161,8 +160,72 @@ const AddEditMstAccount = (props) => {
         },
     };
 
+    //#endregion
+
+    //#region credentials form: define state, schema & validations
+
+    // Define your state schema
+    const stateSchemaCredentials = {
+        Username: { value: propData ? propData.Username : '', error: "This username field is required!" },
+        Password: { value: propData ? propData.Password : '', error: "This password field is required!" },
+        ReEnterPassword: { value: propData ? propData.Password : '', error: "This re enter password field is required!" },
+        IsActive: { value: propData ? propData.IsActive : true, error: "This status field selection is required!!" }
+    };
+    const [FinishCredentialsData, setFinishCredentialsData] = useState(stateSchemaCredentials);
+    // Create your own validationstateSchemaAccountDetails
+    // stateSchemaAccountDetails property should be the same in validationstateSchemaAccountDetails
+    // in-order a validation to works in your input.
+    const stateValidatorSchemaCredentials = {
+        Username: {
+            required: true,
+            validator: {
+                func: value => usernameRegex.test(value),
+                error: "Invalid username format only contains (Lowercase Letters (a-z), Numbers(0 - 9), Dots(.), Underscores(_))"
+            }
+        },
+        Password: {
+            required: true,
+            validator: {
+                func: value => passwordRegex.test(value),
+                error: "Invalid password format must contains min 8 letter password, with at least a symbol, upper and lower case letters and a number."
+            }
+        },
+        ReEnterPassword: {
+            required: true,
+            validator: {
+                func: value => {
+                    //debugger;
+                    if (!FinishCredentialsData.Password.value || FinishCredentialsData.Password.value != value)
+                        return false;
+                    else
+                        return true;
+                },
+                error: "Password validation has failed."
+            }
+        },
+        IsActive: {
+            required: false
+        }
+    };
+    //#endregion
 
 
+    //#region define use state hooks
+    const [HasAPIError, setHasAPIError] = useState(false);
+    const [HasAPISuccess, setHasAPISuccess] = useState(false);
+    const [HasAPIMessage, setHasAPIMessage] = useState("");
+    const [HasAPIDescription, setHasAPIDescription] = useState("");
+    const [Cookie, setCookie] = useCookies(['accessToken', 'refreshToken', 'loggedInUserId']);
+    const [AllParentAccountList, setAllParentAccountList] = useState([]);
+    const [AllCategoryList, setAllCategoryList] = useState([]);
+    const [AllCountryList, setAllCountryList] = useState([]);
+    const [AllStateList, setAllStateList] = useState([]);
+    const [AllCityList, setAllCityList] = useState([]);
+    const [CurrentId, setCurrentId] = useState(propData ? propData.PK_AccountId : 0);
+
+    //#endregion
+
+    //#region define custom forms validation hooks
     const {
         values: valuesAccountDetails,
         errors: errorsAccountDetails,
@@ -183,70 +246,6 @@ const AddEditMstAccount = (props) => {
         handleOnClear: handleOnClearAdditionalInfo
     } = useForm(stateSchemaAdditionalInfo, stateValidatorSchemaAdditionalInfo, onSubmitFormAdditionalInfo);
 
-
-    const [SaveNextAccountDetailsData, setSaveNextAccountDetailsData] = useState(stateSchemaAccountDetails);
-
-    //let formDataInitialStateAdditionalInfo = {
-    //    AccountAddress: "",
-    //    ZipCode: "",
-    //    CountryId: "",
-    //    StateId: "",
-    //    CityId: "",
-    //    AccountLogo: File
-    //};
-    // Define your state schema
-    const stateSchemaCredentials = {
-        Username: { value: propData ? propData.Username : '', error: "This username field is required!" },
-        Password: { value: propData ? propData.Password : '', error: "This password field is required!" },
-        ReEnterPassword: { value: propData ? propData.Password : '', error: "This re enter password field is required!" },
-        IsActive: { value: propData ? propData.IsActive : true, error: "This status field selection is required!!" }
-    };
-
-    // Create your own validationstateSchemaAccountDetails
-    // stateSchemaAccountDetails property should be the same in validationstateSchemaAccountDetails
-    // in-order a validation to works in your input.
-    const stateValidatorSchemaCredentials = {
-        Username: {
-            required: true,
-            validator: {
-                func: value => UsernameRegex.test(value),
-                error: "Invalid username format only contains (Lowercase Letters (a-z), Numbers(0 - 9), Dots(.), Underscores(_))"
-            }
-        },
-        Password: {
-            required: true,
-            validator: {
-                func: value => passwordRegex.test(value),
-                error: "Invalid password format must contains min 8 letter password, with at least a symbol, upper and lower case letters and a number."
-            }
-        },
-        ReEnterPassword: {
-            required: true,
-            validator: {
-                func: value => {
-                    if (!FinishCredentialsData.Password || FinishCredentialsData.Password != value)
-                        return false;
-                    else
-                        return true;
-                },
-                error: "Password validation has failed."
-            }
-        },
-        IsActive: {
-            required: false
-        }
-    };
-
-
-
-    //let formDataInitialStateCredentials = {
-    //    Username: "",
-    //    Password: "",
-    //    ReEnterPassword: "",
-    //    IsActive: "true"
-    //};
-    const [FinishCredentialsData, setFinishCredentialsData] = useState(stateSchemaCredentials);
-
     const {
         values: valuesCredentials,
         errors: errorsCredentials,
@@ -257,15 +256,22 @@ const AddEditMstAccount = (props) => {
         handleOnClear: handleOnClearCredentials
     } = useForm(stateSchemaCredentials, stateValidatorSchemaCredentials, onSubmitFormCredentials);
 
+    //#endregion
+
 
     useEffect(() => {
         //debugger;
+        //#region bind default data for forms
         fetchAllParentAccountList();
         fetchAllCategoryList();
         fetchCountryList();
+        //#endregion
+        //#region set default value of forms use state hooks
         setSaveNextAccountDetailsData(stateSchemaAccountDetails);
         setSaveNextAdditionalInfoData(stateSchemaAdditionalInfo);
         setFinishCredentialsData(stateSchemaCredentials);
+        //#endregion
+        //#region trigger default selection
         let flagNextStep = false;
         if (propData && propData.hasOwnProperty('NextStep')) {
             if (propData.NextStep) {
@@ -283,9 +289,9 @@ const AddEditMstAccount = (props) => {
         if (propData && propData.hasOwnProperty('FK_StateId')) {
             fetchCityList(propData.FK_StateId);
         }
-
-
+        //#endregion
     }, []);
+    //#region bind funcs to call axios
     const fetchAllCategoryList = async () => {
         //debugger;
         let apiUri = apiconfig.admin.common.GetAllCategoryListUri;
@@ -511,36 +517,9 @@ const AddEditMstAccount = (props) => {
             console.log(e);
         });
     };
+    //#endregion
 
-    function funcBindSelectOptons(DataList) {
-        //debugger;
-        let itemList = [];
-        let flag = false;
-        if (!DataList) { flag = true; }
-        if (!DataList.length > 0) { flag = true; }
-        itemList.push(
-            <option key={-1} value="">--Select--</option>
-        )
-        if (!flag) {
-            DataList.map((data, i) => {
-                itemList.push(
-                    <option key={i} value={data.ListValue}>{data.ListText}</option>
-                )
-            });
-        }
-        return itemList;
-    }
-    const funcChangeCountrySelection = (e) => {
-        //alert('country changes');
-        let CountryId = Number(e.target.value);
-        fetchStateList(CountryId);
-    }
-    const funcChangeStateSelection = (e) => {
-        //debugger;
-        let StateId = Number(e.target.value);
-        fetchCityList(StateId);
-    }
-
+    //#region submit form data and call axios
     //Step 1 : Account Details 
     function onSubmitFormAccountDetails(event, valuesAccountDetails) {
         event.preventDefault();
@@ -645,6 +624,8 @@ const AddEditMstAccount = (props) => {
             const formElement = document.querySelector('#AdditionalInfoForm');
             const formData = new FormData(formElement);
             const formDataJSON = Object.fromEntries(formData);
+
+            formDataJSON["AccountLogoUrl"] = SaveNextAdditionalInfoData.AccountLogoUrl.value;
             formDataJSON["CreatedBy"] = Cookie.loggedInUserId;
             formDataJSON["AccountId"] = CurrentId;
             formDataJSON["StepCompleted"] = "AdditionalInfo";
@@ -776,7 +757,9 @@ const AddEditMstAccount = (props) => {
                     setHasAPIError(false);
                     setHasAPIMessage(response.data.Message);
                     document.querySelector('#Credentials').click();
-                    props.funcBackToIndex();
+                    setTimeout(() => {
+                        props.funcBackToIndex();
+                    }, 2000);
                 }
                 else {
                     setHasAPIError(!response.data.Result);
@@ -802,8 +785,9 @@ const AddEditMstAccount = (props) => {
             btnPointer.removeAttribute('disable');
         }
     }
+    //#endregion
 
-
+    //#region clear form data and call axios
     const btnClearAccountDetails = (event) => {
         setSaveNextAccountDetailsData(stateSchemaAccountDetails);
         handleOnClearAccountDetails(event);
@@ -812,12 +796,12 @@ const AddEditMstAccount = (props) => {
         setSaveNextAdditionalInfoData(stateSchemaAdditionalInfo);
         handleOnClearAdditionalInfo(event);
     }
-
     const btnClearCredentials = (event) => {
         setFinishCredentialsData(stateSchemaCredentials);
         handleOnClearCredentials(event);
     }
-
+    //#endregion
+    //#region other form control functions
     const onInputChangeControllerAccountDetails = (event) => {
         //debugger;
         const target = event.target;
@@ -835,9 +819,6 @@ const AddEditMstAccount = (props) => {
         }
         setSaveNextAccountDetailsData(obj);
     };
-
-
-
     const onInputChangeControllerAdditionalInfo = (event) => {
         const target = event.target;
         const value = target.type === 'file' ? target.files[0] : target.value;
@@ -849,7 +830,7 @@ const AddEditMstAccount = (props) => {
                 obj[keys[i]] = SaveNextAdditionalInfoData[keys[i]];
             } else {
                 obj[name] = SaveNextAdditionalInfoData[name];
-                obj[name] = value;
+                obj[name].value = value;
             }
         }
         setSaveNextAdditionalInfoData(obj);
@@ -866,11 +847,41 @@ const AddEditMstAccount = (props) => {
                 obj[keys[i]] = FinishCredentialsData[keys[i]];
             } else {
                 obj[name] = FinishCredentialsData[name];
-                obj[name] = value;
+                obj[name].value = value;
             }
         }
         setFinishCredentialsData(obj);
     };
+
+    function funcBindSelectOptons(DataList) {
+        //debugger;
+        let itemList = [];
+        let flag = false;
+        if (!DataList) { flag = true; }
+        if (!DataList.length > 0) { flag = true; }
+        itemList.push(
+            <option key={-1} value="">--Select--</option>
+        )
+        if (!flag) {
+            DataList.map((data, i) => {
+                itemList.push(
+                    <option key={i} value={data.ListValue}>{data.ListText}</option>
+                )
+            });
+        }
+        return itemList;
+    }
+    const funcChangeCountrySelection = (e) => {
+        //alert('country changes');
+        let CountryId = Number(e.target.value);
+        fetchStateList(CountryId);
+    }
+    const funcChangeStateSelection = (e) => {
+        //debugger;
+        let StateId = Number(e.target.value);
+        fetchCityList(StateId);
+    }
+    //#endregion
 
     return (
         <>
@@ -1326,7 +1337,11 @@ const AddEditMstAccount = (props) => {
 
                                     <form onSubmit={handleOnSubmitCredentials} id="CredentialsForm">
                                         <div className="row mt-1 mb-1">
+
+
                                             <div className="col-6">
+
+
                                                 <div className="form-group">
                                                     <label className="label-control mb-2">Username{stateValidatorSchemaCredentials.Username.required && (<span className="red">*</span>)}</label>
                                                     <input
@@ -1346,6 +1361,7 @@ const AddEditMstAccount = (props) => {
                                                     <span className="error-label mt-2">{errorsCredentials.Username}</span>
                                                 )}
 
+
                                             </div>
                                             <div className="col-6">
 
@@ -1355,7 +1371,7 @@ const AddEditMstAccount = (props) => {
                                                     <input
                                                         className={"form-control " +
                                                             (errorsCredentials.Password && dirtyCredentials.Password ? 'has-error' :
-                                                                (dirtyCredentials.EmailId ? 'has-success' : ''))
+                                                                (dirtyCredentials.Password ? 'has-success' : ''))
                                                         }
                                                         data-val="true"
                                                         maxLength="100" name="Password" placeholder="Password"
@@ -1380,7 +1396,7 @@ const AddEditMstAccount = (props) => {
                                                     <input
                                                         className={"form-control " +
                                                             (errorsCredentials.ReEnterPassword && dirtyCredentials.ReEnterPassword ? 'has-error' :
-                                                                (dirtyCredentials.EmailId ? 'has-success' : ''))
+                                                                (dirtyCredentials.ReEnterPassword ? 'has-success' : ''))
                                                         }
                                                         data-val="true"
                                                         maxLength="100" name="ReEnterPassword" placeholder="Re Enter Password"
@@ -1468,6 +1484,8 @@ const AddEditMstAccount = (props) => {
                     </div>
                 </div>
             </div>
+
+            
 
         </>
     );

@@ -1,6 +1,13 @@
+/**
+ * --------------------------------------------------------------------------
+ * By: Vinish
+ * Datetime: 2023-03-11 01:01:53.570
+ * Index Page Account Details
+ * --------------------------------------------------------------------------
+ */
 import { React, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileCsv, faFileExcel, faFilePdf, faSync } from "@fortawesome/free-solid-svg-icons";
+import { faArrowDown, faCloudDownloadAlt, faFileCsv, faFileDownload, faFileExcel, faFilePdf, faSearch, faSync } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 import CommonFuncs from "../../../../../util/common.funcs";
 import Login from "../../../../../auth/login/Login";
@@ -42,14 +49,19 @@ const IndexMstAccount = (props) => {
         SearchBy = e.target.getAttribute('search-by-value');
         //setSearchByPlaceHolder(e.target.getAttribute('search-by-text'));
         SearchByPlaceHolder = e.target.getAttribute('search-by-text');
+        $(e.target).parent().parent().each(function (obj,i) {
+            $(this).find('a').removeClass('active');
+        });
+        $(e.target).addClass('active');
+        $('#txtSearcBar').attr('placeholder', $(e.target).text());
     }
     function onChangeSearchValue(e) {
         SearchValue = e.target.value;
     }
 
 
-    function onClickTotalCard(e) {
-        debugger;
+    function onClickCountCard(e) {
+        //debugger;
         RowPerPage = process.env.REACT_APP_DefaultRowPerPage;
         CurrentPage = process.env.REACT_APP_DefaultCurrentPage;
         TotalItem = props.defaultDynamicAPIResponse.CountArray.TotalItem;
@@ -113,14 +125,59 @@ const IndexMstAccount = (props) => {
         return itemList;
     }
 
+    function funcHandelCardActive(e) {
+        RowPerPage = process.env.REACT_APP_DefaultRowPerPage;
+        CurrentPage = process.env.REACT_APP_DefaultCurrentPage;
+        TotalItem = props.defaultDynamicAPIResponse.CountArray.TotalItem;
+        SearchBy = "Status";
+        SearchValue = "Active";
+        TotalPage = Math.floor((TotalItem % RowPerPage == 0) ? (TotalItem / RowPerPage) : (TotalItem / RowPerPage + 1));
+        PagingDataList = {
+            CurrentPage: CurrentPage,
+            TotalItem: TotalItem,
+            TotalPage: TotalPage
+        };
+        onChangePagingData(CurrentPage, RowPerPage);
+    }
+
+    function funcHandelCardInactive(e) {
+        RowPerPage = process.env.REACT_APP_DefaultRowPerPage;
+        CurrentPage = process.env.REACT_APP_DefaultCurrentPage;
+        TotalItem = props.defaultDynamicAPIResponse.CountArray.TotalItem;
+        SearchBy = "Status";
+        SearchValue = "Inactive";
+        TotalPage = Math.floor((TotalItem % RowPerPage == 0) ? (TotalItem / RowPerPage) : (TotalItem / RowPerPage + 1));
+        PagingDataList = {
+            CurrentPage: CurrentPage,
+            TotalItem: TotalItem,
+            TotalPage: TotalPage
+        };
+        onChangePagingData(CurrentPage, RowPerPage);
+    }
+
+    function funcHandelCardThisMonth(e) {
+        RowPerPage = process.env.REACT_APP_DefaultRowPerPage;
+        CurrentPage = process.env.REACT_APP_DefaultCurrentPage;
+        TotalItem = props.defaultDynamicAPIResponse.CountArray.TotalItem;
+        SearchBy = "ThisMonth";
+        SearchValue = "";
+        TotalPage = Math.floor((TotalItem % RowPerPage == 0) ? (TotalItem / RowPerPage) : (TotalItem / RowPerPage + 1));
+        PagingDataList = {
+            CurrentPage: CurrentPage,
+            TotalItem: TotalItem,
+            TotalPage: TotalPage
+        };
+        onChangePagingData(CurrentPage, RowPerPage);
+    }
+
     return (
         <>
             <div className="content-demo">
                 <section id="stats-icon-subtitle">
                     <div className="row match-height">
                         <div className="col-xl-3 col-md-6">
-                            <div className="card overflow-hidden" >
-                                <div className="card-content cursor-card" id="total" onClick={e => onClickTotalCard(e)}>
+                            <div className="card overflow-hidden card-content-custom" >
+                                <div className="card-content cursor-card " id="total" onClick={e => onClickCountCard(e)} >
                                     <div style={{ justifyContent: 'space-between' }} className="media align-items-stretch d-flex">
                                         <div className="media-left p-1 media-middle btn-primary" style={{ "backgroundColor": "#0099e5" }}>
                                         </div>
@@ -135,10 +192,10 @@ const IndexMstAccount = (props) => {
                             </div>
                         </div>
                         <div className="col-xl-3 col-md-6">
-                            <div className="card" >
-                                <div className="card-content cursor-card" id="active" onClick={e => onClickTotalCard(e)}>
+                            <div className="card overflow-hidden card-content-custom" >
+                                <div className="card-content cursor-card" id="active" onClick={e => funcHandelCardActive(e)}>
                                     <div style={{ justifyContent: 'space-between' }} className="media align-items-stretch d-flex">
-                                        <div className="media-left p-1 media-middle btn-primary" style={{ "backgroundColor": "#0099e5" }}>
+                                        <div className="media-left p-1 media-middle btn-primary" style={{ "backgroundColor": "#3ecf8e" }}>
                                         </div>
                                         <div className="media-body p-2">
                                             <h4>Active</h4>
@@ -151,10 +208,10 @@ const IndexMstAccount = (props) => {
                             </div>
                         </div>
                         <div className="col-xl-3 col-md-6">
-                            <div className="card overflow-hidden">
-                                <div className="card-content cursor-card" id="inactive" onClick={e => onClickTotalCard(e)}>
+                            <div className="card overflow-hidden card-content-custom">
+                                <div className="card-content cursor-card" id="inactive" onClick={e => funcHandelCardInactive(e)}>
                                     <div style={{ justifyContent: 'space-between' }} className="media align-items-stretch d-flex">
-                                        <div className="media-left p-1 media-middle btn-primary" style={{ "backgroundColor": "#0099e5" }}>
+                                        <div className="media-left p-1 media-middle btn-primary" style={{ "backgroundColor": "#ff6886" }}>
                                         </div>
                                         <div className="media-body p-2">
                                             <h4>Inactive</h4>
@@ -167,8 +224,8 @@ const IndexMstAccount = (props) => {
                             </div>
                         </div>
                         <div className="col-xl-3 col-md-6">
-                            <div className="card" >
-                                <div className="card-content cursor-card" id="this_month" onClick={e => onClickTotalCard(e)}>
+                            <div className="card overflow-hidden card-content-custom" >
+                                <div className="card-content cursor-card" id="this_month" onClick={e => funcHandelCardThisMonth(e)}>
                                     <div style={{ justifyContent: 'space-between' }} className="media align-items-stretch d-flex">
                                         <div className="media-left p-1 media-middle btn-primary" style={{ "backgroundColor": "#0099e5" }}>
                                         </div>
@@ -185,12 +242,24 @@ const IndexMstAccount = (props) => {
 
 
                     </div>
-
                 </section>
                 <section className="mt-3">
                     <div className="row">
                         <div className="col-12">
                             <div className="card">
+                                <div className="card-header">
+                                    <h5 className="card-title">Account Data</h5>
+                                    <a className="heading-elements-toggle"><i className="la la-ellipsis-v font-medium-3"></i></a>
+                                    <div className="heading-elements">
+                                        <ul className="list-inline mb-0">
+                                            <li>
+                                                <span onClick={e => onClickCountCard(e)} className="cursor-card btn btn-light">
+                                                    <FontAwesomeIcon icon={faSync} />
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                                 <div className="card-content collapse show" style={{ 'cursor': 'auto' }}>
                                     <div className="card-body card-dashboard">
                                         <div className="dataTables_wrapper">
@@ -200,37 +269,34 @@ const IndexMstAccount = (props) => {
                                                         <fieldset>
                                                             <div className="input-group listSearch">
                                                                 <div className="input-group-prepend">
-                                                                    <button className="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                                                                    <button className="btn btn-light dropdown-toggle right-radius-dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
                                                                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                                                         {funcBindSearchTerms()}
                                                                     </ul>
                                                                 </div>
-                                                                <input type="text" className="form-control" onChange={e => onChangeSearchValue(e)} placeholder={SearchByPlaceHolder} aria-label={SearchByPlaceHolder} />
+                                                                <input type="text" className="form-control" id="txtSearcBar" onChange={e => onChangeSearchValue(e)} placeholder={SearchByPlaceHolder} aria-label={SearchByPlaceHolder} />
                                                                 <div className="input-group-append" onClick={onChangePagingData}>
-                                                                    <span className="input-group-text" >
-                                                                        <span>&#128269;</span>
+                                                                    <span className="input-group-text left-radius-dropdown-toggle" >
+                                                                        <FontAwesomeIcon icon={faSearch} />
                                                                     </span>
-                                                                    
+
                                                                 </div>
-                                                                
+
                                                             </div>
                                                         </fieldset>
                                                     </div>
                                                 </div>
                                                 <div className="col-sm-12 col-md-6 text-right">
-                                                   
-                                                    <div className="dataTables_length d-flex" style={{ justifyContent: 'space-between' }} id="exportdiv">
-                                                        
+
+                                                    <div className="dataTables_length d-flex grid-header" style={{ justifyContent: 'space-between' }} id="exportdiv">
                                                         {
                                                             <GridShowEntries
                                                                 DataList={ShowEntriesDataList}
                                                                 onChangePagingData={onChangePagingData}
                                                             />
                                                         }
-
-
                                                         <div className="dropdown">
-                                                            <button className="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Export</button>
+                                                            <button className="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Export <FontAwesomeIcon icon={faCloudDownloadAlt} /></button>
                                                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                                                 <li>
                                                                     <a className="dropdown-item" id="Excel" >
@@ -255,10 +321,6 @@ const IndexMstAccount = (props) => {
                                                                 </li>
                                                             </ul>
                                                         </div>
-
-                                                        <span className="input-group-text input-group-append" onClick={e => onClickTotalCard(e)}>
-                                                            <FontAwesomeIcon icon={faSync} />
-                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>

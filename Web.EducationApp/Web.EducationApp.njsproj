@@ -44,6 +44,7 @@
     <Content Include="README.md" />
     <Content Include="src\config\api.config.json" />
     <Content Include="src\context\UFContext.js" />
+    <Content Include="src\core\components\dropdown\CustomDropdown.js" />
     <Content Include="src\core\components\paging\DefaultPaging.js" />
     <Content Include="src\core\components\table\GridShowEntries.js" />
     <Content Include="src\core\components\table\GridTable.js" />
@@ -216,6 +217,7 @@
     <Content Include="src\services\instance.services.js" />
     <Content Include="src\setupTests.js" />
     <Content Include="src\util\common.funcs.js" />
+    <Content Include="src\util\common.vars.js" />
     <Content Include="src\util\ProtectedRoute.js" />
     <Content Include="webpack.config.js" />
   </ItemGroup>

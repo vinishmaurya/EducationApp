@@ -3,6 +3,7 @@ import CommonFuncs from "../../../util/common.funcs";
 import Spinner from 'react-bootstrap/Spinner';
 import { React, useState, useEffect } from "react";
 import { prop } from "cheerio/lib/api/attributes";
+import { $ } from 'react-jquery-plugin'
 
 const GridTable = (props) => {
     const [HaveData, setHaveData] = useState(false);
@@ -25,7 +26,7 @@ const GridTable = (props) => {
             if (i === 0) {
                 return (
                     <th key={uniqueKey} className="text-center">
-                        <input key={uniqueKey1} id="checkAll_Id" name="checkAll_Id" type="checkbox" value="true" />
+                        <input key={uniqueKey1} id="checkAll_Id" name="checkAll_Id" type="checkbox" value="true" onClick={(e) => { funcCheckBox(e) }} />
                         <input key={uniqueKey2} name="checkAll_Id" type="hidden" value="false" />
                     </th>
                 );
@@ -81,7 +82,7 @@ const GridTable = (props) => {
                                 //console.log(data[v]);
                                 return (
                                     <td key={uniqueKey4} className="text-center">
-                                        <input key={uniqueKey5} type="checkbox" value={data[v]} id={"hdId_" + data[v]} />
+                                        <input key={uniqueKey5} type="checkbox" className="row-checkbox" value={data[v]} id={"hdId_" + data[v]} />
                                     </td>
                                 );
                             }
@@ -128,6 +129,17 @@ const GridTable = (props) => {
         props.onClickHandelEditClick(e);
     }
 
+    function funcCheckBox(e) {
+        $(e.target).closest('table').find('tbody > tr').each(function (obj, i) {
+            if ($(e.target).is(':checked')) {
+                $(this).find('input[type="checkbox"]').attr("checked", "checked");
+            }
+            else {
+                $(this).find('input[type="checkbox"]').removeAttr("checked");
+            }
+        });
+    }
+
     return (
         <>
             {(() => {
@@ -144,9 +156,9 @@ const GridTable = (props) => {
                 return (
                     <>
                         <div>
-                            <div className="table-responsive mt-4 mb-2" style={{ maxHeight: '465px' }}>
-                                <table cellSpacing="0" cellPadding="0" border="0" className="table table-bordered table-hover" width="100%" style={{ cursor: 'auto' }}>
-                                    <thead>
+                            <div className="table-responsive mt-4 mb-2 position-relative" style={{ maxHeight: '465px' }}>
+                                <table cellSpacing="0" cellPadding="0" border="0" className="table table-bordered table-hover table-striped" width="100%" style={{ cursor: 'auto' }}>
+                                    <thead className="bg-light sticky-top top-0">
                                         <tr>{ThData()}</tr>
                                     </thead>
                                     <tbody>

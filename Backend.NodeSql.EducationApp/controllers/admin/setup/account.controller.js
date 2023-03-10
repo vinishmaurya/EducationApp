@@ -121,8 +121,8 @@ const AddEditAccountDetails = async (req, res, next) => {
         if (bool) {
             if (Object.hasOwn(Body_AccountDetails, 'StepCompleted')) {
                 if (Body_AccountDetails.StepCompleted == "AdditionalInfo") {
-                    console.log(JSON.stringify(req.body));
-                    if (!req.files || Object.keys(req.files).length <= 0) {
+                    if (!Body_AccountDetails.AccountLogoUrl) {
+                    if ((!req.files || Object.keys(req.files).length <= 0)) {
                         message = "No files were uploaded for account logo!";
                         bool = false;
                     }
@@ -133,19 +133,20 @@ const AddEditAccountDetails = async (req, res, next) => {
                         bool = false;
                     }
                     else {
-                        AccountLogo_Multipart = req.files.AccountLogo;
-                        //Size and format validations
-                        if (
-                            String(AccountLogo_Multipart.name.split('.')[1]).toUpperCase() != "JPG" &&
-                            String(AccountLogo_Multipart.name.split('.')[1]).toUpperCase() != "JPEG" &&
-                            String(AccountLogo_Multipart.name.split('.')[1]).toUpperCase() != "PNG"
-                        ) {
-                            message = "Invalid account logo Image format? only (jpg,jpeg,png) images are required!";
-                            bool = false;
-                        }
-                        else if ((AccountLogo_Multipart.size / (1000 * 1000)) > 1) {
-                            message = "Invalid account logo Image size? Only 1MB image are valid!";
-                            bool = false;
+                            AccountLogo_Multipart = req.files.AccountLogo;
+                            //Size and format validations
+                            if (
+                                String(AccountLogo_Multipart.name.split('.')[1]).toUpperCase() != "JPG" &&
+                                String(AccountLogo_Multipart.name.split('.')[1]).toUpperCase() != "JPEG" &&
+                                String(AccountLogo_Multipart.name.split('.')[1]).toUpperCase() != "PNG"
+                            ) {
+                                message = "Invalid account logo Image format? only (jpg,jpeg,png) images are required!";
+                                bool = false;
+                            }
+                            else if ((AccountLogo_Multipart.size / (1000 * 1000)) > 1) {
+                                message = "Invalid account logo Image size? Only 1MB image are valid!";
+                                bool = false;
+                            }
                         }
                     }
                 }
