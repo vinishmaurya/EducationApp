@@ -49,7 +49,7 @@ const IndexMstAccount = (props) => {
         SearchBy = e.target.getAttribute('search-by-value');
         //setSearchByPlaceHolder(e.target.getAttribute('search-by-text'));
         SearchByPlaceHolder = e.target.getAttribute('search-by-text');
-        $(e.target).parent().parent().each(function (obj,i) {
+        $(e.target).parent().parent().each(function (obj, i) {
             $(this).find('a').removeClass('active');
         });
         $(e.target).addClass('active');
@@ -169,6 +169,51 @@ const IndexMstAccount = (props) => {
         };
         onChangePagingData(CurrentPage, RowPerPage);
     }
+
+    const funcHandelPDFExport = async () => {
+        let filename = "MyAwesomeReport", title = "My Awesome Report";
+        let headers = [["NAME", "PROFESSION"]];
+        let dynamicData = [
+            { name: "Keanu Reeves", profession: "Actor" },
+            { name: "Lionel Messi", profession: "Football Player" },
+            { name: "Cristiano Ronaldo", profession: "Football Player" },
+            { name: "Jack Nicklaus", profession: "Golf Player" },
+        ]
+        let parseDynamicData = dynamicData.map(elt => [elt.name, elt.profession]);
+        await CommonFuncs.exportPDFUsingJSPDF(filename, title, headers, parseDynamicData);
+
+    }
+
+    const funcHandelCSVExport = async () => {
+
+        let filename = "MyAwesomeReport";
+        let headers = ['User Name', 'Department'];
+        let dynamicData = [
+            ['Alan Walker', 'Singer'],
+            ['Cristiano Ronaldo', 'Footballer'],
+            ['Saina Nehwal', 'Badminton Player'],
+            ['Arijit Singh', 'Singer'],
+            ['Terence Lewis', 'Dancer']
+        ]
+        await CommonFuncs.exportCSVDefault(filename, String(headers)+"\n", dynamicData);
+    }
+
+    const funcHandelExcelExport = async () => {
+
+        let filename = "MyAwesomeReport";
+        const headers = [
+            ['User Name', 'Department']
+        ];
+        let dynamicData = [
+            ['Alan Walker', 'Singer'],
+            ['Cristiano Ronaldo', 'Footballer'],
+            ['Saina Nehwal', 'Badminton Player'],
+            ['Arijit Singh', 'Singer'],
+            ['Terence Lewis', 'Dancer']
+        ]
+        await CommonFuncs.exportExcelUsingXlsxUtil(filename, headers, dynamicData);
+    }
+
 
     return (
         <>
@@ -299,21 +344,21 @@ const IndexMstAccount = (props) => {
                                                             <button className="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Export <FontAwesomeIcon icon={faCloudDownloadAlt} /></button>
                                                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                                                 <li>
-                                                                    <a className="dropdown-item" id="Excel" >
+                                                                    <a className="dropdown-item" id="Excel" onClick={funcHandelExcelExport} >
                                                                         <FontAwesomeIcon icon={faFileExcel} />
                                                                         &emsp;
                                                                         Excel
                                                                         </a>
                                                                 </li>
                                                                 <li>
-                                                                    <a className="dropdown-item" id="CSV" >
+                                                                    <a className="dropdown-item" id="CSV" onClick={funcHandelCSVExport} >
                                                                         <FontAwesomeIcon icon={faFileCsv} />
                                                                         &emsp;
                                                                         CSV
                                                                         </a>
                                                                 </li>
                                                                 <li>
-                                                                    <a className="dropdown-item" id="PDF" >
+                                                                    <a className="dropdown-item" id="PDF" onClick={funcHandelPDFExport}>
                                                                         <FontAwesomeIcon icon={faFilePdf} />
                                                                         &emsp;
                                                                         PDF
