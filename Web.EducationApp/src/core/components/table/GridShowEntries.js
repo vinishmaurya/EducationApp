@@ -1,3 +1,10 @@
+/**
+ * --------------------------------------------------------------------------
+ * By: Vinish
+ * Datetime: 2023-03-11 01:01:53.570
+ * Grid sow Entries
+ * --------------------------------------------------------------------------
+ */
 //import { useEffect } from "react";
 import CommonFuncs from "../../../util/common.funcs";
 require('dotenv').config();

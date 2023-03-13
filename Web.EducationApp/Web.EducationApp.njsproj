@@ -44,6 +44,9 @@
     <Content Include="README.md" />
     <Content Include="src\config\api.config.json" />
     <Content Include="src\context\UFContext.js" />
+    <Content Include="src\core\components\card\PageHeaderCount.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="src\core\components\dropdown\CustomDropdown.js" />
     <Content Include="src\core\components\paging\DefaultPaging.js" />
     <Content Include="src\core\components\table\GridShowEntries.js" />
@@ -188,7 +191,6 @@
     <Content Include="src\pages\super-admin\setup\masters\mst-account\AddEditMstAccount.js" />
     <Content Include="src\pages\super-admin\setup\masters\mst-account\IndexMstAccount.js" />
     <Content Include="src\pages\super-admin\setup\masters\mst-account\MstAccount.js" />
-    <Content Include="src\pages\super-admin\setup\masters\mst-account\useForm.js" />
     <Content Include="src\pages\super-admin\setup\masters\mst-form\AddEditMstForm.js" />
     <Content Include="src\pages\super-admin\setup\masters\mst-form\IndexMstForm.js" />
     <Content Include="src\pages\super-admin\setup\masters\mst-role\AddEditMstRole.js" />
@@ -219,6 +221,7 @@
     <Content Include="src\util\common.funcs.js" />
     <Content Include="src\util\common.vars.js" />
     <Content Include="src\util\ProtectedRoute.js" />
+    <Content Include="src\util\useFormValidator.js" />
     <Content Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>

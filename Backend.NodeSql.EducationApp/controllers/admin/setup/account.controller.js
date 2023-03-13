@@ -33,7 +33,13 @@ const GetAccountDetails = async (req, res, next) => {
             return res.send(ServiceResult);
         }
         await sql.connect(config.sql, function (err) {
-            if (err) console.log(err);
+            if (err) {
+                ServiceResult.Message = "Failed to generate api response!";
+                ServiceResult.Description = err.message;
+                ServiceResult.Result = false;
+                ServiceResult.Data = null;
+                return res.send(ServiceResult);
+            }
             // create Request object
             var request = new sql.Request();
             request.input('iPK_AccountId', sql.BigInt, AccountId);
@@ -90,7 +96,11 @@ const GetAccountDetails = async (req, res, next) => {
             });
         });
     } catch (error) {
-        res.status(400).send(error.message);
+        ServiceResult.Message = "API Internal Error!";
+        ServiceResult.Result = false;
+        ServiceResult.Description = error.message;
+        ServiceResult.Data = null;
+        return res.send(ServiceResult);
     }
 }
 
@@ -342,7 +352,7 @@ const DeleteAccountsDetails = async (req, res, next) => {
     /*  #swagger.tags = ['Admin.Account']
         #swagger.description = ''
     */
-    debugger;
+    //debugger;
     ServiceResult.Message = null;
     ServiceResult.Description = null;
     ServiceResult.Result = null;

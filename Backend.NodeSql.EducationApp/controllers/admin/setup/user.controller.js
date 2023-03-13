@@ -8,34 +8,92 @@ const GetUserDetails = async (req, res, next) => {
     /*  #swagger.tags = ['Admin.User']
         #swagger.description = ''
     */
+    ServiceResult.Message = null;
+    ServiceResult.Description = null;
+    ServiceResult.Result = null;
+    ServiceResult.Data = null;
     try {
         res.setHeader('Content-Type', 'application/json');
-        var iPK_UserId = req.params.PK_UserId;
-        var iRowperPage = req.params.RowperPage;
-        var iCurrentPage = req.params.CurrentPage;
-        var cSearchBy = req.params.SearchBy;
-        var cSearchValue = req.params.SearchValue;
-
+        var iPK_UserId = req.query.UserId;
+        var RowperPage = req.query.RowPerPage;
+        var CurrentPage = req.query.CurrentPage;
+        var cSearchBy = req.query.SearchBy;
+        var cSearchValue = req.query.SearchValue;
+        if ((Number(RowperPage) <= 0 || Number(CurrentPage) <= 0) || (isNaN(Number(RowperPage)) || isNaN(Number(CurrentPage)))) {
+            ServiceResult.Message = "Validation Error!";
+            ServiceResult.Description = '(RowPerPage & CurrentPage) query params must be required a number & grater than zero!';
+            ServiceResult.Result = false;
+            ServiceResult.Data = null;
+            return res.send(ServiceResult);
+        }
         await sql.connect(config.sql, function (err) {
-            if (err) console.log(err);
+            if (err) {
+                ServiceResult.Message = "Failed to generate api response!";
+                ServiceResult.Description = err.message;
+                ServiceResult.Result = false;
+                ServiceResult.Data = null;
+                return res.send(ServiceResult);
+            }
             // create Request object
             var request = new sql.Request();
             request.input('iPK_UserId', sql.BigInt, iPK_UserId);
-            request.input('iRowperPage', sql.BigInt, iRowperPage);
-            request.input('iCurrentPage', sql.BigInt, iCurrentPage);
+            request.input('iRowperPage', sql.BigInt, RowperPage);
+            request.input('iCurrentPage', sql.BigInt, CurrentPage);
             request.input('cSearchBy', sql.VarChar(500), cSearchBy);
-            request.input('cSearchValue', sql.BigInt, cSearchValue);
+            request.input('cSearchValue', sql.VarChar(500), cSearchValue);
             request.execute("[dbo].[USP_GetuserDetails]", function (err, recordset) {
                 if (err) {
-                    console.log(err);
                     sql.close();
+                    ServiceResult.Message = "Failed to parse api response!";
+                    ServiceResult.Description = err;
+                    ServiceResult.Result = false;
+                    ServiceResult.Data = null;
+                    return res.send(ServiceResult);
                 }
                 sql.close();
-                res.send(recordset.recordsets);
+
+                if (recordset) {
+                    if (recordset.recordsets[0][0].Message_Id == 1) {
+                        try {
+                            ServiceResult.Message = recordset.recordsets[0][0].Message;
+                            ServiceResult.Description = null;
+                            ServiceResult.Result = true;
+                            ServiceResult.Data = {
+                                DataList: recordset.recordsets[1],
+                                CountArray: recordset.recordsets[2][0],
+                                HeaderList: recordset.recordsets[3][0],
+                                SearchTermList: recordset.recordsets[4],
+                            };
+                            return res.send(ServiceResult);
+                        } catch (error) {
+                            ServiceResult.Message = "Failed to parse api response!";
+                            ServiceResult.Description = error;
+                            ServiceResult.Result = false;
+                            ServiceResult.Data = null;
+                            return res.send(ServiceResult);
+                        }
+                    }
+                    else {
+                        ServiceResult.Message = recordset.recordsets[0][0].Message;
+                        ServiceResult.Result = false;
+                        ServiceResult.Data = null;
+                        return res.send(ServiceResult);
+                    }
+                }
+                else {
+                    ServiceResult.Message = "Failed to parse api response!";
+                    ServiceResult.Result = false;
+                    ServiceResult.Data = null;
+                    return res.send(ServiceResult);
+                }
             });
         });
     } catch (error) {
-        res.status(400).send(error.message);
+        ServiceResult.Message = "API Internal Error!";
+        ServiceResult.Result = false;
+        ServiceResult.Description = error.message;
+        ServiceResult.Data = null;
+        return res.send(ServiceResult);
     }
 }
 
@@ -100,14 +158,30 @@ const DeleteUsersDetails = async (req, res, next) => {
     /*  #swagger.tags = ['Admin.User']
         #swagger.description = ''
     */
+    ServiceResult.Message = null;
+    ServiceResult.Description = null;
+    ServiceResult.Result = null;
+    ServiceResult.Data = null;
     try {
         res.setHeader('Content-Type', 'application/json');
 
-        var iPK_userId = req.body.iPK_userId;
-        var iUserId = req.body.iUserId;
-
+        var iPK_userId = req.query.UserId;
+        var iUserId = req.query.DeletedBy;
+        if ((Number(iPK_userId) <= 0 || Number(iUserId) <= 0) || (isNaN(Number(iPK_userId)) || isNaN(Number(iUserId)))) {
+            ServiceResult.Message = "Validation Error!";
+            ServiceResult.Description = '(UserId & DeletedBy) query params must be required a number & grater than zero!';
+            ServiceResult.Result = false;
+            ServiceResult.Data = null;
+            return res.send(ServiceResult);
+        }
         await sql.connect(config.sql, function (err) {
-            if (err) console.log(err);
+            if (err) {
+                ServiceResult.Message = "Failed to parse api response!";
+                ServiceResult.Description = err;
+                ServiceResult.Result = false;
+                ServiceResult.Data = null;
+                return res.send(ServiceResult);
+            }
             // create Request object
             var request = new sql.Request();
 
@@ -116,16 +190,51 @@ const DeleteUsersDetails = async (req, res, next) => {
 
             request.execute("[dbo].[USP_Deleteuser]", function (err, recordset) {
                 if (err) {
-                    console.log(err);
                     sql.close();
+                    ServiceResult.Message = "Failed to parse api response!";
+                    ServiceResult.Description = err;
+                    ServiceResult.Result = false;
+                    ServiceResult.Data = null;
+                    return res.send(ServiceResult);
                 }
                 sql.close();
-                res.send(recordset.recordsets);
-
+                if (recordset) {
+                    if (recordset.recordsets[0][0].Message_Id == 1) {
+                        try {
+                            ServiceResult.Message = recordset.recordsets[0][0].Message;
+                            ServiceResult.Description = null;
+                            ServiceResult.Result = true;
+                            ServiceResult.Data = null;
+                            return res.send(ServiceResult);
+                        } catch (error) {
+                            ServiceResult.Message = "Failed to parse api response!";
+                            ServiceResult.Description = error;
+                            ServiceResult.Result = false;
+                            ServiceResult.Data = null;
+                            return res.send(ServiceResult);
+                        }
+                    }
+                    else {
+                        ServiceResult.Message = recordset.recordsets[0][0].Message;
+                        ServiceResult.Result = false;
+                        ServiceResult.Data = null;
+                        return res.send(ServiceResult);
+                    }
+                }
+                else {
+                    ServiceResult.Message = "Failed to parse api response!";
+                    ServiceResult.Result = false;
+                    ServiceResult.Data = null;
+                    return res.send(ServiceResult);
+                }
             });
         });
     } catch (error) {
-        res.status(400).send(error.message);
+        ServiceResult.Message = "API Internal Error!";
+        ServiceResult.Result = false;
+        ServiceResult.Description = error.message;
+        ServiceResult.Data = null;
+        return res.send(ServiceResult);
     }
 }
 

@@ -18,7 +18,7 @@ function is_object(value) {
  * @param {string} value
  * @param {boolean} isRequired
  */
-function is_required(value, isRequired,error) {
+function is_required(value, isRequired, error) {
     if (!value && isRequired) {
         return error === "" ? REQUIRED_FIELD_ERROR : error;
     }
@@ -40,7 +40,7 @@ function get_prop_values(stateSchema, prop) {
  * @param {object} stateValidatorSchema model your validation.
  * @param {function} submitFormCallback function to be execute during form submission.
  */
-function useForm(
+function useFormValidator(
     stateSchema = {},
     stateValidatorSchema = {},
     submitFormCallback
@@ -143,7 +143,7 @@ function useForm(
             // Making sure that there's no error in the state
             // before calling the submit callback function
             if (!validateErrorState()) {
-                submitFormCallback(event,values);
+                submitFormCallback(event, values);
             }
         },
         [validateErrorState, submitFormCallback, values]
@@ -172,4 +172,4 @@ function useForm(
     };
 }
 
-export default useForm;
+export default useFormValidator;

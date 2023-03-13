@@ -1,14 +1,31 @@
 {
-  "admin": {
-    "common": {
+  "Admin": {
+    "Common": {
       "GetAllCategoryListUri": "/admin/common/GetAllCategoryList",
       "GetAllCountryListUri": "/admin/common/GetAllCountryList",
       "GetAllStateListCountryIdUri": "/admin/common/GetAllStateListCountryId",
       "GetAllCityListByStateUri": "/admin/common/GetAllCityListByState",
       "GetAllParentFormsListUri": "/admin/common/GetAllParentFormsList"
     },
-    "account": {
-        "AddEditAccountDetailsUri": "/admin/Account/AddEditAccountDetails"
-      }
+    "Account": {
+      "AddEditAccountDetailsUri": "/admin/Account/AddEditAccountDetails",
+      "GetAccountDetailsUri": "/admin/Account/GetAccountDetails?AccountId=<AccountId>&RowPerPage=<RowPerPage>&CurrentPage=<CurrentPage>&SearchBy=<SearchBy>&SearchValue=<SearchValue>",
+      "DeleteAccountsDetailsUri": "/admin/Account/DeleteAccountsDetails?AccountId=<AccountId>&DeletedBy=<DeletedBy>"
+    },
+    "Role": {
+      "AddEditRoleDetailsUri": "/admin/Role/AddEditRoleDetails",
+      "GetRoleDetailsUri": "/admin/Role/GetRoleDetails?RoleId=<RoleId>&RowPerPage=<RowPerPage>&CurrentPage=<CurrentPage>&SearchBy=<SearchBy>&SearchValue=<SearchValue>",
+      "DeleteRolesDetailsUri": "/admin/Role/DeleteRolesDetails?RoleId=<RoleId>&DeletedBy=<DeletedBy>"
+    },
+    "Form": {
+      "AddEditFormDetailsUri": "/admin/Form/AddEditFormDetails",
+      "GetFormDetailsUri": "/admin/Form/GetFormDetails?FormId=<FormId>&RowPerPage=<RowPerPage>&CurrentPage=<CurrentPage>&SearchBy=<SearchBy>&SearchValue=<SearchValue>",
+      "DeleteFormsDetailsUri": "/admin/Form/DeleteFormsDetails?FormId=<FormId>&DeletedBy=<DeletedBy>"
+    },
+    "User": {
+      "AddEditUserDetailsUri": "/admin/User/AddEditUserDetails",
+      "GetUserDetailsUri": "/admin/User/GetUserDetails?UserId=<UserId>&RowPerPage=<RowPerPage>&CurrentPage=<CurrentPage>&SearchBy=<SearchBy>&SearchValue=<SearchValue>",
+      "DeleteUsersDetailsUri": "/admin/User/DeleteUsersDetails?UserId=<UserId>&DeletedBy=<DeletedBy>"
+    }
   }
 }

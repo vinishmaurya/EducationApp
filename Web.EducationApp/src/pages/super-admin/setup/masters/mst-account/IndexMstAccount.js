@@ -2,23 +2,26 @@
  * --------------------------------------------------------------------------
  * By: Vinish
  * Datetime: 2023-03-11 01:01:53.570
- * Index Page Account Details
+ * Index Page Account Master Details
  * --------------------------------------------------------------------------
  */
 import { React, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faCloudDownloadAlt, faFileCsv, faFileDownload, faFileExcel, faFilePdf, faSearch, faSync } from "@fortawesome/free-solid-svg-icons";
-import { useEffect } from "react";
+import { useEffect, forwardRef, useImperativeHandle } from "react";
 import CommonFuncs from "../../../../../util/common.funcs";
 import Login from "../../../../../auth/login/Login";
 import GridTable from "../../../../../core/components/table/GridTable";
 import DefaultPaging from "../../../../../core/components/paging/DefaultPaging";
 import GridShowEntries from "../../../../../core/components/table/GridShowEntries";
 import { $ } from 'react-jquery-plugin'
+import { format } from 'date-fns';
+import PageHeaderCount from "../../../../../core/components/card/PageHeaderCount";
 
 require('dotenv').config();
 const IndexMstAccount = (props) => {
     //let [SearchByPlaceHolder, setSearchByPlaceHolder] = useState('');
+    //console.log(props.defaultDynamicAPIResponse);
     let SearchByPlaceHolder = "";
     let ShowEntriesDataList = process.env.REACT_APP_DefaultRowPerPageValues.split(',');
     let RowPerPage = props.RowPerPage;
@@ -37,6 +40,7 @@ const IndexMstAccount = (props) => {
     useEffect(() => {
 
     }, []);
+    
     const isComponentMounted = CommonFuncs.useIsComponentMounted();
     if (!isComponentMounted.current) {
         //After Component Load data
@@ -44,6 +48,7 @@ const IndexMstAccount = (props) => {
     if (!props.defaultDynamicAPIResponse) {
         return (<Login />)
     }
+    
 
     function onSelectSearchBy(e) {
         SearchBy = e.target.getAttribute('search-by-value');
@@ -60,7 +65,7 @@ const IndexMstAccount = (props) => {
     }
 
 
-    function onClickCountCard(e) {
+    function funcHandelRefreshData(e) {
         //debugger;
         RowPerPage = process.env.REACT_APP_DefaultRowPerPage;
         CurrentPage = process.env.REACT_APP_DefaultCurrentPage;
@@ -74,6 +79,7 @@ const IndexMstAccount = (props) => {
             TotalPage: TotalPage
         };
         onChangePagingData(CurrentPage, RowPerPage);
+        $('#txtSearcBar').val('');
     }
 
     function onChangePagingData(NextCurrentPage, NextRowPerPage) {
@@ -92,9 +98,16 @@ const IndexMstAccount = (props) => {
 
     function onClickHandelEditClick(childEvent) {
         //debugger;
-        let rowIndex = $(childEvent.currentTarget).attr('row-index');
-        props.funcLoadComponent(rowIndex);
+        let rowData = $(childEvent.currentTarget).attr('row-data');
+        props.funcLoadComponent(rowData);
     }
+
+    function onClickHandelDeleteClick(childEvent) {
+        //debugger;
+        let rowData = $(childEvent.currentTarget).attr('row-data');
+        props.funcDeleteRecord(rowData);
+    }
+
 
     function funcBindSearchTerms() {
         //debugger;
@@ -138,6 +151,7 @@ const IndexMstAccount = (props) => {
             TotalPage: TotalPage
         };
         onChangePagingData(CurrentPage, RowPerPage);
+        $('#txtSearcBar').val('');
     }
 
     function funcHandelCardInactive(e) {
@@ -153,6 +167,8 @@ const IndexMstAccount = (props) => {
             TotalPage: TotalPage
         };
         onChangePagingData(CurrentPage, RowPerPage);
+
+        $('#txtSearcBar').val('');
     }
 
     function funcHandelCardThisMonth(e) {
@@ -168,50 +184,136 @@ const IndexMstAccount = (props) => {
             TotalPage: TotalPage
         };
         onChangePagingData(CurrentPage, RowPerPage);
+
+        $('#txtSearcBar').val('');
     }
 
     const funcHandelPDFExport = async () => {
-        let filename = "MyAwesomeReport", title = "My Awesome Report";
-        let headers = [["NAME", "PROFESSION"]];
-        let dynamicData = [
-            { name: "Keanu Reeves", profession: "Actor" },
-            { name: "Lionel Messi", profession: "Football Player" },
-            { name: "Cristiano Ronaldo", profession: "Football Player" },
-            { name: "Jack Nicklaus", profession: "Golf Player" },
-        ]
-        let parseDynamicData = dynamicData.map(elt => [elt.name, elt.profession]);
-        await CommonFuncs.exportPDFUsingJSPDF(filename, title, headers, parseDynamicData);
-
+        if (props.defaultDynamicAPIResponse.DataList.length > 0) {
+            let filename = "AccountMasterData" + format(new Date(), '-ddMMyyyykkmmss'), title = "Account Master Data (" + format(new Date(), 'dd/MM/yyyy kk:mm:ss') + ")";
+            //let headers = [["NAME", "PROFESSION"]];
+            //let dynamicData = [
+            //    { name: "Keanu Reeves", profession: "Actor" },
+            //    { name: "Lionel Messi", profession: "Football Player" },
+            //    { name: "Cristiano Ronaldo", profession: "Football Player" },
+            //    { name: "Jack Nicklaus", profession: "Golf Player" },
+            //]
+            let headers = [(Object.values(props.defaultDynamicAPIResponse.HeaderList)).filter(function (ele, i) { return !["PK_ID", "Action", "#"].includes(ele) })];
+            const headerKeys = (Object.keys(props.defaultDynamicAPIResponse.HeaderList)).filter(function (ele, i) { return !["PK_ID", "Action", "SrNo"].includes(ele) });;
+            let parseDynamicData = [];
+            let hasAnyChecked = false;
+            $("#tblGrid > tbody > tr").each(function () {
+                if ($(this).find('input[type="checkbox"]').is(':checked')) {
+                    hasAnyChecked = true;
+                }
+            });
+            props.defaultDynamicAPIResponse.DataList.forEach(function (obj, i) {
+                let tempObj = [];
+                if (hasAnyChecked) {
+                    if ($("#chkb_" + obj.PK_ID).is(":checked")) {
+                        for (var i = 0; i < headerKeys.length; i++) {
+                            tempObj.push(obj[headerKeys[i]]);
+                        }
+                        parseDynamicData.push(tempObj);
+                    }
+                }
+                else {
+                    for (var i = 0; i < headerKeys.length; i++) {
+                        tempObj.push(obj[headerKeys[i]]);
+                    }
+                    parseDynamicData.push(tempObj);
+                }
+            });
+            await CommonFuncs.exportPDFUsingJSPDF(filename, title, headers, parseDynamicData);
+        }
     }
 
     const funcHandelCSVExport = async () => {
+        if (props.defaultDynamicAPIResponse.DataList.length > 0) {
+            let filename = "AccountMasterData" + format(new Date(), '-ddMMyyyykkmmss');
+            //let headers = ['User Name', 'Department'];
+            //let dynamicData = [
+            //    ['Alan Walker', 'Singer'],
+            //    ['Cristiano Ronaldo', 'Footballer'],
+            //    ['Saina Nehwal', 'Badminton Player'],
+            //    ['Arijit Singh', 'Singer'],
+            //    ['Terence Lewis', 'Dancer']
+            //]
 
-        let filename = "MyAwesomeReport";
-        let headers = ['User Name', 'Department'];
-        let dynamicData = [
-            ['Alan Walker', 'Singer'],
-            ['Cristiano Ronaldo', 'Footballer'],
-            ['Saina Nehwal', 'Badminton Player'],
-            ['Arijit Singh', 'Singer'],
-            ['Terence Lewis', 'Dancer']
-        ]
-        await CommonFuncs.exportCSVDefault(filename, String(headers)+"\n", dynamicData);
+            let headers = (Object.values(props.defaultDynamicAPIResponse.HeaderList)).filter(function (ele, i) { return !["PK_ID", "Action", "#"].includes(ele) });
+            const headerKeys = (Object.keys(props.defaultDynamicAPIResponse.HeaderList)).filter(function (ele, i) { return !["PK_ID", "Action", "SrNo"].includes(ele) });;
+            let parseDynamicData = [];
+            let hasAnyChecked = false;
+            $("#tblGrid > tbody > tr").each(function () {
+                if ($(this).find('input[type="checkbox"]').is(':checked')) {
+                    hasAnyChecked = true;
+                }
+            });
+            props.defaultDynamicAPIResponse.DataList.forEach(function (obj, i) {
+                let tempObj = [];
+                if (hasAnyChecked) {
+                    if ($("#chkb_" + obj.PK_ID).is(":checked")) {
+                        for (var i = 0; i < headerKeys.length; i++) {
+                            tempObj.push(obj[headerKeys[i]]);
+                        }
+                        parseDynamicData.push(tempObj);
+                    }
+                }
+                else {
+                    for (var i = 0; i < headerKeys.length; i++) {
+                        tempObj.push(obj[headerKeys[i]]);
+                    }
+                    parseDynamicData.push(tempObj);
+                }
+            });
+
+            await CommonFuncs.exportCSVDefault(filename, String(headers) + "\n", parseDynamicData);
+        }
     }
 
     const funcHandelExcelExport = async () => {
+        if (props.defaultDynamicAPIResponse.DataList.length > 0) {
+            let filename = "AccountMasterData" + format(new Date(), '-ddMMyyyykkmmss');
+            //const headers = [
+            //    ['User Name', 'Department']
+            //];
+            //let dynamicData = [
+            //    ['Alan Walker', 'Singer'],
+            //    ['Cristiano Ronaldo', 'Footballer'],
+            //    ['Saina Nehwal', 'Badminton Player'],
+            //    ['Arijit Singh', 'Singer'],
+            //    ['Terence Lewis', 'Dancer']
+            //]
 
-        let filename = "MyAwesomeReport";
-        const headers = [
-            ['User Name', 'Department']
-        ];
-        let dynamicData = [
-            ['Alan Walker', 'Singer'],
-            ['Cristiano Ronaldo', 'Footballer'],
-            ['Saina Nehwal', 'Badminton Player'],
-            ['Arijit Singh', 'Singer'],
-            ['Terence Lewis', 'Dancer']
-        ]
-        await CommonFuncs.exportExcelUsingXlsxUtil(filename, headers, dynamicData);
+            let headers = [(Object.values(props.defaultDynamicAPIResponse.HeaderList)).filter(function (ele, i) { return !["PK_ID", "Action", "#"].includes(ele) })];
+            const headerKeys = (Object.keys(props.defaultDynamicAPIResponse.HeaderList)).filter(function (ele, i) { return !["PK_ID", "Action", "SrNo"].includes(ele) });;
+            let parseDynamicData = [];
+            let hasAnyChecked = false;
+            $("#tblGrid > tbody > tr").each(function () {
+                if ($(this).find('input[type="checkbox"]').is(':checked')) {
+                    hasAnyChecked = true;
+                }
+            });
+            props.defaultDynamicAPIResponse.DataList.forEach(function (obj, i) {
+                let tempObj = [];
+                if (hasAnyChecked) {
+                    if ($("#chkb_" + obj.PK_ID).is(":checked")) {
+                        for (var i = 0; i < headerKeys.length; i++) {
+                            tempObj.push(obj[headerKeys[i]]);
+                        }
+                        parseDynamicData.push(tempObj);
+                    }
+                }
+                else {
+                    for (var i = 0; i < headerKeys.length; i++) {
+                        tempObj.push(obj[headerKeys[i]]);
+                    }
+                    parseDynamicData.push(tempObj);
+                }
+            });
+
+            await CommonFuncs.exportExcelUsingXlsxUtil(filename, headers, parseDynamicData);
+        }
     }
 
 
@@ -219,74 +321,14 @@ const IndexMstAccount = (props) => {
         <>
             <div className="content-demo">
                 <section id="stats-icon-subtitle">
-                    <div className="row match-height">
-                        <div className="col-xl-3 col-md-6">
-                            <div className="card overflow-hidden card-content-custom" >
-                                <div className="card-content cursor-card " id="total" onClick={e => onClickCountCard(e)} >
-                                    <div style={{ justifyContent: 'space-between' }} className="media align-items-stretch d-flex">
-                                        <div className="media-left p-1 media-middle btn-primary" style={{ "backgroundColor": "#0099e5" }}>
-                                        </div>
-                                        <div className="media-body p-2">
-                                            <h4>Total </h4>
-                                        </div>
-                                        <div className="media-right p-2 media-middle">
-                                            <h2 className="info font-weight-bold" id="totalValue">{props.defaultDynamicAPIResponse.CountArray.TotalItem}</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-xl-3 col-md-6">
-                            <div className="card overflow-hidden card-content-custom" >
-                                <div className="card-content cursor-card" id="active" onClick={e => funcHandelCardActive(e)}>
-                                    <div style={{ justifyContent: 'space-between' }} className="media align-items-stretch d-flex">
-                                        <div className="media-left p-1 media-middle btn-primary" style={{ "backgroundColor": "#3ecf8e" }}>
-                                        </div>
-                                        <div className="media-body p-2">
-                                            <h4>Active</h4>
-                                        </div>
-                                        <div className="media-right p-2 media-middle">
-                                            <h2 className="success font-weight-bold" id="totalActiveValue">{props.defaultDynamicAPIResponse.CountArray.TotalActive}</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-xl-3 col-md-6">
-                            <div className="card overflow-hidden card-content-custom">
-                                <div className="card-content cursor-card" id="inactive" onClick={e => funcHandelCardInactive(e)}>
-                                    <div style={{ justifyContent: 'space-between' }} className="media align-items-stretch d-flex">
-                                        <div className="media-left p-1 media-middle btn-primary" style={{ "backgroundColor": "#ff6886" }}>
-                                        </div>
-                                        <div className="media-body p-2">
-                                            <h4>Inactive</h4>
-                                        </div>
-                                        <div className="media-right p-2 media-middle">
-                                            <h2 className="danger font-weight-bold" id="totalTotalInactiveValue">{props.defaultDynamicAPIResponse.CountArray.TotalInActive}</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-xl-3 col-md-6">
-                            <div className="card overflow-hidden card-content-custom" >
-                                <div className="card-content cursor-card" id="this_month" onClick={e => funcHandelCardThisMonth(e)}>
-                                    <div style={{ justifyContent: 'space-between' }} className="media align-items-stretch d-flex">
-                                        <div className="media-left p-1 media-middle btn-primary" style={{ "backgroundColor": "#0099e5" }}>
-                                        </div>
-                                        <div className="media-body p-2">
-                                            <h4>This Month</h4>
-                                        </div>
-                                        <div className="media-right p-2 media-middle">
-                                            <h2 className="warning font-weight-bold" id="totalThisMonthValue">{props.defaultDynamicAPIResponse.CountArray.TotalCurrentMonth}</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <PageHeaderCount
+                        CountArray={props.defaultDynamicAPIResponse.CountArray}
 
-
-                    </div>
+                        funcHandelCardTotal={funcHandelRefreshData}
+                        funcHandelCardInactive={funcHandelCardInactive}
+                        funcHandelCardActive={funcHandelCardActive}
+                        funcHandelCardThisMonth={funcHandelCardThisMonth}
+                    />
                 </section>
                 <section className="mt-3">
                     <div className="row">
@@ -298,7 +340,7 @@ const IndexMstAccount = (props) => {
                                     <div className="heading-elements">
                                         <ul className="list-inline mb-0">
                                             <li>
-                                                <span onClick={e => onClickCountCard(e)} className="cursor-card btn btn-light">
+                                                <span onClick={e => funcHandelRefreshData(e)} className="cursor-card btn btn-light">
                                                     <FontAwesomeIcon icon={faSync} />
                                                 </span>
                                             </li>
@@ -315,7 +357,7 @@ const IndexMstAccount = (props) => {
                                                             <div className="input-group listSearch">
                                                                 <div className="input-group-prepend">
                                                                     <button className="btn btn-light dropdown-toggle right-radius-dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
-                                                                    <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                                    <ul className="dropdown-menu my-dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                                                         {funcBindSearchTerms()}
                                                                     </ul>
                                                                 </div>
@@ -342,7 +384,7 @@ const IndexMstAccount = (props) => {
                                                         }
                                                         <div className="dropdown">
                                                             <button className="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Export <FontAwesomeIcon icon={faCloudDownloadAlt} /></button>
-                                                            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                            <ul className="dropdown-menu my-dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                                                 <li>
                                                                     <a className="dropdown-item" id="Excel" onClick={funcHandelExcelExport} >
                                                                         <FontAwesomeIcon icon={faFileExcel} />
@@ -376,6 +418,7 @@ const IndexMstAccount = (props) => {
                                                         DataList={props.defaultDynamicAPIResponse.DataList}
                                                         HeaderList={props.defaultDynamicAPIResponse.HeaderList}
                                                         onClickHandelEditClick={onClickHandelEditClick}
+                                                        onClickHandelDeleteClick={onClickHandelDeleteClick}
                                                     />
                                                 }
                                                 {

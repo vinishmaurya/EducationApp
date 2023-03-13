@@ -1,9 +1,19 @@
+/**
+ * --------------------------------------------------------------------------
+ * By: Vinish
+ * Datetime: 2023-03-11 01:01:53.570
+ * Common core componenet for grid
+ * --------------------------------------------------------------------------
+ */
 //import { useEffect } from "react";
 import CommonFuncs from "../../../util/common.funcs";
 import Spinner from 'react-bootstrap/Spinner';
 import { React, useState, useEffect } from "react";
 import { prop } from "cheerio/lib/api/attributes";
 import { $ } from 'react-jquery-plugin'
+import { faCross, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXbox } from "@fortawesome/free-brands-svg-icons";
 
 const GridTable = (props) => {
     const [HaveData, setHaveData] = useState(false);
@@ -82,7 +92,7 @@ const GridTable = (props) => {
                                 //console.log(data[v]);
                                 return (
                                     <td key={uniqueKey4} className="text-center">
-                                        <input key={uniqueKey5} type="checkbox" className="row-checkbox" value={data[v]} id={"hdId_" + data[v]} />
+                                        <input key={uniqueKey5} type="checkbox" className="row-checkbox" value={data[v]} id={"chkb_" + data[v]} />
                                     </td>
                                 );
                             }
@@ -90,18 +100,25 @@ const GridTable = (props) => {
                                 return (
                                     <td key={uniqueKey6} className="text-center text-nowrap">
                                         <a key={uniqueKey7}
-                                            className="btn btn-icon btn-dark btn-sm"
+                                            className="btn btn-icon btn-primary btn-sm"
                                             style={{ marginRight: "1px" }}
                                             href={void (0)}
-                                            onClick={(e) => handelEditClick(e)}
+                                            onClick={(e) => props.onClickHandelEditClick(e)}
+                                            row-index={i}
+                                            row-data={CommonFuncs.encryptCryptoJSAES(data['PK_ID'])}
+                                        >
+                                            <FontAwesomeIcon icon={faEdit} />
+                                        </a>
+                                        <a key={uniqueKey10}
+                                            className="btn btn-icon btn-danger btn-sm"
+                                            href={void (0)}
+                                            onClick={() => {
+                                                $("#myConfirmModal").modal("show");
+                                                $("#btnModelConfirmClose").attr('row-data', CommonFuncs.encryptCryptoJSAES(data['PK_ID']));
+                                            }}
                                             row-index={i}
                                         >
-                                            <i key={uniqueKey8} className="la la-pencil"></i>
-                                            <span key={uniqueKey9}>&#9998;</span>
-                                        </a>
-                                        <a key={uniqueKey10} className="btn btn-icon btn-danger btn-sm" href={void (0)} >
-                                            <i key={uniqueKey11} className="la la-trash-o"></i>
-                                            <span key={uniqueKey12}>&#x2421;</span>
+                                            <FontAwesomeIcon icon={faTrash} />
                                         </a>
 
                                     </td>
@@ -125,9 +142,6 @@ const GridTable = (props) => {
         })
     }
 
-    function handelEditClick(e) {
-        props.onClickHandelEditClick(e);
-    }
 
     function funcCheckBox(e) {
         $(e.target).closest('table').find('tbody > tr').each(function (obj, i) {
@@ -140,24 +154,51 @@ const GridTable = (props) => {
         });
     }
 
+    function bindConfirmModel() {
+        return (
+            <>
+                <div className="modal fade" id="myConfirmModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-body">
+                                <div className="icon-box">
+                                    <span className="material-icons">&#9587;</span>
+                                </div>
+                                <h4 className="modal-title">Are you sure?</h4>
+                                <p>Do you really want to delete these records? This process cannot be undone.</p>
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-danger" id="btnModelConfirmClose" onClick={(e) => { props.onClickHandelDeleteClick(e); $("#myConfirmModal").modal("hide") }}>Delete</button>
+                                <button type="button" className="btn btn-light" data-dismiss="modal" onClick={() => { $("#myConfirmModal").modal("hide") }} >Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </>
+        );
+    }
+
     return (
         <>
             {(() => {
-                //if (!HaveData) {
-                //    return (
-                //        <>
-                //            <div className="alert alert-warning" role="alert">
-                //                <Spinner animation="grow" className="load-component-spinner" />
-                //                <span>  Please wait while loading data...</span>
-                //            </div>
-                //        </>
-                //    );
-                //}
+
+               
                 return (
                     <>
+                        {
+                            //!HaveData && (
+                            //    <>
+                            //        <div className="alert alert-warning" role="alert">
+                            //            <Spinner animation="grow" className="load-component-spinner" />
+                            //            <span>  Please wait while loading data...</span>
+                            //        </div>
+                            //    </>
+                            //)
+                        }
+
                         <div>
                             <div className="table-responsive mt-4 mb-2 position-relative" style={{ maxHeight: '465px' }}>
-                                <table cellSpacing="0" cellPadding="0" border="0" className="table table-bordered table-hover table-striped" width="100%" style={{ cursor: 'auto' }}>
+                                <table cellSpacing="0" cellPadding="0" border="0" className="table table-bordered table-hover table-striped" width="100%" style={{ cursor: 'auto' }} id="tblGrid">
                                     <thead className="bg-light sticky-top top-0">
                                         <tr>{ThData()}</tr>
                                     </thead>
@@ -166,6 +207,7 @@ const GridTable = (props) => {
                                     </tbody>
                                 </table>
                             </div>
+                            {bindConfirmModel()}
                         </div>
                     </>
                 );

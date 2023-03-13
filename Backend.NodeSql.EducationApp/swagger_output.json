@@ -74,9 +74,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
           }
         }
       }
@@ -94,9 +91,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
           }
         }
       }
@@ -114,9 +108,69 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/admin/common/GetAllCountryList": {
+      "get": {
+        "tags": [
+          "Admin.Common"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/common/GetAllStateListCountryId": {
+      "get": {
+        "tags": [
+          "Admin.Common"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "CountryId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/common/GetAllCityListByState": {
+      "get": {
+        "tags": [
+          "Admin.Common"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "StateId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -294,7 +348,7 @@
         }
       }
     },
-    "/admin/Role/GetRoleDetails/{PK_RoleId}/{RowperPage}/{CurrentPage}/{SearchBy}/{SearchValue}": {
+    "/admin/Role/GetRoleDetails": {
       "get": {
         "tags": [
           "Admin.Role"
@@ -305,33 +359,28 @@
         ],
         "parameters": [
           {
-            "name": "PK_RoleId",
-            "in": "path",
-            "required": true,
+            "name": "RoleId",
+            "in": "query",
             "type": "string"
           },
           {
-            "name": "RowperPage",
-            "in": "path",
-            "required": true,
+            "name": "RowPerPage",
+            "in": "query",
             "type": "string"
           },
           {
             "name": "CurrentPage",
-            "in": "path",
-            "required": true,
+            "in": "query",
             "type": "string"
           },
           {
             "name": "SearchBy",
-            "in": "path",
-            "required": true,
+            "in": "query",
             "type": "string"
           },
           {
             "name": "SearchValue",
-            "in": "path",
-            "required": true,
+            "in": "query",
             "type": "string"
           }
         ],
@@ -787,7 +836,7 @@
             "type": "string"
           },
           {
-            "name": "RowperPage",
+            "name": "RowPerPage",
             "in": "query",
             "type": "string"
           },
@@ -810,9 +859,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
           }
         }
       }

@@ -8,11 +8,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useCookies } from 'react-cookie';
-import apiconfig from "../../../../../config/api.config.json";
+import APIConfig from "../../../../../config/api.config.json";
 import AccountService from "../../../../../services/account.services";
 //import AccountDetailsModel from "../../../../../models/accountdetails.model";
 import reqBody from "../../../../../models/reqBody.Model";
-import useForm from "../../../../../pages/super-admin/setup/masters/mst-account/useForm";
+import useFormValidator from "../../../../../util/useFormValidator";
 import CustomDropdown from "../../../../../core/components/dropdown/CustomDropdown";
 import { $ } from 'react-jquery-plugin';
 require('dotenv').config();
@@ -234,7 +234,7 @@ const AddEditMstAccount = (props) => {
         handleOnSubmit: handleOnSubmitAccountDetails,
         disable: disableAccountDetails,
         handleOnClear: handleOnClearAccountDetails
-    } = useForm(stateSchemaAccountDetails, stateValidatorSchemaAccountDetails, onSubmitFormAccountDetails);
+    } = useFormValidator(stateSchemaAccountDetails, stateValidatorSchemaAccountDetails, onSubmitFormAccountDetails);
 
     const {
         values: valuesAdditionalInfo,
@@ -244,7 +244,7 @@ const AddEditMstAccount = (props) => {
         handleOnSubmit: handleOnSubmitAdditionalInfo,
         disable: disableAdditionalInfo,
         handleOnClear: handleOnClearAdditionalInfo
-    } = useForm(stateSchemaAdditionalInfo, stateValidatorSchemaAdditionalInfo, onSubmitFormAdditionalInfo);
+    } = useFormValidator(stateSchemaAdditionalInfo, stateValidatorSchemaAdditionalInfo, onSubmitFormAdditionalInfo);
 
     const {
         values: valuesCredentials,
@@ -254,7 +254,7 @@ const AddEditMstAccount = (props) => {
         handleOnSubmit: handleOnSubmitCredentials,
         disable: disableCredentials,
         handleOnClear: handleOnClearCredentials
-    } = useForm(stateSchemaCredentials, stateValidatorSchemaCredentials, onSubmitFormCredentials);
+    } = useFormValidator(stateSchemaCredentials, stateValidatorSchemaCredentials, onSubmitFormCredentials);
 
     //#endregion
 
@@ -294,7 +294,7 @@ const AddEditMstAccount = (props) => {
     //#region bind funcs to call axios
     const fetchAllCategoryList = async () => {
         //debugger;
-        let apiUri = apiconfig.admin.common.GetAllCategoryListUri;
+        let apiUri = APIConfig.Admin.Common.GetAllCategoryListUri;
 
         const instance = await axios.create({
             baseURL: process.env.REACT_APP_APIBaseUri,
@@ -340,7 +340,7 @@ const AddEditMstAccount = (props) => {
 
     const fetchAllParentAccountList = async () => {
         //debugger;
-        let apiUri = apiconfig.admin.common.GetAllParentFormsListUri;
+        let apiUri = APIConfig.Admin.Common.GetAllParentFormsListUri;
 
         const instance = await axios.create({
             baseURL: process.env.REACT_APP_APIBaseUri,
@@ -385,7 +385,7 @@ const AddEditMstAccount = (props) => {
 
     const fetchCountryList = async () => {
         //debugger;
-        let apiUri = apiconfig.admin.common.GetAllCountryListUri;
+        let apiUri = APIConfig.Admin.Common.GetAllCountryListUri;
         //console.log(apiUri);
         const instance = axios.create({
             baseURL: process.env.REACT_APP_APIBaseUri,
@@ -430,7 +430,7 @@ const AddEditMstAccount = (props) => {
 
     const fetchStateList = async (CountryId) => {
         //debugger;
-        let apiUri = apiconfig.admin.common.GetAllStateListCountryIdUri;
+        let apiUri = APIConfig.Admin.Common.GetAllStateListCountryIdUri;
         const instance = axios.create({
             baseURL: process.env.REACT_APP_APIBaseUri,
             headers: {
@@ -475,7 +475,7 @@ const AddEditMstAccount = (props) => {
 
     const fetchCityList = async (StateId) => {
         //debugger;
-        let apiUri = apiconfig.admin.common.GetAllCityListByStateUri;
+        let apiUri = APIConfig.Admin.Common.GetAllCityListByStateUri;
         const instance = axios.create({
             baseURL: process.env.REACT_APP_APIBaseUri,
             headers: {
@@ -527,7 +527,7 @@ const AddEditMstAccount = (props) => {
         btnPointer.innerHTML = 'Please wait..';
         btnPointer.setAttribute('disable', true);
         try {
-            let AddEditAccountDetailsUri = apiconfig.admin.account.AddEditAccountDetailsUri;
+            let AddEditAccountDetailsUri = APIConfig.Admin.Account.AddEditAccountDetailsUri;
             const formElement = document.querySelector('#AccountDetailsForm');
             const formData = new FormData(formElement);
             const formDataJSON = Object.fromEntries(formData);
@@ -620,7 +620,7 @@ const AddEditMstAccount = (props) => {
         btnPointer.innerHTML = 'Please wait..';
         btnPointer.setAttribute('disable', true);
         try {
-            let AddEditAccountDetailsUri = apiconfig.admin.account.AddEditAccountDetailsUri;
+            let AddEditAccountDetailsUri = APIConfig.Admin.Account.AddEditAccountDetailsUri;
             const formElement = document.querySelector('#AdditionalInfoForm');
             const formData = new FormData(formElement);
             const formDataJSON = Object.fromEntries(formData);
@@ -709,7 +709,7 @@ const AddEditMstAccount = (props) => {
         btnPointer.innerHTML = 'Please wait..';
         btnPointer.setAttribute('disable', true);
         try {
-            let AddEditAccountDetailsUri = apiconfig.admin.account.AddEditAccountDetailsUri;
+            let AddEditAccountDetailsUri = APIConfig.Admin.Account.AddEditAccountDetailsUri;
             const formElement = document.querySelector('#CredentialsForm');
             const formData = new FormData(formElement);
             const formDataJSON = Object.fromEntries(formData);

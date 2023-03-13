@@ -14,6 +14,8 @@
     "@testing-library/user-event": "^12.1.10",
     "babel-plugin-root-import": "^6.6.0",
     "bootstrap": "^5.0.1",
+    "crypto-js": "^4.1.1",
+    "date-fns": "^2.29.3",
     "dotenv": "^16.0.3",
     "file-saver": "^2.0.5",
     "jspdf": "^2.5.1",

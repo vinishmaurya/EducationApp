@@ -3,7 +3,8 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
-
+var CryptoJS = require("crypto-js");
+var CryptoJSKey = '#%^$^QE#$%';
 const useIsComponentMounted = function () {
     const isComponentMounted = useRef(false);
 
@@ -131,4 +132,27 @@ const exportExcelUsingXlsxUtil = (fileName, headers ,dynamicData) => {
     FileSaver.saveAs(data, fileName + fileExtension);
 }
 
-export default { funcUniqueKey, useIsComponentMounted, exportPDFUsingJSPDF, exportCSVDefault, exportExcelUsingXlsxUtil};
+const encryptCryptoJSAES = (textToEncrypt) => {
+    textToEncrypt = String(textToEncrypt);
+    // Encrypt
+    let ciphertext = CryptoJS.AES.encrypt(textToEncrypt, CryptoJSKey).toString();
+    return ciphertext;
+}
+
+
+const decryptCryptoJSAES = (textToDecrypt) => {
+    // Decrypt
+    let bytes = CryptoJS.AES.decrypt(textToDecrypt, CryptoJSKey);
+    let originalText = bytes.toString(CryptoJS.enc.Utf8);
+    return originalText;
+}
+
+export default {
+    funcUniqueKey,
+    useIsComponentMounted,
+    exportPDFUsingJSPDF,
+    exportCSVDefault,
+    exportExcelUsingXlsxUtil,
+    encryptCryptoJSAES,
+    decryptCryptoJSAES
+};

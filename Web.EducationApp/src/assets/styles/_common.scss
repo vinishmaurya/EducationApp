@@ -49,7 +49,7 @@ hr {
 }
 
 .red {
-    color: red;
+    color: red !important;
 }
 
 .input-group-append {
@@ -110,6 +110,7 @@ hr {
     .header-search-bar {
         display: none !important;
     }
+
     .grid-header {
         margin-top: 16px;
     }
@@ -118,4 +119,39 @@ hr {
 
 .card-content-custom:hover {
     box-shadow: 0 4px 9px 0 rgb(0 0 0 / 10%), 0 4px 4px 0 rgb(9 9 9 / 6%);
+}
+
+.my-dropdown-menu {
+    z-index: 999999;
+}
+
+.error-desc {
+    overflow-wrap: break-word;
+}
+
+@media (min-width: 576px) {
+    .modal {
+        --bs-modal-margin: 0.75rem;
+    }
+}
+
+.modal-title {
+    text-align: center;
+}
+
+.icon-box {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    border-radius: 50%;
+    z-index: 9;
+    text-align: center;
+    border: 2px solid #f15e5e;
+}
+
+.icon-box span {
+    color: #f15e5e;
+    font-size: 30px;
+    display: inline-block;
+    margin-top: 13px;
 }

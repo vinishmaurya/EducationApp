@@ -10,7 +10,7 @@ import AddEditMstAccount from "../../../../../pages/super-admin/setup/masters/ms
 import { faArrowCircleLeft, faBook, faPlus, faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { React, useState } from "react";
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, createRef } from "react";
 import axios from "axios";
 import AccountService from "../../../../../services/account.services";
 //import instance from "../../../../../services/instance.services";
@@ -19,19 +19,22 @@ import { useNavigate } from "react-router-dom";
 import Login from "../../../../../auth/login/Login";
 import Spinner from 'react-bootstrap/Spinner';
 import Button from 'react-bootstrap/Button';
-import apiconfig from "../../../../../config/api.config.json";
+import APIConfig from "../../../../../config/api.config.json";
+import CommonFuncs from "../../../../../util/common.funcs";
 
 require('dotenv').config();
 
 const MstAccount = (props) => {
     //debugger;
     const data = props.data;
-    const [Cookie, setCookie] = useCookies(['accessToken', 'refreshToken']);
+    const [Cookie, setCookie] = useCookies(['accessToken', 'refreshToken','loggedInUserId']);
     // Declare a new state variable, which we'll call "Component"
     const [MyComponent, setMyComponent] = useState(data.landingComponent);
     const [MyInnerComponentName, setMyInnerComponentName] = useState(data.innerComponentName);
     const [DefaultDynamicAPIResponse, setDefaultDynamicAPIResponse] = useState(null);
     const [HasAPIError, setHasAPIError] = useState(false);
+    const [HasAPISuccess, setHasAPISuccess] = useState(false);
+    const [HasAPIFailed, setHasAPIFailed] = useState(null);
     const [HasAPIMessage, setHasAPIMessage] = useState(null);
     const [HasAPIDescription, setHasAPIDescription] = useState(null);
     const [AccountId, setAccountId] = useState(0);
@@ -40,7 +43,7 @@ const MstAccount = (props) => {
     const [SearchBy, setSearchBy] = useState("");
     const [SearchValue, setSearchValue] = useState("");
     const [DataRow, setDataRow] = useState(null);
-
+   
     useEffect(() => {
         if (MyComponent == "IndexMstAccount") {
             fetchParentDefaultData(AccountId, RowPerPage, CurrentPage, SearchBy, SearchValue);
@@ -84,14 +87,17 @@ const MstAccount = (props) => {
         }, (error) => {
             return Promise.reject(error.message);
         });
-        let reqParams = "?AccountId=" + parmAccountId
-            + "&RowPerPage=" + parmRowPerPage
-            + "&CurrentPage=" + parmCurrentPage
-            + "&SearchBy=" + parmSearchBy
-            + "&SearchValue=" + parmSearchValue;
+        let GetAccountDetailsUri = APIConfig.Admin.Account.GetAccountDetailsUri;
+        GetAccountDetailsUri = GetAccountDetailsUri
+            .replace('<AccountId>', parmAccountId)
+            .replace('<RowPerPage>', parmRowPerPage)
+            .replace('<CurrentPage>', parmCurrentPage)
+            .replace('<SearchBy>', parmSearchBy)
+            .replace('<SearchValue>', parmSearchValue);
+
         instance({
             'method': 'GET',
-            'url': '/admin/Account/GetAccountDetails' + reqParams
+            'url': GetAccountDetailsUri
         }).then((response) => {
             //debugger;
             //console.log(response.data);
@@ -104,25 +110,89 @@ const MstAccount = (props) => {
                 setHasAPIDescription(JSON.stringify(response.data.Description));
             }
         }).catch((e) => {
+            setHasAPIError(false);
+            setHasAPIMessage(e.essage);
+            setHasAPIDescription(JSON.stringify(e));
             console.log(e);
         });
     };
-    function loadComponent(rowIndex) {
+    function loadComponent(rowData) {
         //debugger;
         if (MyComponent == data.landingComponent) {
             //Go to add mode component
             setMyInnerComponentName(data.backMainComponentName);
             setMyComponent(data.innerComponentList);
-            if (rowIndex) {
-                setDataRow(DefaultDynamicAPIResponse.DataList[rowIndex]);
+            if (rowData) {
+                setDataRow(DefaultDynamicAPIResponse.DataList.filter(e => e.PK_ID === CommonFuncs.decryptCryptoJSAES(rowData))[0]);
             }
-            
+
         }
         else {
             //Back to index component
+            fetchParentDefaultData(0, RowPerPage, CurrentPage, '', '');//Trigger for reload index component
             setMyInnerComponentName(data.innerComponentName);
             setMyComponent(data.landingComponent);
         }
+    }
+
+    async function funcDeleteRecord(rowData) {
+        let id = CommonFuncs.decryptCryptoJSAES(rowData);
+        
+        const instance = await axios.create({
+            baseURL: process.env.REACT_APP_APIBaseUri,
+            headers: {
+                'content-type': 'application/json',
+                'x-api-key': process.env.REACT_APP_APIKey
+            }
+        });
+
+        instance.interceptors.request.use(
+            request => {
+                if (!request.url.includes('AuthenticateUser')) {
+                    request.headers['Authorization'] = "Bearer " + Cookie.accessToken;
+                }
+                return request;
+            },
+            error => {
+                return Promise.reject(error);
+            }
+        );
+
+        instance.interceptors.response.use((response) => {
+            return response;
+        }, (error) => {
+            return Promise.reject(error.message);
+        });
+        let DeleteAccountsDetailsUri = APIConfig.Admin.Account.DeleteAccountsDetailsUri;
+        DeleteAccountsDetailsUri = DeleteAccountsDetailsUri
+            .replace('<AccountId>', id)
+            .replace('<DeletedBy>', Cookie.loggedInUserId)
+        instance({
+            'method': 'DELETE',
+            'url': DeleteAccountsDetailsUri
+        }).then((response) => {
+            setHasAPIError(false);
+            //debugger;
+            //console.log(response.data);
+            if (response.data && response.data.Result) {
+                fetchParentDefaultData(0, RowPerPage, CurrentPage, '', '');////Trigger for reload index component
+
+                //setDefaultDynamicAPIResponse(response.data.Data);
+                setHasAPISuccess(true);
+                setHasAPIMessage(response.data.Message);
+                setHasAPIDescription(response.data.Description);
+            }
+            else {
+                setHasAPIFailed(true);
+                setHasAPIMessage(response.data.Message);
+                setHasAPIDescription(response.data.Description);
+            }
+        }).catch((e) => {
+            setHasAPIError(false);
+            setHasAPIMessage(e.essage);
+            setHasAPIDescription(JSON.stringify(e));
+            console.log(e);
+        });
     }
     return (
         <>
@@ -140,7 +210,7 @@ const MstAccount = (props) => {
             </div>
 
             {(() => {
-                if (!DefaultDynamicAPIResponse) {
+                if (!DefaultDynamicAPIResponse && !HasAPIError) {
                     return (
                         <>
 
@@ -172,9 +242,9 @@ const MstAccount = (props) => {
                                         <div className="alert alert-danger" role="alert" >
                                             {HasAPIMessage}
                                         </div>
-                                        <div className="alert alert-danger" role="alert">
-                                            <h4 className="alert-heading">Error Description!</h4>
-                                            <p>{HasAPIDescription}</p>
+                                        <div className="alert alert-danger" role="alert" style={{ display: HasAPIDescription ? 'block' : 'none' }}>
+                                            <h6 className="alert-heading">Error Description!</h6>
+                                            <p className="error-desc">{HasAPIDescription}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -202,11 +272,43 @@ const MstAccount = (props) => {
                                         id="btnTopnavigation"
                                         onClick={loadComponent}>
                                         <FontAwesomeIcon icon={faPlusSquare} />
-                                        {" "+ MyInnerComponentName}
-                                        
+                                        {" " + MyInnerComponentName}
+
                                     </button>
-                                   
+
                                 </div>
+
+                                {
+                                    !HasAPIError && (HasAPISuccess || HasAPIFailed) && (
+                                        <>
+                                            <div style={{ display: (!HasAPIError && HasAPISuccess && !HasAPIFailed) ? 'block' : 'none' }}>
+                                                <div className="row">
+                                                    <div className="col-xl-12 col-md-12">
+                                                        <div className="alert alert-success alert-dismissible fade show" role="alert">
+                                                            <strong>{HasAPIMessage}</strong>
+                                                            <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div style={{ display: (!HasAPIError && HasAPIFailed && !HasAPISuccess) ? 'block' : 'none' }}>
+                                                <div className="row">
+                                                    <div className="col-xl-12 col-md-12">
+                                                        <div className="alert alert-danger alert-dismissible fade show" role="alert">
+                                                            <strong>{HasAPIMessage}</strong>
+                                                            <div style={{ display: HasAPIDescription ? 'block' : 'none' }}>
+                                                                <p className="error-desc">{HasAPIDescription}</p>
+                                                            </div>
+                                                            <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </>
+                                    )
+                                }
+
                                 <IndexMstAccount
                                     defaultDynamicAPIResponse={DefaultDynamicAPIResponse}
                                     fetchParentDefaultData={fetchParentDefaultData}
@@ -216,6 +318,7 @@ const MstAccount = (props) => {
                                     SearchValue={SearchValue}
                                     setAccountId={AccountId}
                                     funcLoadComponent={loadComponent}
+                                    funcDeleteRecord={funcDeleteRecord}
                                 />
                             </>
                         );
@@ -232,7 +335,11 @@ const MstAccount = (props) => {
                                         {" " + MyInnerComponentName}
                                     </button>
                                 </div>
-                                <AddEditMstAccount pageTitle={data.innerComponentName} dataRow={DataRow} funcBackToIndex={loadComponent} />
+                                <AddEditMstAccount
+                                    pageTitle={data.innerComponentName}
+                                    dataRow={DataRow}
+                                    funcBackToIndex={loadComponent}
+                                />
                             </>
                         );
                     }

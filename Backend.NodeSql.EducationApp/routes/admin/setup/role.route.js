@@ -5,7 +5,7 @@ const setupController = require('../../../controllers/admin/setup/role.controlle
 const router = express.Router();
 
 
-router.get('/admin/Role/GetRoleDetails/:PK_RoleId/:RowperPage/:CurrentPage/:SearchBy/:SearchValue', setupController.GetRoleDetails);
+router.get('/admin/Role/GetRoleDetails', setupController.GetRoleDetails);
 router.post('/admin/Role/AddEditRoleDetails', setupController.AddEditRoleDetails);
 router.delete('/admin/Role/DeleteRolesDetails', setupController.DeleteRolesDetails);
 router.get('/admin/Role/GetRolesList', setupController.GetRolesList);
