@@ -207,6 +207,69 @@ const GetAllParentFormsList = async (req, res, next) => {
     }
 }
 
+const GetAllParentAccountList = async (req, res, next) => {
+    /*  #swagger.tags = ['Admin.Common']
+        #swagger.description = ''
+    */
+    try {
+        res.setHeader('Content-Type', 'application/json');
+
+        await sql.connect(config.sql, function (err) {
+            if (err) console.log(err);
+            // create Request object
+            var request = new sql.Request();
+
+            request.execute("[dbo].[USP_GetAllParentAccountList]", function (err, recordset) {
+                if (err) {
+                    console.log(err);
+                    sql.close();
+                    ServiceResult.Message = "Failed to parse api response!";
+                    ServiceResult.Description = err;
+                    ServiceResult.Result = false;
+                    ServiceResult.Data = null;
+                    return res.send(ServiceResult);
+                }
+                sql.close();
+                if (recordset) {
+                    if (recordset.recordsets[0][0].Message_Id == 1) {
+                        try {
+                            ServiceResult.Message = recordset.recordsets[0][0].Message;
+                            ServiceResult.Description = null;
+                            ServiceResult.Result = true;
+                            ServiceResult.Data = recordset.recordsets[1];
+                            return res.send(ServiceResult);
+                        } catch (error) {
+                            ServiceResult.Message = "Failed to parse api response!";
+                            ServiceResult.Description = error;
+                            ServiceResult.Result = false;
+                            ServiceResult.Data = null;
+                            return res.send(ServiceResult);
+                        }
+                    }
+                    else {
+                        ServiceResult.Message = recordset.recordsets[0][0].Message;
+                        ServiceResult.Result = false;
+                        ServiceResult.Data = null;
+                        return res.send(ServiceResult);
+                    }
+                }
+                else {
+                    ServiceResult.Message = "Failed to parse api response!";
+                    ServiceResult.Result = false;
+                    ServiceResult.Data = null;
+                    return res.send(ServiceResult);
+                }
+
+            });
+        });
+    } catch (error) {
+        ServiceResult.Message = "Failed to connect db!";
+        ServiceResult.Result = false;
+        ServiceResult.Description = error.message;
+        ServiceResult.Data = null;
+        return res.send(ServiceResult);
+    }
+}
 
 const GetAllCountryList = async (req, res, next) => {
     /*  #swagger.tags = ['Admin.Common']
@@ -415,5 +478,6 @@ module.exports = {
     GetAllParentFormsList,
     GetAllCountryList,
     GetAllStateListCountryId,
-    GetAllCityListByState
+    GetAllCityListByState,
+    GetAllParentAccountList,
 }

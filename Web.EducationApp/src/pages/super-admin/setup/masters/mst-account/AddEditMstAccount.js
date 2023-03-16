@@ -14,6 +14,7 @@ import AccountService from "../../../../../services/account.services";
 import reqBody from "../../../../../models/reqBody.Model";
 import useFormValidator from "../../../../../util/useFormValidator";
 import CustomDropdown from "../../../../../core/components/dropdown/CustomDropdown";
+import CommonFuncs from "../../../../../util/common.funcs";
 import { $ } from 'react-jquery-plugin';
 require('dotenv').config();
 
@@ -221,7 +222,7 @@ const AddEditMstAccount = (props) => {
     const [AllCountryList, setAllCountryList] = useState([]);
     const [AllStateList, setAllStateList] = useState([]);
     const [AllCityList, setAllCityList] = useState([]);
-    const [CurrentId, setCurrentId] = useState(propData ? propData.PK_AccountId : 0);
+    const [CurrentId, setCurrentId] = useState(propData ? propData.PK_ID : 0);
 
     //#endregion
 
@@ -340,7 +341,7 @@ const AddEditMstAccount = (props) => {
 
     const fetchAllParentAccountList = async () => {
         //debugger;
-        let apiUri = APIConfig.Admin.Common.GetAllParentFormsListUri;
+        let apiUri = APIConfig.Admin.Common.GetAllParentAccountListUri;
 
         const instance = await axios.create({
             baseURL: process.env.REACT_APP_APIBaseUri,
@@ -374,7 +375,7 @@ const AddEditMstAccount = (props) => {
             if (response.data.Result) {
                 let DataList = [];
                 response.data.Data.map((data, i) => {
-                    DataList.push({ ListValue: data.Pk_FormId, ListText: data.FormName });
+                    DataList.push({ ListValue: data.AccountId, ListText: data.AccountName });
                 });
                 setAllParentAccountList(DataList);
             }
@@ -419,7 +420,7 @@ const AddEditMstAccount = (props) => {
             if (response.data.Result) {
                 let DataList = [];
                 response.data.Data.map((data, i) => {
-                    DataList.push({ ListValue: data.PK_CountryId, ListText: data.CountryName });
+                    DataList.push({ ListValue: data.CountryId, ListText: data.CountryName });
                 });
                 setAllCountryList(DataList);
             }
@@ -463,7 +464,7 @@ const AddEditMstAccount = (props) => {
             if (response.data.Result) {
                 let DataList = [];
                 response.data.Data.map((data, i) => {
-                    DataList.push({ ListValue: data.PK_StateId, ListText: data.StateName });
+                    DataList.push({ ListValue: data.StateId, ListText: data.StateName });
                 });
                 setAllStateList(DataList);
             }
@@ -509,7 +510,7 @@ const AddEditMstAccount = (props) => {
             if (response.data.Result) {
                 let DataList = [];
                 response.data.Data.map((data, i) => {
-                    DataList.push({ ListValue: data.PK_CityId, ListText: data.CityName });
+                    DataList.push({ ListValue: data.CityId, ListText: data.CityName });
                 });
                 setAllCityList(DataList);
             }
@@ -853,24 +854,7 @@ const AddEditMstAccount = (props) => {
         setFinishCredentialsData(obj);
     };
 
-    function funcBindSelectOptons(DataList) {
-        //debugger;
-        let itemList = [];
-        let flag = false;
-        if (!DataList) { flag = true; }
-        if (!DataList.length > 0) { flag = true; }
-        itemList.push(
-            <option key={-1} value="">--Select--</option>
-        )
-        if (!flag) {
-            DataList.map((data, i) => {
-                itemList.push(
-                    <option key={i} value={data.ListValue}>{data.ListText}</option>
-                )
-            });
-        }
-        return itemList;
-    }
+    
     const funcChangeCountrySelection = (e) => {
         //alert('country changes');
         let CountryId = Number(e.target.value);
@@ -967,7 +951,7 @@ const AddEditMstAccount = (props) => {
                                                         value={SaveNextAccountDetailsData.CategoryId.value}
                                                         onChange={e => { handleOnChangeAccountDetails(e); onInputChangeControllerAccountDetails(e) }}
                                                     >
-                                                        {funcBindSelectOptons(AllCategoryList)}
+                                                        {CommonFuncs.funcBindSelectOptons(AllCategoryList)}
                                                     </select>
                                                 </div>
                                                 {errorsAccountDetails.CategoryId && dirtyAccountDetails.CategoryId && (
@@ -1008,7 +992,7 @@ const AddEditMstAccount = (props) => {
                                                         value={SaveNextAccountDetailsData.ParentAccountId.value}
                                                         onChange={e => { handleOnChangeAccountDetails(e); onInputChangeControllerAccountDetails(e) }}
                                                     >
-                                                        {funcBindSelectOptons(AllParentAccountList)}
+                                                        {CommonFuncs.funcBindSelectOptons(AllParentAccountList)}
                                                     </select>
                                                 </div>
                                                 {errorsAccountDetails.ParentAccountId && dirtyAccountDetails.ParentAccountId && (
@@ -1209,7 +1193,7 @@ const AddEditMstAccount = (props) => {
 
                                                         name="CountryId"
                                                     >
-                                                        {funcBindSelectOptons(AllCountryList)}
+                                                        {CommonFuncs.funcBindSelectOptons(AllCountryList)}
                                                     </select>
                                                 </div>
                                                 {errorsAdditionalInfo.CountryId && dirtyAdditionalInfo.CountryId && (
@@ -1230,7 +1214,7 @@ const AddEditMstAccount = (props) => {
 
                                                         name="StateId"
                                                     >
-                                                        {funcBindSelectOptons(AllStateList)}
+                                                        {CommonFuncs.funcBindSelectOptons(AllStateList)}
                                                     </select>
                                                 </div>
                                                 {errorsAdditionalInfo.StateId && dirtyAdditionalInfo.StateId && (
@@ -1254,7 +1238,7 @@ const AddEditMstAccount = (props) => {
 
                                                         name="CityId"
                                                     >
-                                                        {funcBindSelectOptons(AllCityList)}
+                                                        {CommonFuncs.funcBindSelectOptons(AllCityList)}
                                                     </select>
 
 

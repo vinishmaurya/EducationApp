@@ -5,7 +5,8 @@
       "GetAllCountryListUri": "/admin/common/GetAllCountryList",
       "GetAllStateListCountryIdUri": "/admin/common/GetAllStateListCountryId",
       "GetAllCityListByStateUri": "/admin/common/GetAllCityListByState",
-      "GetAllParentFormsListUri": "/admin/common/GetAllParentFormsList"
+      "GetAllParentFormsListUri": "/admin/common/GetAllParentFormsList",
+      "GetAllParentAccountListUri": "/admin/common/GetAllParentAccountList"
     },
     "Account": {
       "AddEditAccountDetailsUri": "/admin/Account/AddEditAccountDetails",

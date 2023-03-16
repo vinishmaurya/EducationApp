@@ -203,7 +203,14 @@ const AddEditAccountDetails = async (req, res, next) => {
 
             await sql.connect(config.sql, function (err) {
                 try {
-                    if (err) console.log(err);
+                    if (err) {
+                        console.log(err);
+                        ServiceResult.Message = "Failed to parse api request!";
+                        ServiceResult.Description = JSON.stringify(err);
+                        ServiceResult.Result = false;
+                        ServiceResult.Data = null;
+                        return res.send(ServiceResult);
+                    }
                     // create Request object
                     var request = new sql.Request();
 
@@ -229,7 +236,7 @@ const AddEditAccountDetails = async (req, res, next) => {
                     }
                     else if (Body_AccountDetails.StepCompleted == "Credentials") {
                         request.input('iPK_AccountId', sql.BigInt, Body_AccountDetails.AccountId);
-                        request.input('bIsActive', sql.BIT, Body_AccountDetails.IsActive);
+                        request.input('bIsActive', sql.BIT, Body_AccountDetails.IsActive === "true" ? true : false);
                         request.input('Username', sql.NVarChar(100), Body_AccountDetails.Username);
                         request.input('Password', sql.NVarChar(100), Body_AccountDetails.Password);
                     }

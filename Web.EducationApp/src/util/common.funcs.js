@@ -147,6 +147,27 @@ const decryptCryptoJSAES = (textToDecrypt) => {
     return originalText;
 }
 
+
+const funcBindSelectOptons = (DataList) => {
+    //debugger;
+    let itemList = [];
+    let flag = false;
+    if (!DataList) { flag = true; }
+    if (!DataList.length > 0) { flag = true; }
+    itemList.push(
+        <option key={-1} value="">--Select--</option>
+    )
+    if (!flag) {
+        DataList.map((data, i) => {
+            itemList.push(
+                <option key={i} value={data.ListValue}>{data.ListText}</option>
+            )
+        });
+    }
+    return itemList;
+}
+
+
 export default {
     funcUniqueKey,
     useIsComponentMounted,
@@ -154,5 +175,6 @@ export default {
     exportCSVDefault,
     exportExcelUsingXlsxUtil,
     encryptCryptoJSAES,
-    decryptCryptoJSAES
+    decryptCryptoJSAES,
+    funcBindSelectOptons
 };
