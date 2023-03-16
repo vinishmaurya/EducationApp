@@ -11,5 +11,6 @@ router.get('/admin/common/GetAllCountryList', setupController.GetAllCountryList)
 router.get('/admin/common/GetAllStateListCountryId', setupController.GetAllStateListCountryId);
 router.get('/admin/common/GetAllCityListByState', setupController.GetAllCityListByState);
 router.get('/admin/common/GetAllParentAccountList', setupController.GetAllParentAccountList);
+router.get('/admin/common/GetAllRoleList', setupController.GetAllRoleList);
 
 module.exports = router

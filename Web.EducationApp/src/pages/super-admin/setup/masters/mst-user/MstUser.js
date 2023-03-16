@@ -114,14 +114,14 @@ const MstUser = (props) => {
             console.log(e);
         });
     };
-    function loadComponent(rowIndex) {
+    function loadComponent(rowData) {
         //debugger;
         if (MyComponent == data.landingComponent) {
             //Go to add mode component
             setMyInnerComponentName(data.backMainComponentName);
             setMyComponent(data.innerComponentList);
-            if (rowIndex) {
-                setDataRow(DefaultDynamicAPIResponse.DataList[rowIndex]);
+            if (rowData) {
+                setDataRow(DefaultDynamicAPIResponse.DataList.filter(e => e.PK_ID === CommonFuncs.decryptCryptoJSAES(rowData))[0]);
             }
 
         }

@@ -113,11 +113,12 @@ const AddEditAccountDetails = async (req, res, next) => {
     ServiceResult.Description = null;
     ServiceResult.Result = null;
     ServiceResult.Data = null;
+    let message = "", bool = true, AccountLogo_Multipart = null, Body_AccountDetails = null;
+
+
     try {
         //debugger;
-        let message = "", bool = true, AccountLogo_Multipart = null, Body_AccountDetails = null;
-
-
+       
 
         if (Object.keys(req.body) != "AccountDetails") {
             message = "No were data found for account details with form data key ('AccountDetails')!";
@@ -253,8 +254,10 @@ const AddEditAccountDetails = async (req, res, next) => {
                                 ServiceResult.Description = JSON.stringify(err);
                                 ServiceResult.Result = false;
                                 ServiceResult.Data = null;
-                                if (fs.existsSync(uploadFilePath)) {
-                                    fs.unlinkSync(uploadFilePath)
+                                if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
+                                    if (fs.existsSync(uploadFilePath)) {
+                                        fs.unlinkSync(uploadFilePath)
+                                    }
                                 }
                                 return res.send(ServiceResult);
                             }
@@ -291,8 +294,10 @@ const AddEditAccountDetails = async (req, res, next) => {
                                         ServiceResult.Description = error.message;
                                         ServiceResult.Result = false;
                                         ServiceResult.Data = null;
-                                        if (fs.existsSync(uploadFilePath)) {
-                                            fs.unlinkSync(uploadFilePath)
+                                        if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
+                                            if (fs.existsSync(uploadFilePath)) {
+                                                fs.unlinkSync(uploadFilePath)
+                                            }
                                         }
                                         return res.send(ServiceResult);
                                     }
@@ -302,8 +307,10 @@ const AddEditAccountDetails = async (req, res, next) => {
                                     ServiceResult.Result = false;
                                     ServiceResult.Description = null;
                                     ServiceResult.Data = null;
-                                    if (fs.existsSync(uploadFilePath)) {
-                                        fs.unlinkSync(uploadFilePath)
+                                    if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
+                                        if (fs.existsSync(uploadFilePath)) {
+                                            fs.unlinkSync(uploadFilePath)
+                                        }
                                     }
                                     return res.send(ServiceResult);
                                 }
@@ -313,8 +320,10 @@ const AddEditAccountDetails = async (req, res, next) => {
                                 ServiceResult.Result = false;
                                 ServiceResult.Description = null;
                                 ServiceResult.Data = null;
-                                if (fs.existsSync(uploadFilePath)) {
-                                    fs.unlinkSync(uploadFilePath)
+                                if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
+                                    if (fs.existsSync(uploadFilePath)) {
+                                        fs.unlinkSync(uploadFilePath)
+                                    }
                                 }
                                 return res.send(ServiceResult);
                             }
@@ -324,8 +333,10 @@ const AddEditAccountDetails = async (req, res, next) => {
                             ServiceResult.Result = false;
                             ServiceResult.Data = null;
                             ServiceResult.Description = JSON.stringify(e.message);
-                            if (fs.existsSync(uploadFilePath)) {
-                                fs.unlinkSync(uploadFilePath)
+                            if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
+                                if (fs.existsSync(uploadFilePath)) {
+                                    fs.unlinkSync(uploadFilePath)
+                                }
                             }
                             return res.send(ServiceResult);
                         }
@@ -335,8 +346,10 @@ const AddEditAccountDetails = async (req, res, next) => {
                     ServiceResult.Result = false;
                     ServiceResult.Description = e.message;
                     ServiceResult.Data = null;
-                    if (fs.existsSync(uploadFilePath)) {
-                        fs.unlinkSync(uploadFilePath)
+                    if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
+                        if (fs.existsSync(uploadFilePath)) {
+                            fs.unlinkSync(uploadFilePath)
+                        }
                     }
                     return res.send(ServiceResult);
                 }
@@ -348,8 +361,10 @@ const AddEditAccountDetails = async (req, res, next) => {
         ServiceResult.Result = false;
         ServiceResult.Description = error.message;
         ServiceResult.Data = null;
-        if (fs.existsSync(uploadFilePath)) {
-            fs.unlinkSync(uploadFilePath)
+        if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
+            if (fs.existsSync(uploadFilePath)) {
+                fs.unlinkSync(uploadFilePath)
+            }
         }
         return res.send(ServiceResult);
     }

@@ -892,7 +892,7 @@ const AddEditMstAccount = (props) => {
                             <div className="row">
                                 <div className="col-xl-12 col-md-12">
                                     <div className="alert alert-danger alert-dismissible fade show" role="alert">
-                                        <strong>{!HasAPIMessage ? "Opps! Somthing went wrong!" : HasAPIMessage}</strong>
+                                        <strong>{!HasAPIMessage ? "Opps! Somthing went wrong, it's look like backend API has been crashed!" : HasAPIMessage}</strong>
                                         <br />
                                         {HasAPIDescription}
                                         <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -916,6 +916,7 @@ const AddEditMstAccount = (props) => {
             }
             <div className="card card-demo">
                 <div className="card-body">
+                    <h3 className="card-title">{props.pageTitle}</h3>
                     <div className="content-body content-demo" style={{ backgroundColor: '#FFFFFF' }}>
                         <section className="NewformTabs">
                             <ul className="nav nav-tabs mb-3" id="myTab" role="tablist">

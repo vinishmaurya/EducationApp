@@ -330,7 +330,7 @@ const AddEditMstForm = (props) => {
                             <div className="row">
                                 <div className="col-xl-12 col-md-12">
                                     <div className="alert alert-danger alert-dismissible fade show" role="alert">
-                                        <strong>{!HasAPIMessage ? "Opps! Somthing went wrong!" : HasAPIMessage}</strong>
+                                        <strong>{!HasAPIMessage ? "Opps! Somthing went wrong, it's look like backend API has been crashed!" : HasAPIMessage}</strong>
                                         <br />
                                         {HasAPIDescription}
                                         <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
