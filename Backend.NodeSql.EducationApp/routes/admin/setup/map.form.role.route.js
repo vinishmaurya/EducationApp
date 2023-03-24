@@ -5,7 +5,7 @@ const mapFormRoleController = require('../../../controllers/admin/setup/map.form
 const router = express.Router();
 
 
-router.get('/admin/MapFormRole/GetSubMenuDetails/:PK_RoleId/:PK_FormId/:MappingFor', mapFormRoleController.GetSubMenuDetails);
-router.post('/admin/MapFormRole/AddEditMapFormRoleDetails', mapFormRoleController.AddEditMapFormRoleDetails);
+router.get('/admin/MapFormRole/GetAllFormRoleMappings', mapFormRoleController.GetAllFormRoleMappings);
+router.post('/admin/MapFormRole/AddEditFormRoleMappings', mapFormRoleController.AddEditFormRoleMappings);
 
 module.exports = router

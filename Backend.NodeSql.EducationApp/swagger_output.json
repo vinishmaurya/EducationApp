@@ -175,163 +175,10 @@
         }
       }
     },
-    "/admin/form/GetFormDetails/{PK_FormId}/{RowperPage}/{CurrentPage}/{SearchBy}/{SearchValue}": {
+    "/admin/common/GetAllParentAccountList": {
       "get": {
         "tags": [
-          "Admin.Form"
-        ],
-        "description": "",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "PK_FormId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "RowperPage",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "CurrentPage",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "SearchBy",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "SearchValue",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/admin/form/AddEditFormDetails": {
-      "post": {
-        "tags": [
-          "Admin.Form"
-        ],
-        "description": "",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "iPK_FormId": {
-                  "example": "any"
-                },
-                "cFormName": {
-                  "example": "any"
-                },
-                "cControllerName": {
-                  "example": "any"
-                },
-                "cActionName": {
-                  "example": "any"
-                },
-                "iFK_ParentId": {
-                  "example": "any"
-                },
-                "iFK_SolutionId": {
-                  "example": "any"
-                },
-                "cClassName": {
-                  "example": "any"
-                },
-                "cArea": {
-                  "example": "any"
-                },
-                "bIsActive": {
-                  "example": "any"
-                },
-                "iUserId": {
-                  "example": "any"
-                },
-                "cImageName": {
-                  "example": "any"
-                },
-                "cPlatFormType": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/admin/form/DeleteFormsDetails": {
-      "delete": {
-        "tags": [
-          "Admin.Form"
-        ],
-        "description": "",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "iPK_FormId": {
-                  "example": "any"
-                },
-                "iUserId": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/admin/form/GetAllParentFormsList": {
-      "get": {
-        "tags": [
-          "Admin.Form"
+          "Admin.Common"
         ],
         "description": "",
         "produces": [
@@ -341,17 +188,14 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
           }
         }
       }
     },
-    "/admin/Role/GetRoleDetails": {
+    "/admin/common/GetAllRoleList": {
       "get": {
         "tags": [
-          "Admin.Role"
+          "Admin.Common"
         ],
         "description": "",
         "produces": [
@@ -359,27 +203,17 @@
         ],
         "parameters": [
           {
-            "name": "RoleId",
+            "name": "RoleName",
             "in": "query",
             "type": "string"
           },
           {
-            "name": "RowPerPage",
+            "name": "CategoryId",
             "in": "query",
             "type": "string"
           },
           {
-            "name": "CurrentPage",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "SearchBy",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "SearchValue",
+            "name": "AccountId",
             "in": "query",
             "type": "string"
           }
@@ -387,435 +221,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/admin/Role/AddEditRoleDetails": {
-      "post": {
-        "tags": [
-          "Admin.Role"
-        ],
-        "description": "",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "PK_RoleId": {
-                  "example": "any"
-                },
-                "RoleName": {
-                  "example": "any"
-                },
-                "FK_CategoryId": {
-                  "example": "any"
-                },
-                "HomePage": {
-                  "example": "any"
-                },
-                "IsActive": {
-                  "example": "any"
-                },
-                "CreatedBy": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/admin/Role/DeleteRolesDetails": {
-      "delete": {
-        "tags": [
-          "Admin.Role"
-        ],
-        "description": "",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "PK_RoleId": {
-                  "example": "any"
-                },
-                "DeletedBy": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/admin/Role/GetRolesList": {
-      "get": {
-        "tags": [
-          "Admin.Role"
-        ],
-        "description": "",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/admin/MapFormRole/GetSubMenuDetails/{PK_RoleId}/{PK_FormId}/{MappingFor}": {
-      "get": {
-        "tags": [
-          "Admin.Map.Form.Role"
-        ],
-        "description": "",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "PK_RoleId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "PK_FormId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "MappingFor",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/admin/MapFormRole/AddEditMapFormRoleDetails": {
-      "post": {
-        "tags": [
-          "Admin.Map.Form.Role"
-        ],
-        "description": "",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "FK_FormId": {
-                  "example": "any"
-                },
-                "FK_RoleId": {
-                  "example": "any"
-                },
-                "CanAdd": {
-                  "example": "any"
-                },
-                "CanEdit": {
-                  "example": "any"
-                },
-                "CanDelete": {
-                  "example": "any"
-                },
-                "CanView": {
-                  "example": "any"
-                },
-                "CanExport": {
-                  "example": "any"
-                },
-                "IsActive": {
-                  "example": "any"
-                },
-                "CreatedBy": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/admin/user/GetUserDetails/{PK_UserId}/{RowperPage}/{CurrentPage}/{SearchBy}/{SearchValue}": {
-      "get": {
-        "tags": [
-          "Admin.User"
-        ],
-        "description": "",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "PK_UserId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "RowperPage",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "CurrentPage",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "SearchBy",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "SearchValue",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/admin/user/AddEditUserDetails": {
-      "post": {
-        "tags": [
-          "Admin.User"
-        ],
-        "description": "",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "iPK_UserId": {
-                  "example": "any"
-                },
-                "iUserId": {
-                  "example": "any"
-                },
-                "cUserName": {
-                  "example": "any"
-                },
-                "FK_RoleId": {
-                  "example": "any"
-                },
-                "UserPassword": {
-                  "example": "any"
-                },
-                "MobileNo": {
-                  "example": "any"
-                },
-                "AlternateMobileNo": {
-                  "example": "any"
-                },
-                "EmailId": {
-                  "example": "any"
-                },
-                "Gender": {
-                  "example": "any"
-                },
-                "DateOfBirth": {
-                  "example": "any"
-                },
-                "UserAddress": {
-                  "example": "any"
-                },
-                "ZipCode": {
-                  "example": "any"
-                },
-                "IsActive": {
-                  "example": "any"
-                },
-                "Name": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/admin/user/DeleteusersDetails": {
-      "delete": {
-        "tags": [
-          "Admin.User"
-        ],
-        "description": "",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "iPK_userId": {
-                  "example": "any"
-                },
-                "iUserId": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/AuthenticatedUserInfo": {
-      "post": {
-        "tags": [
-          "Authentication"
-        ],
-        "description": "",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "UserName": {
-                  "example": "any"
-                },
-                "Password": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/AuthenticatedUserTokenValidation": {
-      "post": {
-        "tags": [
-          "Authentication"
-        ],
-        "description": "",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
           }
         }
       }
@@ -914,6 +319,530 @@
             "type": "string"
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/form/GetFormDetails": {
+      "get": {
+        "tags": [
+          "Admin.Form"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "FormId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "RowPerPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "CurrentPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchBy",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchValue",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/form/AddEditFormDetails": {
+      "post": {
+        "tags": [
+          "Admin.Form"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "FormId": {
+                  "example": "any"
+                },
+                "FormName": {
+                  "example": "any"
+                },
+                "ComponentName": {
+                  "example": "any"
+                },
+                "ComponentPath": {
+                  "example": "any"
+                },
+                "LandingComponentName": {
+                  "example": "any"
+                },
+                "ParentFormId": {
+                  "example": "any"
+                },
+                "SolutionId": {
+                  "example": "any"
+                },
+                "ClassName": {
+                  "example": "any"
+                },
+                "Area": {
+                  "example": "any"
+                },
+                "IsActive": {
+                  "example": "any"
+                },
+                "CreatedBy": {
+                  "example": "any"
+                },
+                "ImageName": {
+                  "example": "any"
+                },
+                "PlatFormType": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/form/DeleteFormsDetails": {
+      "delete": {
+        "tags": [
+          "Admin.Form"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "FormId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "DeletedBy",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/Role/GetRoleDetails": {
+      "get": {
+        "tags": [
+          "Admin.Role"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "RoleId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "RowPerPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "CurrentPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchBy",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchValue",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/Role/AddEditRoleDetails": {
+      "post": {
+        "tags": [
+          "Admin.Role"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "RoleId": {
+                  "example": "any"
+                },
+                "RoleName": {
+                  "example": "any"
+                },
+                "CategoryId": {
+                  "example": "any"
+                },
+                "AccountId": {
+                  "example": "any"
+                },
+                "LandingPage": {
+                  "example": "any"
+                },
+                "IsActive": {
+                  "example": "any"
+                },
+                "CreatedBy": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/Role/DeleteRolesDetails": {
+      "delete": {
+        "tags": [
+          "Admin.Role"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "RoleId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "DeletedBy",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/user/GetUserDetails": {
+      "get": {
+        "tags": [
+          "Admin.User"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "UserId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "RowPerPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "CurrentPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchBy",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchValue",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/user/AddEditUserDetails": {
+      "post": {
+        "tags": [
+          "Admin.User"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "UserDetails": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/user/DeleteusersDetails": {
+      "delete": {
+        "tags": [
+          "Admin.User"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "UserId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "DeletedBy",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/AuthenticatedUserInfo": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "UserName": {
+                  "example": "any"
+                },
+                "Password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/AuthenticatedUserTokenValidation": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/admin/MapFormRole/GetAllFormRoleMappings": {
+      "get": {
+        "tags": [
+          "Admin.Map.Form.Role"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "RoleId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "FormId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "MappingFor",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/MapFormRole/AddEditFormRoleMappings": {
+      "post": {
+        "tags": [
+          "Admin.Map.Form.Role"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/MapFormAccount/GetAllFormAccountMappings": {
+      "get": {
+        "tags": [
+          "Admin.Map.Form.Account"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "AccountId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "FormId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/MapFormAccount/AddEditFormAccountMappings": {
+      "post": {
+        "tags": [
+          "Admin.Map.Form.Account"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK"

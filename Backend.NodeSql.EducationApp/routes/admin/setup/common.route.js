@@ -12,6 +12,6 @@ router.get('/admin/common/GetAllStateListCountryId', setupController.GetAllState
 router.get('/admin/common/GetAllCityListByState', setupController.GetAllCityListByState);
 router.get('/admin/common/GetAllParentAccountList', setupController.GetAllParentAccountList);
 router.get('/admin/common/GetAllRoleList', setupController.GetAllRoleList);
-router.get('/admin/common/GetAllFormRoleMappings', setupController.GetAllFormRoleMappings);
+
 
 module.exports = router

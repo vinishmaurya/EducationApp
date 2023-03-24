@@ -254,7 +254,7 @@ const AddEditAccountDetails = async (req, res, next) => {
                                 ServiceResult.Description = JSON.stringify(err);
                                 ServiceResult.Result = false;
                                 ServiceResult.Data = null;
-                                if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
+                                if (Body_AccountDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
                                     if (fs.existsSync(uploadFilePath)) {
                                         fs.unlinkSync(uploadFilePath)
                                     }
@@ -294,7 +294,7 @@ const AddEditAccountDetails = async (req, res, next) => {
                                         ServiceResult.Description = error.message;
                                         ServiceResult.Result = false;
                                         ServiceResult.Data = null;
-                                        if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
+                                        if (Body_AccountDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
                                             if (fs.existsSync(uploadFilePath)) {
                                                 fs.unlinkSync(uploadFilePath)
                                             }
@@ -307,7 +307,7 @@ const AddEditAccountDetails = async (req, res, next) => {
                                     ServiceResult.Result = false;
                                     ServiceResult.Description = null;
                                     ServiceResult.Data = null;
-                                    if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
+                                    if (Body_AccountDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
                                         if (fs.existsSync(uploadFilePath)) {
                                             fs.unlinkSync(uploadFilePath)
                                         }
@@ -320,7 +320,7 @@ const AddEditAccountDetails = async (req, res, next) => {
                                 ServiceResult.Result = false;
                                 ServiceResult.Description = null;
                                 ServiceResult.Data = null;
-                                if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
+                                if (Body_AccountDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
                                     if (fs.existsSync(uploadFilePath)) {
                                         fs.unlinkSync(uploadFilePath)
                                     }
@@ -333,7 +333,7 @@ const AddEditAccountDetails = async (req, res, next) => {
                             ServiceResult.Result = false;
                             ServiceResult.Data = null;
                             ServiceResult.Description = JSON.stringify(e.message);
-                            if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
+                            if (Body_AccountDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
                                 if (fs.existsSync(uploadFilePath)) {
                                     fs.unlinkSync(uploadFilePath)
                                 }
@@ -346,7 +346,7 @@ const AddEditAccountDetails = async (req, res, next) => {
                     ServiceResult.Result = false;
                     ServiceResult.Description = e.message;
                     ServiceResult.Data = null;
-                    if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
+                    if (Body_AccountDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
                         if (fs.existsSync(uploadFilePath)) {
                             fs.unlinkSync(uploadFilePath)
                         }
@@ -361,7 +361,7 @@ const AddEditAccountDetails = async (req, res, next) => {
         ServiceResult.Result = false;
         ServiceResult.Description = error.message;
         ServiceResult.Data = null;
-        if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
+        if (Body_AccountDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
             if (fs.existsSync(uploadFilePath)) {
                 fs.unlinkSync(uploadFilePath)
             }

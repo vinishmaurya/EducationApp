@@ -2,7 +2,7 @@
  * --------------------------------------------------------------------------
  * By: Vinish
  * Datetime: 2023-03-11 01:01:53.570
- * Add Edit Role Details
+ * Form Role Mappings
  * --------------------------------------------------------------------------
  */
 import axios from "axios";
@@ -375,7 +375,7 @@ const AddEditMstRole = (props) => {
 
     const fetchGetAllFormRoleMappings = async (refresh) => {
         //debugger;
-        let apiUri = APIConfig.Admin.Common.GetAllFormRoleMappingsUri;
+        let apiUri = APIConfig.Admin.FormRoleMappings.GetAllFormRoleMappingsUri;
         apiUri = apiUri
             .replace('<RoleId>', FinishRoleRightsDetailsData.RoleId.value)
             .replace('<FormId>', FinishRoleRightsDetailsData.ParentFormId.value)
@@ -542,7 +542,7 @@ const AddEditMstRole = (props) => {
         btnPointer.innerHTML = 'Please wait..';
         btnPointer.setAttribute('disable', true);
         try {
-            let reqUri = APIConfig.Admin.Role.AddEditFormRoleMappingsUri;
+            let reqUri = APIConfig.Admin.FormRoleMappings.AddEditFormRoleMappingsUri;
             //const formElement = document.querySelector('#RoleDetailsForm');
             //const formData = new FormData(formElement);
             //const formDataJSON = Object.fromEntries(formData);

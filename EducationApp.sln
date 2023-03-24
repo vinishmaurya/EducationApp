@@ -11,27 +11,6 @@ Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Backend.NodeMongo.Education
 EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Web.EducationApp", "Web.EducationApp\Web.EducationApp.njsproj", "{E5DC8AEE-CA48-4B75-83EA-3C67E36ACA73}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Web.AppMobileView.Sample", "Web.AppMobileView.Sample\", "{02544899-BD73-4ED0-8314-A77AF1D64EDF}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_57078"
-		Debug.AspNetCompiler.PhysicalPath = "Web.AppMobileView.Sample\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_57078\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_57078"
-		Release.AspNetCompiler.PhysicalPath = "Web.AppMobileView.Sample\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_57078\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "57078"
-		SlnRelativePath = "Web.AppMobileView.Sample\"
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,10 +33,6 @@ Global
 		{E5DC8AEE-CA48-4B75-83EA-3C67E36ACA73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5DC8AEE-CA48-4B75-83EA-3C67E36ACA73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5DC8AEE-CA48-4B75-83EA-3C67E36ACA73}.Release|Any CPU.Build.0 = Release|Any CPU
-		{02544899-BD73-4ED0-8314-A77AF1D64EDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{02544899-BD73-4ED0-8314-A77AF1D64EDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{02544899-BD73-4ED0-8314-A77AF1D64EDF}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{02544899-BD73-4ED0-8314-A77AF1D64EDF}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

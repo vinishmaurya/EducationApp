@@ -3,8 +3,8 @@ const config = require('../../../config');
 const sql = require('mssql');
 const ServiceResult = require('../../../models/serviceResult.model');
 
-const GetAllFormRoleMappings = async (req, res, next) => {
-    /*  #swagger.tags = ['Admin.Map.Form.Role']
+const GetAllFormAccountMappings = async (req, res, next) => {
+    /*  #swagger.tags = ['Admin.Map.Form.Account']
         #swagger.description = ''
     */
     try {
@@ -13,10 +13,8 @@ const GetAllFormRoleMappings = async (req, res, next) => {
         ServiceResult.Result = null;
         ServiceResult.Data = null;
 
-        let RoleId = req.query.RoleId ? req.query.RoleId : 0;
-        let FormId = req.query.FormId ? req.query.FormId : 0;
-        let MappingFor = req.query.MappingFor ? req.query.MappingFor : '';
         let AccountId = req.query.AccountId ? req.query.AccountId : 0;
+        let FormId = req.query.FormId ? req.query.FormId : 0;
 
         res.setHeader('Content-Type', 'application/json');
 
@@ -32,12 +30,10 @@ const GetAllFormRoleMappings = async (req, res, next) => {
             // create Request object
             var request = new sql.Request();
 
-            request.input('iPK_RoleId', sql.BigInt, RoleId);
+            request.input('iPK_AccountId', sql.BigInt, AccountId);
             request.input('iPK_FormId', sql.BigInt, FormId);
-            request.input('cMappingFor', sql.VarChar(100), MappingFor);
-            request.input('iAccountId', sql.BigInt, AccountId);
 
-            request.execute("[dbo].[USP_GetAllFormRoleMappings]", function (err, recordset) {
+            request.execute("[dbo].[USP_GetAllFormAccountMappings]", function (err, recordset) {
                 if (err) {
                     console.log(err);
                     sql.close();
@@ -91,8 +87,8 @@ const GetAllFormRoleMappings = async (req, res, next) => {
     }
 }
 
-const AddEditFormRoleMappings = async (req, res, next) => {
-    /*  #swagger.tags = ['Admin.Map.Form.Role']
+const AddEditFormAccountMappings = async (req, res, next) => {
+    /*  #swagger.tags = ['Admin.Map.Form.Account']
         #swagger.description = ''
     */
     ServiceResult.Message = null;
@@ -119,7 +115,7 @@ const AddEditFormRoleMappings = async (req, res, next) => {
 
                 request.input('cJsonData', sql.NVarChar(sql.MAX), JSON.stringify(JsonData));
 
-                request.execute("[dbo].[USP_AddEditFormRoleMappings]", function (err, recordset) {
+                request.execute("[dbo].[USP_AddEditFormAccountMappings]", function (err, recordset) {
                     try {
                         if (err) {
                             console.log(err);
@@ -182,6 +178,6 @@ const AddEditFormRoleMappings = async (req, res, next) => {
 
 
 module.exports = {
-    GetAllFormRoleMappings,
-    AddEditFormRoleMappings,
+    GetAllFormAccountMappings,
+    AddEditFormAccountMappings,
 }

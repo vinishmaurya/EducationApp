@@ -10,6 +10,7 @@ const commonRoute = require('./routes/admin/setup/common.route');
 const formRoute = require('./routes/admin/setup/form.route');
 const roleRoute = require('./routes/admin/setup/role.route');
 const mapFormRoleRoute = require('./routes/admin/setup/map.form.role.route');
+const mapFormAccountRoute = require('./routes/admin/setup/map.form.account.route');
 const userRoute = require('./routes/admin/setup/user.route');
 const accountRoute = require('./routes/admin/setup/account.route');
 const authRoute = require('./routes/admin/auth.route');
@@ -86,11 +87,12 @@ app.use(verifyJWT);
 
 app.use('/api', [
     commonRoute,
+    accountRoute,
     formRoute,
     roleRoute,
-    mapFormRoleRoute,
     userRoute,
-    accountRoute
+    mapFormRoleRoute,
+    mapFormAccountRoute,
 ]);
 //Invalid Uri
 app.use(function (req, res) {

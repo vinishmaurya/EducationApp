@@ -106,6 +106,7 @@ const MapFormRole = (props) => {
         //#endregion
         
     }, []);
+
     //#region bind funcs to call axios
 
     const fetchAllRoleList = async () => {
@@ -247,7 +248,7 @@ const MapFormRole = (props) => {
 
     const fetchGetAllFormRoleMappings = async (refresh) => {
         //debugger;
-        let apiUri = APIConfig.Admin.Common.GetAllFormRoleMappingsUri;
+        let apiUri = APIConfig.Admin.FormRoleMappings.GetAllFormRoleMappingsUri;
         apiUri = apiUri
             .replace('<RoleId>', FinishRoleRightsDetailsData.RoleId.value)
             .replace('<FormId>', FinishRoleRightsDetailsData.ParentFormId.value)
@@ -305,7 +306,7 @@ const MapFormRole = (props) => {
         btnPointer.innerHTML = 'Please wait..';
         btnPointer.setAttribute('disable', true);
         try {
-            let reqUri = APIConfig.Admin.Role.AddEditFormRoleMappingsUri;
+            let reqUri = APIConfig.Admin.FormRoleMappings.AddEditFormRoleMappingsUri;
             for (var i = 0; i < FormRoleRightsDataList.length; i++) {
                 FormRoleRightsDataList[i]["CreatedBy"] = Cookie.loggedInUserId;
             }
@@ -386,6 +387,7 @@ const MapFormRole = (props) => {
 
 
     //#endregion
+
     //#region other form control functions
     const onInputChangeControllerRoleRightsDetails = (event) => {
         //debugger;
@@ -412,13 +414,8 @@ const MapFormRole = (props) => {
         //console.log(elementChanges);
 
         fetchGetAllFormRoleMappings();
-        $("html, body").animate({
-            scrollTop: $(document).height()
-        }, 9000);
     }
     //#endregion
-
-
 
     return (
         <>
