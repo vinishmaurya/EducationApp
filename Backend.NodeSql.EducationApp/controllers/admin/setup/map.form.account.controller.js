@@ -22,7 +22,7 @@ const GetAllFormAccountMappings = async (req, res, next) => {
             if (err) {
                 sql.close();
                 ServiceResult.Message = "Failed to parse api response!";
-                ServiceResult.Description = err;
+                ServiceResult.Description = err.message;
                 ServiceResult.Result = false;
                 ServiceResult.Data = null;
                 return res.send(ServiceResult);
@@ -38,7 +38,7 @@ const GetAllFormAccountMappings = async (req, res, next) => {
                     console.log(err);
                     sql.close();
                     ServiceResult.Message = "Failed to parse api response!";
-                    ServiceResult.Description = err;
+                    ServiceResult.Description = err.message;
                     ServiceResult.Result = false;
                     ServiceResult.Data = null;
                     return res.send(ServiceResult);
@@ -57,7 +57,7 @@ const GetAllFormAccountMappings = async (req, res, next) => {
                             return res.send(ServiceResult);
                         } catch (error) {
                             ServiceResult.Message = "Failed to parse api response!";
-                            ServiceResult.Description = error;
+                            ServiceResult.Description = error.message;
                             ServiceResult.Result = false;
                             ServiceResult.Data = null;
                             return res.send(ServiceResult);
@@ -121,7 +121,7 @@ const AddEditFormAccountMappings = async (req, res, next) => {
                             console.log(err);
                             sql.close();
                             ServiceResult.Message = "Failed to parse api response!";
-                            ServiceResult.Description = JSON.stringify(err);
+                            ServiceResult.Description = err.message;
                             ServiceResult.Result = false;
                             ServiceResult.Data = null;
                             return res.send(ServiceResult);

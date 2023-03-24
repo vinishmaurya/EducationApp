@@ -19,7 +19,7 @@ require('dotenv').config();
 
 const AddEditMstForm = (props) => {
     let propData = props.dataRow;
-    console.log(propData);
+    //console.log(propData);
     //#region define regular expressions (regex)
     var name1to50Regex = /^[a-z A-Z]{1,50}$/;
     var numberRegex = /^[0-9]+$/;
@@ -423,7 +423,7 @@ const AddEditMstForm = (props) => {
                                                                     (dirtyFormDetails.ComponentPath ? 'has-success' : ''))
                                                             }
                                                             data-val="true"
-                                                            maxLength="50" name="ComponentPath" placeholder="Component Path"
+                                                            maxLength="200" name="ComponentPath" placeholder="Component Path"
                                                             type="text"
                                                             value={FormDetailsData.ComponentPath.value}
                                                             onChange={e => { handleOnChangeFormDetails(e); onInputChangeControllerFormDetails(e) }}

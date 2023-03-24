@@ -46,7 +46,7 @@ const GetUserDetails = async (req, res, next) => {
                 if (err) {
                     sql.close();
                     ServiceResult.Message = "Failed to parse api response!";
-                    ServiceResult.Description = err;
+                    ServiceResult.Description = err.message;
                     ServiceResult.Result = false;
                     ServiceResult.Data = null;
                     return res.send(ServiceResult);
@@ -68,7 +68,7 @@ const GetUserDetails = async (req, res, next) => {
                             return res.send(ServiceResult);
                         } catch (error) {
                             ServiceResult.Message = "Failed to parse api response!";
-                            ServiceResult.Description = error;
+                            ServiceResult.Description = error.message;
                             ServiceResult.Result = false;
                             ServiceResult.Data = null;
                             return res.send(ServiceResult);
@@ -245,7 +245,7 @@ const AddEditUserDetails = async (req, res, next) => {
                                 console.log(err);
                                 sql.close();
                                 ServiceResult.Message = "Failed to parse api response!";
-                                ServiceResult.Description = JSON.stringify(err);
+                                ServiceResult.Description = err.message;
                                 ServiceResult.Result = false;
                                 ServiceResult.Data = null;
                                 if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
@@ -386,16 +386,12 @@ const DeleteUsersDetails = async (req, res, next) => {
             ServiceResult.Data = null;
             return res.send(ServiceResult);
         }
-        await sql.connect(config.sql, function (err) {
-            if (err) {
-                ServiceResult.Message = "Failed to parse api response!";
-                ServiceResult.Description = err;
-                ServiceResult.Result = false;
-                ServiceResult.Data = null;
-                return res.send(ServiceResult);
-            }
+        var conn = new sql.ConnectionPool(config.sql);
+        await conn.connect().then(function (pool) {
+            //the pool that is created and should be used
             // create Request object
-            var request = new sql.Request();
+            var request = new sql.Request(pool);
+            //the pool from the promise
 
             request.input('iPK_userId', sql.BigInt, iPK_userId);
             request.input('iUserId', sql.BigInt, iUserId);
@@ -404,7 +400,7 @@ const DeleteUsersDetails = async (req, res, next) => {
                 if (err) {
                     sql.close();
                     ServiceResult.Message = "Failed to parse api response!";
-                    ServiceResult.Description = err;
+                    ServiceResult.Description = err.message;
                     ServiceResult.Result = false;
                     ServiceResult.Data = null;
                     return res.send(ServiceResult);
@@ -420,7 +416,7 @@ const DeleteUsersDetails = async (req, res, next) => {
                             return res.send(ServiceResult);
                         } catch (error) {
                             ServiceResult.Message = "Failed to parse api response!";
-                            ServiceResult.Description = error;
+                            ServiceResult.Description = error.message;
                             ServiceResult.Result = false;
                             ServiceResult.Data = null;
                             return res.send(ServiceResult);
@@ -456,6 +452,10 @@ const AuthenticatedUserInfo = async (req, res, next) => {
     ///*  #swagger.tags = ['Authentication']
     //    #swagger.description = ''
     //*/
+    ServiceResult.Message = null;
+    ServiceResult.Description = null;
+    ServiceResult.Result = null;
+    ServiceResult.Data = null;
     try {
         const authHeader = req.headers['authorization'];
         const accessToken = authHeader.split(' ')[1];
@@ -467,20 +467,23 @@ const AuthenticatedUserInfo = async (req, res, next) => {
 
         res.setHeader('Content-Type', 'application/json');
 
-        var cUserName = req.body.UserName;
-        var cPassword = req.body.Password;
-
-        await sql.connect(config.sql, function (err) {
-            if (err) console.log(err);
+        var conn = new sql.ConnectionPool(config.sql);
+        await conn.connect().then(function (pool) {
+            //the pool that is created and should be used
             // create Request object
-            var request = new sql.Request();
+            var request = new sql.Request(pool);
+            //the pool from the promise
 
             request.input('cAccessToken', sql.NVarChar(300), accessToken);
 
             request.execute("[dbo].[USP_SvcAuthenticatedAPIUserInfo]", function (err, recordset) {
                 if (err) {
-                    console.log(err);
                     sql.close();
+                    ServiceResult.Message = "Failed to parse api response!";
+                    ServiceResult.Description = err.message;
+                    ServiceResult.Result = false;
+                    ServiceResult.Data = null;
+                    return res.send(ServiceResult);
                 }
                 sql.close();
                 if (recordset) {
@@ -527,6 +530,10 @@ const AuthenticatedUserTokenValidation = async (req, res, next) => {
     ///*  #swagger.tags = ['Authentication']
     //    #swagger.description = ''
     //*/
+    ServiceResult.Message = null;
+    ServiceResult.Description = null;
+    ServiceResult.Result = null;
+    ServiceResult.Data = null;
     try {
         const authHeader = req.headers['authorization'];
         const accessToken = authHeader.split(' ')[1];
@@ -541,19 +548,24 @@ const AuthenticatedUserTokenValidation = async (req, res, next) => {
         //console.log(sql.pool);
         //}
 
-
         var conn = new sql.ConnectionPool(config.sql);
-        conn.connect().then(function (conn) {
-            //if (err) console.log(err);
+        await conn.connect().then(function (pool) {
+            //the pool that is created and should be used
             // create Request object
-            var request = new sql.Request(conn);
+            var request = new sql.Request(pool);
+            //the pool from the promise
+
 
             request.input('cAccessToken', sql.NVarChar(300), accessToken);
 
             request.execute("[dbo].[USP_SvcAuthenticatedAPIUserTokenValidation]", function (err, recordset) {
                 if (err) {
-                    console.log(err);
                     sql.close();
+                    ServiceResult.Message = "Failed to parse api response!";
+                    ServiceResult.Description = err.message;
+                    ServiceResult.Result = false;
+                    ServiceResult.Data = null;
+                    return res.send(ServiceResult);
                 }
                 sql.close();
                 if (recordset) {

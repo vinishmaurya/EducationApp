@@ -251,7 +251,7 @@ const AddEditAccountDetails = async (req, res, next) => {
                                 console.log(err);
                                 sql.close();
                                 ServiceResult.Message = "Failed to parse api response!";
-                                ServiceResult.Description = JSON.stringify(err);
+                                ServiceResult.Description = err.message;
                                 ServiceResult.Result = false;
                                 ServiceResult.Data = null;
                                 if (Body_AccountDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
@@ -394,7 +394,7 @@ const DeleteAccountsDetails = async (req, res, next) => {
         await sql.connect(config.sql, function (err) {
             if (err) {
                 ServiceResult.Message = "Failed to parse api response!";
-                ServiceResult.Description = err;
+                ServiceResult.Description = err.message;
                 ServiceResult.Result = false;
                 ServiceResult.Data = null;
                 return res.send(ServiceResult);
@@ -409,7 +409,7 @@ const DeleteAccountsDetails = async (req, res, next) => {
                 if (err) {
                     sql.close();
                     ServiceResult.Message = "Failed to parse api response!";
-                    ServiceResult.Description = err;
+                    ServiceResult.Description = err.message;
                     ServiceResult.Result = false;
                     ServiceResult.Data = null;
                     return res.send(ServiceResult);

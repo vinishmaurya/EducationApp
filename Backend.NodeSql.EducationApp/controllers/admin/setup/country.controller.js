@@ -2,12 +2,10 @@
 const config = require('../../../config');
 const sql = require('mssql');
 const ServiceResult = require('../../../models/serviceResult.model');
-// Network interfaces
-var ifaces = require('os').networkInterfaces();
 
 
-const GetRoleDetails = async (req, res, next) => {
-    /*  #swagger.tags = ['Admin.Role']
+const GetCountryDetails = async (req, res, next) => {
+    /*  #swagger.tags = ['Admin.Country']
         #swagger.description = ''
     */
     ServiceResult.Message = null;
@@ -16,12 +14,11 @@ const GetRoleDetails = async (req, res, next) => {
     ServiceResult.Data = null;
     try {
         res.setHeader('Content-Type', 'application/json');
-        var iPK_RoleId = req.query.RoleId;
+        var iPK_CountryId = req.query.CountryId;
         var RowperPage = req.query.RowPerPage;
         var CurrentPage = req.query.CurrentPage;
         var cSearchBy = req.query.SearchBy;
         var cSearchValue = req.query.SearchValue;
-
         if ((Number(RowperPage) <= 0 || Number(CurrentPage) <= 0) || (isNaN(Number(RowperPage)) || isNaN(Number(CurrentPage)))) {
             ServiceResult.Message = "Validation Error!";
             ServiceResult.Description = '(RowPerPage & CurrentPage) query params must be required a number & grater than zero!';
@@ -39,12 +36,12 @@ const GetRoleDetails = async (req, res, next) => {
             }
             // create Request object
             var request = new sql.Request();
-            request.input('iPK_RoleId', sql.BigInt, iPK_RoleId);
+            request.input('iPK_CountryId', sql.BigInt, iPK_CountryId);
             request.input('iRowperPage', sql.BigInt, RowperPage);
             request.input('iCurrentPage', sql.BigInt, CurrentPage);
             request.input('cSearchBy', sql.VarChar(500), cSearchBy);
             request.input('cSearchValue', sql.VarChar(500), cSearchValue);
-            request.execute("[dbo].[USP_GetRoleDetails]", function (err, recordset) {
+            request.execute("[dbo].[USP_GetCountryDetails]", function (err, recordset) {
                 if (err) {
                     sql.close();
                     ServiceResult.Message = "Failed to parse api response!";
@@ -100,20 +97,41 @@ const GetRoleDetails = async (req, res, next) => {
     }
 }
 
-const AddEditRoleDetails = async (req, res, next) => {
-    /*  #swagger.tags = ['Admin.Role']
+const AddEditCountryDetails = async (req, res, next) => {
+    /*  #swagger.tags = ['Admin.Country']
         #swagger.description = ''
     */
+    ServiceResult.Message = null;
+    ServiceResult.Description = null;
+    ServiceResult.Result = null;
+    ServiceResult.Data = null;
     try {
         res.setHeader('Content-Type', 'application/json');
 
-        var iPK_RoleId = req.body.RoleId;
-        var cRoleName = req.body.RoleName;
-        var FK_CategoryId = req.body.CategoryId;
-        var FK_AccountId = req.body.AccountId;
-        var iHomePage = req.body.LandingPage;
-        var IsActive = req.body.IsActive === "true" ? true : false;;
-        var CreatedBy = req.body.CreatedBy;
+        var iPK_CountryId = req.body.CountryId;
+        var cCountryName = req.body.CountryName;
+        var bIsActive = req.body.IsActive === "true" ? true : false;
+        var iUserId = req.body.CreatedBy;
+
+        if (
+            Number(cCountryName) === '' ||
+            Number(iUserId) <= 0 ||
+            isNaN(Number(iUserId))
+        ) {
+            ServiceResult.Message = "Validation Error!";
+            ServiceResult.Description = '(CountryName, CreatedBy) body parameters must be required and valid!';
+            ServiceResult.Result = false;
+            ServiceResult.Data = null;
+            return res.send(ServiceResult);
+        }
+        if (isNaN(Number(iPK_CountryId))) {
+            ServiceResult.Message = "Validation Error!";
+            ServiceResult.Description = '(CountryId) body parameters must be contains valid numbers or zero!';
+            ServiceResult.Result = false;
+            ServiceResult.Data = null;
+            return res.send(ServiceResult);
+        }
+        res.setHeader('Content-Type', 'application/json');
         await sql.connect(config.sql, function (err) {
             try {
                 if (err) {
@@ -127,14 +145,12 @@ const AddEditRoleDetails = async (req, res, next) => {
                 // create Request object
                 var request = new sql.Request();
 
-                request.input('iPK_RoleId', sql.BigInt, iPK_RoleId);
-                request.input('cRoleName', sql.NVarChar(100), cRoleName);
-                request.input('iFK_CategoryId', sql.NVarChar(100), FK_CategoryId);
-                request.input('iFK_AccountId', sql.NVarChar(100), FK_AccountId);
-                request.input('iHomePage', sql.BigInt, iHomePage);
-                request.input('bIsActive', sql.Bit, IsActive);
-                request.input('iUserId', sql.BigInt, CreatedBy);
-                request.execute("[dbo].[USP_AddEditRole]", function (err, recordset) {
+                request.input('iPK_CountryId', sql.BigInt, iPK_CountryId);
+                request.input('cCountryName', sql.NVarChar(100), cCountryName);
+                request.input('bIsActive', sql.BIT, bIsActive);
+                request.input('iUserId', sql.BIGINT, iUserId);
+
+                request.execute("[dbo].[USP_AddEditCountry]", function (err, recordset) {
                     try {
                         if (err) {
                             console.log(err);
@@ -151,7 +167,7 @@ const AddEditRoleDetails = async (req, res, next) => {
                                 ServiceResult.Message = recordset.recordsets[0][0].Message;
                                 ServiceResult.Result = true;
                                 ServiceResult.Description = null;
-                                ServiceResult.Data = recordset.recordsets[1][0];
+                                ServiceResult.Data = null;
                                 return res.send(ServiceResult);
                             }
                             else {
@@ -195,11 +211,11 @@ const AddEditRoleDetails = async (req, res, next) => {
     }
 }
 
-
-const DeleteRolesDetails = async (req, res, next) => {
-    /*  #swagger.tags = ['Admin.Role']
+const DeleteCountrysDetails = async (req, res, next) => {
+    /*  #swagger.tags = ['Admin.Country']
         #swagger.description = ''
     */
+    debugger;
     ServiceResult.Message = null;
     ServiceResult.Description = null;
     ServiceResult.Result = null;
@@ -207,11 +223,12 @@ const DeleteRolesDetails = async (req, res, next) => {
     try {
         res.setHeader('Content-Type', 'application/json');
 
-        var iPK_RoleId = req.query.RoleId;
-        var DeletedBy = req.query.DeletedBy;
-        if ((Number(iPK_RoleId) <= 0 || Number(DeletedBy) <= 0) || (isNaN(Number(iPK_RoleId)) || isNaN(Number(DeletedBy)))) {
+        var iPK_CountryId = req.query.CountryId;
+        var iUserId = req.query.DeletedBy;
+
+        if ((Number(iPK_CountryId) <= 0 || Number(iUserId) <= 0) || (isNaN(Number(iPK_CountryId)) || isNaN(Number(iUserId)))) {
             ServiceResult.Message = "Validation Error!";
-            ServiceResult.Description = '(RoleId & DeletedBy) query params must be required a number & grater than zero!';
+            ServiceResult.Description = '(CountryId & DeletedBy) query params must be required a number & grater than zero!';
             ServiceResult.Result = false;
             ServiceResult.Data = null;
             return res.send(ServiceResult);
@@ -227,10 +244,10 @@ const DeleteRolesDetails = async (req, res, next) => {
             // create Request object
             var request = new sql.Request();
 
-            request.input('iPK_RoleId', sql.BigInt, iPK_RoleId);
-            request.input('iUserId', sql.BigInt, DeletedBy);
+            request.input('iPK_CountryId', sql.BigInt, iPK_CountryId);
+            request.input('iUserId', sql.BigInt, iUserId);
 
-            request.execute("[dbo].[USP_DeleteRole]", function (err, recordset) {
+            request.execute("[dbo].[USP_DeleteCountry]", function (err, recordset) {
                 if (err) {
                     sql.close();
                     ServiceResult.Message = "Failed to parse api response!";
@@ -279,8 +296,10 @@ const DeleteRolesDetails = async (req, res, next) => {
         return res.send(ServiceResult);
     }
 }
+
+
 module.exports = {
-    GetRoleDetails,
-    AddEditRoleDetails,
-    DeleteRolesDetails
+    GetCountryDetails,
+    AddEditCountryDetails,
+    DeleteCountrysDetails
 }

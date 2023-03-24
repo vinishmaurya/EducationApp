@@ -7,7 +7,7 @@
       "GetAllCityListByStateUri": "/admin/common/GetAllCityListByState",
       "GetAllParentFormsListUri": "/admin/common/GetAllParentFormsList",
       "GetAllParentAccountListUri": "/admin/common/GetAllParentAccountList",
-      "GetAllRoleListUri": "/admin/common/GetAllRoleList"
+      "GetAllRoleListUri": "/admin/common/GetAllRoleList?RoleName<RoleName>&CategoryId=<CategoryId>&AccountId=<AccountId>"
     },
     "Account": {
       "AddEditAccountDetailsUri": "/admin/Account/AddEditAccountDetails",
@@ -36,6 +36,21 @@
     "FormAccountMappings": {
       "GetAllFormAccountMappingsUri": "admin/MapFormAccount/GetAllFormAccountMappings?AccountId=<AccountId>&FormId=<FormId>",
       "AddEditFormAccountMappingsUri": "/admin/MapFormAccount/AddEditFormAccountMappings"
+    },
+    "Country": {
+      "AddEditCountryDetailsUri": "/admin/Country/AddEditCountryDetails",
+      "GetCountryDetailsUri": "/admin/Country/GetCountryDetails?CountryId=<CountryId>&RowPerPage=<RowPerPage>&CurrentPage=<CurrentPage>&SearchBy=<SearchBy>&SearchValue=<SearchValue>",
+      "DeleteCountrysDetailsUri": "/admin/Country/DeleteCountrysDetails?CountryId=<CountryId>&DeletedBy=<DeletedBy>"
+    },
+    "State": {
+      "AddEditStateDetailsUri": "/admin/State/AddEditStateDetails",
+      "GetStateDetailsUri": "/admin/State/GetStateDetails?StateId=<StateId>&RowPerPage=<RowPerPage>&CurrentPage=<CurrentPage>&SearchBy=<SearchBy>&SearchValue=<SearchValue>",
+      "DeleteStatesDetailsUri": "/admin/State/DeleteStatesDetails?StateId=<StateId>&DeletedBy=<DeletedBy>"
+    },
+    "City": {
+      "AddEditCityDetailsUri": "/admin/City/AddEditCityDetails",
+      "GetCityDetailsUri": "/admin/City/GetCityDetails?CityId=<CityId>&RowPerPage=<RowPerPage>&CurrentPage=<CurrentPage>&SearchBy=<SearchBy>&SearchValue=<SearchValue>",
+      "DeleteCitysDetailsUri": "/admin/City/DeleteCitysDetails?CityId=<CityId>&DeletedBy=<DeletedBy>"
     }
   }
 }

@@ -58,6 +58,16 @@
     "route": "/pages/super-admin/setup/masters-mapping/MapFormRole"
   },
   {
+    "component": "MstCountry",
+    "landingComponent": "IndexMstCountry",
+    "innerComponentName": "Add New",
+    "backMainComponentName": "Back",
+    "innerComponentList": "AddEditMstCountry",
+    "title": "Country Master",
+    "componentPath": "../pages/super-admin/setup/masters/mst-country/MstCountry",
+    "route": "/pages/super-admin/setup/masters/mst-country/MstCountry"
+  },
+  {
     "component": "AcadAdminDashboard",
     "title": "Admin Dashboard",
     "componentPath": "../pages/organization/academics/dashboard/AcadAdminDashboard",

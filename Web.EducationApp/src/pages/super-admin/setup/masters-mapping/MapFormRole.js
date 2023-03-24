@@ -34,7 +34,7 @@ const MapFormRole = (props) => {
     const [FormRoleRightsHeaderList, setFormRoleRightsHeaderList] = useState([]);
     const [FormRoleRightsDataList, setFormRoleRightsDataList] = useState([]);
     const [AllRoleList, setAllRoleList] = useState([]);
-    
+
     //#endregion
 
     //#region Role Rights details form: define state, schema & validations
@@ -104,15 +104,18 @@ const MapFormRole = (props) => {
         //#region set default value of forms use state hooks
         setFinishRoleRightsDetailsData(stateSchemaRoleRightsDetails);
         //#endregion
-        
+
     }, []);
 
     //#region bind funcs to call axios
 
-    const fetchAllRoleList = async () => {
+    const fetchAllRoleList = async (AccountId) => {
         //debugger;
         let apiUri = APIConfig.Admin.Common.GetAllRoleListUri;
-
+        apiUri = apiUri.replace('<RoleName>', '')
+            .replace('<CategoryId>', 0)
+            .replace('<AccountId>', AccountId ? AccountId : 0);
+        console.log(apiUri);
         const instance = await axios.create({
             baseURL: process.env.REACT_APP_APIBaseUri,
             headers: {
@@ -378,7 +381,7 @@ const MapFormRole = (props) => {
     //#endregion
 
     //#region clear form data and call axios
-    
+
     const btnClearRoleRightsDetails = (event) => {
         handleOnClearRoleRightsDetails(event);
         setFinishRoleRightsDetailsData(stateSchemaRoleRightsDetails);
@@ -414,6 +417,10 @@ const MapFormRole = (props) => {
         //console.log(elementChanges);
 
         fetchGetAllFormRoleMappings();
+    }
+
+    const handelChangeBindRoleList = (e) => {
+        fetchAllRoleList($(e.target).val());
     }
     //#endregion
 
@@ -514,7 +521,8 @@ const MapFormRole = (props) => {
                                                 onChange={e => {
                                                     handleOnChangeRoleRightsDetails(e);
                                                     onInputChangeControllerRoleRightsDetails(e);
-                                                    handelChangeBindRoleRights(e)
+                                                    handelChangeBindRoleRights(e);
+                                                    handelChangeBindRoleList(e);
                                                 }}
                                             >
                                                 {CommonFuncs.funcBindSelectOptons(AllParentAccountList)}

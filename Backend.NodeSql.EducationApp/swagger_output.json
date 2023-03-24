@@ -750,6 +750,143 @@
         }
       }
     },
+    "/admin/Country/GetCountryDetails": {
+      "get": {
+        "tags": [
+          "Admin.Country"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "CountryId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "RowPerPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "CurrentPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchBy",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchValue",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/Country/AddEditCountryDetails": {
+      "post": {
+        "tags": [
+          "Admin.Country"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "CountryId": {
+                  "example": "any"
+                },
+                "CountryName": {
+                  "example": "any"
+                },
+                "ComponentName": {
+                  "example": "any"
+                },
+                "ComponentPath": {
+                  "example": "any"
+                },
+                "LandingComponentName": {
+                  "example": "any"
+                },
+                "ParentCountryId": {
+                  "example": "any"
+                },
+                "SolutionId": {
+                  "example": "any"
+                },
+                "ClassName": {
+                  "example": "any"
+                },
+                "Area": {
+                  "example": "any"
+                },
+                "IsActive": {
+                  "example": "any"
+                },
+                "CreatedBy": {
+                  "example": "any"
+                },
+                "ImageName": {
+                  "example": "any"
+                },
+                "PlatCountryType": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/Country/DeleteCountrysDetails": {
+      "delete": {
+        "tags": [
+          "Admin.Country"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "CountryId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "DeletedBy",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/admin/MapFormRole/GetAllFormRoleMappings": {
       "get": {
         "tags": [

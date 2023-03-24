@@ -32,6 +32,7 @@ const endpointsFiles =
         './routes/admin/setup/form.route.js',
         './routes/admin/setup/role.route.js',
         './routes/admin/setup/user.route.js',
+        './routes/admin/setup/country.route.js',
         './routes/admin/setup/map.form.role.route.js',
         './routes/admin/setup/map.form.account.route.js',
     ]; // root file where the route starts.

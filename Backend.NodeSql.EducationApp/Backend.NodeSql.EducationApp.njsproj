@@ -30,6 +30,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="controllers\admin\setup\common.controller.js" />
+    <Content Include="controllers\admin\setup\country.controller.js" />
     <Content Include="controllers\admin\setup\map.form.account.controller.js" />
     <Content Include="controllers\admin\setup\map.form.role.controller.js" />
     <Content Include="controllers\admin\setup\role.controller.js" />
@@ -48,6 +49,7 @@
     <Content Include="routes\admin\auth.route.js" />
     <Content Include="routes\admin\setup\account.route.js" />
     <Content Include="routes\admin\setup\common.route.js" />
+    <Content Include="routes\admin\setup\country.route.js" />
     <Content Include="routes\admin\setup\form.route.js" />
     <Content Include="routes\admin\setup\map.form.account.route.js" />
     <Content Include="routes\admin\setup\map.form.role.route.js" />
