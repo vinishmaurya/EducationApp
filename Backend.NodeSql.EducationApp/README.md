@@ -43,6 +43,10 @@ Run the project and access the documentation at:
 
 [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
 
+node-mssql documentation at:
+
+[https://tediousjs.github.io/node-mssql/]
+
 ## Screenshots
 See the result after construction:
 

@@ -33,7 +33,7 @@ const IndexMstUser = (props) => {
         EmailId: { value: propData ? propData.EmailId : '', error: "This email id field is required!!" },
         CategoryId: { value: propData ? propData.CategoryId : '', error: "This User category field selection is required!" },
         AccountId: { value: propData ? propData.AccountId : '', error: "This account field selection is required!" },
-        RoleId: { value: propData ? propData.RoleId : '', error: "This account field selection is required!" },
+        RoleId: { value: propData ? propData.RoleId : '', error: "This role field selection is required!" },
     };
     const [SaveNextUserDetailsData, setSaveNextUserDetailsData] = useState(stateSchemaUserDetails);
     // Create your own validationstateSchemaUserDetails

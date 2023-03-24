@@ -49,6 +49,7 @@
     </Content>
     <Content Include="src\core\components\dropdown\CustomDropdown.js" />
     <Content Include="src\core\components\paging\DefaultPaging.js" />
+    <Content Include="src\core\components\table\GridRoleRights.js" />
     <Content Include="src\core\components\table\GridShowEntries.js" />
     <Content Include="src\core\components\table\GridTable.js" />
     <Content Include="src\models\reqBody.Model.js" />

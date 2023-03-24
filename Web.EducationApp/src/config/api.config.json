@@ -7,7 +7,8 @@
       "GetAllCityListByStateUri": "/admin/common/GetAllCityListByState",
       "GetAllParentFormsListUri": "/admin/common/GetAllParentFormsList",
       "GetAllParentAccountListUri": "/admin/common/GetAllParentAccountList",
-      "GetAllRoleListUri": "/admin/common/GetAllRoleList"
+      "GetAllRoleListUri": "/admin/common/GetAllRoleList",
+      "GetAllFormRoleMappingsUri": "admin/common/GetAllFormRoleMappings?RoleId=<RoleId>&FormId=<FormId>&MappingFor=<MappingFor>&AccountId=<AccountId>"
     },
     "Account": {
       "AddEditAccountDetailsUri": "/admin/Account/AddEditAccountDetails",
@@ -16,6 +17,7 @@
     },
     "Role": {
       "AddEditRoleDetailsUri": "/admin/Role/AddEditRoleDetails",
+      "AddEditFormRoleMappingsUri": "/admin/Role/AddEditFormRoleMappings",
       "GetRoleDetailsUri": "/admin/Role/GetRoleDetails?RoleId=<RoleId>&RowPerPage=<RowPerPage>&CurrentPage=<CurrentPage>&SearchBy=<SearchBy>&SearchValue=<SearchValue>",
       "DeleteRolesDetailsUri": "/admin/Role/DeleteRolesDetails?RoleId=<RoleId>&DeletedBy=<DeletedBy>"
     },

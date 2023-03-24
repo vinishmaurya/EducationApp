@@ -326,52 +326,8 @@ const DeleteFormsDetails = async (req, res, next) => {
 }
 
 
-const GetAllParentFormsList = async (req, res, next) => {
-    /*  #swagger.tags = ['Admin.Form']
-        #swagger.description = ''
-    */
-    try {
-        res.setHeader('Content-Type', 'application/json');
-
-        await sql.connect(config.sql, function (err) {
-            if (err) console.log(err);
-            // create Request object
-            var request = new sql.Request();
-            request.execute("[dbo].[USP_GetAllParentFormsList]", function (err, recordset) {
-                if (err) {
-                    console.log(err);
-                    sql.close();
-                }
-                sql.close();
-                if (recordset == null || recordset.recordsets.length <= 0) {
-                    ServiceResult.Message = "Failed!";
-                    ServiceResult.Description = "Process failed!";
-                    ServiceResult.Result = false;
-                    ServiceResult.Data = null;
-                    res.send(ServiceResult);
-                }
-                else {
-                    var data = {
-                        dataMessage: recordset.recordsets[0],
-                        dataList: recordset.recordsets[1]
-
-                    };
-                    ServiceResult.Message = "Success";
-                    ServiceResult.Description = "";
-                    ServiceResult.Result = true;
-                    ServiceResult.Data = data;
-                    res.send(ServiceResult);
-                }
-            });
-        });
-    } catch (error) {
-        res.status(400).send(error.message);
-    }
-}
-
 module.exports = {
     GetFormDetails,
     AddEditFormDetails,
-    DeleteFormsDetails,
-    GetAllParentFormsList
+    DeleteFormsDetails
 }

@@ -107,54 +107,185 @@ const AddEditRoleDetails = async (req, res, next) => {
     try {
         res.setHeader('Content-Type', 'application/json');
 
-        var iPK_RoleId = req.body.PK_RoleId;
+        var iPK_RoleId = req.body.RoleId;
         var cRoleName = req.body.RoleName;
-        var FK_CategoryId = req.body.FK_CategoryId;
-        var iHomePage = req.body.HomePage;
-        var IsActive = req.body.IsActive;
+        var FK_CategoryId = req.body.CategoryId;
+        var FK_AccountId = req.body.AccountId;
+        var iHomePage = req.body.LandingPage;
+        var IsActive = req.body.IsActive === "true" ? true : false;;
         var CreatedBy = req.body.CreatedBy;
-
         await sql.connect(config.sql, function (err) {
-            if (err) console.log(err);
-            // create Request object
-            var request = new sql.Request();
-
-            request.input('iPK_RoleId', sql.BigInt, iPK_RoleId);
-            request.input('cRoleName', sql.NVarChar(100), cRoleName);
-            request.input('iFK_CategoryId', sql.NVarChar(100), FK_CategoryId);
-            request.input('iHomePage', sql.BigInt, iHomePage);
-            request.input('bIsActive', sql.Bit, IsActive);
-            request.input('iUserId', sql.BigInt, CreatedBy);
-            request.execute("[dbo].[USP_AddEditRole]", function (err, recordset) {
+            try {
                 if (err) {
                     console.log(err);
-                    sql.close();
-                }
-                sql.close();
-                if (recordset == null || recordset.recordsets.length <= 0) {
-                    ServiceResult.Message = "Failed!";
-                    ServiceResult.Description = "Process failed!";
+                    ServiceResult.Message = "Failed to parse api request!";
+                    ServiceResult.Description = JSON.stringify(err);
                     ServiceResult.Result = false;
                     ServiceResult.Data = null;
-                    res.send(ServiceResult);
+                    return res.send(ServiceResult);
                 }
-                else {
-                    var PK_RoleId = null;
-                    if (recordset.recordsets[0][0].Message_Id == 1) {
-                        PK_RoleId = recordset.recordsets[0][1].PK_RoleId;
+                // create Request object
+                var request = new sql.Request();
+
+                request.input('iPK_RoleId', sql.BigInt, iPK_RoleId);
+                request.input('cRoleName', sql.NVarChar(100), cRoleName);
+                request.input('iFK_CategoryId', sql.NVarChar(100), FK_CategoryId);
+                request.input('iFK_AccountId', sql.NVarChar(100), FK_AccountId);
+                request.input('iHomePage', sql.BigInt, iHomePage);
+                request.input('bIsActive', sql.Bit, IsActive);
+                request.input('iUserId', sql.BigInt, CreatedBy);
+                request.execute("[dbo].[USP_AddEditRole]", function (err, recordset) {
+                    try {
+                        if (err) {
+                            console.log(err);
+                            sql.close();
+                            ServiceResult.Message = "Failed to parse api response!";
+                            ServiceResult.Description = JSON.stringify(err);
+                            ServiceResult.Result = false;
+                            ServiceResult.Data = null;
+                            return res.send(ServiceResult);
+                        }
+                        sql.close();
+                        if (recordset) {
+                            if (recordset.recordsets[0][0].Message_Id == 1) {
+                                ServiceResult.Message = recordset.recordsets[0][0].Message;
+                                ServiceResult.Result = true;
+                                ServiceResult.Description = null;
+                                ServiceResult.Data = recordset.recordsets[1][0];
+                                return res.send(ServiceResult);
+                            }
+                            else {
+                                ServiceResult.Message = recordset.recordsets[0][0].Message;
+                                ServiceResult.Result = false;
+                                ServiceResult.Description = null;
+                                ServiceResult.Data = null;
+                                return res.send(ServiceResult);
+                            }
+                        }
+                        else {
+                            ServiceResult.Message = "Failed to parse api response!";
+                            ServiceResult.Result = false;
+                            ServiceResult.Description = null;
+                            ServiceResult.Data = null;
+                            return res.send(ServiceResult);
+                        }
+                    } catch (e) {
+                        ServiceResult.Message = 'API Internal Error!';
+                        ServiceResult.Description = null;
+                        ServiceResult.Result = false;
+                        ServiceResult.Data = null;
+                        ServiceResult.Description = JSON.stringify(e.message);
+                        return res.send(ServiceResult);
                     }
-                    ServiceResult.Message = recordset.recordsets[0][0].Message;
-                    ServiceResult.Description = "";
-                    ServiceResult.Result = true;
-                    ServiceResult.Data = PK_RoleId;
-                    res.send(ServiceResult);
-                }
-            });
+                });
+            } catch (e) {
+                ServiceResult.Message = "API Internal Error!";
+                ServiceResult.Result = false;
+                ServiceResult.Description = e.message;
+                ServiceResult.Data = null;
+                return res.send(ServiceResult);
+            }
         });
     } catch (error) {
-        res.status(400).send(error.message);
+        ServiceResult.Message = "API Internal Error!";
+        ServiceResult.Result = false;
+        ServiceResult.Description = error.message;
+        ServiceResult.Data = null;
+        return res.send(ServiceResult);
     }
 }
+
+
+const AddEditFormRoleMappings = async (req, res, next) => {
+    /*  #swagger.tags = ['Admin.Role']
+        #swagger.description = ''
+    */
+
+    ServiceResult.Message = null;
+    ServiceResult.Description = null;
+    ServiceResult.Result = null;
+    ServiceResult.Data = null;
+    try {
+        res.setHeader('Content-Type', 'application/json');
+
+        var JsonData = req.body;
+
+        await sql.connect(config.sql, function (err) {
+            try {
+                if (err) {
+                    console.log(err);
+                    ServiceResult.Message = "Failed to parse api request!";
+                    ServiceResult.Description = JSON.stringify(err);
+                    ServiceResult.Result = false;
+                    ServiceResult.Data = null;
+                    return res.send(ServiceResult);
+                }
+                // create Request object
+                var request = new sql.Request();
+
+                request.input('cJsonData', sql.NVarChar(sql.MAX), JSON.stringify(JsonData));
+
+                request.execute("[dbo].[USP_AddEditFormRoleMappings]", function (err, recordset) {
+                    try {
+                        if (err) {
+                            console.log(err);
+                            sql.close();
+                            ServiceResult.Message = "Failed to parse api response!";
+                            ServiceResult.Description = JSON.stringify(err);
+                            ServiceResult.Result = false;
+                            ServiceResult.Data = null;
+                            return res.send(ServiceResult);
+                        }
+                        sql.close();
+                        if (recordset) {
+                            if (recordset.recordsets[0][0].Message_Id == 1) {
+                                ServiceResult.Message = recordset.recordsets[0][0].Message;
+                                ServiceResult.Result = true;
+                                ServiceResult.Description = null;
+                                ServiceResult.Data = null;
+                                return res.send(ServiceResult);
+                            }
+                            else {
+                                ServiceResult.Message = recordset.recordsets[0][0].Message;
+                                ServiceResult.Result = false;
+                                ServiceResult.Description = null;
+                                ServiceResult.Data = null;
+                                return res.send(ServiceResult);
+                            }
+                        }
+                        else {
+                            ServiceResult.Message = "Failed to parse api response!";
+                            ServiceResult.Result = false;
+                            ServiceResult.Description = null;
+                            ServiceResult.Data = null;
+                            return res.send(ServiceResult);
+                        }
+                    } catch (e) {
+                        ServiceResult.Message = 'API Internal Error!';
+                        ServiceResult.Description = null;
+                        ServiceResult.Result = false;
+                        ServiceResult.Data = null;
+                        ServiceResult.Description = JSON.stringify(e.message);
+                        return res.send(ServiceResult);
+                    }
+                });
+            } catch (e) {
+                ServiceResult.Message = "API Internal Error!";
+                ServiceResult.Result = false;
+                ServiceResult.Description = e.message;
+                ServiceResult.Data = null;
+                return res.send(ServiceResult);
+            }
+        });
+    } catch (error) {
+        ServiceResult.Message = "API Internal Error!";
+        ServiceResult.Result = false;
+        ServiceResult.Description = error.message;
+        ServiceResult.Data = null;
+        return res.send(ServiceResult);
+    }
+}
+
 
 const DeleteRolesDetails = async (req, res, next) => {
     /*  #swagger.tags = ['Admin.Role']
@@ -239,50 +370,9 @@ const DeleteRolesDetails = async (req, res, next) => {
         return res.send(ServiceResult);
     }
 }
-
-const GetRolesList = async (req, res, next) => {
-    /*  #swagger.tags = ['Admin.Role']
-        #swagger.description = ''
-    */
-    try {
-        res.setHeader('Content-Type', 'application/json');
-
-        await sql.connect(config.sql, function (err) {
-            if (err) console.log(err);
-            // create Request object
-            var request = new sql.Request();
-
-
-            request.execute("[dbo].[USP_GetAllRoles]", function (err, recordset) {
-                if (err) {
-                    console.log(err);
-                    sql.close();
-                }
-                sql.close();
-                if (recordset == null || recordset.recordsets.length <= 0) {
-                    ServiceResult.Message = "Failed!";
-                    ServiceResult.Description = "Process failed!";
-                    ServiceResult.Result = false;
-                    ServiceResult.Data = null;
-                    res.send(ServiceResult);
-                }
-                else {
-                    ServiceResult.Message = "Success";
-                    ServiceResult.Description = "";
-                    ServiceResult.Result = true;
-                    ServiceResult.Data = recordset.recordsets[0];
-                    res.send(ServiceResult);
-                }
-            });
-        });
-    } catch (error) {
-        res.status(400).send(error.message);
-    }
-}
-
 module.exports = {
     GetRoleDetails,
     AddEditRoleDetails,
-    DeleteRolesDetails,
-    GetRolesList
+    AddEditFormRoleMappings,
+    DeleteRolesDetails
 }

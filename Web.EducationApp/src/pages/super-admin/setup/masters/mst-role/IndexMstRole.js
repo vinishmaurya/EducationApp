@@ -97,8 +97,8 @@ const IndexMstRole = (props) => {
 
     function onClickHandelEditClick(childEvent) {
         //debugger;
-        let rowIndex = $(childEvent.currentTarget).attr('row-index');
-        props.funcLoadComponent(rowIndex);
+        let rowData = $(childEvent.currentTarget).attr('row-data');
+        props.funcLoadComponent(rowData);
     }
 
 
