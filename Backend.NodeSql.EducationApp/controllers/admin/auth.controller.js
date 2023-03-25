@@ -27,10 +27,12 @@ const AuthenticateUser = async (req, res, next) => {
         var cGrantType = req.body.GrantType;
         var cRefreshToken = req.body.RefreshToken;
         
-        await sql.connect(config.sql, function (err) {
-            if (err) console.log(err);
+        var poolPromise = new sql.ConnectionPool(config.sql);
+        await poolPromise.connect().then(function (pool) {
+            //the pool that is created and should be used
             // create Request object
-            var request = new sql.Request();
+            var request = new sql.Request(pool);
+            //the pool from the promise
 
             request.input('cUserName', sql.NVarChar(200), cUserName);
             request.input('cPassword', sql.NVarChar(200), cPassword);

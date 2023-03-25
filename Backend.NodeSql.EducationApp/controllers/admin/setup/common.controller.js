@@ -15,10 +15,12 @@ const GetAllCategoryList = async (req, res, next) => {
 
         res.setHeader('Content-Type', 'application/json');
 
-        await sql.connect(config.sql, function (err) {
-            if (err) console.log(err);
+        var poolPromise = new sql.ConnectionPool(config.sql);
+        await poolPromise.connect().then(function (pool) {
+            //the pool that is created and should be used
             // create Request object
-            var request = new sql.Request();
+            var request = new sql.Request(pool);
+            //the pool from the promise
 
             request.execute("[dbo].[USP_GetAllCategoryList]", function (err, recordset) {
                 if (err) {
@@ -87,17 +89,12 @@ const GetAllRoleList = async (req, res, next) => {
 
         res.setHeader('Content-Type', 'application/json');
 
-        await sql.connect(config.sql, function (err) {
-            if (err) {
-                sql.close();
-                ServiceResult.Message = "Failed to parse api response!";
-                ServiceResult.Description = err.message;
-                ServiceResult.Result = false;
-                ServiceResult.Data = null;
-                return res.send(ServiceResult);
-            }
+        var poolPromise = new sql.ConnectionPool(config.sql);
+        await poolPromise.connect().then(function (pool) {
+            //the pool that is created and should be used
             // create Request object
-            var request = new sql.Request();
+            var request = new sql.Request(pool);
+            //the pool from the promise
 
             request.input('cRoleName', sql.NVarChar, RoleName);
             request.input('iFK_CategoryId', sql.BigInt, CategoryId);
@@ -167,10 +164,12 @@ const GetAllAccountList = async (req, res, next) => {
 
         res.setHeader('Content-Type', 'application/json');
 
-        await sql.connect(config.sql, function (err) {
-            if (err) console.log(err);
+        var poolPromise = new sql.ConnectionPool(config.sql);
+        await poolPromise.connect().then(function (pool) {
+            //the pool that is created and should be used
             // create Request object
-            var request = new sql.Request();
+            var request = new sql.Request(pool);
+            //the pool from the promise
 
             request.execute("[dbo].[USP_GetAllAccountList]", function (err, recordset) {
                 if (err) {
@@ -233,10 +232,12 @@ const GetAllParentFormsList = async (req, res, next) => {
     try {
         res.setHeader('Content-Type', 'application/json');
 
-        await sql.connect(config.sql, function (err) {
-            if (err) console.log(err);
+        var poolPromise = new sql.ConnectionPool(config.sql);
+        await poolPromise.connect().then(function (pool) {
+            //the pool that is created and should be used
             // create Request object
-            var request = new sql.Request();
+            var request = new sql.Request(pool);
+            //the pool from the promise
 
             request.execute("[dbo].[USP_GetAllParentFormsList]", function (err, recordset) {
                 if (err) {
@@ -297,10 +298,12 @@ const GetAllParentAccountList = async (req, res, next) => {
     try {
         res.setHeader('Content-Type', 'application/json');
 
-        await sql.connect(config.sql, function (err) {
-            if (err) console.log(err);
+        var poolPromise = new sql.ConnectionPool(config.sql);
+        await poolPromise.connect().then(function (pool) {
+            //the pool that is created and should be used
             // create Request object
-            var request = new sql.Request();
+            var request = new sql.Request(pool);
+            //the pool from the promise
 
             request.execute("[dbo].[USP_GetAllParentAccountList]", function (err, recordset) {
                 if (err) {
@@ -361,10 +364,12 @@ const GetAllCountryList = async (req, res, next) => {
     try {
         res.setHeader('Content-Type', 'application/json');
 
-        await sql.connect(config.sql, function (err) {
-            if (err) console.log(err);
+        var poolPromise = new sql.ConnectionPool(config.sql);
+        await poolPromise.connect().then(function (pool) {
+            //the pool that is created and should be used
             // create Request object
-            var request = new sql.Request();
+            var request = new sql.Request(pool);
+            //the pool from the promise
 
             request.execute("[dbo].[USP_GetCountryList]", function (err, recordset) {
                 if (err) {
@@ -431,10 +436,12 @@ const GetAllStateListCountryId = async (req, res, next) => {
             ServiceResult.Data = null;
             return res.send(ServiceResult);
         }
-        await sql.connect(config.sql, function (err) {
-            if (err) console.log(err);
+        var poolPromise = new sql.ConnectionPool(config.sql);
+        await poolPromise.connect().then(function (pool) {
+            //the pool that is created and should be used
             // create Request object
-            var request = new sql.Request();
+            var request = new sql.Request(pool);
+            //the pool from the promise
             request.input('iFK_CountryId', sql.BigInt, CountryId);
 
             request.execute("[dbo].[USP_GetStateDetailsByCountryId]", function (err, recordset) {
@@ -496,10 +503,12 @@ const GetAllCityListByState = async (req, res, next) => {
         res.setHeader('Content-Type', 'application/json');
         var StateId = req.query.StateId;
 
-        await sql.connect(config.sql, function (err) {
-            if (err) console.log(err);
+        var poolPromise = new sql.ConnectionPool(config.sql);
+        await poolPromise.connect().then(function (pool) {
+            //the pool that is created and should be used
             // create Request object
-            var request = new sql.Request();
+            var request = new sql.Request(pool);
+            //the pool from the promise
             request.input('iFK_StateId', sql.BigInt, StateId);
 
             request.execute("[dbo].[USP_GetCityDetailsByStateId]", function (err, recordset) {

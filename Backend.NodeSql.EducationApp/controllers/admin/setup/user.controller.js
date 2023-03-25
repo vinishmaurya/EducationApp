@@ -386,8 +386,8 @@ const DeleteUsersDetails = async (req, res, next) => {
             ServiceResult.Data = null;
             return res.send(ServiceResult);
         }
-        var conn = new sql.ConnectionPool(config.sql);
-        await conn.connect().then(function (pool) {
+        var poolPromise = new sql.ConnectionPool(config.sql);
+        await poolPromise.connect().then(function (pool) {
             //the pool that is created and should be used
             // create Request object
             var request = new sql.Request(pool);
@@ -467,8 +467,8 @@ const AuthenticatedUserInfo = async (req, res, next) => {
 
         res.setHeader('Content-Type', 'application/json');
 
-        var conn = new sql.ConnectionPool(config.sql);
-        await conn.connect().then(function (pool) {
+        var poolPromise = new sql.ConnectionPool(config.sql);
+        await poolPromise.connect().then(function (pool) {
             //the pool that is created and should be used
             // create Request object
             var request = new sql.Request(pool);
@@ -548,8 +548,8 @@ const AuthenticatedUserTokenValidation = async (req, res, next) => {
         //console.log(sql.pool);
         //}
 
-        var conn = new sql.ConnectionPool(config.sql);
-        await conn.connect().then(function (pool) {
+        var poolPromise = new sql.ConnectionPool(config.sql);
+        await poolPromise.connect().then(function (pool) {
             //the pool that is created and should be used
             // create Request object
             var request = new sql.Request(pool);

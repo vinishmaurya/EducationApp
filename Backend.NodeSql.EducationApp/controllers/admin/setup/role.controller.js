@@ -29,16 +29,12 @@ const GetRoleDetails = async (req, res, next) => {
             ServiceResult.Data = null;
             return res.send(ServiceResult);
         }
-        await sql.connect(config.sql, function (err) {
-            if (err) {
-                ServiceResult.Message = "Failed to generate api response!";
-                ServiceResult.Description = err.message;
-                ServiceResult.Result = false;
-                ServiceResult.Data = null;
-                return res.send(ServiceResult);
-            }
+        var poolPromise = new sql.ConnectionPool(config.sql);
+        await poolPromise.connect().then(function (pool) {
+            //the pool that is created and should be used
             // create Request object
-            var request = new sql.Request();
+            var request = new sql.Request(pool);
+            //the pool from the promise
             request.input('iPK_RoleId', sql.BigInt, iPK_RoleId);
             request.input('iRowperPage', sql.BigInt, RowperPage);
             request.input('iCurrentPage', sql.BigInt, CurrentPage);
@@ -114,77 +110,64 @@ const AddEditRoleDetails = async (req, res, next) => {
         var iHomePage = req.body.LandingPage;
         var IsActive = req.body.IsActive === "true" ? true : false;;
         var CreatedBy = req.body.CreatedBy;
-        await sql.connect(config.sql, function (err) {
-            try {
-                if (err) {
-                    console.log(err);
-                    ServiceResult.Message = "Failed to parse api request!";
-                    ServiceResult.Description = JSON.stringify(err);
-                    ServiceResult.Result = false;
-                    ServiceResult.Data = null;
-                    return res.send(ServiceResult);
-                }
-                // create Request object
-                var request = new sql.Request();
+        var poolPromise = new sql.ConnectionPool(config.sql);
+        await poolPromise.connect().then(function (pool) {
+            //the pool that is created and should be used
+            // create Request object
+            var request = new sql.Request(pool);
+            //the pool from the promise
 
-                request.input('iPK_RoleId', sql.BigInt, iPK_RoleId);
-                request.input('cRoleName', sql.NVarChar(100), cRoleName);
-                request.input('iFK_CategoryId', sql.NVarChar(100), FK_CategoryId);
-                request.input('iFK_AccountId', sql.NVarChar(100), FK_AccountId);
-                request.input('iHomePage', sql.BigInt, iHomePage);
-                request.input('bIsActive', sql.Bit, IsActive);
-                request.input('iUserId', sql.BigInt, CreatedBy);
-                request.execute("[dbo].[USP_AddEditRole]", function (err, recordset) {
-                    try {
-                        if (err) {
-                            console.log(err);
-                            sql.close();
-                            ServiceResult.Message = "Failed to parse api response!";
-                            ServiceResult.Description = err.message;
-                            ServiceResult.Result = false;
-                            ServiceResult.Data = null;
+            request.input('iPK_RoleId', sql.BigInt, iPK_RoleId);
+            request.input('cRoleName', sql.NVarChar(100), cRoleName);
+            request.input('iFK_CategoryId', sql.NVarChar(100), FK_CategoryId);
+            request.input('iFK_AccountId', sql.NVarChar(100), FK_AccountId);
+            request.input('iHomePage', sql.BigInt, iHomePage);
+            request.input('bIsActive', sql.Bit, IsActive);
+            request.input('iUserId', sql.BigInt, CreatedBy);
+            request.execute("[dbo].[USP_AddEditRole]", function (err, recordset) {
+                try {
+                    if (err) {
+                        console.log(err);
+                        sql.close();
+                        ServiceResult.Message = "Failed to parse api response!";
+                        ServiceResult.Description = err.message;
+                        ServiceResult.Result = false;
+                        ServiceResult.Data = null;
+                        return res.send(ServiceResult);
+                    }
+                    sql.close();
+                    if (recordset) {
+                        if (recordset.recordsets[0][0].Message_Id == 1) {
+                            ServiceResult.Message = recordset.recordsets[0][0].Message;
+                            ServiceResult.Result = true;
+                            ServiceResult.Description = null;
+                            ServiceResult.Data = recordset.recordsets[1][0];
                             return res.send(ServiceResult);
                         }
-                        sql.close();
-                        if (recordset) {
-                            if (recordset.recordsets[0][0].Message_Id == 1) {
-                                ServiceResult.Message = recordset.recordsets[0][0].Message;
-                                ServiceResult.Result = true;
-                                ServiceResult.Description = null;
-                                ServiceResult.Data = recordset.recordsets[1][0];
-                                return res.send(ServiceResult);
-                            }
-                            else {
-                                ServiceResult.Message = recordset.recordsets[0][0].Message;
-                                ServiceResult.Result = false;
-                                ServiceResult.Description = null;
-                                ServiceResult.Data = null;
-                                return res.send(ServiceResult);
-                            }
-                        }
                         else {
-                            ServiceResult.Message = "Failed to parse api response!";
+                            ServiceResult.Message = recordset.recordsets[0][0].Message;
                             ServiceResult.Result = false;
                             ServiceResult.Description = null;
                             ServiceResult.Data = null;
                             return res.send(ServiceResult);
                         }
-                    } catch (e) {
-                        ServiceResult.Message = 'API Internal Error!';
-                        ServiceResult.Description = null;
+                    }
+                    else {
+                        ServiceResult.Message = "Failed to parse api response!";
                         ServiceResult.Result = false;
+                        ServiceResult.Description = null;
                         ServiceResult.Data = null;
-                        ServiceResult.Description = JSON.stringify(e.message);
                         return res.send(ServiceResult);
                     }
-                });
-            } catch (e) {
-                ServiceResult.Message = "API Internal Error!";
-                ServiceResult.Result = false;
-                ServiceResult.Description = e.message;
-                ServiceResult.Data = null;
-                return res.send(ServiceResult);
-            }
+                } catch (e) {
+                    ServiceResult.Message = 'API Internal Error!';
+                    ServiceResult.Description = null;
+                    ServiceResult.Result = false;
+                    ServiceResult.Data = null;
+                    ServiceResult.Description = JSON.stringify(e.message);
+                    return res.send(ServiceResult);
+                }
+            });
         });
     } catch (error) {
         ServiceResult.Message = "API Internal Error!";
@@ -216,16 +199,12 @@ const DeleteRolesDetails = async (req, res, next) => {
             ServiceResult.Data = null;
             return res.send(ServiceResult);
         }
-        await sql.connect(config.sql, function (err) {
-            if (err) {
-                ServiceResult.Message = "Failed to parse api response!";
-                ServiceResult.Description = err.message;
-                ServiceResult.Result = false;
-                ServiceResult.Data = null;
-                return res.send(ServiceResult);
-            }
+        var poolPromise = new sql.ConnectionPool(config.sql);
+        await poolPromise.connect().then(function (pool) {
+            //the pool that is created and should be used
             // create Request object
-            var request = new sql.Request();
+            var request = new sql.Request(pool);
+            //the pool from the promise
 
             request.input('iPK_RoleId', sql.BigInt, iPK_RoleId);
             request.input('iUserId', sql.BigInt, DeletedBy);

@@ -32,16 +32,12 @@ const GetAccountDetails = async (req, res, next) => {
             ServiceResult.Data = null;
             return res.send(ServiceResult);
         }
-        await sql.connect(config.sql, function (err) {
-            if (err) {
-                ServiceResult.Message = "Failed to generate api response!";
-                ServiceResult.Description = err.message;
-                ServiceResult.Result = false;
-                ServiceResult.Data = null;
-                return res.send(ServiceResult);
-            }
+        var poolPromise = new sql.ConnectionPool(config.sql);
+        await poolPromise.connect().then(function (pool) {
+            //the pool that is created and should be used
             // create Request object
-            var request = new sql.Request();
+            var request = new sql.Request(pool);
+            //the pool from the promise
             request.input('iPK_AccountId', sql.BigInt, AccountId);
             request.input('iRowperPage', sql.BigInt, RowperPage);
             request.input('iCurrentPage', sql.BigInt, CurrentPage);
@@ -118,7 +114,7 @@ const AddEditAccountDetails = async (req, res, next) => {
 
     try {
         //debugger;
-       
+
 
         if (Object.keys(req.body) != "AccountDetails") {
             message = "No were data found for account details with form data key ('AccountDetails')!";
@@ -133,17 +129,17 @@ const AddEditAccountDetails = async (req, res, next) => {
             if (Object.hasOwn(Body_AccountDetails, 'StepCompleted')) {
                 if (Body_AccountDetails.StepCompleted == "AdditionalInfo") {
                     if (!Body_AccountDetails.AccountLogoUrl) {
-                    if ((!req.files || Object.keys(req.files).length <= 0)) {
-                        message = "No files were uploaded for account logo!";
-                        bool = false;
-                    }
-                    else if (Object.keys(req.files) != "AccountLogo") {
-                        message = "No files were uploaded for account logo with form data key ('AccountLogo')!";
-                        //res.status(200).json({ Message: "No files were uploaded for Id Type." });
-                        //return;
-                        bool = false;
-                    }
-                    else {
+                        if ((!req.files || Object.keys(req.files).length <= 0)) {
+                            message = "No files were uploaded for account logo!";
+                            bool = false;
+                        }
+                        else if (Object.keys(req.files) != "AccountLogo") {
+                            message = "No files were uploaded for account logo with form data key ('AccountLogo')!";
+                            //res.status(200).json({ Message: "No files were uploaded for Id Type." });
+                            //return;
+                            bool = false;
+                        }
+                        else {
                             AccountLogo_Multipart = req.files.AccountLogo;
                             //Size and format validations
                             if (
@@ -202,110 +198,91 @@ const AddEditAccountDetails = async (req, res, next) => {
             res.setHeader('Content-Type', 'application/json');
             console.log(Body_AccountDetails);
 
-            await sql.connect(config.sql, function (err) {
-                try {
-                    if (err) {
-                        console.log(err);
-                        ServiceResult.Message = "Failed to parse api request!";
-                        ServiceResult.Description = JSON.stringify(err);
-                        ServiceResult.Result = false;
-                        ServiceResult.Data = null;
-                        return res.send(ServiceResult);
-                    }
-                    // create Request object
-                    var request = new sql.Request();
+            var poolPromise = new sql.ConnectionPool(config.sql);
+            await poolPromise.connect().then(function (pool) {
+                //the pool that is created and should be used
+                // create Request object
+                var request = new sql.Request(pool);
+                //the pool from the promise
 
-                    if (Body_AccountDetails.StepCompleted == "AccountDetails") {
-                        request.input('iPK_AccountId', sql.BigInt, Body_AccountDetails.AccountId);
-                        request.input('cAccountName', sql.NVarChar(100), Body_AccountDetails.AccountName);
-                        request.input('iFK_CategoryId', sql.BIGINT, Body_AccountDetails.CategoryId);
-                        request.input('iParentAccountId', sql.BIGINT, Body_AccountDetails.ParentAccountId);
-                        request.input('cContactPerson', sql.NVarChar(100), Body_AccountDetails.ContactPerson);
-                        request.input('cMobileNo', sql.NVarChar(100), Body_AccountDetails.MobileNo);
-                        request.input('cAlternateMobileNo', sql.NVarChar(100), Body_AccountDetails.AlternateMobileNo);
-                        request.input('cEmailId', sql.NVarChar(100), Body_AccountDetails.EmailId);
-                        request.input('cAlternateEmailId', sql.NVarChar(100), Body_AccountDetails.AlternateEmailId);
-                    }
-                    else if (Body_AccountDetails.StepCompleted == "AdditionalInfo") {
-                        request.input('iPK_AccountId', sql.BigInt, Body_AccountDetails.AccountId);
-                        request.input('cAccountAddress', sql.NVarChar(500), Body_AccountDetails.AccountAddress);
-                        request.input('cZipCode', sql.NVarChar(100), Body_AccountDetails.ZipCode);
-                        request.input('iFK_CountryId', sql.NVarChar(100), Body_AccountDetails.CountryId);
-                        request.input('iFK_StateId', sql.NVarChar(100), Body_AccountDetails.StateId);
-                        request.input('iFK_CityId', sql.NVarChar(100), Body_AccountDetails.CityId);
-                        request.input('cAccountLogo', sql.NVarChar(100), uploadedFileUrl);
-                    }
-                    else if (Body_AccountDetails.StepCompleted == "Credentials") {
-                        request.input('iPK_AccountId', sql.BigInt, Body_AccountDetails.AccountId);
-                        request.input('bIsActive', sql.BIT, Body_AccountDetails.IsActive === "true" ? true : false);
-                        request.input('Username', sql.NVarChar(100), Body_AccountDetails.Username);
-                        request.input('Password', sql.NVarChar(100), Body_AccountDetails.Password);
-                    }
-                    request.input('StepCompleted', sql.NVarChar(100), Body_AccountDetails.StepCompleted);
-                    request.input('NextStep', sql.NVarChar(100), Body_AccountDetails.NextStep);
-                    request.input('CreatedBy', sql.NVarChar(100), Body_AccountDetails.CreatedBy);
+                if (Body_AccountDetails.StepCompleted == "AccountDetails") {
+                    request.input('iPK_AccountId', sql.BigInt, Body_AccountDetails.AccountId);
+                    request.input('cAccountName', sql.NVarChar(100), Body_AccountDetails.AccountName);
+                    request.input('iFK_CategoryId', sql.BIGINT, Body_AccountDetails.CategoryId);
+                    request.input('iParentAccountId', sql.BIGINT, Body_AccountDetails.ParentAccountId);
+                    request.input('cContactPerson', sql.NVarChar(100), Body_AccountDetails.ContactPerson);
+                    request.input('cMobileNo', sql.NVarChar(100), Body_AccountDetails.MobileNo);
+                    request.input('cAlternateMobileNo', sql.NVarChar(100), Body_AccountDetails.AlternateMobileNo);
+                    request.input('cEmailId', sql.NVarChar(100), Body_AccountDetails.EmailId);
+                    request.input('cAlternateEmailId', sql.NVarChar(100), Body_AccountDetails.AlternateEmailId);
+                }
+                else if (Body_AccountDetails.StepCompleted == "AdditionalInfo") {
+                    request.input('iPK_AccountId', sql.BigInt, Body_AccountDetails.AccountId);
+                    request.input('cAccountAddress', sql.NVarChar(500), Body_AccountDetails.AccountAddress);
+                    request.input('cZipCode', sql.NVarChar(100), Body_AccountDetails.ZipCode);
+                    request.input('iFK_CountryId', sql.NVarChar(100), Body_AccountDetails.CountryId);
+                    request.input('iFK_StateId', sql.NVarChar(100), Body_AccountDetails.StateId);
+                    request.input('iFK_CityId', sql.NVarChar(100), Body_AccountDetails.CityId);
+                    request.input('cAccountLogo', sql.NVarChar(100), uploadedFileUrl);
+                }
+                else if (Body_AccountDetails.StepCompleted == "Credentials") {
+                    request.input('iPK_AccountId', sql.BigInt, Body_AccountDetails.AccountId);
+                    request.input('bIsActive', sql.BIT, Body_AccountDetails.IsActive === "true" ? true : false);
+                    request.input('Username', sql.NVarChar(100), Body_AccountDetails.Username);
+                    request.input('Password', sql.NVarChar(100), Body_AccountDetails.Password);
+                }
+                request.input('StepCompleted', sql.NVarChar(100), Body_AccountDetails.StepCompleted);
+                request.input('NextStep', sql.NVarChar(100), Body_AccountDetails.NextStep);
+                request.input('CreatedBy', sql.NVarChar(100), Body_AccountDetails.CreatedBy);
 
-                    request.execute("[dbo].[USP_AddEditAccount]", function (err, recordset) {
-                        try {
-                            if (err) {
-                                console.log(err);
-                                sql.close();
-                                ServiceResult.Message = "Failed to parse api response!";
-                                ServiceResult.Description = err.message;
-                                ServiceResult.Result = false;
-                                ServiceResult.Data = null;
-                                if (Body_AccountDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
-                                    if (fs.existsSync(uploadFilePath)) {
-                                        fs.unlinkSync(uploadFilePath)
-                                    }
-                                }
-                                return res.send(ServiceResult);
-                            }
+                request.execute("[dbo].[USP_AddEditAccount]", function (err, recordset) {
+                    try {
+                        if (err) {
+                            console.log(err);
                             sql.close();
-                            if (recordset) {
-                                if (recordset.recordsets[0][0].Message_Id == 1) {
-                                    try {
-                                        let Data = null;
-                                        if (Body_AccountDetails.StepCompleted == "AdditionalInfo" && AccountLogo_Multipart) {
-                                            RootDirectory = require('path').resolve();
-                                            let AccountLogoBeforeUpdate = recordset.recordsets[1][0].AccountLogoBeforeUpdate;
-                                            let previousImage = (AccountLogoBeforeUpdate)
-                                                .replace(process.env.HOST_URL, RootDirectory)
-                                                .replace('/images/', '/public/images/');
-                                            console.log(previousImage);
-                                            if (fs.existsSync(previousImage)) {
-                                                fs.unlinkSync(previousImage);
-                                            }
-                                        }
-                                        else if (Body_AccountDetails.StepCompleted == "AccountDetails") {
-                                            Data = recordset.recordsets[1][0];
-                                        }
-                                        //Success Case
-                                        ServiceResult.Message = recordset.recordsets[0][0].Message;
-                                        ServiceResult.Description = null;
-                                        ServiceResult.Result = true;
-                                        ServiceResult.Data = Data;
-                                        //Delete previoud image
-
-
-                                        return res.send(ServiceResult);
-                                    } catch (error) {
-                                        ServiceResult.Message = "Failed to parse api response!";
-                                        ServiceResult.Description = error.message;
-                                        ServiceResult.Result = false;
-                                        ServiceResult.Data = null;
-                                        if (Body_AccountDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
-                                            if (fs.existsSync(uploadFilePath)) {
-                                                fs.unlinkSync(uploadFilePath)
-                                            }
-                                        }
-                                        return res.send(ServiceResult);
-                                    }
+                            ServiceResult.Message = "Failed to parse api response!";
+                            ServiceResult.Description = err.message;
+                            ServiceResult.Result = false;
+                            ServiceResult.Data = null;
+                            if (Body_AccountDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
+                                if (fs.existsSync(uploadFilePath)) {
+                                    fs.unlinkSync(uploadFilePath)
                                 }
-                                else {
+                            }
+                            return res.send(ServiceResult);
+                        }
+                        sql.close();
+                        if (recordset) {
+                            if (recordset.recordsets[0][0].Message_Id == 1) {
+                                try {
+                                    let Data = null;
+                                    if (Body_AccountDetails.StepCompleted == "AdditionalInfo" && AccountLogo_Multipart) {
+                                        RootDirectory = require('path').resolve();
+                                        let AccountLogoBeforeUpdate = recordset.recordsets[1][0].AccountLogoBeforeUpdate;
+                                        let previousImage = (AccountLogoBeforeUpdate)
+                                            .replace(process.env.HOST_URL, RootDirectory)
+                                            .replace('/images/', '/public/images/');
+                                        console.log(previousImage);
+                                        if (fs.existsSync(previousImage)) {
+                                            fs.unlinkSync(previousImage);
+                                        }
+                                    }
+                                    else if (Body_AccountDetails.StepCompleted == "AccountDetails") {
+                                        Data = recordset.recordsets[1][0];
+                                    }
+                                    //Success Case
                                     ServiceResult.Message = recordset.recordsets[0][0].Message;
-                                    ServiceResult.Result = false;
                                     ServiceResult.Description = null;
+                                    ServiceResult.Result = true;
+                                    ServiceResult.Data = Data;
+                                    //Delete previoud image
+
+
+                                    return res.send(ServiceResult);
+                                } catch (error) {
+                                    ServiceResult.Message = "Failed to parse api response!";
+                                    ServiceResult.Description = error.message;
+                                    ServiceResult.Result = false;
                                     ServiceResult.Data = null;
                                     if (Body_AccountDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
                                         if (fs.existsSync(uploadFilePath)) {
@@ -316,7 +293,7 @@ const AddEditAccountDetails = async (req, res, next) => {
                                 }
                             }
                             else {
-                                ServiceResult.Message = "Failed to parse api response!";
+                                ServiceResult.Message = recordset.recordsets[0][0].Message;
                                 ServiceResult.Result = false;
                                 ServiceResult.Description = null;
                                 ServiceResult.Data = null;
@@ -327,12 +304,12 @@ const AddEditAccountDetails = async (req, res, next) => {
                                 }
                                 return res.send(ServiceResult);
                             }
-                        } catch (e) {
-                            ServiceResult.Message = 'API Internal Error!';
-                            ServiceResult.Description = null;
+                        }
+                        else {
+                            ServiceResult.Message = "Failed to parse api response!";
                             ServiceResult.Result = false;
+                            ServiceResult.Description = null;
                             ServiceResult.Data = null;
-                            ServiceResult.Description = JSON.stringify(e.message);
                             if (Body_AccountDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
                                 if (fs.existsSync(uploadFilePath)) {
                                     fs.unlinkSync(uploadFilePath)
@@ -340,19 +317,20 @@ const AddEditAccountDetails = async (req, res, next) => {
                             }
                             return res.send(ServiceResult);
                         }
-                    });
-                } catch (e) {
-                    ServiceResult.Message = "API Internal Error!";
-                    ServiceResult.Result = false;
-                    ServiceResult.Description = e.message;
-                    ServiceResult.Data = null;
-                    if (Body_AccountDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
-                        if (fs.existsSync(uploadFilePath)) {
-                            fs.unlinkSync(uploadFilePath)
+                    } catch (e) {
+                        ServiceResult.Message = 'API Internal Error!';
+                        ServiceResult.Description = null;
+                        ServiceResult.Result = false;
+                        ServiceResult.Data = null;
+                        ServiceResult.Description = JSON.stringify(e.message);
+                        if (Body_AccountDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
+                            if (fs.existsSync(uploadFilePath)) {
+                                fs.unlinkSync(uploadFilePath)
+                            }
                         }
+                        return res.send(ServiceResult);
                     }
-                    return res.send(ServiceResult);
-                }
+                });
             });
         }
 
@@ -391,16 +369,12 @@ const DeleteAccountsDetails = async (req, res, next) => {
             ServiceResult.Data = null;
             return res.send(ServiceResult);
         }
-        await sql.connect(config.sql, function (err) {
-            if (err) {
-                ServiceResult.Message = "Failed to parse api response!";
-                ServiceResult.Description = err.message;
-                ServiceResult.Result = false;
-                ServiceResult.Data = null;
-                return res.send(ServiceResult);
-            }
+        var poolPromise = new sql.ConnectionPool(config.sql);
+        await poolPromise.connect().then(function (pool) {
+            //the pool that is created and should be used
             // create Request object
-            var request = new sql.Request();
+            var request = new sql.Request(pool);
+            //the pool from the promise
 
             request.input('iPK_AccountId', sql.BigInt, iPK_AccountId);
             request.input('iDeletedId', sql.BigInt, DeletedBy);

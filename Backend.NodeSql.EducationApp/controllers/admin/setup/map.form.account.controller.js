@@ -18,17 +18,12 @@ const GetAllFormAccountMappings = async (req, res, next) => {
 
         res.setHeader('Content-Type', 'application/json');
 
-        await sql.connect(config.sql, function (err) {
-            if (err) {
-                sql.close();
-                ServiceResult.Message = "Failed to parse api response!";
-                ServiceResult.Description = err.message;
-                ServiceResult.Result = false;
-                ServiceResult.Data = null;
-                return res.send(ServiceResult);
-            }
+        var poolPromise = new sql.ConnectionPool(config.sql);
+        await poolPromise.connect().then(function (pool) {
+            //the pool that is created and should be used
             // create Request object
-            var request = new sql.Request();
+            var request = new sql.Request(pool);
+            //the pool from the promise
 
             request.input('iPK_AccountId', sql.BigInt, AccountId);
             request.input('iPK_FormId', sql.BigInt, FormId);
@@ -100,72 +95,59 @@ const AddEditFormAccountMappings = async (req, res, next) => {
 
         var JsonData = req.body;
 
-        await sql.connect(config.sql, function (err) {
-            try {
-                if (err) {
-                    console.log(err);
-                    ServiceResult.Message = "Failed to parse api request!";
-                    ServiceResult.Description = JSON.stringify(err);
-                    ServiceResult.Result = false;
-                    ServiceResult.Data = null;
-                    return res.send(ServiceResult);
-                }
-                // create Request object
-                var request = new sql.Request();
+        var poolPromise = new sql.ConnectionPool(config.sql);
+        await poolPromise.connect().then(function (pool) {
+            //the pool that is created and should be used
+            // create Request object
+            var request = new sql.Request(pool);
+            //the pool from the promise
 
-                request.input('cJsonData', sql.NVarChar(sql.MAX), JSON.stringify(JsonData));
+            request.input('cJsonData', sql.NVarChar(sql.MAX), JSON.stringify(JsonData));
 
-                request.execute("[dbo].[USP_AddEditFormAccountMappings]", function (err, recordset) {
-                    try {
-                        if (err) {
-                            console.log(err);
-                            sql.close();
-                            ServiceResult.Message = "Failed to parse api response!";
-                            ServiceResult.Description = err.message;
-                            ServiceResult.Result = false;
+            request.execute("[dbo].[USP_AddEditFormAccountMappings]", function (err, recordset) {
+                try {
+                    if (err) {
+                        console.log(err);
+                        sql.close();
+                        ServiceResult.Message = "Failed to parse api response!";
+                        ServiceResult.Description = err.message;
+                        ServiceResult.Result = false;
+                        ServiceResult.Data = null;
+                        return res.send(ServiceResult);
+                    }
+                    sql.close();
+                    if (recordset) {
+                        if (recordset.recordsets[0][0].Message_Id == 1) {
+                            ServiceResult.Message = recordset.recordsets[0][0].Message;
+                            ServiceResult.Result = true;
+                            ServiceResult.Description = null;
                             ServiceResult.Data = null;
                             return res.send(ServiceResult);
                         }
-                        sql.close();
-                        if (recordset) {
-                            if (recordset.recordsets[0][0].Message_Id == 1) {
-                                ServiceResult.Message = recordset.recordsets[0][0].Message;
-                                ServiceResult.Result = true;
-                                ServiceResult.Description = null;
-                                ServiceResult.Data = null;
-                                return res.send(ServiceResult);
-                            }
-                            else {
-                                ServiceResult.Message = recordset.recordsets[0][0].Message;
-                                ServiceResult.Result = false;
-                                ServiceResult.Description = null;
-                                ServiceResult.Data = null;
-                                return res.send(ServiceResult);
-                            }
-                        }
                         else {
-                            ServiceResult.Message = "Failed to parse api response!";
+                            ServiceResult.Message = recordset.recordsets[0][0].Message;
                             ServiceResult.Result = false;
                             ServiceResult.Description = null;
                             ServiceResult.Data = null;
                             return res.send(ServiceResult);
                         }
-                    } catch (e) {
-                        ServiceResult.Message = 'API Internal Error!';
-                        ServiceResult.Description = null;
+                    }
+                    else {
+                        ServiceResult.Message = "Failed to parse api response!";
                         ServiceResult.Result = false;
+                        ServiceResult.Description = null;
                         ServiceResult.Data = null;
-                        ServiceResult.Description = JSON.stringify(e.message);
                         return res.send(ServiceResult);
                     }
-                });
-            } catch (e) {
-                ServiceResult.Message = "API Internal Error!";
-                ServiceResult.Result = false;
-                ServiceResult.Description = e.message;
-                ServiceResult.Data = null;
-                return res.send(ServiceResult);
-            }
+                } catch (e) {
+                    ServiceResult.Message = 'API Internal Error!';
+                    ServiceResult.Description = null;
+                    ServiceResult.Result = false;
+                    ServiceResult.Data = null;
+                    ServiceResult.Description = JSON.stringify(e.message);
+                    return res.send(ServiceResult);
+                }
+            });
         });
     } catch (error) {
         ServiceResult.Message = "API Internal Error!";

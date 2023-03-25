@@ -40,9 +40,6 @@
     <Content Include="middleware\errorHandler.js" />
     <Content Include="middleware\logEvents.js" />
     <Content Include="middleware\verifyJWT.js" />
-    <Content Include="models\admin\setup\form.model.js" />
-    <Content Include="models\admin\setup\userModel.js" />
-    <Content Include="models\admin\setup\userModel.json" />
     <Content Include="models\serviceResult.model.js" />
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
@@ -64,8 +61,6 @@
     <Folder Include="controllers\admin\" />
     <Folder Include="controllers\admin\setup\" />
     <Folder Include="models\" />
-    <Folder Include="models\admin\" />
-    <Folder Include="models\admin\setup\" />
     <Folder Include="controllers\" />
     <Folder Include="middleware\" />
     <Folder Include="public\" />
