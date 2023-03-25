@@ -3,7 +3,7 @@
  * --------------------------------------------------------------------------
  * By: Vinish
  * Datetime: 2023-03-11 01:01:53.570
- * Add Edit Country Details
+ * Add Edit State Details
  * --------------------------------------------------------------------------
  */
 import axios from "axios";
@@ -11,14 +11,14 @@ import { useEffect, useState } from "react";
 import { useCookies } from 'react-cookie';
 import APIConfig from "../../../../../config/api.config.json";
 import reqBody from "../../../../../models/reqBody.Model";
-import useCountryValidator from "../../../../../util/useFormValidator";
+import useStateValidator from "../../../../../util/useFormValidator";
 import CustomDropdown from "../../../../../core/components/dropdown/CustomDropdown";
 import { $ } from 'react-jquery-plugin';
 import CommonFuncs from "../../../../../util/common.funcs";
 
 require('dotenv').config();
 
-const AddEditMstCountry = (props) => {
+const AddEditMstState = (props) => {
     let propData = props.dataRow;
     //console.log(propData);
     //#region define regular expressions (regex)
@@ -27,22 +27,30 @@ const AddEditMstCountry = (props) => {
     //#endregion
 
 
-    //#region Country details Country: define state, schema & validations
+    //#region State details State: define state, schema & validations
     // Define your state schema
-    const stateSchemaCountryDetails = {
-        CountryName: { value: propData ? propData.CountryName : '', error: "This Country name field is required!" },
+    const stateSchemaStateDetails = {
+        StateName: { value: propData ? propData.StateName : '', error: "This State name field is required!" },
+        CountryId: { value: propData ? propData.CountryId : '', error: "This country field selection is required!" },
         IsActive: { value: propData ? propData.IsActive : true, error: "This status field selection is required!!" }
     };
-    const [CountryDetailsData, setCountryDetailsData] = useState(stateSchemaCountryDetails);
-    // Create your own validationstateSchemaCountryDetails
-    // stateSchemaCountryDetails property should be the same in validationstateSchemaCountryDetails
+    const [StateDetailsData, setStateDetailsData] = useState(stateSchemaStateDetails);
+    // Create your own validationstateSchemaStateDetails
+    // stateSchemaStateDetails property should be the same in validationstateSchemaStateDetails
     // in-order a validation to works in your input.
-    const stateValidatorSchemaCountryDetails = {
-        CountryName: {
+    const stateValidatorSchemaStateDetails = {
+        CountryId: {
+            required: true,
+            validator: {
+                func: value => numberRegex.test(value),
+                    error: "Invalid country format."
+            }
+        },
+        StateName: {
             required: true,
             validator: {
                 func: value => name1to50Regex.test(value),
-                error: "Invalid Country name Countryat."
+                error: "Invalid State name Stateat."
             }
         },
         IsActive: {
@@ -58,23 +66,23 @@ const AddEditMstCountry = (props) => {
     const [HasAPIMessage, setHasAPIMessage] = useState("");
     const [HasAPIDescription, setHasAPIDescription] = useState("");
     const [Cookie, setCookie] = useCookies(['accessToken', 'refreshToken', 'loggedInUserId']);
-    const [AllParentCountryList, setAllParentCountryList] = useState([]);
-
+    const [AllParentStateList, setAllParentStateList] = useState([]);
+    const [AllCountryList, setAllCountryList] = useState([]);
     const [CurrentId, setCurrentId] = useState(propData ? propData.PK_ID : 0);
 
     //#endregion
 
 
-    //#region define custom Countrys validation hooks
+    //#region define custom States validation hooks
     const {
-        values: valuesCountryDetails,
-        errors: errorsCountryDetails,
-        dirty: dirtyCountryDetails,
-        handleOnChange: handleOnChangeCountryDetails,
-        handleOnSubmit: handleOnSubmitCountryDetails,
-        disable: disableCountryDetails,
-        handleOnClear: handleOnClearCountryDetails
-    } = useCountryValidator(stateSchemaCountryDetails, stateValidatorSchemaCountryDetails, onSubmitCountryCountryDetails);
+        values: valuesStateDetails,
+        errors: errorsStateDetails,
+        dirty: dirtyStateDetails,
+        handleOnChange: handleOnChangeStateDetails,
+        handleOnSubmit: handleOnSubmitStateDetails,
+        disable: disableStateDetails,
+        handleOnClear: handleOnClearStateDetails
+    } = useStateValidator(stateSchemaStateDetails, stateValidatorSchemaStateDetails, onSubmitStateStateDetails);
 
     //#endregion
 
@@ -83,23 +91,23 @@ const AddEditMstCountry = (props) => {
     useEffect(() => {
         //debugger;
 
-        //#region bind default data for Countrys
-        fetchAllParentCountryList();
+        //#region bind default data for States
+        fetchAllParentStateList();
+        fetchCountryList();
         //#endregion
 
-        //#region set default value of Countrys use state hooks
-        setCountryDetailsData(stateSchemaCountryDetails);
+        //#region set default value of States use state hooks
+        setStateDetailsData(stateSchemaStateDetails);
         setCurrentId(propData ? propData.PK_ID : 0);
         //#endregion
     }, []);
+    //#region bind funcs to call axios
 
-
-
-    const fetchAllParentCountryList = async () => {
+    const fetchCountryList = async () => {
         //debugger;
-        let apiUri = APIConfig.Admin.Common.GetAllParentCountrysListUri;
-
-        const instance = await axios.create({
+        let apiUri = APIConfig.Admin.Common.GetAllCountryListUri;
+        //console.log(apiUri);
+        const instance = axios.create({
             baseURL: process.env.REACT_APP_APIBaseUri,
             headers: {
                 'content-type': 'application/json',
@@ -133,7 +141,7 @@ const AddEditMstCountry = (props) => {
                 response.data.Data.map((data, i) => {
                     DataList.push({ ListValue: data.CountryId, ListText: data.CountryName });
                 });
-                setAllParentCountryList(DataList);
+                setAllCountryList(DataList);
             }
         }).catch((e) => {
             console.log(e);
@@ -141,22 +149,68 @@ const AddEditMstCountry = (props) => {
     };
 
 
-    //Step 1 : Country Details 
-    function onSubmitCountryCountryDetails(event, valuesCountryDetails) {
+    const fetchAllParentStateList = async () => {
+        //debugger;
+        let apiUri = APIConfig.Admin.Common.GetAllParentStatesListUri;
+
+        const instance = await axios.create({
+            baseURL: process.env.REACT_APP_APIBaseUri,
+            headers: {
+                'content-type': 'application/json',
+                'x-api-key': process.env.REACT_APP_APIKey
+            }
+        });
+
+        instance.interceptors.request.use(
+            request => {
+                if (!request.url.includes('AuthenticateUser')) {
+                    request.headers['Authorization'] = "Bearer " + Cookie.accessToken;
+                }
+                return request;
+            },
+            error => {
+                return Promise.reject(error);
+            }
+        );
+
+        instance.interceptors.response.use((response) => {
+            return response;
+        }, (error) => {
+            return Promise.reject(error.message);
+        });
+        instance({
+            'method': 'GET',
+            'url': apiUri ? apiUri : ""
+        }).then((response) => {
+            if (response.data.Result) {
+                let DataList = [];
+                response.data.Data.map((data, i) => {
+                    DataList.push({ ListValue: data.StateId, ListText: data.StateName });
+                });
+                setAllParentStateList(DataList);
+            }
+        }).catch((e) => {
+            console.log(e);
+        });
+    };
+    //#endregion
+
+    //Step 1 : State Details 
+    function onSubmitStateStateDetails(event, valuesStateDetails) {
         //debugger;
         event.preventDefault();
-        const btnPointer = document.querySelector('#btnCountryDetails');
+        const btnPointer = document.querySelector('#btnStateDetails');
         btnPointer.innerHTML = 'Please wait..';
         btnPointer.setAttribute('disable', true);
         try {
-            let AddEditCountryDetailsUri = APIConfig.Admin.Country.AddEditCountryDetailsUri;
-            const CountryElement = document.querySelector('#CountryDetailsCountry');
-            const CountryData = new FormData(CountryElement);
-            const CountryDataJSON = Object.fromEntries(CountryData);
-            CountryDataJSON["CreatedBy"] = Cookie.loggedInUserId;
-            CountryDataJSON["CountryId"] = CurrentId;
+            let AddEditStateDetailsUri = APIConfig.Admin.State.AddEditStateDetailsUri;
+            const StateElement = document.querySelector('#StateDetailsState');
+            const StateData = new FormData(StateElement);
+            const StateDataJSON = Object.fromEntries(StateData);
+            StateDataJSON["CreatedBy"] = Cookie.loggedInUserId;
+            StateDataJSON["StateId"] = CurrentId;
 
-            let reqBody = CountryDataJSON;
+            let reqBody = StateDataJSON;
 
             const instance = axios.create({
                 baseURL: process.env.REACT_APP_APIBaseUri,
@@ -184,7 +238,7 @@ const AddEditMstCountry = (props) => {
 
             instance({
                 'method': 'POST',
-                'url': AddEditCountryDetailsUri ? AddEditCountryDetailsUri : "",
+                'url': AddEditStateDetailsUri ? AddEditStateDetailsUri : "",
                 'data': reqBody
             }).then((response) => {
                 
@@ -224,27 +278,27 @@ const AddEditMstCountry = (props) => {
 
     }
 
-    const onInputChangeControllerCountryDetails = (event) => {
+    const onInputChangeControllerStateDetails = (event) => {
         //debugger;
         const target = event.target;
         const value = target.value;
         const name = target.name;
-        let keys = Object.keys(CountryDetailsData);
+        let keys = Object.keys(StateDetailsData);
         let obj = new Object();
         for (var i = 0; i < keys.length; i++) {
             if (keys[i] != name) {
-                obj[keys[i]] = CountryDetailsData[keys[i]];
+                obj[keys[i]] = StateDetailsData[keys[i]];
             } else {
-                obj[name] = CountryDetailsData[name];
+                obj[name] = StateDetailsData[name];
                 obj[name].value = value;
             }
         }
-        setCountryDetailsData(obj);
+        setStateDetailsData(obj);
     };
 
-    const btnClearCountryDetails = (event) => {
-        setCountryDetailsData(stateSchemaCountryDetails);
-        handleOnClearCountryDetails(event);
+    const btnClearStateDetails = (event) => {
+        setStateDetailsData(stateSchemaStateDetails);
+        handleOnClearStateDetails(event);
     }
     return (
         <>
@@ -298,56 +352,78 @@ const AddEditMstCountry = (props) => {
                     <h3 className="card-title">{props.pageTitle}</h3>
                     <div className="content-demo">
                         <div className="content-body">
-                            <section className="NewCountryTabs">
+                            <section className="NewStateTabs">
                                 <ul className="nav nav-tabs nav-top-border no-hover-bg">
-                                    <li className="nav-item"> <a className="nav-link active" id="base-tab11" data-toggle="tab" aria-controls="tab11" href="#tab11" aria-expanded="true">Country Details</a> </li>
+                                    <li className="nav-item"> <a className="nav-link active" id="base-tab11" data-toggle="tab" aria-controls="tab11" href="#tab11" aria-expanded="true">State Details</a> </li>
                                 </ul>
 
                                 <div className="tab-content px-1 py-1">
                                     <div role="tabpanel" className="tab-pane active show" id="tab11" aria-expanded="true"
                                         aria-labelledby="base-tab11">
-                                        <form onSubmit={handleOnSubmitCountryDetails} id="CountryDetailsCountry">
+                                        <form onSubmit={handleOnSubmitStateDetails} id="StateDetailsState">
                                             <div className="row">
                                                 <div className="col-6">
                                                     <div className="form-group">
-                                                        <label className="label-control mb-2">Country Name
-                                                        {stateValidatorSchemaCountryDetails.CountryName.required && (<span className="red">*</span>)}
+                                                        <label className="label-control mb-2">Country
+                                                        {stateValidatorSchemaStateDetails.CountryId.required && (<span className="red">*</span>)}
                                                         </label>
-                                                        <input
+                                                        <select
                                                             className={"form-control " +
-                                                                (errorsCountryDetails.CountryName && dirtyCountryDetails.CountryName ? 'has-error' :
-                                                                    (dirtyCountryDetails.CountryName ? 'has-success' : ''))
+                                                                (errorsStateDetails.CountryId && dirtyStateDetails.CountryId ? 'has-error' :
+                                                                    (dirtyStateDetails.CountryId ? 'has-success' : ''))
                                                             }
-                                                            data-val="true"
-                                                            maxLength="50" name="CountryName" placeholder="Country Name"
-                                                            type="text"
-                                                            value={CountryDetailsData.CountryName.value}
-                                                            onChange={e => { handleOnChangeCountryDetails(e); onInputChangeControllerCountryDetails(e) }}
-                                                        />
+                                                            value={StateDetailsData.CountryId.value}
+                                                            onChange={e => { handleOnChangeStateDetails(e); onInputChangeControllerStateDetails(e);}}
+
+                                                            name="CountryId"
+                                                        >
+                                                            {CommonFuncs.funcBindSelectOptons(AllCountryList)}
+                                                        </select>
                                                     </div>
-                                                    {errorsCountryDetails.CountryName && dirtyCountryDetails.CountryName && (
-                                                        <span className="error-label mt-2">{errorsCountryDetails.CountryName}</span>
+                                                    {errorsStateDetails.CountryId && dirtyStateDetails.CountryId && (
+                                                        <span className="error-label mt-2">{errorsStateDetails.CountryId}</span>
                                                     )}
                                                 </div>
                                                 <div className="col-6">
                                                     <div className="form-group">
+                                                        <label className="label-control mb-2">State Name
+                                                        {stateValidatorSchemaStateDetails.StateName.required && (<span className="red">*</span>)}
+                                                        </label>
+                                                        <input
+                                                            className={"form-control " +
+                                                                (errorsStateDetails.StateName && dirtyStateDetails.StateName ? 'has-error' :
+                                                                    (dirtyStateDetails.StateName ? 'has-success' : ''))
+                                                            }
+                                                            data-val="true"
+                                                            maxLength="50" name="StateName" placeholder="State Name"
+                                                            type="text"
+                                                            value={StateDetailsData.StateName.value}
+                                                            onChange={e => { handleOnChangeStateDetails(e); onInputChangeControllerStateDetails(e) }}
+                                                        />
+                                                    </div>
+                                                    {errorsStateDetails.StateName && dirtyStateDetails.StateName && (
+                                                        <span className="error-label mt-2">{errorsStateDetails.StateName}</span>
+                                                    )}
+                                                </div>
+                                                <div className="col-6 mt-2">
+                                                    <div className="form-group">
                                                         <label className="label-control mb-2">Status
-                                                        {stateValidatorSchemaCountryDetails.CountryName.required && (<span className="red">*</span>)}
+                                                        {stateValidatorSchemaStateDetails.StateName.required && (<span className="red">*</span>)}
                                                         </label>
                                                         <br />
                                                         <div className="form-check form-check-inline">
                                                             <input className="form-check-input" type="radio" name="IsActive" id="inlineRadio1"
                                                                 value="true"
-                                                                defaultChecked={CountryDetailsData.IsActive.value === true}
-                                                                onChange={e => { handleOnChangeCountryDetails(e); onInputChangeControllerCountryDetails(e) }}
+                                                                defaultChecked={StateDetailsData.IsActive.value === true}
+                                                                onChange={e => { handleOnChangeStateDetails(e); onInputChangeControllerStateDetails(e) }}
                                                             />
                                                             <label className="form-check-label" htmlFor="inlineRadio1">Active</label>
                                                         </div>
                                                         <div className="form-check form-check-inline">
                                                             <input className="form-check-input" type="radio" name="IsActive" id="inlineRadio2"
                                                                 value="false"
-                                                                defaultChecked={CountryDetailsData.IsActive.value === false}
-                                                                onChange={e => { handleOnChangeCountryDetails(e); onInputChangeControllerCountryDetails(e) }}
+                                                                defaultChecked={StateDetailsData.IsActive.value === false}
+                                                                onChange={e => { handleOnChangeStateDetails(e); onInputChangeControllerStateDetails(e) }}
                                                             />
                                                             <label className="form-check-label" htmlFor="inlineRadio2">Inactive</label>
                                                         </div>
@@ -359,21 +435,21 @@ const AddEditMstCountry = (props) => {
 
                                             <div className="row">
                                                 <div className="col-lg-12">
-                                                    <div className="Country-body">
-                                                        <div style={{ justifyContent: 'center' }} className="Country-actions mt-3 d-flex">
+                                                    <div className="State-body">
+                                                        <div style={{ justifyContent: 'center' }} className="State-actions mt-3 d-flex">
 
                                                             <div style={{ margin: '10px' }}>
                                                                 <button type="submit"
-                                                                    id="btnCountryDetails"
+                                                                    id="btnStateDetails"
                                                                     className="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1"
-                                                                    disabled={disableCountryDetails}
+                                                                    disabled={disableStateDetails}
                                                                 >Submit</button>
                                                             </div>
                                                             <div style={{ margin: '10px' }}>
                                                                 <button type="button"
                                                                     className="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1"
-                                                                    id="btnClearCountryDetails"
-                                                                    onClick={btnClearCountryDetails}
+                                                                    id="btnClearStateDetails"
+                                                                    onClick={btnClearStateDetails}
                                                                 >Cancel</button>
                                                             </div>
                                                         </div>
@@ -397,4 +473,4 @@ const AddEditMstCountry = (props) => {
     );
 };
 
-export default AddEditMstCountry;
+export default AddEditMstState;

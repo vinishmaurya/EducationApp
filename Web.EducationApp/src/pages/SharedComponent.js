@@ -50,6 +50,7 @@ import OrgAppLanguageSetting from "../pages/super-admin/setup/settings/OrgAppLan
 import OrgAppEmailConfigSetting from "../pages/super-admin/setup/settings/OrgAppEmailConfigSetting";
 import OrgWebSiteContentSetup from "../pages/super-admin/setup/website/OrgWebSiteContentSetup";
 import MstCountry from "./super-admin/setup/masters/mst-country/MstCountry";
+import MstState from "./super-admin/setup/masters/mst-state/MstState";
 
 const SharedComponent = ({ data }) => {
     const [MyData, setMyData] = useState();
@@ -145,6 +146,9 @@ const SharedComponent = ({ data }) => {
                         }
                         else if (data.component === "MstCountry") {
                             return <MstCountry data={data} />
+                        }
+                        else if (data.component === "MstState") {
+                            return <MstState data={data} />
                         }
                         else if (data.component === "MapFormAccount") {
                             return <MapFormAccount />

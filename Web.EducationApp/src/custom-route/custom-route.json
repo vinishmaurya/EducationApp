@@ -68,6 +68,16 @@
     "route": "/pages/super-admin/setup/masters/mst-country/MstCountry"
   },
   {
+    "component": "MstState",
+    "landingComponent": "IndexMstState",
+    "innerComponentName": "Add New",
+    "backMainComponentName": "Back",
+    "innerComponentList": "AddEditMstState",
+    "title": "State Master",
+    "componentPath": "../pages/super-admin/setup/masters/mst-State/MstState",
+    "route": "/pages/super-admin/setup/masters/mst-State/MstState"
+  },
+  {
     "component": "AcadAdminDashboard",
     "title": "Admin Dashboard",
     "componentPath": "../pages/organization/academics/dashboard/AcadAdminDashboard",

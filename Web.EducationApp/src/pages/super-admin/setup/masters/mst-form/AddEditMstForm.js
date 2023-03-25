@@ -241,7 +241,7 @@ const AddEditMstForm = (props) => {
             }).then((response) => {
                 
                 if (response.data && response.data.Result) {
-                    btnPointer.innerHTML = 'Save & Next';
+                    btnPointer.innerHTML = 'Submit';
                     btnPointer.removeAttribute('disable');
                     setHasAPISuccess(true);
                     setHasAPIError(false);
@@ -255,14 +255,14 @@ const AddEditMstForm = (props) => {
                     setHasAPIMessage(response.data.Message);
                     setHasAPIDescription(response.data.Description);
                 }
-                btnPointer.innerHTML = 'Save & Next';
+                btnPointer.innerHTML = 'Submit';
                 btnPointer.removeAttribute('disable');
             }).catch((e) => {
                 //console.log(e);
                 //return e;
                 setHasAPIError(true);
                 setHasAPIMessage(e.message);
-                btnPointer.innerHTML = 'Save & Next';
+                btnPointer.innerHTML = 'Submit';
                 btnPointer.removeAttribute('disable');
             });
 
@@ -270,13 +270,13 @@ const AddEditMstForm = (props) => {
             setHasAPIError(true);
             setHasAPIMessage(e.message);
             //console.log(e);
-            btnPointer.innerHTML = 'Save & Next';
+            btnPointer.innerHTML = 'Submit';
             btnPointer.removeAttribute('disable');
         }
 
         //setTimeout(() => {
         //setFormDetailsData(formDataJSON);
-        //btnPointer.innerHTML = 'Save & Next';
+        //btnPointer.innerHTML = 'Submit';
         //btnPointer.removeAttribute('disable');
         //}, 500);
         //document.querySelector('#AdditionalInfo').click();

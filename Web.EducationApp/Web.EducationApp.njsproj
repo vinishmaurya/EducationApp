@@ -192,6 +192,9 @@
     <Content Include="src\pages\super-admin\setup\masters\mst-account\AddEditMstAccount.js" />
     <Content Include="src\pages\super-admin\setup\masters\mst-account\IndexMstAccount.js" />
     <Content Include="src\pages\super-admin\setup\masters\mst-account\MstAccount.js" />
+    <Content Include="src\pages\super-admin\setup\masters\mst-state\AddEditMstState.js" />
+    <Content Include="src\pages\super-admin\setup\masters\mst-state\IndexMstState.js" />
+    <Content Include="src\pages\super-admin\setup\masters\mst-state\MstState.js" />
     <Content Include="src\pages\super-admin\setup\masters\mst-country\AddEditMstCountry.js" />
     <Content Include="src\pages\super-admin\setup\masters\mst-country\IndexMstCountry.js" />
     <Content Include="src\pages\super-admin\setup\masters\mst-country\MstCountry.js" />
@@ -255,6 +258,7 @@
     <Folder Include="src\error\" />
     <Folder Include="src\custom-route\" />
     <Folder Include="src\context\" />
+    <Folder Include="src\pages\super-admin\setup\masters\mst-state\" />
     <Folder Include="src\pages\super-admin\setup\masters\mst-country\" />
     <Folder Include="src\services\" />
     <Folder Include="src\models\" />
