@@ -69,7 +69,6 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\MST_SearchTerms.sql" />
-    <Build Include="dbo\Tables\Config_PageColumn.sql" />
     <Build Include="dbo\Tables\ErrorLog_App.sql" />
     <Build Include="dbo\Tables\ErrorLog_Service.sql" />
     <Build Include="dbo\Tables\LKP_Language.sql" />
@@ -154,13 +153,11 @@
     <Build Include="dbo\Stored Procedures\usp_LogApplicationError.sql" />
     <Build Include="dbo\Stored Procedures\USP_SvcAllAccountsListByCategory.sql" />
     <Build Include="dbo\Stored Procedures\usp_LogServiceError.sql" />
-    <Build Include="dbo\Stored Procedures\USP_SaveAndGenerateTokenForWeb.sql" />
     <Build Include="dbo\Stored Procedures\USP_SaveFormAccountMapping.sql" />
     <Build Include="dbo\Stored Procedures\usp_SaveUserAccountMapping.sql" />
     <Build Include="dbo\Stored Procedures\USP_SvcAuthenticateAPIUser.sql" />
     <Build Include="dbo\Stored Procedures\USP_SvcRevokeAllRefreshTokenFamily.sql" />
     <Build Include="dbo\Stored Procedures\USP_SvcRevokeRefreshTokenByUser.sql" />
     <Build Include="dbo\Stored Procedures\USP_SvcAuthenticatedAPIUserTokenValidation.sql" />
-    <Build Include="Security\SiteUsers.sql" />
   </ItemGroup>
 </Project>

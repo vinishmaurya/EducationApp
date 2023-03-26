@@ -64,11 +64,26 @@ BEGIN TRY
 	Revoked_IPAddress   = @cIPAddress
  END
 END TRY           
-BEGIN CATCH           
- SELECT 0 AS Message_Id, ERROR_MESSAGE() + ' Error Line : '+ CONVERT(VARCHAR,ERROR_LINE()) AS Message          
-          
- --INSERT INTO [dbo].[ErrorLog_App]           
- --(ErrorTime,Source,Assembly_Name,Class_Name,Method_Name,ErrorMessage,ErrorType,Remarks )          
- --VALUES           
- --(GETDATE(),'[dbo].[usp_AuthenticateUser] Stored Procedure','Authentication DAL','Account','AuthenticateUser',Error_Message(),'Exception In Stored Procedure','Error In Stored Procedure : Logged In Catch Block')          
+BEGIN CATCH                 
+	INSERT INTO ErrorLog 
+	(
+		 [ErrorNumber]
+		,[ErrorSeverity]
+		,[ErrorState]
+		,[ErrorProcedure]
+		,[ErrorLine]
+		,[ErrorMessage]
+		,[ErrorDatetime]
+	)
+	VALUES
+	(
+		ERROR_NUMBER(),
+		ERROR_SEVERITY(),
+		ERROR_STATE(),
+		ERROR_PROCEDURE(),
+		ERROR_LINE(),
+		ERROR_MESSAGE(),
+		GETDATE()
+	)
+	SELECT 0 AS Message_Id,ERROR_MESSAGE() AS Message                 
 END CATCH;

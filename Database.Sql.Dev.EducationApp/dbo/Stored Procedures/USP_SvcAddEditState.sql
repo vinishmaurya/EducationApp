@@ -97,6 +97,26 @@ CREATE PROCEDURE [dbo].[USP_SvcAddEditState]
 		  
 	 END 
   END TRY          
-  BEGIN CATCH          
-      SELECT 0 AS Message_Id, ERROR_MESSAGE() AS Message          
-  END CATCH  
+  BEGIN CATCH                 
+	INSERT INTO ErrorLog 
+	(
+		 [ErrorNumber]
+		,[ErrorSeverity]
+		,[ErrorState]
+		,[ErrorProcedure]
+		,[ErrorLine]
+		,[ErrorMessage]
+		,[ErrorDatetime]
+	)
+	VALUES
+	(
+		ERROR_NUMBER(),
+		ERROR_SEVERITY(),
+		ERROR_STATE(),
+		ERROR_PROCEDURE(),
+		ERROR_LINE(),
+		ERROR_MESSAGE(),
+		GETDATE()
+	)
+	SELECT 0 AS Message_Id,ERROR_MESSAGE() AS Message                 
+END CATCH;  

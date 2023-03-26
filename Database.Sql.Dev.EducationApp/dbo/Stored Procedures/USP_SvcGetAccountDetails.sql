@@ -2,14 +2,8 @@
 CreatedBy:Vinish            
 CreatedDate:2023-03-12 12:10:13.510
 purpos:Get Account Details                
-                
-EXEC [dbo].[USP_GetAccountDetails]                 
-0,10,1,'',''                
-    select * from mst_account(nolock)            
-EXEC [dbo].[USP_GetAccountDetails]                 
-0,10,1,'CategoryName','Reseller'                
-                
-EXEC [dbo].[USP_GetAccountDetails] 0,10,1,'',''
+           
+EXEC [dbo].[USP_SvcGetAccountDetails]  0,10,1,'',''
 ****************************************************/					
 CREATE PROCEDURE [dbo].[USP_SvcGetAccountDetails]                
 (    
@@ -22,7 +16,8 @@ CREATE PROCEDURE [dbo].[USP_SvcGetAccountDetails]
 )                
 AS                
 BEGIN TRY            
- SELECT 1 AS Message_Id, 'SUCCESS' AS Message                 
+	
+	SELECT 1 AS Message_Id, 'SUCCESS' AS Message                 
       SELECT        
 	  ROW_NUMBER() OVER(ORDER BY fma.PK_AccountId DESC) SrNo, 
       ISNULL(fma.PK_AccountId, 0) PK_ID,                
@@ -419,5 +414,25 @@ WHERE FormCode = 'ACCOUNT_MASTER'
 
 END TRY                
 BEGIN CATCH                 
- SELECT 0 AS Message_Id,ERROR_MESSAGE() AS Message                 
+	INSERT INTO ErrorLog 
+	(
+		 [ErrorNumber]
+		,[ErrorSeverity]
+		,[ErrorState]
+		,[ErrorProcedure]
+		,[ErrorLine]
+		,[ErrorMessage]
+		,[ErrorDatetime]
+	)
+	VALUES
+	(
+		ERROR_NUMBER(),
+		ERROR_SEVERITY(),
+		ERROR_STATE(),
+		ERROR_PROCEDURE(),
+		ERROR_LINE(),
+		ERROR_MESSAGE(),
+		GETDATE()
+	)
+	SELECT 0 AS Message_Id,ERROR_MESSAGE() AS Message                 
 END CATCH;
