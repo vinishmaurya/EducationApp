@@ -35,7 +35,9 @@ CREATE PROCEDURE [dbo].[USP_AddEditCategory]
              @iUserId,                   
              GETDATE(),  
     1            
-          )                
+          )     
+		  
+
              SELECT 1 AS Message_Id,'Account Category Added Successfully.' As Message            
        END         
   ELSE              
@@ -65,7 +67,8 @@ CREATE PROCEDURE [dbo].[USP_AddEditCategory]
  END            
 END TRY                
 BEGIN CATCH                
-    SELECT 0 AS Message_Id,ERROR_MESSAGE() AS Message                
+    SELECT 0 AS Message_Id,ERROR_MESSAGE() AS Message     
+	--Changes-----
 END CATCH
 
 
