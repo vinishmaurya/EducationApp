@@ -7,8 +7,6 @@ Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Mobile.EducationApp", "Mobi
 EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Backend.NodeSql.EducationApp", "Backend.NodeSql.EducationApp\Backend.NodeSql.EducationApp.njsproj", "{1152EE01-57E2-4396-BA0D-8537CA021BCE}"
 EndProject
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Backend.NodeMongo.EducationApp", "Backend.NodeMongo.EducationApp\Backend.NodeMongo.EducationApp.njsproj", "{68E15DE5-ACE2-4D88-80E9-BFD34FD46834}"
-EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Web.EducationApp", "Web.EducationApp\Web.EducationApp.njsproj", "{E5DC8AEE-CA48-4B75-83EA-3C67E36ACA73}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database.Sql.Dev.EducationApp", "Database.Sql.Dev.EducationApp\Database.Sql.Dev.EducationApp.sqlproj", "{A16F3C6F-67EA-4CAE-A113-890DB5937D41}"
@@ -27,10 +25,6 @@ Global
 		{1152EE01-57E2-4396-BA0D-8537CA021BCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1152EE01-57E2-4396-BA0D-8537CA021BCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1152EE01-57E2-4396-BA0D-8537CA021BCE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{68E15DE5-ACE2-4D88-80E9-BFD34FD46834}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{68E15DE5-ACE2-4D88-80E9-BFD34FD46834}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{68E15DE5-ACE2-4D88-80E9-BFD34FD46834}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{68E15DE5-ACE2-4D88-80E9-BFD34FD46834}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E5DC8AEE-CA48-4B75-83EA-3C67E36ACA73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E5DC8AEE-CA48-4B75-83EA-3C67E36ACA73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5DC8AEE-CA48-4B75-83EA-3C67E36ACA73}.Release|Any CPU.ActiveCfg = Release|Any CPU
