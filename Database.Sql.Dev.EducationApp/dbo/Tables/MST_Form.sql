@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[MST_Form] (
+    [PK_FormId]         BIGINT         IDENTITY (1, 1) NOT NULL,
+    [FK_SolutionId]     BIGINT         NULL,
+    [FormName]          NVARCHAR (100) NULL,
+    [ControllerName]    NVARCHAR (100) NULL,
+    [ActionName]        NVARCHAR (100) NULL,
+    [FK_ParentId]       BIGINT         NULL,
+    [FK_MainId]         INT            NULL,
+    [LevelId]           INT            NULL,
+    [SortId]            INT            NULL,
+    [Image]             VARCHAR (80)   NULL,
+    [IsActive]          BIT            NULL,
+    [IsDeleted]         BIT            NULL,
+    [CreatedBy]         BIGINT         NULL,
+    [CreatedDate]       DATETIME       NULL,
+    [UpdatedBy]         BIGINT         NULL,
+    [UpdatedDate]       DATETIME       NULL,
+    [DeletedBy]         BIGINT         NULL,
+    [DeletedDateTime]   DATETIME       NULL,
+    [ClassName]         NVARCHAR (50)  NULL,
+    [Area]              NVARCHAR (100) NULL,
+    [FormFor]           VARCHAR (50)   NULL,
+    [SPA_ComponentHref] VARCHAR (500)  NULL
+);
+

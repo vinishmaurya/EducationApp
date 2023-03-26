@@ -13,7 +13,7 @@
     </RootPath>
     <RootNamespace>Database.Sql.Dev.EducationApp</RootNamespace>
     <AssemblyName>Database.Sql.Dev.EducationApp</AssemblyName>
-    <ModelCollation>1033, CI</ModelCollation>
+    <ModelCollation>1033,CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -22,6 +22,8 @@
     <SqlServerVerification>False</SqlServerVerification>
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -56,5 +58,109 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Functions\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="Security\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\MST_SearchTerms.sql" />
+    <Build Include="dbo\Tables\Config_PageColumn.sql" />
+    <Build Include="dbo\Tables\ErrorLog_App.sql" />
+    <Build Include="dbo\Tables\ErrorLog_Service.sql" />
+    <Build Include="dbo\Tables\LKP_Language.sql" />
+    <Build Include="dbo\Tables\LKP_MobileApps.sql" />
+    <Build Include="dbo\Tables\Map_FormLanguage.sql" />
+    <Build Include="dbo\Tables\MAP_DefaultCategoryForm.sql" />
+    <Build Include="dbo\Tables\MAP_FormRole_MobileApp.sql" />
+    <Build Include="dbo\Tables\MAP_UserAccount.sql" />
+    <Build Include="dbo\Tables\Map_FormRole.sql" />
+    <Build Include="dbo\Tables\Map_FormAccount.sql" />
+    <Build Include="dbo\Tables\MST_Category.sql" />
+    <Build Include="dbo\Tables\MST_City.sql" />
+    <Build Include="dbo\Tables\MST_Company.sql" />
+    <Build Include="dbo\Tables\MST_Country.sql" />
+    <Build Include="dbo\Tables\MST_Form.sql" />
+    <Build Include="dbo\Tables\MST_FormColumn.sql" />
+    <Build Include="dbo\Tables\MST_MapFormCompany.sql" />
+    <Build Include="dbo\Tables\MST_MobileAppStatus.sql" />
+    <Build Include="dbo\Tables\MST_Role.sql" />
+    <Build Include="dbo\Tables\MST_State.sql" />
+    <Build Include="dbo\Tables\MST_User.sql" />
+    <Build Include="dbo\Tables\ErrorLog.sql" />
+    <Build Include="dbo\Tables\MST_UserTokenFamily.sql" />
+    <Build Include="dbo\Tables\MST_Account.sql" />
+    <Build Include="dbo\Functions\udf-Str-JSON.sql" />
+    <Build Include="dbo\Functions\SplitString.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcAddEditAccount.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcGetAllRoleList.sql" />
+    <Build Include="dbo\Stored Procedures\USP_AddEditCategory.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcAddEditCity.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcAddEditCountry.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcAddEditForm.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcAddEditFormColumn.sql" />
+    <Build Include="dbo\Stored Procedures\USP_AddEditMapFormLanguage.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcGetAllParentFormsList.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcAddEditRole.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcAddEditState.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcAddEditUser.sql" />
+    <Build Include="dbo\Stored Procedures\USP_AddFormRoleMapping.sql" />
+    <Build Include="dbo\Stored Procedures\USP_AuthenticateUser.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcDeleteAccount.sql" />
+    <Build Include="dbo\Stored Procedures\USP_DeleteCategory.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcDeleteCity.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcDeleteCountry.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcDeleteForm.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcGetAllFormRoleMappings.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcDeleteFormColumn.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcAddEditFormRoleMappings.sql" />
+    <Build Include="dbo\Stored Procedures\USP_DeleteMapFormLanguage.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcDeleteState.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcDeleteUser.sql" />
+    <Build Include="dbo\Stored Procedures\usp_DeleteUserAccountMapping.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcDeleteRole.sql" />
+    <Build Include="dbo\Stored Procedures\USP_Get_ServiceErrorLog.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcGetAccountDetails.sql" />
+    <Build Include="dbo\Stored Procedures\USP_GetAccountListByCategoryId.sql" />
+    <Build Include="dbo\Stored Procedures\USP_GetAllAccounts.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcGetAllCategoryList.sql" />
+    <Build Include="dbo\Stored Procedures\USP_GetAllCityDetails.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetAllCompany.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetAllForms.sql" />
+    <Build Include="dbo\Stored Procedures\USP_GetAllRolesByCompany.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcGetCityDetails.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcGetCityDetailsByStateId.sql" />
+    <Build Include="dbo\Stored Procedures\USP_GetcolumnConfigList.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcGetCountryDetails.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcGetAllFormAccountMappings.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcGetCountryList.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcAuthenticatedAPIUserInfo.sql" />
+    <Build Include="dbo\Stored Procedures\USP_GetFormColumnDetails.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcGetFormDetails.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcAddEditFormAccountMappings.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetFormLanguageMappingList.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcSaveAuthenticatedUserData.sql" />
+    <Build Include="dbo\Stored Procedures\usp_getForms.sql" />
+    <Build Include="dbo\Stored Procedures\USP_GetMapFormAccountDetails.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetMapUserAccountDetails.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcGetRoleDetails.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcGetStateDetails.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcGetStateDetailsByCountryId.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcGetUserDetails.sql" />
+    <Build Include="dbo\Stored Procedures\usp_LogApplicationError.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcAllAccountsListByCategory.sql" />
+    <Build Include="dbo\Stored Procedures\usp_LogServiceError.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SaveAndGenerateTokenForWeb.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SaveFormAccountMapping.sql" />
+    <Build Include="dbo\Stored Procedures\usp_SaveUserAccountMapping.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcAuthenticateAPIUser.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcRevokeAllRefreshTokenFamily.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcRevokeRefreshTokenByUser.sql" />
+    <Build Include="dbo\Stored Procedures\USP_SvcAuthenticatedAPIUserTokenValidation.sql" />
+    <Build Include="Security\SiteUsers.sql" />
   </ItemGroup>
 </Project>
