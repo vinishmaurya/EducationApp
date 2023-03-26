@@ -175,7 +175,7 @@
         }
       }
     },
-    "/admin/common/GetAllParentAccountList": {
+    "/admin/common/AllAccountsListByCategory": {
       "get": {
         "tags": [
           "Admin.Common"

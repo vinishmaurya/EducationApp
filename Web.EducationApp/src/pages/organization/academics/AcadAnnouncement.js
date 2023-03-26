@@ -9,10 +9,10 @@ const AcadAnnouncement = () => {
                     <div class="card card-demo">
                         <div class="card-body">
                             <ul className="nav nav-tabs nav-top-border no-hover-bg">
-                                <li className="nav-item"> <a className="nav-link active" id="base-tab11" data-toggle="tab" aria-controls="tab11" href="#tab11" aria-expanded="true">Create Announcement</a> </li>
+                                <li className="nav-item"> <a className="nav-link active" id="base-tab11" data-toggle="tab" aria-controls="tab11" href="#tab11" onClick={(e) => e.preventDefault()}>Create Announcement</a> </li>
                             </ul>
                             <div className="tab-content px-1 py-1">
-                                <div role="tabpanel" className="tab-pane active show" id="tab11" aria-expanded="true"
+                                <div role="tabpanel" className="tab-pane active show" id="tab11" 
                                     aria-labelledby="base-tab11">
 
                                     <div className="row">
@@ -86,7 +86,7 @@ const AcadAnnouncement = () => {
                                                             className="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1">Submit</button>
                                                     </div>
                                                     <div >
-                                                        <a href="../Admin/MstAccount" className="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1">Cancel</a>
+                                                        <a href="../Admin/MstAccount" onClick={(e) => e.preventDefault()} className="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1">Cancel</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -118,22 +118,22 @@ const AcadAnnouncement = () => {
                                                                             <button className="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
                                                                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                                                                 <li>
-                                                                                    <a className="dropdown-item" id="Excel" href={void(0)}  >Account Category</a>
+                                                                                    <a className="dropdown-item" id="Excel" href="/" onClick={(e) => e.preventDefault()}  >Account Category</a>
                                                                                 </li>
                                                                                 <li>
-                                                                                    <a className="dropdown-item active" href={void(0)}  id="Excel" >Account Name</a>
+                                                                                    <a className="dropdown-item active" href="/" onClick={(e) => e.preventDefault()}  id="Excel" >Account Name</a>
                                                                                 </li>
                                                                                 <li>
-                                                                                    <a className="dropdown-item" href={void(0)} id="Excel" >User Name</a>
+                                                                                    <a className="dropdown-item" href="/" onClick={(e) => e.preventDefault()} id="Excel" >User Name</a>
                                                                                 </li>
                                                                             </ul>
                                                                             <div className="dropdown-menu" id="tableMenu">
-                                                                                <a className="dropdown-item" href="#" val="UserName" style={{ backgroundColor: '#393B4A', color: '#FFF' }}>User Name</a>
-                                                                                <a className="dropdown-item" href="#" val="MobileNo" >Mobile No</a>
-                                                                                <a className="dropdown-item" href="#" val="EmailId" >Email ID</a>
-                                                                                <a className="dropdown-item" href="#" val="AccountCategory" >Account Category</a>
-                                                                                <a className="dropdown-item" href="#" val="Role" >Roles</a>
-                                                                                <a className="dropdown-item" href="#" val="AccountName" >Account Name</a>
+                                                                                <a className="dropdown-item" href="/" onClick={(e) => e.preventDefault()} val="UserName" style={{ backgroundColor: '#393B4A', color: '#FFF' }}>User Name</a>
+                                                                                <a className="dropdown-item" href="/" onClick={(e) => e.preventDefault()} val="MobileNo" >Mobile No</a>
+                                                                                <a className="dropdown-item" href="/" onClick={(e) => e.preventDefault()} val="EmailId" >Email ID</a>
+                                                                                <a className="dropdown-item" href="/" onClick={(e) => e.preventDefault()} val="AccountCategory" >Account Category</a>
+                                                                                <a className="dropdown-item" href="/" onClick={(e) => e.preventDefault()} val="Role" >Roles</a>
+                                                                                <a className="dropdown-item" href="/" onClick={(e) => e.preventDefault()} val="AccountName" >Account Name</a>
                                                                             </div>
                                                                         </div>
                                                                         <input type="text" className="form-control" id="SearchValue" placeholder="User Name" aria-label="Amount (to the nearest dollar)" />
@@ -152,21 +152,21 @@ const AcadAnnouncement = () => {
                                                                     <button className="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Export</button>
                                                                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                                                         <li>
-                                                                            <a className="dropdown-item" id="Excel" href={void(0)}  >
+                                                                            <a className="dropdown-item" id="Excel" href="/" onClick={(e) => e.preventDefault()}  >
                                                                                 <FontAwesomeIcon icon={faFileExcel} />
                                                                         &emsp;
                                                                         Excel
                                                                         </a>
                                                                         </li>
                                                                         <li>
-                                                                            <a className="dropdown-item" id="CSV" href={void(0)} >
+                                                                            <a className="dropdown-item" id="CSV" href="/" onClick={(e) => e.preventDefault()} >
                                                                                 <FontAwesomeIcon icon={faFileCsv} />
                                                                         &emsp;
                                                                         CSV
                                                                         </a>
                                                                         </li>
                                                                         <li>
-                                                                            <a className="dropdown-item" id="PDF" href={void(0)} >
+                                                                            <a className="dropdown-item" id="PDF" href="/" onClick={(e) => e.preventDefault()} >
                                                                                 <FontAwesomeIcon icon={faFilePdf} />
                                                                         &emsp;
                                                                         PDF
@@ -224,8 +224,8 @@ const AcadAnnouncement = () => {
                                                                                 <td className="text-center"> 01/05/2020 17:06 </td>
                                                                                 <td align="center" className="success text-success text-bold-600">Active</td>
                                                                                 <td className="text-center text-nowrap">
-                                                                                    <a className="btn btn-icon btn-dark btn-sm" style={{ marginRight: "1px" }} href="../Admin/MstUser/AddEditUser/2"><i className="la la-pencil"></i><span>&#9998;</span></a>
-                                                                                    <a className="btn btn-icon btn-danger btn-sm" href="../Admin/MstUser/DeleteUser/2" ><i className="la la-trash-o"></i><span>&#x2421;</span></a><br />
+                                                                                    <a className="btn btn-icon btn-dark btn-sm" style={{ marginRight: "1px" }} href="../Admin/MstUser/AddEditUser/2" onClick={(e) => e.preventDefault()}><i className="la la-pencil"></i><span>&#9998;</span></a>
+                                                                                    <a className="btn btn-icon btn-danger btn-sm" href="../Admin/MstUser/DeleteUser/2" onClick={(e) => e.preventDefault()} ><i className="la la-trash-o"></i><span>&#x2421;</span></a><br />
                                                                                 </td>
                                                                             </tr>
 
@@ -250,24 +250,24 @@ const AcadAnnouncement = () => {
                                                                     <nav aria-label="Page navigation example">
                                                                         <ul className="pagination">
                                                                             <li className="page-item">
-                                                                                <a className="page-link" href="#" aria-label="Previous">
+                                                                                <a className="page-link" href="/" onClick={(e) => e.preventDefault()} aria-label="Previous">
                                                                                     <span aria-hidden="true">
                                                                                         {"<<"}
                                                                                     </span>
                                                                                 </a>
                                                                             </li>
                                                                             <li className="page-item">
-                                                                                <a className="page-link" href={void(0)} >1</a>
+                                                                                <a className="page-link" href="/" onClick={(e) => e.preventDefault()}>1</a>
                                                                             </li>
                                                                             <li className="page-item">
-                                                                                <a className="page-link" href={void(0)} >2</a>
+                                                                                <a className="page-link" href="/" onClick={(e) => e.preventDefault()}>2</a>
                                                                             </li>
                                                                             <li className="page-item">
-                                                                                <a className="page-link" href={void(0)} >3</a>
+                                                                                <a className="page-link" href="/" onClick={(e) => e.preventDefault()}>3</a>
                                                                             </li>
 
                                                                             <li className="page-item">
-                                                                                <a className="page-link" href={void(0)}  aria-label="Next">
+                                                                                <a className="page-link" href="/" onClick={(e) => e.preventDefault()} aria-label="Next">
                                                                                     <span aria-hidden="true">
                                                                                         {">>"}
                                                                                     </span>

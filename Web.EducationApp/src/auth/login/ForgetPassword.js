@@ -73,9 +73,9 @@ const ForgetPassword = () => {
                                         <div className="text-center ls-tight">
                                             <p>
                                                 By continuing, you agree to our
-                                                <a className="ls-tight" href={void(0)} >Terms of Service</a>
+                                                <a className="ls-tight" href="auth/login" >Terms of Service</a>
                                                 and
-                                                <a className="ls-tight" href={void(0)} >Privacy Policy</a>
+                                                <a className="ls-tight" href="auth/login" >Privacy Policy</a>
                                             </p>
 
                                         </div>

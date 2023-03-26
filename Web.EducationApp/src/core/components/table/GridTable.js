@@ -7,18 +7,18 @@
  */
 //import { useEffect } from "react";
 import CommonFuncs from "../../../util/common.funcs";
-import Spinner from 'react-bootstrap/Spinner';
-import { React, useState, useEffect } from "react";
-import { prop } from "cheerio/lib/api/attributes";
+//import Spinner from 'react-bootstrap/Spinner';
+import { React, useEffect } from "react";
+//import { prop } from "cheerio/lib/api/attributes";
 import { $ } from 'react-jquery-plugin'
-import { faCross, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXbox } from "@fortawesome/free-brands-svg-icons";
+//import { faXbox } from "@fortawesome/free-brands-svg-icons";
 
 const GridTable = (props) => {
-    const [HaveData, setHaveData] = useState(false);
+    //const [HaveData, setHaveData] = useState(false);
     useEffect(() => {
-        setHaveData(false);
+        //setHaveData(false);
     }, []);
     //console.log(props.DataList);
     // get table column
@@ -53,11 +53,7 @@ const GridTable = (props) => {
         let uniqueKey5 = CommonFuncs.funcUniqueKey(6);
         let uniqueKey6 = CommonFuncs.funcUniqueKey(7);
         let uniqueKey7 = CommonFuncs.funcUniqueKey(8);
-        let uniqueKey8 = CommonFuncs.funcUniqueKey(9);
-        let uniqueKey9 = CommonFuncs.funcUniqueKey(10);
         let uniqueKey10 = CommonFuncs.funcUniqueKey(11);
-        let uniqueKey11 = CommonFuncs.funcUniqueKey(12);
-        let uniqueKey12 = CommonFuncs.funcUniqueKey(13);
         let uniqueKey13 = CommonFuncs.funcUniqueKey(14);
 
         if (props.DataList.length <= 0) {
@@ -81,11 +77,7 @@ const GridTable = (props) => {
                             uniqueKey5 = CommonFuncs.funcUniqueKey(5);
                             uniqueKey6 = CommonFuncs.funcUniqueKey(6);
                             uniqueKey7 = CommonFuncs.funcUniqueKey(7);
-                            uniqueKey8 = CommonFuncs.funcUniqueKey(8);
-                            uniqueKey9 = CommonFuncs.funcUniqueKey(9);
                             uniqueKey10 = CommonFuncs.funcUniqueKey(10);
-                            uniqueKey11 = CommonFuncs.funcUniqueKey(11);
-                            uniqueKey12 = CommonFuncs.funcUniqueKey(12);
                             uniqueKey13 = CommonFuncs.funcUniqueKey(13);
                             //uniqueKey1 = randomNumber(1, 100000);
                             if (j === 0) {
@@ -102,8 +94,8 @@ const GridTable = (props) => {
                                         <a key={uniqueKey7}
                                             className="btn btn-icon btn-primary btn-sm"
                                             style={{ marginRight: "1px" }}
-                                            href={void (0)}
-                                            onClick={(e) => props.onClickHandelEditClick(e)}
+                                            href="/"
+                                            onClick={(e) => { e.preventDefault(); props.onClickHandelEditClick(e) }}
                                             row-index={i}
                                             row-data={CommonFuncs.encryptCryptoJSAES(data['PK_ID'])}
                                         >
@@ -111,8 +103,9 @@ const GridTable = (props) => {
                                         </a>
                                         <a key={uniqueKey10}
                                             className="btn btn-icon btn-danger btn-sm"
-                                            href={void (0)}
-                                            onClick={() => {
+                                            href="/"
+                                            onClick={(e) => {
+                                                e.preventDefault();
                                                 $("#myConfirmModal").modal("show");
                                                 $("#btnModelConfirmClose").attr('row-data', CommonFuncs.encryptCryptoJSAES(data['PK_ID']));
                                             }}
@@ -125,10 +118,10 @@ const GridTable = (props) => {
                                 );
                             }
                             else {
-                                if (v == "Status" && data[v].toUpperCase() == 'ACTIVE') {
+                                if (v === "Status" && data[v].toUpperCase() === 'ACTIVE') {
                                     return <td key={uniqueKey13} align="center" className="success text-success">{data[v]}</td>
                                 }
-                                else if (v == "Status" && data[v].toUpperCase() == 'INACTIVE') {
+                                else if (v === "Status" && data[v].toUpperCase() === 'INACTIVE') {
                                     return <td key={uniqueKey13} align="center" className="danger text-danger">{data[v]}</td>
                                 }
                                 else {

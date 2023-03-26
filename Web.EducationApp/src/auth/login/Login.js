@@ -59,7 +59,7 @@ const Login = () => {
 
                             let refreshToken_expires = new Date(resData.refreshTokenInfo.expiryDatetime);
                             setCookie('refreshToken', resData.refreshTokenInfo.refreshToken, { path: '/', refreshToken_expires });
-
+                            refreshToken_expires = Cookie.accessToken;
                             //const expireDate = new Date(2147483647 * 1000).toUTCString();
 
                             //alert(true);
@@ -214,9 +214,9 @@ const Login = () => {
                                         <div className="text-center ls-tight">
                                             <p>
                                                 By continuing, you agree to our
-                                                <a className="ls-tight" href={void(0)} >Terms of Service</a>
+                                                <a className="ls-tight" href="auth/login" >Terms of Service</a>
                                                 and
-                                                <a className="ls-tight" href={void(0)} >Privacy Policy</a>
+                                                <a className="ls-tight" href="auth/login" >Privacy Policy</a>
                                             </p>
 
                                         </div>

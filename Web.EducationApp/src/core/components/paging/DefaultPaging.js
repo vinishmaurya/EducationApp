@@ -6,7 +6,7 @@ const DefaultPaging = (props) => {
     //debugger;
     let currentPage = Number(props.CurrentPage);
     let MaxPageSize = Number(process.env.REACT_APP_DefaultMaxPageSize);
-    let StartNo = Math.floor((currentPage % MaxPageSize == 0) ? (currentPage / MaxPageSize - 1) * MaxPageSize + 1 : (currentPage / MaxPageSize) * MaxPageSize);
+    let StartNo = Math.floor((currentPage % MaxPageSize === 0) ? (currentPage / MaxPageSize - 1) * MaxPageSize + 1 : (currentPage / MaxPageSize) * MaxPageSize);
     let next = StartNo + MaxPageSize;
     let nextPage = Number(props.CurrentPage) + 1;
     let previous = currentPage - 1;
@@ -14,16 +14,17 @@ const DefaultPaging = (props) => {
 
 
     function onClickPaging(e) {
+        e.preventDefault();
         let pageTarget = e.target.getAttribute('page-target');
         props.onChangePagingData(pageTarget);
     }
     function funcBindPreviousData() {
         if (currentPage > previous) {
-            if (previous != 0) {
+            if (previous !== 0) {
                 return (
                     <>
                         <li className="page-item">
-                            <a className="page-link" href={void (0)} aria-label="Previous" page-target={previous} onClick={e => onClickPaging(e)}>
+                            <a className="page-link" href="/" aria-label="Previous" page-target={previous} onClick={e => onClickPaging(e)}>
                                 {"<<"}
                             </a>
                         </li>
@@ -34,7 +35,7 @@ const DefaultPaging = (props) => {
                 return (
                     <>
                         <li className="page-item disabled">
-                            <a className="page-link" href={void (0)} aria-label="Previous">
+                            <a className="page-link" href="/" onClick={(e) => e.preventDefault()} aria-label="Previous">
                                 {"<<"}
                             </a>
                         </li>
@@ -42,25 +43,25 @@ const DefaultPaging = (props) => {
                 )
             }
         }
-        else {
-            return
-            (
-                <>
-                    <li className="page-item">
-                        <a className="page-link disabled" href={void (0)} aria-label="Previous">
-                            {"<<"}
-                        </a>
-                    </li>
-                </>
-            )
-        }
+        //else {
+        //    return
+        //    (
+        //        <>
+        //            <li className="page-item">
+        //                <a className="page-link disabled" href="/" onClick={(e) => e.preventDefault()} aria-label="Previous">
+        //                    {"<<"}
+        //                </a>
+        //            </li>
+        //        </>
+        //    )
+        //}
     }
     function funcBindNextData() {
         if (nextPage <= totalPage) {
             return (
                 <>
                     <li className="page-item">
-                        <a className="page-link" href={void (0)} aria-label="Next" page-target={nextPage} onClick={e => onClickPaging(e)}>
+                        <a className="page-link" href="/" aria-label="Next" page-target={nextPage} onClick={e => onClickPaging(e)}>
                             {">>"}
                         </a>
                     </li>
@@ -71,7 +72,7 @@ const DefaultPaging = (props) => {
             return (
                 <>
                     <li className="page-item disabled">
-                        <a className="page-link" href={void (0)} aria-label="Next">
+                        <a className="page-link" href="/" onClick={(e) => e.preventDefault()} aria-label="Next">
                             {">>"}
                         </a>
                     </li>
@@ -90,10 +91,10 @@ const DefaultPaging = (props) => {
             let uniqueKey1 = CommonFuncs.funcUniqueKey(next + 1);
             //console.log(i);
             if (i <= totalPage) {
-                if (i == currentPage) {
+                if (i === currentPage) {
                     itemList.push(
                         <li key={uniqueKey} className="page-item active">
-                            <a key={uniqueKey1} className="page-link" href={void (0)} page-target={i} onClick={e => onClickPaging(e)}>
+                            <a key={uniqueKey1} className="page-link" href="/" page-target={i} onClick={e => onClickPaging(e)}>
                                 {i}
                             </a>
                         </li>
@@ -102,7 +103,7 @@ const DefaultPaging = (props) => {
                 else {
                     itemList.push(
                         <li key={uniqueKey} className="page-item">
-                            <a key={uniqueKey1} className="page-link" href={void (0)} page-target={i} onClick={e => onClickPaging(e)}>
+                            <a key={uniqueKey1} className="page-link" href="/" page-target={i} onClick={e => onClickPaging(e)}>
                                 {i}
                             </a>
                         </li>

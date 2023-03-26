@@ -1,7 +1,7 @@
-import axios from "axios";
+//import axios from "axios";
 //import AuthService from "../services/auth.services";
 //import UFContext from "../context/UFContext";
-import React, { useState } from "react";
+import React from "react";
 
 import Breadcrumb from "../core/components/breadcrumb/Breadcrumb";
 import MstAccount from "../pages/super-admin/setup/masters/mst-account/MstAccount";
@@ -54,65 +54,7 @@ import MstState from "./super-admin/setup/masters/mst-state/MstState";
 import MstCity from "./super-admin/setup/masters/mst-city/MstCity";
 
 const SharedComponent = ({ data }) => {
-    const [MyData, setMyData] = useState();
-    const [UserInfo, setUserInfo] = useState(async () => {
-        try {
-            //debugger
-            //return 'asd';
-            //await AuthService.GetUserInfo().then(
-            //    (response) => {
-            //        const data = response.data;
-            //        console.log(response);
-
-            //        if (data) {
-            //            if (data.Result) {
-            //                return data;
-            //                //const resData = data.Data;
-            //                //bool = true;
-            //            }
-            //        }
-            //        //if (!bool) {
-            //        //    //navigate('/auth/login');
-            //        //}
-            //    },
-            //    (error) => {
-            //        console.log(error);
-            //        //navigate('/auth/login');
-            //    }
-            //);
-
-
-
-            const instance = axios.create({
-                baseURL: 'http://localhost:2000/api',//process.env.BackendEducationApp_DevBaseUri,
-                headers: {
-                    'content-type': 'application/json',
-                    'x-api-key': 'test-key'//process.env.BackendEducationApp_Key
-                }
-            });
-            instance({
-                'method': 'POST',
-                'url': '/AuthenticatedUserInfo'
-            }).then((response) => {
-                //debugger;
-                //console.log(response);
-            }).catch((error) => {
-                console.log(error);
-            });
-
-
-
-        } catch (e) {
-            console.log(e);
-            //navigate('/auth/login');
-        }
-    });
-    //UserInfo.then(function (result) {
-    //    //debugger
-    //    // here you can use the result of promiseB
-    //    console.log(result);
-    //});
-    //console.log();
+  
     const pageTitle = data.title;
     const breadcrumb = [{ href: "/", label: pageTitle, current: true }];
     //const DynamicComponent = React.lazy(() => import('../pages/super-admin/setup/masters/MstAccount'));

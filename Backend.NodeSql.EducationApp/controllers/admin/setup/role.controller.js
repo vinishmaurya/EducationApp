@@ -40,7 +40,7 @@ const GetRoleDetails = async (req, res, next) => {
             request.input('iCurrentPage', sql.BigInt, CurrentPage);
             request.input('cSearchBy', sql.VarChar(500), cSearchBy);
             request.input('cSearchValue', sql.VarChar(500), cSearchValue);
-            request.execute("[dbo].[USP_GetRoleDetails]", function (err, recordset) {
+            request.execute("[dbo].[USP_SvcGetRoleDetails]", function (err, recordset) {
                 if (err) {
                     sql.close();
                     ServiceResult.Message = "Failed to parse api response!";
@@ -124,7 +124,7 @@ const AddEditRoleDetails = async (req, res, next) => {
             request.input('iHomePage', sql.BigInt, iHomePage);
             request.input('bIsActive', sql.Bit, IsActive);
             request.input('iUserId', sql.BigInt, CreatedBy);
-            request.execute("[dbo].[USP_AddEditRole]", function (err, recordset) {
+            request.execute("[dbo].[USP_SvcAddEditRole]", function (err, recordset) {
                 try {
                     if (err) {
                         console.log(err);

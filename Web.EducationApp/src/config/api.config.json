@@ -6,7 +6,8 @@
       "GetAllStateListCountryIdUri": "/admin/common/GetAllStateListCountryId",
       "GetAllCityListByStateUri": "/admin/common/GetAllCityListByState",
       "GetAllParentFormsListUri": "/admin/common/GetAllParentFormsList",
-      "GetAllParentAccountListUri": "/admin/common/GetAllParentAccountList",
+      "AllAccountsListUri": "/admin/common/AllAccountsListByCategory",
+      "AllAccountsListByCategoryUri": "/admin/common/AllAccountsListByCategory?CategoryId=<CategoryId>&IsParentAccount=<IsParentAccount>",
       "GetAllRoleListUri": "/admin/common/GetAllRoleList?RoleName<RoleName>&CategoryId=<CategoryId>&AccountId=<AccountId>"
     },
     "Account": {

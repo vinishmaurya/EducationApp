@@ -43,7 +43,7 @@ const GetAccountDetails = async (req, res, next) => {
             request.input('iCurrentPage', sql.BigInt, CurrentPage);
             request.input('cSearchBy', sql.VarChar(500), SearchBy);
             request.input('cSearchValue', sql.VarChar(500), SearchValue);
-            request.execute("[dbo].[USP_GetAccountDetails]", function (err, recordset) {
+            request.execute("[dbo].[USP_SvcGetAccountDetails]", function (err, recordset) {
 
                 if (err) {
                     sql.close();
@@ -235,7 +235,7 @@ const AddEditAccountDetails = async (req, res, next) => {
                 request.input('NextStep', sql.NVarChar(100), Body_AccountDetails.NextStep);
                 request.input('CreatedBy', sql.NVarChar(100), Body_AccountDetails.CreatedBy);
 
-                request.execute("[dbo].[USP_AddEditAccount]", function (err, recordset) {
+                request.execute("[dbo].[USP_SvcAddEditAccount]", function (err, recordset) {
                     try {
                         if (err) {
                             console.log(err);
@@ -379,7 +379,7 @@ const DeleteAccountsDetails = async (req, res, next) => {
             request.input('iPK_AccountId', sql.BigInt, iPK_AccountId);
             request.input('iDeletedId', sql.BigInt, DeletedBy);
 
-            request.execute("[dbo].[USP_DeleteAccount]", function (err, recordset) {
+            request.execute("[dbo].[USP_SvcDeleteAccount]", function (err, recordset) {
                 if (err) {
                     sql.close();
                     ServiceResult.Message = "Failed to parse api response!";

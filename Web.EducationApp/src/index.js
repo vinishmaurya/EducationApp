@@ -1,6 +1,6 @@
-import axios from "axios";
-import { useCookies } from 'react-cookie';
-import { useState, useEffect, useCallback } from 'react';
+//import axios from "axios";
+//import { useCookies } from 'react-cookie';
+//import { useState, useEffect, useCallback } from 'react';
 import ReactDOM from "react-dom";
 import React from "react";
 
@@ -18,64 +18,12 @@ import data from "./data/data";
 import CustomRoute from "./custom-route/custom-route";
 import BootstrapComponent from "./pages/BootstrapComponent";
 import SharedComponent from "./pages/SharedComponent";
-import { BrowserRouter, Route, Routes, NavLink } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ProtectedRoute from './util/ProtectedRoute';
 import Error404 from "./error/Error404";
 import UFContext from "./context/UFContext";
-import AuthService from "./services/auth.services";
-import { useNavigate } from "react-router-dom";
-
-//let haveData = false;
-//function GetUserInfo(required) {
-//    debugger;
-//    const [Cookie, setCookie] = useCookies(['accessToken', 'refreshToken']);
-//    const navigate = useNavigate();
-//    //useEffect(() => {
-
-//    //alert(true);
-//    const instance = axios.create({
-//        baseURL: 'http://localhost:2000/api',//process.env.BackendEducationApp_DevBaseUri,
-//        headers: {
-//            'content-type': 'application/json',
-//            'x-api-key': 'test-key'//process.env.BackendEducationApp_Key
-//        }
-//    });
-
-//    instance.interceptors.request.use(
-//        request => {
-//            if (!request.url.includes('AuthenticateUser')) {
-//                console.log(Cookie.accessToken);
-//                request.headers['Authorization'] = "Bearer " + Cookie.accessToken;
-//            }
-//            return request;
-//        },
-//        error => {
-//            return Promise.reject(error);
-//        }
-//    );
-
-//    instance.interceptors.response.use((response) => {
-//        return response;
-//    }, (error) => {
-//        return Promise.reject(error.message);
-//    });
-
-//    return instance({
-//        'method': 'POST',
-//        'url': '/AuthenticatedUserInfo'
-//    }).then((response) => {
-//        debugger;
-//        haveData = true;
-//        return response;
-//    })
-//        .catch((e) => {
-//            console.log(e);
-//            //return e;
-//        });
-//    //}, [required]);
-
-//}
-
+//import AuthService from "./services/auth.services";
+//import { useNavigate } from "react-router-dom";
 
 ReactDOM.render(
     <React.StrictMode>

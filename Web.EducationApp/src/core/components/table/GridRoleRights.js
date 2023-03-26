@@ -7,7 +7,7 @@
  */
 //import { useEffect } from "react";
 import CommonFuncs from "../../../util/common.funcs";
-import { React, useState, useEffect } from "react";
+import { React} from "react";
 import { $ } from 'react-jquery-plugin'
 
 const GridRoleRight = (props) => {

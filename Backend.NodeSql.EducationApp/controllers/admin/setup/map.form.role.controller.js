@@ -32,7 +32,7 @@ const GetAllFormRoleMappings = async (req, res, next) => {
             request.input('cMappingFor', sql.VarChar(100), MappingFor);
             request.input('iAccountId', sql.BigInt, AccountId);
 
-            request.execute("[dbo].[USP_GetAllFormRoleMappings]", function (err, recordset) {
+            request.execute("[dbo].[USP_SvcGetAllFormRoleMappings]", function (err, recordset) {
                 if (err) {
                     console.log(err);
                     sql.close();
@@ -108,7 +108,7 @@ const AddEditFormRoleMappings = async (req, res, next) => {
 
             request.input('cJsonData', sql.NVarChar(sql.MAX), JSON.stringify(JsonData));
 
-            request.execute("[dbo].[USP_AddEditFormRoleMappings]", function (err, recordset) {
+            request.execute("[dbo].[USP_SvcAddEditFormRoleMappings]", function (err, recordset) {
                 try {
                     if (err) {
                         console.log(err);

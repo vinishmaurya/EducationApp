@@ -22,7 +22,7 @@ const GetAllCategoryList = async (req, res, next) => {
             var request = new sql.Request(pool);
             //the pool from the promise
 
-            request.execute("[dbo].[USP_GetAllCategoryList]", function (err, recordset) {
+            request.execute("[dbo].[USP_SvcGetAllCategoryList]", function (err, recordset) {
                 if (err) {
                     console.log(err);
                     sql.close();
@@ -100,7 +100,7 @@ const GetAllRoleList = async (req, res, next) => {
             request.input('iFK_CategoryId', sql.BigInt, CategoryId);
             request.input('iFK_AccountId', sql.BigInt, AccountId);
 
-            request.execute("[dbo].[USP_GetAllRoleList]", function (err, recordset) {
+            request.execute("[dbo].[USP_SvcGetAllRoleList]", function (err, recordset) {
                 if (err) {
                     console.log(err);
                     sql.close();
@@ -171,7 +171,7 @@ const GetAllAccountList = async (req, res, next) => {
             var request = new sql.Request(pool);
             //the pool from the promise
 
-            request.execute("[dbo].[USP_GetAllAccountList]", function (err, recordset) {
+            request.execute("[dbo].[USP_SvcGetAllAccountList]", function (err, recordset) {
                 if (err) {
                     console.log(err);
                     sql.close();
@@ -229,6 +229,10 @@ const GetAllParentFormsList = async (req, res, next) => {
     /*  #swagger.tags = ['Admin.Common']
         #swagger.description = ''
     */
+    ServiceResult.Message = null;
+    ServiceResult.Description = null;
+    ServiceResult.Result = null;
+    ServiceResult.Data = null;
     try {
         res.setHeader('Content-Type', 'application/json');
 
@@ -239,7 +243,7 @@ const GetAllParentFormsList = async (req, res, next) => {
             var request = new sql.Request(pool);
             //the pool from the promise
 
-            request.execute("[dbo].[USP_GetAllParentFormsList]", function (err, recordset) {
+            request.execute("[dbo].[USP_SvcGetAllParentFormsList]", function (err, recordset) {
                 if (err) {
                     console.log(err);
                     sql.close();
@@ -291,21 +295,40 @@ const GetAllParentFormsList = async (req, res, next) => {
     }
 }
 
-const GetAllParentAccountList = async (req, res, next) => {
+const AllAccountsListByCategory = async (req, res, next) => {
     /*  #swagger.tags = ['Admin.Common']
         #swagger.description = ''
     */
+    ServiceResult.Message = null;
+    ServiceResult.Description = null;
+    ServiceResult.Result = null;
+    ServiceResult.Data = null;
     try {
         res.setHeader('Content-Type', 'application/json');
-
+        let CategoryId = req.query.CategoryId ? req.query.CategoryId : 0;
+        let IsParentAccount = req.query.IsParentAccount ? req.query.IsParentAccount : 'false';
+        if (
+            !['true', 'false'].includes(IsParentAccount) ||
+            isNaN(Number(CategoryId))
+        ) {
+            ServiceResult.Message = "Validation Error!";
+            ServiceResult.Description = CategoryId + IsParentAccount+ '(CategoryId, IsParentAccount) body parameters contains invalid values!';
+            ServiceResult.Result = false;
+            ServiceResult.Data = null;
+            return res.send(ServiceResult);
+        }
+        IsParentAccount = IsParentAccount == "true" ? true : false;
+        
         var poolPromise = new sql.ConnectionPool(config.sql);
         await poolPromise.connect().then(function (pool) {
             //the pool that is created and should be used
             // create Request object
             var request = new sql.Request(pool);
             //the pool from the promise
+            request.input('iFK_CategoryId', sql.BigInt, CategoryId);
+            request.input('bIsParentAccount', sql.Bit, IsParentAccount);
 
-            request.execute("[dbo].[USP_GetAllParentAccountList]", function (err, recordset) {
+            request.execute("[dbo].[USP_SvcAllAccountsListByCategory]", function (err, recordset) {
                 if (err) {
                     console.log(err);
                     sql.close();
@@ -361,6 +384,10 @@ const GetAllCountryList = async (req, res, next) => {
     /*  #swagger.tags = ['Admin.Common']
         #swagger.description = ''
     */
+    ServiceResult.Message = null;
+    ServiceResult.Description = null;
+    ServiceResult.Result = null;
+    ServiceResult.Data = null;
     try {
         res.setHeader('Content-Type', 'application/json');
 
@@ -371,7 +398,7 @@ const GetAllCountryList = async (req, res, next) => {
             var request = new sql.Request(pool);
             //the pool from the promise
 
-            request.execute("[dbo].[USP_GetCountryList]", function (err, recordset) {
+            request.execute("[dbo].[USP_SvcGetCountryList]", function (err, recordset) {
                 if (err) {
                     console.log(err);
                     sql.close();
@@ -426,6 +453,10 @@ const GetAllStateListCountryId = async (req, res, next) => {
     /*  #swagger.tags = ['Admin.Common']
         #swagger.description = ''
     */
+    ServiceResult.Message = null;
+    ServiceResult.Description = null;
+    ServiceResult.Result = null;
+    ServiceResult.Data = null;
     try {
         res.setHeader('Content-Type', 'application/json');
         var CountryId = req.query.CountryId;
@@ -444,7 +475,7 @@ const GetAllStateListCountryId = async (req, res, next) => {
             //the pool from the promise
             request.input('iFK_CountryId', sql.BigInt, CountryId);
 
-            request.execute("[dbo].[USP_GetStateDetailsByCountryId]", function (err, recordset) {
+            request.execute("[dbo].[USP_SvcGetStateDetailsByCountryId]", function (err, recordset) {
                 if (err) {
                     console.log(err);
                     sql.close();
@@ -499,6 +530,10 @@ const GetAllCityListByState = async (req, res, next) => {
     /*  #swagger.tags = ['Admin.Common']
         #swagger.description = ''
     */
+    ServiceResult.Message = null;
+    ServiceResult.Description = null;
+    ServiceResult.Result = null;
+    ServiceResult.Data = null;
     try {
         res.setHeader('Content-Type', 'application/json');
         var StateId = req.query.StateId;
@@ -511,7 +546,7 @@ const GetAllCityListByState = async (req, res, next) => {
             //the pool from the promise
             request.input('iFK_StateId', sql.BigInt, StateId);
 
-            request.execute("[dbo].[USP_GetCityDetailsByStateId]", function (err, recordset) {
+            request.execute("[dbo].[USP_SvcGetCityDetailsByStateId]", function (err, recordset) {
                 if (err) {
                     console.log(err);
                     sql.close();
@@ -571,7 +606,7 @@ module.exports = {
     GetAllCountryList,
     GetAllStateListCountryId,
     GetAllCityListByState,
-    GetAllParentAccountList,
+    AllAccountsListByCategory,
     GetAllRoleList,
     
 }

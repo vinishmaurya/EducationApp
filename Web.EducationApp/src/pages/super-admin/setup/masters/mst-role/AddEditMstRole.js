@@ -165,7 +165,6 @@ const AddEditMstRole = (props) => {
     useEffect(() => {
         //debugger;
         //#region bind default data for forms
-        fetchAllParentAccountList();
         fetchAllCategoryList();
         fetchAllParentFormList();
         fetchGetAllFormRoleMappings();
@@ -185,6 +184,10 @@ const AddEditMstRole = (props) => {
         }
         if (!flagNextStep) {
             $("#Details").trigger('click');
+        }
+
+        if (propData && propData.hasOwnProperty('CategoryId')) {
+            fetchAllAccountListByCategory(propData.CategoryId);
         }
 
         //#endregion
@@ -328,10 +331,12 @@ const AddEditMstRole = (props) => {
             console.log(e);
         });
     };
-    const fetchAllParentAccountList = async () => {
+    const fetchAllAccountListByCategory = async (CategoryId) => {
         //debugger;
-        let apiUri = APIConfig.Admin.Common.GetAllParentAccountListUri;
-
+        let apiUri = APIConfig.Admin.Common.AllAccountsListByCategoryUri;
+        apiUri = apiUri
+            .replace('<CategoryId>', CategoryId)
+            .replace('<IsParentAccount>', false)
         const instance = await axios.create({
             baseURL: process.env.REACT_APP_APIBaseUri,
             headers: {
@@ -704,6 +709,7 @@ const AddEditMstRole = (props) => {
             scrollTop: $(document).height()
         }, 9000);
     }
+
     //#endregion
 
 
@@ -787,7 +793,11 @@ const AddEditMstRole = (props) => {
                                                             }
                                                             name="CategoryId"
                                                             value={SaveNextRoleDetailsData.CategoryId.value}
-                                                            onChange={e => { handleOnChangeRoleDetails(e); onInputChangeControllerRoleDetails(e) }}
+                                                            onChange={e => {
+                                                                handleOnChangeRoleDetails(e);
+                                                                onInputChangeControllerRoleDetails(e);
+                                                                fetchAllAccountListByCategory($(e.target).val());
+                                                            }}
                                                         >
                                                             {CommonFuncs.funcBindSelectOptons(AllCategoryList)}
                                                         </select>

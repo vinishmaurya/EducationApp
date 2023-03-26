@@ -42,7 +42,7 @@ const GetUserDetails = async (req, res, next) => {
             request.input('iCurrentPage', sql.BigInt, CurrentPage);
             request.input('cSearchBy', sql.VarChar(500), cSearchBy);
             request.input('cSearchValue', sql.VarChar(500), cSearchValue);
-            request.execute("[dbo].[USP_GetuserDetails]", function (err, recordset) {
+            request.execute("[dbo].[USP_SvcGetuserDetails]", function (err, recordset) {
                 if (err) {
                     sql.close();
                     ServiceResult.Message = "Failed to parse api response!";
@@ -239,7 +239,7 @@ const AddEditUserDetails = async (req, res, next) => {
                     request.input('NextStep', sql.NVarChar(100), Body_UserDetails.NextStep);
                     request.input('CreatedBy', sql.NVarChar(100), Body_UserDetails.CreatedBy);
 
-                    request.execute("[dbo].[USP_AddEditUser]", function (err, recordset) {
+                    request.execute("[dbo].[USP_SvcAddEditUser]", function (err, recordset) {
                         try {
                             if (err) {
                                 console.log(err);
@@ -396,7 +396,7 @@ const DeleteUsersDetails = async (req, res, next) => {
             request.input('iPK_userId', sql.BigInt, iPK_userId);
             request.input('iUserId', sql.BigInt, iUserId);
 
-            request.execute("[dbo].[USP_Deleteuser]", function (err, recordset) {
+            request.execute("[dbo].[USP_SvcDeleteUser]", function (err, recordset) {
                 if (err) {
                     sql.close();
                     ServiceResult.Message = "Failed to parse api response!";

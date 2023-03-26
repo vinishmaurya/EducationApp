@@ -37,7 +37,7 @@ const GetCountryDetails = async (req, res, next) => {
             request.input('iCurrentPage', sql.BigInt, CurrentPage);
             request.input('cSearchBy', sql.VarChar(500), cSearchBy);
             request.input('cSearchValue', sql.VarChar(500), cSearchValue);
-            request.execute("[dbo].[USP_GetCountryDetails]", function (err, recordset) {
+            request.execute("[dbo].[USP_SvcGetCountryDetails]", function (err, recordset) {
                 if (err) {
                     sql.close();
                     ServiceResult.Message = "Failed to parse api response!";
@@ -140,7 +140,7 @@ const AddEditCountryDetails = async (req, res, next) => {
             request.input('bIsActive', sql.BIT, bIsActive);
             request.input('iUserId', sql.BIGINT, iUserId);
 
-            request.execute("[dbo].[USP_AddEditCountry]", function (err, recordset) {
+            request.execute("[dbo].[USP_SvcAddEditCountry]", function (err, recordset) {
                 try {
                     if (err) {
                         console.log(err);
@@ -226,7 +226,7 @@ const DeleteCountrysDetails = async (req, res, next) => {
             request.input('iPK_CountryId', sql.BigInt, iPK_CountryId);
             request.input('iUserId', sql.BigInt, iUserId);
 
-            request.execute("[dbo].[USP_DeleteCountry]", function (err, recordset) {
+            request.execute("[dbo].[USP_SvcDeleteCountry]", function (err, recordset) {
                 if (err) {
                     sql.close();
                     ServiceResult.Message = "Failed to parse api response!";

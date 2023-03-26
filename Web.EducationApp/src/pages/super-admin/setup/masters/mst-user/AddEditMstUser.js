@@ -273,7 +273,6 @@ const IndexMstUser = (props) => {
     useEffect(() => {
         //debugger;
         //#region bind default data for forms
-        fetchAllParentAccountList();
         fetchAllCategoryList();
         fetchCountryList();
         fetchAllRoleList();
@@ -300,6 +299,11 @@ const IndexMstUser = (props) => {
 
         if (propData && propData.hasOwnProperty('StateId')) {
             fetchCityList(propData.StateId);
+        }
+
+
+        if (propData && propData.hasOwnProperty('CategoryId')) {
+            fetchAllAccountListByCategory(propData.CategoryId);
         }
         //#endregion
     }, []);
@@ -351,9 +355,12 @@ const IndexMstUser = (props) => {
     };
 
     const fetchAllRoleList = async () => {
-        //debugger;
+        debugger;
         let apiUri = APIConfig.Admin.Common.GetAllRoleListUri;
-
+        apiUri = apiUri
+            .replace('<RoleName>', '')
+            .replace('<CategoryId>', SaveNextUserDetailsData.CategoryId.value)
+            .replace('<AccountId>', SaveNextUserDetailsData.AccountId.value)
         const instance = await axios.create({
             baseURL: process.env.REACT_APP_APIBaseUri,
             headers: {
@@ -397,10 +404,12 @@ const IndexMstUser = (props) => {
     };
 
 
-    const fetchAllParentAccountList = async () => {
+    const fetchAllAccountListByCategory = async (CategoryId) => {
         //debugger;
-        let apiUri = APIConfig.Admin.Common.GetAllParentAccountListUri;
-
+        let apiUri = APIConfig.Admin.Common.AllAccountsListByCategoryUri;
+        apiUri = apiUri
+            .replace('<CategoryId>', CategoryId)
+            .replace('<IsParentAccount>', false)
         const instance = await axios.create({
             baseURL: process.env.REACT_APP_APIBaseUri,
             headers: {
@@ -1077,7 +1086,12 @@ const IndexMstUser = (props) => {
                                                     }
                                                     name="CategoryId"
                                                     value={SaveNextUserDetailsData.CategoryId.value}
-                                                    onChange={e => { handleOnChangeUserDetails(e); onInputChangeControllerUserDetails(e) }}
+                                                    onChange={e => {
+                                                        handleOnChangeUserDetails(e);
+                                                        onInputChangeControllerUserDetails(e);
+                                                        fetchAllAccountListByCategory($(e.target).val());
+                                                        fetchAllRoleList();
+                                                    }}
                                                 >
                                                     {CommonFuncs.funcBindSelectOptons(AllCategoryList)}
                                                 </select>
@@ -1098,7 +1112,11 @@ const IndexMstUser = (props) => {
                                                     }
                                                     name="AccountId"
                                                     value={SaveNextUserDetailsData.AccountId.value}
-                                                    onChange={e => { handleOnChangeUserDetails(e); onInputChangeControllerUserDetails(e) }}
+                                                    onChange={e => {
+                                                        handleOnChangeUserDetails(e);
+                                                        onInputChangeControllerUserDetails(e);
+                                                        fetchAllRoleList();
+                                                    }}
                                                 >
                                                     {CommonFuncs.funcBindSelectOptons(AllParentAccountList)}
                                                 </select>

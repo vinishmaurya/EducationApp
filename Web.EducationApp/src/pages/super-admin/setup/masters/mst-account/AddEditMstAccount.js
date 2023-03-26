@@ -263,7 +263,6 @@ const AddEditMstAccount = (props) => {
     useEffect(() => {
         //debugger;
         //#region bind default data for forms
-        fetchAllParentAccountList();
         fetchAllCategoryList();
         fetchCountryList();
         //#endregion
@@ -289,6 +288,9 @@ const AddEditMstAccount = (props) => {
 
         if (propData && propData.hasOwnProperty('FK_StateId')) {
             fetchCityList(propData.FK_StateId);
+        }
+        if (propData && propData.hasOwnProperty('FK_CategoryId')) {
+            fetchAllParentAccountList(propData.FK_CategoryId);
         }
         //#endregion
     }, []);
@@ -339,10 +341,12 @@ const AddEditMstAccount = (props) => {
         });
     };
 
-    const fetchAllParentAccountList = async () => {
+    const fetchAllParentAccountList = async (CategoryId) => {
         //debugger;
-        let apiUri = APIConfig.Admin.Common.GetAllParentAccountListUri;
-
+        let apiUri = APIConfig.Admin.Common.AllAccountsListByCategoryUri;
+        apiUri = apiUri
+            .replace('<CategoryId>', CategoryId)
+            .replace('<IsParentAccount>', true)
         const instance = await axios.create({
             baseURL: process.env.REACT_APP_APIBaseUri,
             headers: {
@@ -950,7 +954,11 @@ const AddEditMstAccount = (props) => {
                                                         }
                                                         name="CategoryId"
                                                         value={SaveNextAccountDetailsData.CategoryId.value}
-                                                        onChange={e => { handleOnChangeAccountDetails(e); onInputChangeControllerAccountDetails(e) }}
+                                                        onChange={e => {
+                                                            handleOnChangeAccountDetails(e);
+                                                            onInputChangeControllerAccountDetails(e);
+                                                            fetchAllParentAccountList($(e.target).val());
+                                                        }}
                                                     >
                                                         {CommonFuncs.funcBindSelectOptons(AllCategoryList)}
                                                     </select>
@@ -959,6 +967,28 @@ const AddEditMstAccount = (props) => {
                                                     <span className="error-label mt-2">{errorsAccountDetails.CategoryId}</span>
                                                 )}
                                             </div>
+                                            
+                                            <div className="col-6">
+                                                <div className="form-group">
+                                                    <label className="label-control mb-2">Parent Account{stateValidatorSchemaAccountDetails.ParentAccountId.required && (<span className="red">*</span>)}</label>
+                                                    <select
+                                                        className={"form-control " +
+                                                            (errorsAccountDetails.ParentAccountId && dirtyAccountDetails.ParentAccountId ? 'has-error' :
+                                                                (dirtyAccountDetails.ParentAccountId ? 'has-success' : ''))
+                                                        }
+                                                        name="ParentAccountId"
+                                                        value={SaveNextAccountDetailsData.ParentAccountId.value}
+                                                        onChange={e => { handleOnChangeAccountDetails(e); onInputChangeControllerAccountDetails(e) }}
+                                                    >
+                                                        {CommonFuncs.funcBindSelectOptons(AllParentAccountList)}
+                                                    </select>
+                                                </div>
+                                                {errorsAccountDetails.ParentAccountId && dirtyAccountDetails.ParentAccountId && (
+                                                    <span className="error-label mt-2">{errorsAccountDetails.ParentAccountId}</span>
+                                                )}
+                                            </div>
+                                        </div>
+                                        <div className="row mt-1 mb-1">
                                             <div className="col-6">
                                                 <div className="form-group">
                                                     <label className="label-control mb-2">Account Name{stateValidatorSchemaAccountDetails.AccountName.required && (<span className="red">*</span>)}</label>
@@ -979,27 +1009,7 @@ const AddEditMstAccount = (props) => {
                                                     <span className="error-label mt-2">{errorsAccountDetails.AccountName}</span>
                                                 )}
                                             </div>
-                                        </div>
-                                        <div className="row mt-1 mb-1">
-                                            <div className="col-6">
-                                                <div className="form-group">
-                                                    <label className="label-control mb-2">Parent Account{stateValidatorSchemaAccountDetails.ParentAccountId.required && (<span className="red">*</span>)}</label>
-                                                    <select
-                                                        className={"form-control " +
-                                                            (errorsAccountDetails.ParentAccountId && dirtyAccountDetails.ParentAccountId ? 'has-error' :
-                                                                (dirtyAccountDetails.ParentAccountId ? 'has-success' : ''))
-                                                        }
-                                                        name="ParentAccountId"
-                                                        value={SaveNextAccountDetailsData.ParentAccountId.value}
-                                                        onChange={e => { handleOnChangeAccountDetails(e); onInputChangeControllerAccountDetails(e) }}
-                                                    >
-                                                        {CommonFuncs.funcBindSelectOptons(AllParentAccountList)}
-                                                    </select>
-                                                </div>
-                                                {errorsAccountDetails.ParentAccountId && dirtyAccountDetails.ParentAccountId && (
-                                                    <span className="error-label mt-2">{errorsAccountDetails.ParentAccountId}</span>
-                                                )}
-                                            </div>
+
                                             <div className="col-6">
                                                 <div className="form-group">
                                                     <label className="label-control mb-2">Contact Person{stateValidatorSchemaAccountDetails.ContactPerson.required && (<span className="red">*</span>)}</label>

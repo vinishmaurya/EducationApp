@@ -139,7 +139,7 @@ const MapFormAccount = (props) => {
 
     const fetchAllParentAccountList = async () => {
         //debugger;
-        let apiUri = APIConfig.Admin.Common.GetAllParentAccountListUri;
+        let apiUri = APIConfig.Admin.Common.AllAccountsListUri;
 
         const instance = await axios.create({
             baseURL: process.env.REACT_APP_APIBaseUri,

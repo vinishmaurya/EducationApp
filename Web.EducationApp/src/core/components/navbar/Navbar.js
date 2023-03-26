@@ -5,8 +5,6 @@ import { faBars, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import DropdownHandler from "../dropdown/DropdownHandler";
 import DropdownContent from "../dropdown/DropdownContent";
 import { useHotkeys } from "react-hotkeys-hook";
-import { useNavigate } from "react-router-dom";
-
 
 const FormatLabel = ({ item }) => {
     return (
@@ -85,7 +83,6 @@ const MenuItem = ({ item }) => {
 };
 
 const SearchBar = ({ onSearch, searchlabel }) => {
-    const navigate = useNavigate();
     const [searchClear, setSearchClear] = useState(false);
     const [searchValue, setSearchValue] = useState("");
     const [dropdownSearch, setDropdownSearch] = useState(null);
@@ -141,8 +138,7 @@ const SearchBar = ({ onSearch, searchlabel }) => {
     };
 
     const handleBlur = (e) => {
-        let targetBaseURI = e.target.baseURI;
-
+        
         setTimeout(() => {
             dropdownSearch.hide();
         }, 1000);
@@ -210,7 +206,7 @@ const Navbar = ({ title, srcLogo, menuItems, onSearch, searchlabel }) => {
                 >
                     <FontAwesomeIcon icon={faBars} />
                 </button>
-                <a className="navbar-brand" href={void(0)} >
+                <a className="navbar-brand" href="/" >
                     <img src={srcLogo} alt={title} />
                 </a>
             </div>

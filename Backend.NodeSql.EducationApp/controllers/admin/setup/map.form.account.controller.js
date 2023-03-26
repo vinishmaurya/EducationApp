@@ -28,7 +28,7 @@ const GetAllFormAccountMappings = async (req, res, next) => {
             request.input('iPK_AccountId', sql.BigInt, AccountId);
             request.input('iPK_FormId', sql.BigInt, FormId);
 
-            request.execute("[dbo].[USP_GetAllFormAccountMappings]", function (err, recordset) {
+            request.execute("[dbo].[USP_SvcGetAllFormAccountMappings]", function (err, recordset) {
                 if (err) {
                     console.log(err);
                     sql.close();
@@ -104,7 +104,7 @@ const AddEditFormAccountMappings = async (req, res, next) => {
 
             request.input('cJsonData', sql.NVarChar(sql.MAX), JSON.stringify(JsonData));
 
-            request.execute("[dbo].[USP_AddEditFormAccountMappings]", function (err, recordset) {
+            request.execute("[dbo].[USP_SvcAddEditFormAccountMappings]", function (err, recordset) {
                 try {
                     if (err) {
                         console.log(err);

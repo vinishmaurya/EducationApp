@@ -5,24 +5,20 @@
  * Grid sow Entries
  * --------------------------------------------------------------------------
  */
-//import { useEffect } from "react";
-import CommonFuncs from "../../../util/common.funcs";
 require('dotenv').config();
 const GridShowEntries = (props) => {
 
     //console.log(props.DataList);
     function BindOptons() {
         //debugger;
-        let itemList = [];
         if (!props.DataList) { return; }
         if (!props.DataList.length > 0) { return; }
-        props.DataList.map((data, i) => {
-            itemList.push(
+        return props.DataList.map((data, i) => {
+            return (
                 <option key={i} value={data}>{data}</option>
-            )
+            );
         });
 
-        return itemList;
     }
     function onChangePaging(e) {
         //console.log(e.target.value);

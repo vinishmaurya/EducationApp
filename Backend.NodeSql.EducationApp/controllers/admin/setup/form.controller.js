@@ -37,7 +37,7 @@ const GetFormDetails = async (req, res, next) => {
             request.input('iCurrentPage', sql.BigInt, CurrentPage);
             request.input('cSearchBy', sql.VarChar(500), cSearchBy);
             request.input('cSearchValue', sql.VarChar(500), cSearchValue);
-            request.execute("[dbo].[USP_GetFormDetails]", function (err, recordset) {
+            request.execute("[dbo].[USP_SvcGetFormDetails]", function (err, recordset) {
                 if (err) {
                     sql.close();
                     ServiceResult.Message = "Failed to parse api response!";
@@ -168,7 +168,7 @@ const AddEditFormDetails = async (req, res, next) => {
             request.input('cPlatFormType', sql.NVarChar(30), cPlatFormType);
 
 
-            request.execute("[dbo].[USP_AddEditForm]", function (err, recordset) {
+            request.execute("[dbo].[USP_SvcAddEditForm]", function (err, recordset) {
                 try {
                     if (err) {
                         console.log(err);
@@ -254,7 +254,7 @@ const DeleteFormsDetails = async (req, res, next) => {
             request.input('iPK_FormId', sql.BigInt, iPK_FormId);
             request.input('iUserId', sql.BigInt, iUserId);
 
-            request.execute("[dbo].[USP_DeleteForm]", function (err, recordset) {
+            request.execute("[dbo].[USP_SvcDeleteForm]", function (err, recordset) {
                 if (err) {
                     sql.close();
                     ServiceResult.Message = "Failed to parse api response!";
