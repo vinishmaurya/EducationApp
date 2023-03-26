@@ -51,6 +51,7 @@ import OrgAppEmailConfigSetting from "../pages/super-admin/setup/settings/OrgApp
 import OrgWebSiteContentSetup from "../pages/super-admin/setup/website/OrgWebSiteContentSetup";
 import MstCountry from "./super-admin/setup/masters/mst-country/MstCountry";
 import MstState from "./super-admin/setup/masters/mst-state/MstState";
+import MstCity from "./super-admin/setup/masters/mst-city/MstCity";
 
 const SharedComponent = ({ data }) => {
     const [MyData, setMyData] = useState();
@@ -132,6 +133,7 @@ const SharedComponent = ({ data }) => {
 
                     {(() => {
                         //console.log(data);
+                        //#region Admin Setup Component Randering
                         if (data.component === "MstAccount") {
                             return <MstAccount data={data} />
                         }
@@ -150,6 +152,9 @@ const SharedComponent = ({ data }) => {
                         else if (data.component === "MstState") {
                             return <MstState data={data} />
                         }
+                        else if (data.component === "MstCity") {
+                            return <MstCity data={data} />
+                        }
                         else if (data.component === "MapFormAccount") {
                             return <MapFormAccount />
                         }
@@ -162,6 +167,8 @@ const SharedComponent = ({ data }) => {
                         else if (data.component === "AcadAdminDashboard") {
                             return <AcadAdminDashboard />
                         }
+                        //#endregion
+
                         else if (data.component === "AcadParentDashboard") {
                             return <AcadParentDashboard />
                         }

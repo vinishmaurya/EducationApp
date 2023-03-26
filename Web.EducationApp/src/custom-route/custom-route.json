@@ -74,8 +74,18 @@
     "backMainComponentName": "Back",
     "innerComponentList": "AddEditMstState",
     "title": "State Master",
-    "componentPath": "../pages/super-admin/setup/masters/mst-State/MstState",
-    "route": "/pages/super-admin/setup/masters/mst-State/MstState"
+    "componentPath": "../pages/super-admin/setup/masters/mst-state/MstState",
+    "route": "/pages/super-admin/setup/masters/mst-state/MstState"
+  },
+  {
+    "component": "MstCity",
+    "landingComponent": "IndexMstCity",
+    "innerComponentName": "Add New",
+    "backMainComponentName": "Back",
+    "innerComponentList": "AddEditMstCity",
+    "title": "City Master",
+    "componentPath": "../pages/super-admin/setup/masters/mst-city/MstCity",
+    "route": "/pages/super-admin/setup/masters/mst-city/MstCity"
   },
   {
     "component": "AcadAdminDashboard",

@@ -50,7 +50,7 @@
     "City": {
       "AddEditCityDetailsUri": "/admin/City/AddEditCityDetails",
       "GetCityDetailsUri": "/admin/City/GetCityDetails?CityId=<CityId>&RowPerPage=<RowPerPage>&CurrentPage=<CurrentPage>&SearchBy=<SearchBy>&SearchValue=<SearchValue>",
-      "DeleteCitysDetailsUri": "/admin/City/DeleteCitysDetails?CityId=<CityId>&DeletedBy=<DeletedBy>"
+      "DeleteCitysDetailsUri": "/admin/City/DeleteCityDetails?CityId=<CityId>&DeletedBy=<DeletedBy>"
     }
   }
 }

@@ -359,8 +359,8 @@ const AddEditMstCountry = (props) => {
 
                                             <div className="row">
                                                 <div className="col-lg-12">
-                                                    <div className="Country-body">
-                                                        <div style={{ justifyContent: 'center' }} className="Country-actions mt-3 d-flex">
+                                                    <div className="form-body">
+                                                        <div style={{ justifyContent: 'center' }} className="form-actions mt-3 d-flex">
 
                                                             <div style={{ margin: '10px' }}>
                                                                 <button type="submit"

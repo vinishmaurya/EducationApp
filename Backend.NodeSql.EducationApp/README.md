@@ -47,6 +47,10 @@ node-mssql documentation at:
 
 [https://tediousjs.github.io/node-mssql/]
 
+## POSTMAN DOC
+See the postman documentation:
+[https://documenter.getpostman.com/view/10670330/2s93RNyvAk]
+
 ## Screenshots
 See the result after construction:
 

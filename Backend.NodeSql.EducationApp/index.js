@@ -14,6 +14,7 @@ const mapFormAccountRoute = require('./routes/admin/setup/map.form.account.route
 const userRoute = require('./routes/admin/setup/user.route');
 const countryRoute = require('./routes/admin/setup/country.route');
 const stateRoute = require('./routes/admin/setup/state.route');
+const cityRoute = require('./routes/admin/setup/city.route');
 const accountRoute = require('./routes/admin/setup/account.route');
 const authRoute = require('./routes/admin/auth.route');
 const swaggerDocument = require('./swagger_output.json');
@@ -95,6 +96,7 @@ app.use('/api', [
     userRoute,
     countryRoute,
     stateRoute,
+    cityRoute,
     mapFormRoleRoute,
     mapFormAccountRoute,
 ]);
