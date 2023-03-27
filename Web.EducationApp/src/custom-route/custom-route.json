@@ -88,6 +88,12 @@
     "route": "/pages/super-admin/setup/masters/mst-city/MstCity"
   },
   {
+    "component": "AdminDashboard",
+    "title": "Admin Dashboard",
+    "componentPath": "../pages/organization/AdminDashboard",
+    "route": "/pages/organization/AdminDashboard"
+  },
+  {
     "component": "AcadAdminDashboard",
     "title": "Admin Dashboard",
     "componentPath": "../pages/organization/academics/dashboard/AcadAdminDashboard",

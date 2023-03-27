@@ -53,11 +53,7 @@ const AddEditMstForm = (props) => {
             }
         },
         ComponentName: {
-            required: true,
-            validator: {
-                func: value => name1to50Regex.test(value),
-                error: "Invalid component name format."
-            }
+            required: true
         },
         ComponentPath: {
             required: true
@@ -70,18 +66,10 @@ const AddEditMstForm = (props) => {
             }
         },
         LandingComponentName: {
-            required: true,
-            validator: {
-                func: value => name1to50Regex.test(value),
-                error: "Invalid landing component name format."
-            }
+            required: true
         },
         ClassName: {
-            required: false,
-            validator: {
-                func: value => name1to50Regex.test(value),
-                error: "Invalid class name format."
-            }
+            required: false
         },
         Area: {
             required: true,

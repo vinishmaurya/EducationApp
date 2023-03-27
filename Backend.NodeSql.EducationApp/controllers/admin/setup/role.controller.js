@@ -209,7 +209,7 @@ const DeleteRolesDetails = async (req, res, next) => {
             request.input('iPK_RoleId', sql.BigInt, iPK_RoleId);
             request.input('iUserId', sql.BigInt, DeletedBy);
 
-            request.execute("[dbo].[USP_DeleteRole]", function (err, recordset) {
+            request.execute("[dbo].[USP_SvcDeleteRole]", function (err, recordset) {
                 if (err) {
                     sql.close();
                     ServiceResult.Message = "Failed to parse api response!";

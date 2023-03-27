@@ -135,6 +135,7 @@ const MstRole = (props) => {
 
 
     async function funcDeleteRecord(rowData) {
+        //debugger;
         let id = CommonFuncs.decryptCryptoJSAES(rowData);
 
         const instance = await axios.create({
@@ -309,6 +310,7 @@ const MstRole = (props) => {
                                         </>
                                     )
                                 }
+
                                 <IndexMstRole
                                     defaultDynamicAPIResponse={DefaultDynamicAPIResponse}
                                     fetchParentDefaultData={fetchParentDefaultData}

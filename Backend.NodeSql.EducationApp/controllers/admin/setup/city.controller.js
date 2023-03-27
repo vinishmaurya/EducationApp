@@ -143,7 +143,7 @@ const AddEditCityDetails = async (req, res, next) => {
             var request = new sql.Request(pool);
             //the pool from the promise
             request.input('iFK_CountryId', sql.BigInt, iFK_CountryId);
-            request.input('iFK_StateId', sql.BigInt, iFK_CountryId);
+            request.input('iFK_StateId', sql.BigInt, iFK_StateId);
             request.input('iPK_CityId', sql.BigInt, iPK_CityId);
             request.input('cCityName', sql.NVarChar(100), cCityName);
             request.input('bIsActive', sql.BIT, bIsActive);

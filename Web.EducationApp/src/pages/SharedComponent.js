@@ -11,6 +11,7 @@ import MstRole from "../pages/super-admin/setup/masters/mst-role/MstRole";
 import MapFormAccount from "../pages/super-admin/setup/masters-mapping/MapFormAccount";
 import MapUserAccount from "../pages/super-admin/setup/masters-mapping/MapUserAccount";
 import MapFormRole from "../pages/super-admin/setup/masters-mapping/MapFormRole";
+import AdminDashboard from "../pages/organization/AdminDashboard";
 import AcadAdminDashboard from "../pages/organization/academics/dashboard/AcadAdminDashboard";
 import AcadParentDashboard from "../pages/organization/academics/dashboard/AcadParentDashboard";
 import AcadStudentDashboard from "../pages/organization/academics/dashboard/AcadStudentDashboard";
@@ -106,11 +107,13 @@ const SharedComponent = ({ data }) => {
                         else if (data.component === "MapFormRole") {
                             return <MapFormRole />
                         }
+                        else if (data.component === "AdminDashboard") {
+                            return <AdminDashboard />
+                        }
+                        //#endregion
                         else if (data.component === "AcadAdminDashboard") {
                             return <AcadAdminDashboard />
                         }
-                        //#endregion
-
                         else if (data.component === "AcadParentDashboard") {
                             return <AcadParentDashboard />
                         }

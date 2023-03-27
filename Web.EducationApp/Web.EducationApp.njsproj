@@ -185,6 +185,7 @@
     <Content Include="src\pages\organization\academics\setup\masters\AcadMstSetupClass.js" />
     <Content Include="src\pages\organization\academics\setup\masters\AcadMstSetupSection.js" />
     <Content Include="src\pages\organization\academics\setup\masters\AcadMstSetupMedium.js" />
+    <Content Include="src\pages\organization\AdminDashboard.js" />
     <Content Include="src\pages\SharedComponent.js" />
     <Content Include="src\pages\super-admin\setup\masters-mapping\MapUserAccount.js" />
     <Content Include="src\pages\super-admin\setup\masters-mapping\MapFormAccount.js" />

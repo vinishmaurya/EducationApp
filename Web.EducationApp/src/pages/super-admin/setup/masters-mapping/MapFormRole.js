@@ -115,7 +115,7 @@ const MapFormRole = (props) => {
         apiUri = apiUri.replace('<RoleName>', '')
             .replace('<CategoryId>', 0)
             .replace('<AccountId>', AccountId ? AccountId : 0);
-        console.log(apiUri);
+        //console.log(apiUri);
         const instance = await axios.create({
             baseURL: process.env.REACT_APP_APIBaseUri,
             headers: {
