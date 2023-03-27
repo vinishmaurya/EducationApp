@@ -63,6 +63,8 @@
     <Folder Include="dbo\Functions\" />
     <Folder Include="dbo\Stored Procedures\" />
     <Folder Include="Security\" />
+    <Folder Include="ACAD\" />
+    <Folder Include="ACAD\Tables\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -159,5 +161,18 @@
     <Build Include="dbo\Stored Procedures\USP_SvcRevokeAllRefreshTokenFamily.sql" />
     <Build Include="dbo\Stored Procedures\USP_SvcRevokeRefreshTokenByUser.sql" />
     <Build Include="dbo\Stored Procedures\USP_SvcAuthenticatedAPIUserTokenValidation.sql" />
+    <Build Include="ACAD\Tables\MST_StudentAssignmentSubmission.sql" />
+    <Build Include="ACAD\Tables\MST_StudentParentGuardian.sql" />
+    <Build Include="ACAD\Tables\MST_Student.sql" />
+    <Build Include="ACAD\Tables\MST_StudentCategory.sql" />
+    <Build Include="ACAD\Tables\MAP_AssignSubjectTeacher.sql" />
+    <Build Include="ACAD\Tables\MAP_AssignClassTeacher.sql" />
+    <Build Include="ACAD\Tables\MAP_AssignStudentClass.sql" />
+    <Build Include="ACAD\Tables\MAP_AssignClassSubject.sql" />
+    <Build Include="ACAD\Tables\MST_Subject.sql" />
+    <Build Include="ACAD\Tables\MST_Medium.sql" />
+    <Build Include="ACAD\Tables\MST_Class.sql" />
+    <Build Include="ACAD\Tables\MST_Teacher.sql" />
+    <Build Include="Security\ACAD.sql" />
   </ItemGroup>
 </Project>
