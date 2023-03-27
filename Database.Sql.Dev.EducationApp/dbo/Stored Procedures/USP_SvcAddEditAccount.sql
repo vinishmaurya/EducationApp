@@ -42,7 +42,14 @@ BEGIN TRY
 	DECLARE @cAccountLogo_BeforeUpdate VARCHAR(MAX) = '';
 	DECLARE @FK_RoleId BIGINT = 0;
 	DECLARE @cRoleName NVARCHAR(250)='' 
-	
+	IF 
+	(
+		@iPK_AccountId = 1
+	)
+	BEGIN
+		SELECT 0 AS Message_Id,'Opps! You Not permitted to update super admin account details!' AS Message;
+		RETURN
+	END
 	IF(@StepCompleted = 'AdditionalInfo') OR (@StepCompleted = 'Credentials')
 	BEGIN
 		IF(ISNULL(@iPK_AccountId,0) <= 0) OR NOT EXISTS(SELECT 1 FROM [dbo].[MST_Account](NOLOCK) WHERE PK_AccountId=ISNULL(@iPK_AccountId,0) AND CreatedBy = @CreatedBy)           

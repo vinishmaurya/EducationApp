@@ -19,7 +19,7 @@ CREATE PROCEDURE [dbo].[USP_SvcDeleteAccount]
 	  return
 	END
 
-	  if NOT EXISTS((select UserName from MST_USER WHERE FK_AccountId = @iPK_AccountId AND UserName IN ('dadmin','admin'))) 
+	  if NOT EXISTS((select AccountName from MST_Account WHERE PK_AccountId = @iPK_AccountId AND AccountName IN ('Super Admin Account','Admin Account'))) 
 	  begin
 		 if not exists (select PK_AccountId from [MST_Account](NOLOCK) WHERE ParentAccountId = @iPK_AccountId AND ISNULL(IsActive,0) = 1 AND ISNULL(IsDeleted,0) = 0)
 		begin
@@ -56,7 +56,7 @@ CREATE PROCEDURE [dbo].[USP_SvcDeleteAccount]
 	  else
 	  begin
 		
-      SELECT 0 AS Message_Id,'You are not authorized to delete admin user.' AS Message   
+      SELECT 0 AS Message_Id,'Opps! You are not authorized to delete admin accounts.' AS Message   
 	  end
       
 

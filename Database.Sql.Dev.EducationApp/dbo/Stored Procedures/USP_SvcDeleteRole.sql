@@ -14,7 +14,7 @@ CREATE PROCEDURE  [dbo].[USP_SvcDeleteRole]
   AS  
   BEGIN TRY 
 	DECLARE @RoleName VARCHAR(500) = (SELECT TOP 1 RoleName from [MST_Role](NOLOCK) WHERE PK_RoleId = @iPK_RoleId);
-           IF NOT EXISTS(SELECT 1 FROM Mst_Role (NOLOCK) Rol WHERE Rol.RoleName IN ('Super Admin','Admin')  and  PK_RoleId=@iPK_RoleId)
+           IF (@iPK_RoleId != 1)
 	       BEGIN      
            UPDATE [dbo].[MST_Role]
            SET
@@ -28,7 +28,7 @@ CREATE PROCEDURE  [dbo].[USP_SvcDeleteRole]
 	       END  
 	       ELSE      
            BEGIN    
-           SELECT 0 AS Message_Id,'You are not authorized to delete admin role.' AS Message              
+           SELECT 0 AS Message_Id,'Opps! You are not authorized to delete super admin role.' AS Message              
            END     
   END TRY  
  BEGIN CATCH                 

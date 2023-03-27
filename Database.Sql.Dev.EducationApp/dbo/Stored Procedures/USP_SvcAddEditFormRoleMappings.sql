@@ -57,6 +57,15 @@ BEGIN TRY
 		,CreatedBy	BIGINT
 		,MappingFor VARCHAR(20)
 	) AS Tbl_1 
+	IF EXISTS
+	(
+		SELECT TOP 1 1 FROM #temp_table
+		WHERE RoleId = 1 AND CreatedBy != 1
+	)
+	BEGIN
+		SELECT 0 AS Message_Id,'Opps! You Not permitted  to update super admin form role mappings!' AS Message;
+		RETURN
+	END
 	SET @IsMappingExists = 
 	IIF
 	(

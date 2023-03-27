@@ -2,7 +2,7 @@
 Created By: Vinish
 Created Date: 2023-03-18 15:31:57.520
 Purpose: Get Role Form Mapping With FormId And RoleId
-EXEC [dbo].[USP_GetAllFormRoleMappings] 39,26,'WebApp',1
+EXEC [dbo].[USP_SvcGetAllFormRoleMappings] 1,0,'WebApp',0
 *******************************************************************/  
 CREATE PROCEDURE [dbo].[USP_SvcGetAllFormRoleMappings]  
 (  
@@ -169,15 +169,18 @@ BEGIN TRY
 		;WITH FormList      
 		AS      
 		(      
-			/*Select all active forms*/
-			SELECT  PK_FormId, FormName,FK_ParentId,LevelId,SortId   
-			FROM MST_Form(NOLOCK) where ISNULL(FK_ParentId,0) =0     
-			and PK_FormId=@iPK_FormId AND ISNULL(IsDeleted,0)=0  AND (UPPER(ISNULL(FormFor,'ALL'))='WEB'  OR  UPPER(ISNULL(FormFor,'ALL'))='ALL' )      
+			/*Select all active forms which have form account mappings only*/
+			SELECT  A.PK_FormId, A.FormName,A.FK_ParentId,A.LevelId,A.SortId   
+			FROM MST_Form(NOLOCK) A
+			INNER JOIN MAP_FormAccount(NOLOCK) B ON A.PK_FormId = B.FK_FormId AND B.FK_AccountId = @iAccountId
+			WHERE ISNULL(A.FK_ParentId,0) =0
+			and A.PK_FormId=@iPK_FormId AND ISNULL(A.IsDeleted,0)=0  AND (UPPER(ISNULL(A.FormFor,'ALL'))='WEB'  OR  UPPER(ISNULL(A.FormFor,'ALL'))='ALL' )      
 			UNION ALL      
-			/*Select all active parent forms*/
+			/*Select all active parent forms which have form account mappings only*/
 			SELECT  a.PK_FormId, a.FormName, a.FK_ParentId ,a.LevelId,a.SortId      
-			FROM MST_Form a      
-			WHERE a.FK_ParentId =@iPK_FormId AND ISNULL(IsDeleted,0)=0    AND (UPPER(ISNULL(FormFor,'ALL'))='WEB'  OR  UPPER(ISNULL(FormFor,'ALL'))='ALL' ) 
+			FROM MST_Form(NOLOCK) a 
+			INNER JOIN MAP_FormAccount(NOLOCK) ON PK_FormId = FK_FormId AND FK_AccountId = @iAccountId
+			WHERE a.FK_ParentId =@iPK_FormId AND ISNULL(a.IsDeleted,0)=0    AND (UPPER(ISNULL(FormFor,'ALL'))='WEB'  OR  UPPER(ISNULL(FormFor,'ALL'))='ALL' ) 
 		)
 		SELECT
 		@iPK_RoleId AS RoleId,
@@ -354,13 +357,18 @@ BEGIN TRY
 			/*Select form role mappings */
 			;WITH FormList AS      
 			(      
-				SELECT  PK_FormId, FormName,FK_ParentId,LevelId,SortId   
-				FROM MST_Form(NOLOCK) where ISNULL(FK_ParentId,0) =0     
-				and PK_FormId=@iPK_FormId AND ISNULL(IsDeleted,0)=0  AND (UPPER(ISNULL(FormFor,'ALL'))='MOBILE'  OR  UPPER(ISNULL(FormFor,'ALL'))='ALL' )      
+				/*Select all active forms which have form account mappings only*/
+				SELECT  A.PK_FormId, A.FormName,A.FK_ParentId,A.LevelId,A.SortId   
+				FROM MST_Form(NOLOCK) A
+				INNER JOIN MAP_FormAccount(NOLOCK) B ON A.PK_FormId = B.FK_FormId AND B.FK_AccountId = @iAccountId
+				WHERE ISNULL(A.FK_ParentId,0) =0
+				and A.PK_FormId=@iPK_FormId AND ISNULL(A.IsDeleted,0)=0  AND (UPPER(ISNULL(A.FormFor,'ALL'))='MOBILE'  OR  UPPER(ISNULL(A.FormFor,'ALL'))='ALL' )      
 				UNION ALL      
+				/*Select all active parent forms which have form account mappings only*/
 				SELECT  a.PK_FormId, a.FormName, a.FK_ParentId ,a.LevelId,a.SortId      
-				FROM MST_Form a      
-				WHERE a.FK_ParentId =@iPK_FormId AND ISNULL(IsDeleted,0)=0    AND (UPPER(ISNULL(FormFor,'ALL'))='MOBILE'  OR  UPPER(ISNULL(FormFor,'ALL'))='ALL' ) 
+				FROM MST_Form(NOLOCK) a 
+				INNER JOIN MAP_FormAccount(NOLOCK) ON PK_FormId = FK_FormId AND FK_AccountId = @iAccountId
+				WHERE a.FK_ParentId =@iPK_FormId AND ISNULL(a.IsDeleted,0)=0    AND (UPPER(ISNULL(FormFor,'ALL'))='MOBILE'  OR  UPPER(ISNULL(FormFor,'ALL'))='ALL' ) 
 			)
 			SELECT
 			@iPK_RoleId AS RoleId,

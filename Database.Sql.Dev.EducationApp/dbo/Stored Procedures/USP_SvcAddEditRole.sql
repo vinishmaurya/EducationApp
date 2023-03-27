@@ -60,7 +60,15 @@ BEGIN TRY
                  END 	   
     
    ELSE        
-  	   BEGIN 				       
+  	   BEGIN 		
+	    IF 
+		(
+			@iPK_RoleId = 1
+		)
+		BEGIN
+			SELECT 0 AS Message_Id,'Opps! You Not permitted to update super admin role details!' AS Message;
+			RETURN
+		END
 			IF NOT EXISTS(SELECT 1 FROM [dbo].[MST_Role](NOLOCK) 
 										WHERE RoleName=LTRIM(RTRIM(@cRoleName))  
 										AND  FK_CustomerId=@iFK_CustomerId	 

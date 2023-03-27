@@ -167,7 +167,7 @@ BEGIN TRY
              )               
             THEN '%'+@cSearchValue+'%'               
             ELSE  ISNULL(frm.FormName,'')             
-          END           
+          END     
           AND       
     ISNULL(frm.ControllerName,'') LIKE              
           CASE               
@@ -205,9 +205,9 @@ SELECT
 'PK_ID' PK_ID,
 '#' SrNo,
 'FormName' FormName,
-'Account Name' ComponentName,
+'Component Name' ComponentName,
 'Area' Area,
-'Action Name' ActionName,
+'Landing Component' ActionName,
 'Created Datetime' CreatedDateTime,
 'Status' [Status],
 'Action' [Action]

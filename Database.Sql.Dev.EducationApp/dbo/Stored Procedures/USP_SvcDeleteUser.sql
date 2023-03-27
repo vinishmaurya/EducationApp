@@ -19,7 +19,7 @@ BEGIN
 	SELECT 1 AS Message_Id,'Deletion Failed, Invalid user details was supplied!' AS Message 
 RETURN;
 END
-if NOT EXISTS((select UserName from MST_USER(nolock) WHERE PK_UserId = @iPK_UserId AND UserName IN ('dadmin','admin'))) 
+if (@iPK_UserId != 1)
 begin
 	UPDATE [dbo].[MST_User]
 	SET 
@@ -33,7 +33,7 @@ begin
 end
 else
 begin
-	SELECT 0 AS Message_Id,'Process Faild.' AS Message   
+	SELECT 0 AS Message_Id,'Opps! You Not permitted to delete super admin user details!' AS Message   
 end              
 END TRY  
 BEGIN CATCH                 
