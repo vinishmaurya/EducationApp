@@ -1,0 +1,7 @@
+Server Started at http://localhost:\\.\pipe\f162777c-756d-42f5-93aa-49fda2b6706d
+GET /api-docs/
+GET /api-docs/swagger-ui.css
+GET /api-docs/swagger-ui-standalone-preset.js
+GET /api-docs/swagger-ui-bundle.js
+GET /api-docs/swagger-ui-init.js
+GET /api-docs/favicon-32x32.png

@@ -1,11 +1,12 @@
 {
-  "name": "EducationAppNodeJsAPI",
+  "name": "education-app-nodejs-api",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js",
     "start-gendoc": "node ./swagger.js"
+    
   },
   "author": "",
   "license": "ISC",

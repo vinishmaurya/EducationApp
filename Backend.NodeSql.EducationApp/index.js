@@ -112,12 +112,20 @@ app.use(function (req, res) {
 app.use(errorHandler);
 
 if (process.env.NODE_ENV == "development") {
+
     var ip = require('ip');
     ////full path of the parent dir
     var parent_dir_path = require('path').resolve(__dirname, '..')
     var config_file_path = parent_dir_path + "\\Mobile.EducationApp\\.env";
     //var data = fs.readFileSync(config_file_path, 'utf-8');
-    fs.writeFileSync(config_file_path, "REACT_APP_BASE_URL=http://" + ip.address() + ":" + process.env.PORT+"/api", 'utf-8');
+    fs.writeFileSync(config_file_path, "REACT_APP_BASE_URL=http://" + ip.address() + ":" + process.env.PORT + "/api", 'utf-8');
+
+
+    //////full path of the parent dir
+    //var parent_dir_path1 = require('path').resolve(__dirname, '..')
+    //var config_file_path1 = parent_dir_path1 + "\\Web.EducationApp\\.env";
+    ////var data = fs.readFileSync(config_file_path, 'utf-8');
+    //fs.writeFileSync(config_file_path1, "REACT_APP_APIBaseUri=http://" + ip.address() + ":" + process.env.PORT, 'utf-8');
 }
 
 

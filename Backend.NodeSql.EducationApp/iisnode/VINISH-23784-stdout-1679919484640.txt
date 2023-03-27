@@ -1,0 +1,21 @@
+Server Started at http://localhost:\\.\pipe\1749e809-6a14-44cc-b8dc-c34bb55992db
+OPTIONS /api/AuthenticatedUserTokenValidation
+OPTIONS /api/AuthenticatedUserTokenValidation
+POST /api/AuthenticatedUserTokenValidation
+POST /api/AuthenticatedUserTokenValidation
+OPTIONS /api/AuthenticatedUserTokenValidation
+POST /api/AuthenticatedUserTokenValidation
+POST /api/AuthenticatedUserTokenValidation
+GET /api-docs/
+GET /api-docs/swagger-ui-bundle.js
+GET /api-docs/swagger-ui.css
+GET /api-docs/swagger-ui-standalone-preset.js
+GET /api-docs/swagger-ui-init.js
+GET /api-docs/favicon-32x32.png
+OPTIONS /api/AuthenticateUser
+POST /api/AuthenticateUser
+OPTIONS /api/AuthenticatedUserInfo
+POST /api/AuthenticatedUserInfo
+OPTIONS /api/AuthenticatedUserTokenValidation
+POST /api/AuthenticatedUserTokenValidation
+POST /api/AuthenticatedUserTokenValidation

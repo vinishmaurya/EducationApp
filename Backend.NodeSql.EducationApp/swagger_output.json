@@ -5,7 +5,7 @@
     "description": "Description",
     "version": "1.0.0"
   },
-  "host": "localhost:2000",
+  "host": "192.168.1.8:2000",
   "basePath": "/api/",
   "schemes": [
     "http"
@@ -36,16 +36,16 @@
               "type": "object",
               "properties": {
                 "UserName": {
-                  "example": "any"
+                  "example": "dadmin"
                 },
                 "Password": {
-                  "example": "any"
+                  "example": "Pass@123"
                 },
                 "GrantType": {
-                  "example": "any"
+                  "example": "Password"
                 },
                 "RefreshToken": {
-                  "example": "any"
+                  "example": ""
                 }
               }
             }

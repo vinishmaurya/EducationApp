@@ -10,10 +10,10 @@ require('dotenv').config();
 //const navigate = useNavigate();
 
 const instance = axios.create({
-    baseURL: 'http://localhost:2000/api',//process.env.BackendEducationApp_DevBaseUri,
+    baseURL: process.env.REACT_APP_APIBaseUri,
     headers: {
         'content-type': 'application/json',
-        'x-api-key': 'test-key'//process.env.BackendEducationApp_Key
+        'x-api-key': process.env.REACT_APP_APIKey
     }
 });
 

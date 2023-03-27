@@ -1,0 +1,87 @@
+<html>
+<head>
+    <title>iisnode logs</title>
+    <style type="text/css">
+        body
+        {
+            font-family: "Trebuchet MS" , Arial, Helvetica, sans-serif;
+        }
+        table
+        {
+            border-collapse: collapse;
+        }
+        td, th
+        {
+            border: 1px solid lightgray;
+            padding: 3px 7px 2px 7px;
+        }
+        th
+        {
+            text-align: left;
+            padding-top: 5px;
+            padding-bottom: 4px;
+            background-color: Gray;
+            color: #ffffff;
+        }
+        td.stderr
+        {
+            color: Red;
+        }
+    </style>
+</head>
+<body>
+    <table id="logFilesTable">
+        <tr>
+            <th>
+                Computer name
+            </th>
+            <th>
+                PID
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                Created
+            </th>
+            <th>
+                Link
+            </th>
+        </tr>
+    </table>
+    <p id="lastUpdated"></p>
+    <script type="text/javascript">
+
+        // this is replaced with actual data at runtime by code in interceptor.js
+        var logFiles = [{"file":"VINISH-11628-stderr-1679921871257.txt","computername":"VINISH","pid":11628,"type":"stderr","created":1679921871257},{"file":"VINISH-11628-stdout-1679921871255.txt","computername":"VINISH","pid":11628,"type":"stdout","created":1679921871255},{"file":"VINISH-19584-stderr-1679921205564.txt","computername":"VINISH","pid":19584,"type":"stderr","created":1679921205564},{"file":"VINISH-19584-stdout-1679921205562.txt","computername":"VINISH","pid":19584,"type":"stdout","created":1679921205562},{"file":"VINISH-20576-stderr-1679916691183.txt","computername":"VINISH","pid":20576,"type":"stderr","created":1679916691183},{"file":"VINISH-20576-stdout-1679916691181.txt","computername":"VINISH","pid":20576,"type":"stdout","created":1679916691181},{"file":"VINISH-21060-stderr-1679916651194.txt","computername":"VINISH","pid":21060,"type":"stderr","created":1679916651194},{"file":"VINISH-21060-stdout-1679916651192.txt","computername":"VINISH","pid":21060,"type":"stdout","created":1679916651192},{"file":"VINISH-22972-stderr-1679915730470.txt","computername":"VINISH","pid":22972,"type":"stderr","created":1679915730470},{"file":"VINISH-22972-stdout-1679915730469.txt","computername":"VINISH","pid":22972,"type":"stdout","created":1679915730469},{"file":"VINISH-23676-stderr-1679915959497.txt","computername":"VINISH","pid":23676,"type":"stderr","created":1679915959497},{"file":"VINISH-23676-stdout-1679915959496.txt","computername":"VINISH","pid":23676,"type":"stdout","created":1679915959496},{"file":"VINISH-23784-stderr-1679919484645.txt","computername":"VINISH","pid":23784,"type":"stderr","created":1679919484645},{"file":"VINISH-23784-stdout-1679919484640.txt","computername":"VINISH","pid":23784,"type":"stdout","created":1679919484640},{"file":"VINISH-24064-stderr-1679916159901.txt","computername":"VINISH","pid":24064,"type":"stderr","created":1679916159901},{"file":"VINISH-24064-stdout-1679916159900.txt","computername":"VINISH","pid":24064,"type":"stdout","created":1679916159900},{"file":"VINISH-8040-stderr-1679915825642.txt","computername":"VINISH","pid":8040,"type":"stderr","created":1679915825642},{"file":"VINISH-8040-stdout-1679915825641.txt","computername":"VINISH","pid":8040,"type":"stdout","created":1679915825641},{"file":"VINISH-8132-stderr-1679923005425.txt","computername":"VINISH","pid":8132,"type":"stderr","created":1679923005425},{"file":"VINISH-8132-stdout-1679923005423.txt","computername":"VINISH","pid":8132,"type":"stdout","created":1679923005423},{"file":"VINISH-9964-stderr-1679921944174.txt","computername":"VINISH","pid":9964,"type":"stderr","created":1679921944174},{"file":"VINISH-9964-stdout-1679921944171.txt","computername":"VINISH","pid":9964,"type":"stdout","created":1679921944171}];
+        var lastUpdated = 1679923013517;
+        var date = new Date();
+
+        date.setTime(lastUpdated);
+        document.getElementById('lastUpdated').innerHTML = 'Index was last updated ' + date;
+
+        logFiles.sort(function (a, b) {
+            return b.created - a.created;
+        });
+
+        var logFilesTable = document.getElementById("logFilesTable");
+        for (var i = 0; i < logFiles.length; i++) {
+            var logFile = logFiles[i];
+            date.setTime(logFile.created);
+            var row = logFilesTable.insertRow(-1);
+            var computerNameCell = row.insertCell(0);
+            var pidCell = row.insertCell(1);
+            var typeCell = row.insertCell(2);
+            var dateCell = row.insertCell(3);
+            var logCell = row.insertCell(4);
+            computerNameCell.innerHTML = logFile.computername;
+            pidCell.innerHTML = logFile.pid.toString();
+            typeCell.innerHTML = logFile.type;
+            typeCell.setAttribute('class', logFile.type);
+            dateCell.innerHTML = date.toString();
+            logCell.innerHTML = '<a href="' + logFile.file + '">log</a>';
+        };
+
+    </script>
+</body>
+</html>

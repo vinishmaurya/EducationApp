@@ -45,6 +45,7 @@ const Login = () => {
                             const resData = data.Data;
                             if (!resData.accessToken) {
                                 alert('Unable to login. Please try after some time.');
+                                alert(JSON.stringify(resData));
                                 return;
                             }
                             //localStorage.clear();
@@ -64,10 +65,10 @@ const Login = () => {
 
                             //alert(true);
                             const instance = axios.create({
-                                baseURL: 'http://localhost:2000/api',//process.env.BackendEducationApp_DevBaseUri,
+                                baseURL: process.env.REACT_APP_APIBaseUri,
                                 headers: {
                                     'content-type': 'application/json',
-                                    'x-api-key': 'test-key'//process.env.BackendEducationApp_Key
+                                    'x-api-key': process.env.REACT_APP_APIKey
                                 }
                             });
 
@@ -157,7 +158,7 @@ const Login = () => {
                 <div className="px-4 py-5 px-md-5 text-center text-lg-start" >
                     <div className="container">
                         <div className="row gx-lg-5 align-items-center">
-                            <div className="col-lg-6 mb-5 mb-lg-0">
+                            <div className="col-lg-6 mb-5 mb-lg-0 header-desc">
                                 <div className="text-center">
                                 </div>
                                 <h5 className="my-5 display-5 fw-bold ls-tight">
