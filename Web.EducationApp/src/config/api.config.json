@@ -53,5 +53,17 @@
       "GetCityDetailsUri": "/admin/City/GetCityDetails?CityId=<CityId>&RowPerPage=<RowPerPage>&CurrentPage=<CurrentPage>&SearchBy=<SearchBy>&SearchValue=<SearchValue>",
       "DeleteCitysDetailsUri": "/admin/City/DeleteCityDetails?CityId=<CityId>&DeletedBy=<DeletedBy>"
     }
+  },
+  "Academics": {
+    "Common": {
+      "GetAllCountryListUri": "/admin/common/GetAllCountryList",
+      "GetAllStateListCountryIdUri": "/admin/common/GetAllStateListCountryId",
+      "GetAllCityListByStateUri": "/admin/common/GetAllCityListByState"
+    },
+    "Medium": {
+      "AddEditMediumDetailsUri": "/academics/Medium/AddEditMediumDetails",
+      "GetMediumDetailsUri": "/academics/Medium/GetMediumDetails?MediumId=<MediumId>&RowPerPage=<RowPerPage>&CurrentPage=<CurrentPage>&SearchBy=<SearchBy>&SearchValue=<SearchValue>",
+      "DeleteMediumsDetailsUri": "/academics/Medium/DeleteMediumsDetails?MediumId=<MediumId>&DeletedBy=<DeletedBy>"
+    }
   }
 }

@@ -189,7 +189,8 @@ const MstState = (props) => {
             }
         }).catch((e) => {
             setHasAPIError(false);
-            setHasAPIMessage(e.essage);
+            setHasAPIFailed(true);
+            setHasAPIMessage(e.message);
             setHasAPIDescription(JSON.stringify(e));
             console.log(e);
         });

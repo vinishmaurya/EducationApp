@@ -6,6 +6,11 @@
     [CreatedDatetime] DATETIME     NULL,
     [DeletedDatetime] DATETIME     NULL,
     [UpdatedDatetime] DATETIME     NULL,
+    [CreatedBy]       BIGINT       NULL,
+    [UpdatedBy]       BIGINT       NULL,
+    [DeletedBy]       BIGINT       NULL,
     PRIMARY KEY CLUSTERED ([PK_MediumId] ASC)
 );
+
+
 

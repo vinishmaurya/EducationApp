@@ -25,7 +25,7 @@ const swaggerAutogen = require('swagger-autogen')();
 const outputFile = './swagger_output.json';
 const endpointsFiles =
     [
-        //'./common.routes.js',
+        //#region Admin Setup Routes
         './routes/admin/auth.route',
         './routes/admin/setup/common.route.js',
         './routes/admin/setup/account.route.js',
@@ -37,6 +37,11 @@ const endpointsFiles =
         './routes/admin/setup/city.route.js',
         './routes/admin/setup/map.form.role.route.js',
         './routes/admin/setup/map.form.account.route.js',
+        //#endregion
+        //#region Admin Setup Routes
+        './routes/organization/academics/setup/masters/common.route',
+        './routes/organization/academics/setup/masters/medium.route'
+        //#endregion
     ]; // root file where the route starts.
 // Extended: https://swagger.io/specification/#infoObject
 

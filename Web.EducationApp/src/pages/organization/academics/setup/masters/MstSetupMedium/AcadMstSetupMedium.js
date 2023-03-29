@@ -2,40 +2,35 @@
  * --------------------------------------------------------------------------
  * By: Vinish
  * Datetime: 2023-03-11 01:01:53.570
- * Root Page Form Details
+ * Root Page Medium Details
  * --------------------------------------------------------------------------
  */
-import IndexMstForm from "../../../../../pages/super-admin/setup/masters/mst-form/IndexMstForm";
-import AddEditMstForm from "../../../../../pages/super-admin/setup/masters/mst-form/AddEditMstForm";
-import { faArrowCircleLeft, faBook, faPlus, faPlusSquare } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import IndexAcadMstSetupMedium from "../../../../../../pages/organization/academics/setup/masters/MstSetupMedium/IndexAcadMstSetupMedium";
+import AddEditAcadMstSetupMedium from "../../../../../../pages/organization/academics/setup/masters/MstSetupMedium/AddEditAcadMstSetupMedium";
 import { React, useState } from "react";
-import { useContext, useEffect, useRef } from "react";
+import { useEffect} from "react";
 import axios from "axios";
 import { useCookies } from 'react-cookie';
-import { useNavigate } from "react-router-dom";
-import Login from "../../../../../auth/login/Login";
+import Login from "../../../../../../auth/login/Login";
 import Spinner from 'react-bootstrap/Spinner';
 import Button from 'react-bootstrap/Button';
-import APIConfig from "../../../../../config/api.config.json";
-import CommonFuncs from "../../../../../util/common.funcs";
+import APIConfig from "../../../../../../config/api.config.json";
+import CommonFuncs from "../../../../../../util/common.funcs";
+import { $ } from 'react-jquery-plugin';
 
-require('dotenv').config();
-
-const MstForm = (props) => {
-    //debugger;
+const AcadMstSetupMedium = (props) => {
     const data = props.data;
-    const [Cookie, setCookie] = useCookies(['accessToken', 'refreshToken']);
+    const [Cookie, setCookie] = useCookies(['accessToken', 'refreshToken', 'loggedInUserId']);
     // Declare a new state variable, which we'll call "Component"
-    const [MyComponent, setMyComponent] = useState(data.landingComponent);
-    const [MyInnerComponentName, setMyInnerComponentName] = useState(data.innerComponentName);
+    //const [MyComponent, setMyComponent] = useState(data.landingComponent);
+    //const [MyInnerComponentName, setMyInnerComponentName] = useState(data.innerComponentName);
     const [DefaultDynamicAPIResponse, setDefaultDynamicAPIResponse] = useState(null);
     const [HasAPIError, setHasAPIError] = useState(false);
-    const [HasAPIFailed, setHasAPIFailed] = useState(null);
     const [HasAPISuccess, setHasAPISuccess] = useState(false);
+    const [HasAPIFailed, setHasAPIFailed] = useState(null);
     const [HasAPIMessage, setHasAPIMessage] = useState(null);
     const [HasAPIDescription, setHasAPIDescription] = useState(null);
-    const [FormId, setFormId] = useState(0);
+    const [MediumId, setMediumId] = useState(0);
     const [RowPerPage, setRowPerPage] = useState(process.env.REACT_APP_DefaultRowPerPage);
     const [CurrentPage, setCurrentPage] = useState(process.env.REACT_APP_DefaultCurrentPage);
     const [SearchBy, setSearchBy] = useState("");
@@ -43,22 +38,23 @@ const MstForm = (props) => {
     const [DataRow, setDataRow] = useState(null);
 
     useEffect(() => {
-        if (MyComponent == "IndexMstForm") {
-            fetchParentDefaultData(FormId, RowPerPage, CurrentPage, SearchBy, SearchValue);
-        }
-        else if (MyComponent == "AddEditMstForm") {
-            fetchParentDefaultData(FormId, RowPerPage, CurrentPage, SearchBy, SearchValue);
-        }
+        //if (MyComponent == "IndexAcadMstSetupMedium") {
+        //    fetchParentDefaultData(MediumId, RowPerPage, CurrentPage, SearchBy, SearchValue);
+        //}
+        //else if (MyComponent == "AddEditAcadMstSetupMedium") {
+        fetchParentDefaultData(MediumId, RowPerPage, CurrentPage, SearchBy, SearchValue);
+        //}
     }, []);
 
 
 
-    const fetchParentDefaultData = async (parmFormId, parmRowPerPage, parmCurrentPage, parmSearchBy, parmSearchValue) => {
+
+    const fetchParentDefaultData = async (parmMediumId, parmRowPerPage, parmCurrentPage, parmSearchBy, parmSearchValue) => {
         setRowPerPage(parmRowPerPage);
         setCurrentPage(parmCurrentPage);
         setSearchBy(parmSearchBy);
         setSearchValue(parmSearchValue);
-        setFormId(parmFormId);
+        setMediumId(parmMediumId);
 
         const instance = await axios.create({
             baseURL: process.env.REACT_APP_APIBaseUri,
@@ -85,9 +81,9 @@ const MstForm = (props) => {
         }, (error) => {
             return Promise.reject(error.message);
         });
-        let GetFormDetailsUri = APIConfig.Admin.Form.GetFormDetailsUri;
-        GetFormDetailsUri = GetFormDetailsUri
-            .replace('<FormId>', parmFormId)
+        let GetMediumDetailsUri = APIConfig.Academics.Medium.GetMediumDetailsUri;
+        GetMediumDetailsUri = GetMediumDetailsUri
+            .replace('<MediumId>', parmMediumId)
             .replace('<RowPerPage>', parmRowPerPage)
             .replace('<CurrentPage>', parmCurrentPage)
             .replace('<SearchBy>', parmSearchBy)
@@ -95,7 +91,7 @@ const MstForm = (props) => {
 
         instance({
             'method': 'GET',
-            'url': GetFormDetailsUri
+            'url': GetMediumDetailsUri
         }).then((response) => {
             //debugger;
             //console.log(response.data);
@@ -116,25 +112,33 @@ const MstForm = (props) => {
     };
     function loadComponent(rowData) {
         //debugger;
-        if (MyComponent == data.landingComponent) {
-            //Go to add mode component
-            setMyInnerComponentName(data.backMainComponentName);
-            setMyComponent(data.innerComponentList);
-            if (rowData) {
-                setDataRow(DefaultDynamicAPIResponse.DataList.filter(e => e.PK_ID === CommonFuncs.decryptCryptoJSAES(rowData))[0]);
-            }
-
+        //if (MyComponent == data.landingComponent) {
+        //Go to add mode component
+        //setMyInnerComponentName(data.backMainComponentName);
+        //setMyComponent(data.innerComponentList);
+        if (rowData) {
+            var id = CommonFuncs.decryptCryptoJSAES(rowData);
+            var dataRo = DefaultDynamicAPIResponse.DataList.filter(e => e.PK_ID === Number(id))[0];
+            //console.log(dataRo);
+            setDataRow(dataRo);
         }
         else {
-            //Back to index component
-            fetchParentDefaultData(0, RowPerPage, CurrentPage, '', '');////Trigger for reload index component
-            setMyInnerComponentName(data.innerComponentName);
-            setMyComponent(data.landingComponent);
+            //Refresh
+            fetchParentDefaultData(0, RowPerPage, CurrentPage, '', '');//Trigger for reload index component
         }
+
+        //}
+        //else {
+        //    //Back to index component
+        //    fetchParentDefaultData(0, RowPerPage, CurrentPage, '', '');//Trigger for reload index component
+        //    setMyInnerComponentName(data.innerComponentName);
+        //    setMyComponent(data.landingComponent);
+        //}
     }
 
-
     async function funcDeleteRecord(rowData) {
+        $("#divStatusAddEdit").hide();
+        $("#divStatusRoot").show();
         let id = CommonFuncs.decryptCryptoJSAES(rowData);
 
         const instance = await axios.create({
@@ -162,14 +166,13 @@ const MstForm = (props) => {
         }, (error) => {
             return Promise.reject(error.message);
         });
-        let DeleteFormsDetailsUri = APIConfig.Admin.Form.DeleteFormsDetailsUri;
-        DeleteFormsDetailsUri = DeleteFormsDetailsUri
-            .replace('<FormId>', id)
+        let DeleteMediumsDetailsUri = APIConfig.Academics.Medium.DeleteMediumsDetailsUri;
+        DeleteMediumsDetailsUri = DeleteMediumsDetailsUri
+            .replace('<MediumId>', id)
             .replace('<DeletedBy>', Cookie.loggedInUserId)
-
         instance({
             'method': 'DELETE',
-            'url': DeleteFormsDetailsUri
+            'url': DeleteMediumsDetailsUri
         }).then((response) => {
             setHasAPIError(false);
             //debugger;
@@ -179,10 +182,12 @@ const MstForm = (props) => {
 
                 //setDefaultDynamicAPIResponse(response.data.Data);
                 setHasAPISuccess(true);
+                setHasAPIFailed(false);
                 setHasAPIMessage(response.data.Message);
                 setHasAPIDescription(response.data.Description);
             }
             else {
+                setHasAPISuccess(false);
                 setHasAPIFailed(true);
                 setHasAPIMessage(response.data.Message);
                 setHasAPIDescription(response.data.Description);
@@ -198,20 +203,8 @@ const MstForm = (props) => {
 
     return (
         <>
-            <div>
-                {
-                    //<Spinner animation="grow" />
-                    //<div className="card-body">
-                    //    <div className="h1 card-title placeholder-glow">
-                    //        <span className="placeholder col-xl-12 col-md-12"></span>
-                    //    </div>
-
-                    //</div>
-                }
-
-            </div>
-
             {(() => {
+
                 if (!DefaultDynamicAPIResponse && !HasAPIError) {
                     return (
                         <>
@@ -265,24 +258,26 @@ const MstForm = (props) => {
                     )
                 }
                 if (DefaultDynamicAPIResponse) {
-                    if (MyComponent == "IndexMstForm") {
-                        return (
-                            <>
-                                <div className="full-doc">
-                                    <button className="btn btn-primary btn-sm"
-                                        type="button"
-                                        id="btnTopnavigation"
-                                        onClick={loadComponent}>
-                                        <FontAwesomeIcon icon={faPlusSquare} />
-                                        {" " + MyInnerComponentName}
+                    //if (MyComponent == "IndexAcadMstSetupMedium") {
+                    return (
+                        <>
+                            {
+                                //<div className="full-doc">
+                                //    <button className="btn btn-primary btn-sm"
+                                //        type="button"
+                                //        id="btnTopnavigation"
+                                //        onClick={loadComponent}>
+                                //        <FontAwesomeIcon icon={faPlusSquare} />
+                                //        {" " + MyInnerComponentName}
 
-                                    </button>
+                                //    </button>
 
-                                </div>
-
-                                {
-                                    !HasAPIError && (HasAPISuccess || HasAPIFailed) && (
-                                        <>
+                                //</div>
+                            }
+                            {
+                                !HasAPIError && (HasAPISuccess || HasAPIFailed) && (
+                                    <>
+                                        <div id="divStatusRoot">
                                             <div style={{ display: (!HasAPIError && HasAPISuccess && !HasAPIFailed) ? 'block' : 'none' }}>
                                                 <div className="row">
                                                     <div className="col-xl-12 col-md-12">
@@ -307,47 +302,60 @@ const MstForm = (props) => {
                                                     </div>
                                                 </div>
                                             </div>
-                                        </>
-                                    )
-                                }
+                                        </div>
+                                    </>
+                                )
+                            }
 
-                                <IndexMstForm
+                            <div className="row">
+                                <AddEditAcadMstSetupMedium
+                                    pageTitle={data.innerComponentName}
+                                    dataRow={DataRow}
+                                    funcBackToIndex={loadComponent}
+                                />
+                                <IndexAcadMstSetupMedium
                                     defaultDynamicAPIResponse={DefaultDynamicAPIResponse}
                                     fetchParentDefaultData={fetchParentDefaultData}
                                     RowPerPage={RowPerPage}
                                     CurrentPage={CurrentPage}
                                     SearchBy={SearchBy}
                                     SearchValue={SearchValue}
-                                    setFormId={FormId}
+                                    setMediumId={MediumId}
                                     funcLoadComponent={loadComponent}
                                     funcDeleteRecord={funcDeleteRecord}
                                 />
-                            </>
-                        );
-                    }
-                    else if (MyComponent == "AddEditMstForm") {
-                        return (
-                            <>
-                                <div className="full-doc">
-                                    <button className="btn btn-primary btn-sm"
-                                        type="button"
-                                        id="btnTopnavigation"
-                                        onClick={loadComponent}>
-                                        <FontAwesomeIcon icon={faArrowCircleLeft} />
-                                        {" " + MyInnerComponentName}
-                                    </button>
-                                </div>
-                                <AddEditMstForm pageTitle={data.innerComponentName} dataRow={DataRow} funcBackToIndex={loadComponent} />
-                            </>
-                        );
-                    }
+                            </div>
+                        </>
+                    );
+                    //}
+                    //if (MyComponent == "AddEditAcadMstSetupMedium") {
+                    //    return (
+                    //        <>
+                    //            <div className="full-doc">
+                    //                <button className="btn btn-primary btn-sm"
+                    //                    type="button"
+                    //                    id="btnTopnavigation"
+                    //                    onClick={loadComponent}>
+                    //                    <FontAwesomeIcon icon={faArrowCircleLeft} />
+                    //                    {" " + MyInnerComponentName}
+                    //                </button>
+                    //            </div>
+                    //            <AddEditAcadMstSetupMedium
+                    //                pageTitle={data.innerComponentName}
+                    //                dataRow={DataRow}
+                    //                funcBackToIndex={loadComponent}
+                    //            />
+                    //        </>
+                    //    );
+                    //}
                 }
                 else {
                     <Login />
                 }
             })()}
+
         </>
     );
 };
 
-export default MstForm;
+export default AcadMstSetupMedium;

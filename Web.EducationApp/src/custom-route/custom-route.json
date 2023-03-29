@@ -119,7 +119,11 @@
   },
   {
     "component": "AcadMstSetupMedium",
-    "title": "Medium",
+    "title": "Medium Master",
+    "landingComponent": "IndexAcadMstSetupMedium",
+    "innerComponentName": "Add New",
+    "backMainComponentName": "Back",
+    "innerComponentList": "AddEditAcadMstSetupMedium",
     "componentPath": "../pages/organization/academics/setup/masters/AcadMstSetupMedium",
     "route": "/pages/organization/academics/setup/masters/AcadMstSetupMedium"
   },

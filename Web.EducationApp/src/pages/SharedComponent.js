@@ -16,7 +16,7 @@ import AcadAdminDashboard from "../pages/organization/academics/dashboard/AcadAd
 import AcadParentDashboard from "../pages/organization/academics/dashboard/AcadParentDashboard";
 import AcadStudentDashboard from "../pages/organization/academics/dashboard/AcadStudentDashboard";
 import AcadTeacherDashboard from "../pages/organization/academics/dashboard/AcadTeacherDashboard";
-import AcadMstSetupMedium from "../pages/organization/academics/setup/masters/AcadMstSetupMedium";
+import AcadMstSetupMedium from "../pages/organization/academics/setup/masters/MstSetupMedium/AcadMstSetupMedium";
 import AcadMstSetupSection from "../pages/organization/academics/setup/masters/AcadMstSetupSection";
 import AcadMstSetupSubject from "../pages/organization/academics/setup/masters/AcadMstSetupSubject";
 import AcadMstSetupClass from "../pages/organization/academics/setup/masters/AcadMstSetupClass";
@@ -99,68 +99,68 @@ const SharedComponent = ({ data }) => {
                             return <MstCity data={data} />
                         }
                         else if (data.component === "MapFormAccount") {
-                            return <MapFormAccount />
+                            return <MapFormAccount data={data} />
                         }
                         else if (data.component === "MapUserAccount") {
-                            return <MapUserAccount />
+                            return <MapUserAccount data={data} />
                         }
                         else if (data.component === "MapFormRole") {
-                            return <MapFormRole />
+                            return <MapFormRole data={data} />
                         }
                         else if (data.component === "AdminDashboard") {
-                            return <AdminDashboard />
+                            return <AdminDashboard data={data} />
                         }
                         //#endregion
                         else if (data.component === "AcadAdminDashboard") {
-                            return <AcadAdminDashboard />
+                            return <AcadAdminDashboard data={data} />
                         }
                         else if (data.component === "AcadParentDashboard") {
-                            return <AcadParentDashboard />
+                            return <AcadParentDashboard data={data} />
                         }
                         else if (data.component === "AcadStudentDashboard") {
-                            return <AcadStudentDashboard />
+                            return <AcadStudentDashboard data={data} />
                         }
                         else if (data.component === "AcadTeacherDashboard") {
-                            return <AcadTeacherDashboard />
+                            return <AcadTeacherDashboard data= { data } />
                         }
                         else if (data.component === "AcadMstSetupMedium") {
-                            return <AcadMstSetupMedium />
+                            return <AcadMstSetupMedium data={data} />
                         }
                         else if (data.component === "AcadMstSetupSection") {
-                            return <AcadMstSetupSection />
+                            return <AcadMstSetupSection data={data} />
                         }
                         else if (data.component === "AcadMstSetupSubject") {
-                            return <AcadMstSetupSubject />
+                            return <AcadMstSetupSubject data={data} />
                         }
                         else if (data.component === "AcadMstSetupClass") {
-                            return <AcadMstSetupClass />
+                            return <AcadMstSetupClass data={data} />
                         }
                         else if (data.component === "AcadMapClassSubject") {
-                            return <AcadMapClassSubject />
+                            return <AcadMapClassSubject data={data} />
                         }
                         else if (data.component === "AcadMapClassTeacher") {
-                            return <AcadMapClassTeacher />
+                            return <AcadMapClassTeacher data={data} />
                         }
                         else if (data.component === "AcadMapClassSubject") {
-                            return <AcadMapClassTeacher />
+                            return <AcadMapClassTeacher data= { data } />
                         }
                         else if (data.component === "AcadMapSubjectTeacher") {
-                            return <AcadMapSubjectTeacher />
+                            return <AcadMapSubjectTeacher data={data} />
                         }
                         else if (data.component === "AcadMapStudentClass") {
-                            return <AcadMapStudentClass />
+                            return <AcadMapStudentClass data= { data } />
                         }
                         else if (data.component === "AcadMapStudentPromote") {
-                            return <AcadMapStudentPromote />
+                            return <AcadMapStudentPromote data={data} />
                         }
                         else if (data.component === "AcadStudentDetails") {
                             return <AcadStudentDetails data={data} />
                         }
                         else if (data.component === "AcadMstSetupStudentCategory") {
-                            return <AcadMstSetupStudentCategory />
+                            return <AcadMstSetupStudentCategory data={data} />
                         }
                         else if (data.component === "AcadMstStudentAssignment") {
-                            return <AcadMstStudentAssignment />
+                            return <AcadMstStudentAssignment data={data} />
                         }
                         else if (data.component === "AcadTeacherDetails") {
                             return <AcadTeacherDetails data={data} />

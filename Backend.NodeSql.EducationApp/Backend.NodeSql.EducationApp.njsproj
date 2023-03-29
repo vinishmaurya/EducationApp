@@ -38,6 +38,8 @@
     <Content Include="controllers\admin\setup\role.controller.js" />
     <Content Include="controllers\admin\setup\form.controller.js" />
     <Content Include="controllers\admin\setup\user.controller.js" />
+    <Content Include="controllers\organization\academics\setup\masters\common.controller.js" />
+    <Content Include="controllers\organization\academics\setup\masters\medium.controller.js" />
     <Content Include="middleware\credentials.js" />
     <Content Include="middleware\errorHandler.js" />
     <Content Include="middleware\logEvents.js" />
@@ -56,11 +58,17 @@
     <Content Include="routes\admin\setup\map.form.role.route.js" />
     <Content Include="routes\admin\setup\role.route.js" />
     <Content Include="routes\admin\setup\user.route.js" />
+    <Content Include="routes\organization\academics\setup\masters\common.route.js" />
+    <Content Include="routes\organization\academics\setup\masters\medium.route.js" />
     <Content Include="swagger.js" />
     <Content Include="swagger_output.json" />
     <Content Include="index.js" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="controllers\organization\" />
+    <Folder Include="controllers\organization\academics\" />
+    <Folder Include="controllers\organization\academics\setup\" />
+    <Folder Include="controllers\organization\academics\setup\masters\" />
     <Folder Include="public\images\app_images\" />
     <Folder Include="controllers\admin\" />
     <Folder Include="controllers\admin\setup\" />
@@ -73,6 +81,10 @@
     <Folder Include="routes\" />
     <Folder Include="routes\admin\" />
     <Folder Include="routes\admin\setup\" />
+    <Folder Include="routes\organization\" />
+    <Folder Include="routes\organization\academics\" />
+    <Folder Include="routes\organization\academics\setup\" />
+    <Folder Include="routes\organization\academics\setup\masters\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />

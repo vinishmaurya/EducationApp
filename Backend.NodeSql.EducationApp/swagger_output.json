@@ -36,16 +36,16 @@
               "type": "object",
               "properties": {
                 "UserName": {
-                  "example": "dadmin"
+                  "example": "any"
                 },
                 "Password": {
-                  "example": "Pass@123"
+                  "example": "any"
                 },
                 "GrantType": {
-                  "example": "Password"
+                  "example": "any"
                 },
                 "RefreshToken": {
-                  "example": ""
+                  "example": "any"
                 }
               }
             }
@@ -184,7 +184,18 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "CategoryId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "IsParentAccount",
+            "in": "query",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -697,21 +708,6 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "UserName": {
-                  "example": "any"
-                },
-                "Password": {
-                  "example": "any"
-                }
-              }
-            }
           }
         ],
         "responses": {
@@ -815,37 +811,10 @@
                 "CountryName": {
                   "example": "any"
                 },
-                "ComponentName": {
-                  "example": "any"
-                },
-                "ComponentPath": {
-                  "example": "any"
-                },
-                "LandingComponentName": {
-                  "example": "any"
-                },
-                "ParentCountryId": {
-                  "example": "any"
-                },
-                "SolutionId": {
-                  "example": "any"
-                },
-                "ClassName": {
-                  "example": "any"
-                },
-                "Area": {
-                  "example": "any"
-                },
                 "IsActive": {
                   "example": "any"
                 },
                 "CreatedBy": {
-                  "example": "any"
-                },
-                "ImageName": {
-                  "example": "any"
-                },
-                "PlatCountryType": {
                   "example": "any"
                 }
               }
@@ -871,6 +840,235 @@
         "parameters": [
           {
             "name": "CountryId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "DeletedBy",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/State/GetStateDetails": {
+      "get": {
+        "tags": [
+          "Admin.State"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "StateId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "RowPerPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "CurrentPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchBy",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchValue",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/State/AddEditStateDetails": {
+      "post": {
+        "tags": [
+          "Admin.State"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "CountryId": {
+                  "example": "any"
+                },
+                "StateId": {
+                  "example": "any"
+                },
+                "StateName": {
+                  "example": "any"
+                },
+                "IsActive": {
+                  "example": "any"
+                },
+                "CreatedBy": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/State/DeleteStatesDetails": {
+      "delete": {
+        "tags": [
+          "Admin.State"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "StateId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "DeletedBy",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/City/GetCityDetails": {
+      "get": {
+        "tags": [
+          "Admin.City"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "CityId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "RowPerPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "CurrentPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchBy",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchValue",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/City/AddEditCityDetails": {
+      "post": {
+        "tags": [
+          "Admin.City"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "StateId": {
+                  "example": "any"
+                },
+                "CountryId": {
+                  "example": "any"
+                },
+                "CityId": {
+                  "example": "any"
+                },
+                "CityName": {
+                  "example": "any"
+                },
+                "IsActive": {
+                  "example": "any"
+                },
+                "CreatedBy": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/City/DeleteCityDetails": {
+      "delete": {
+        "tags": [
+          "Admin.City"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "CityId",
             "in": "query",
             "type": "string"
           },
@@ -980,6 +1178,179 @@
           "application/json"
         ],
         "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/academics/common/GetAllCountryList": {
+      "get": {
+        "tags": [
+          "Academics.Common"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/academics/common/GetAllStateListCountryId": {
+      "get": {
+        "tags": [
+          "Academics.Common"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "CountryId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/academics/common/GetAllCityListByState": {
+      "get": {
+        "tags": [
+          "Academics.Common"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "StateId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/academics/Medium/GetMediumDetails": {
+      "get": {
+        "tags": [
+          "Academics.Medium"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "MediumId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "RowPerPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "CurrentPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchBy",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchValue",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/academics/Medium/AddEditMediumDetails": {
+      "post": {
+        "tags": [
+          "Academics.Medium"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "MediumId": {
+                  "example": "any"
+                },
+                "MediumName": {
+                  "example": "any"
+                },
+                "IsActive": {
+                  "example": "any"
+                },
+                "CreatedBy": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/academics/Medium/DeleteMediumsDetails": {
+      "delete": {
+        "tags": [
+          "Academics.Medium"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "MediumId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "DeletedBy",
+            "in": "query",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
