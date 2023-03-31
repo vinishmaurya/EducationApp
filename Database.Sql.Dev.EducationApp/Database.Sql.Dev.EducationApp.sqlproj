@@ -65,6 +65,7 @@
     <Folder Include="Security\" />
     <Folder Include="ACAD\" />
     <Folder Include="ACAD\Tables\" />
+    <Folder Include="ACAD\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -174,5 +175,13 @@
     <Build Include="ACAD\Tables\MST_Class.sql" />
     <Build Include="ACAD\Tables\MST_Teacher.sql" />
     <Build Include="Security\ACAD.sql" />
+    <Build Include="ACAD\Tables\MST_SearchTerms.sql" />
+    <Build Include="ACAD\Stored Procedures\USP_SvcGetSubjectDetails.sql" />
+    <Build Include="ACAD\Stored Procedures\USP_SvcGetMediumList.sql" />
+    <Build Include="ACAD\Stored Procedures\USP_SvcGetMediumDetails_1.sql" />
+    <Build Include="ACAD\Stored Procedures\USP_SvcDeleteSubject.sql" />
+    <Build Include="ACAD\Stored Procedures\USP_SvcDeleteMedium_1.sql" />
+    <Build Include="ACAD\Stored Procedures\USP_SvcAddEditSubject.sql" />
+    <Build Include="ACAD\Stored Procedures\USP_SvcAddEditMedium_1.sql" />
   </ItemGroup>
 </Project>

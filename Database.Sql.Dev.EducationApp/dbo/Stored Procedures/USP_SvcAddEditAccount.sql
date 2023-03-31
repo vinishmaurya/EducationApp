@@ -52,7 +52,13 @@ BEGIN TRY
 	END
 	IF(@StepCompleted = 'AdditionalInfo') OR (@StepCompleted = 'Credentials')
 	BEGIN
-		IF(ISNULL(@iPK_AccountId,0) <= 0) OR NOT EXISTS(SELECT 1 FROM [dbo].[MST_Account](NOLOCK) WHERE PK_AccountId=ISNULL(@iPK_AccountId,0) AND CreatedBy = @CreatedBy)           
+		IF(ISNULL(@iPK_AccountId,0) <= 0) OR 
+		NOT EXISTS
+		(
+			SELECT 1 FROM [dbo].[MST_Account](NOLOCK) 
+			WHERE PK_AccountId=ISNULL(@iPK_AccountId,0) 
+			--AND CreatedBy = @CreatedBy
+		)           
 		BEGIN    
 			SELECT 0 AS Message_Id,'Failed, (AccountId) parameter must be a valid id!' AS Message   
 			RETURN;
@@ -62,17 +68,38 @@ BEGIN TRY
 	IF(@StepCompleted = 'AccountDetails')
 	BEGIN
 		--Validations
-		IF EXISTS(SELECT 1 FROM [dbo].[MST_Account] (NOLOCK) WHERE AccountName=LTRIM(RTRIM(@cAccountName)) AND IsActive =1 AND CreatedBy = @CreatedBy AND PK_AccountId != ISNULL(@iPK_AccountId,0))            
+		IF EXISTS
+		(
+			SELECT 1 FROM [dbo].[MST_Account] (NOLOCK) 
+			WHERE AccountName=LTRIM(RTRIM(@cAccountName)) 
+			AND IsActive =1 
+		--	AND CreatedBy = @CreatedBy 
+			AND PK_AccountId != ISNULL(@iPK_AccountId,0)
+		)            
 		BEGIN    
 			SELECT 0 AS Message_Id,'Failed, Account Name already exists!' AS Message   
 			RETURN;
 		END
-		IF EXISTS(SELECT 1 FROM [dbo].[MST_Account](NOLOCK) WHERE MobileNo=@cMobileNo  AND IsActive=1 and CreatedBy = @CreatedBy AND PK_AccountId != ISNULL(@iPK_AccountId,0))                    
+		IF EXISTS
+		(
+			SELECT 1 FROM [dbo].[MST_Account](NOLOCK) 
+			WHERE MobileNo=@cMobileNo  
+			AND IsActive=1 
+			--and CreatedBy = @CreatedBy 
+			AND PK_AccountId != ISNULL(@iPK_AccountId,0)
+		)                    
 		BEGIN  
 			SELECT 0 AS Message_Id,'Failed, Mobile No. already in use!' AS Message 
 			RETURN;
 		END
-		IF EXISTS(SELECT 1 FROM [dbo].[MST_Account](NOLOCK) WHERE EmailId=@cEmailId  AND IsActive=1 and CreatedBy = @CreatedBy AND PK_AccountId != ISNULL(@iPK_AccountId,0))                    
+		IF EXISTS
+		(
+			SELECT 1 FROM [dbo].[MST_Account](NOLOCK) 
+			WHERE EmailId=@cEmailId  
+			AND IsActive=1 
+			--and CreatedBy = @CreatedBy 
+			AND PK_AccountId != ISNULL(@iPK_AccountId,0)
+		)                    
 		BEGIN   
 			SELECT 0 AS Message_Id,'Failed, EmailId already in use!' AS Message  
 			RETURN;
