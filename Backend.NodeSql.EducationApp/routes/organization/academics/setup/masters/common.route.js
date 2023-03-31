@@ -7,5 +7,6 @@ const router = express.Router();
 router.get('/academics/common/GetAllCountryList', setupController.GetAllCountryList);
 router.get('/academics/common/GetAllStateListCountryId', setupController.GetAllStateListCountryId);
 router.get('/academics/common/GetAllCityListByState', setupController.GetAllCityListByState);
+router.get('/academics/common/GetAllMediumList', setupController.GetAllMediumList);
 
 module.exports = router

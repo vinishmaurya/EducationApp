@@ -116,7 +116,7 @@ const AddEditMstAccount = (props) => {
         CountryId: { value: propData ? propData.FK_CountryId : '', error: "This country field selection is required!" },
         StateId: { value: propData ? propData.FK_CityId : '', error: "This state field selection is required!!" },
         CityId: { value: propData ? propData.FK_StateId : '', error: "This city field selection is required!!" },
-        AccountLogo: { value: File, error: "This account logo field is required!!" },
+        AccountLogo: { value: File, error: "This account logo field selection is required!!" },
         AccountLogoUrl: { value: propData ? propData.AccountLogo : '', error: "" },
     };
     //define form hook
@@ -157,7 +157,7 @@ const AddEditMstAccount = (props) => {
             }
         },
         AccountLogo: {
-            required: (SaveNextAdditionalInfoData.AccountLogo ? false : true)
+            required: ((propData ? propData.AccountLogo : false) ? false : true)
         },
     };
 
@@ -707,7 +707,7 @@ const AddEditMstAccount = (props) => {
 
     //Step 3 : Credentials
     function onSubmitFormCredentials(event, valuesCredentials) {
-        //debugger;
+        debugger;
         event.preventDefault();
 
         const btnPointer = document.querySelector('#btnSaveNextCredentials');

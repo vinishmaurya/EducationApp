@@ -5,7 +5,7 @@
     "description": "Description",
     "version": "1.0.0"
   },
-  "host": "192.168.1.8:2000",
+  "host": "192.168.1.3:2000",
   "basePath": "/api/",
   "schemes": [
     "http"
@@ -1248,6 +1248,23 @@
         }
       }
     },
+    "/academics/common/GetAllMediumList": {
+      "get": {
+        "tags": [
+          "Academics.Common"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/academics/Medium/GetMediumDetails": {
       "get": {
         "tags": [
@@ -1342,6 +1359,128 @@
         "parameters": [
           {
             "name": "MediumId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "DeletedBy",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/academics/Subject/GetSubjectDetails": {
+      "get": {
+        "tags": [
+          "Academics.Subject"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "SubjectId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "RowPerPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "CurrentPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchBy",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchValue",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/academics/Subject/AddEditSubjectDetails": {
+      "post": {
+        "tags": [
+          "Academics.Subject"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "SubjectId": {
+                  "example": "any"
+                },
+                "MediumId": {
+                  "example": "any"
+                },
+                "SubjectName": {
+                  "example": "any"
+                },
+                "SubjectType": {
+                  "example": "any"
+                },
+                "SubjectCode": {
+                  "example": "any"
+                },
+                "BackgroundColorCode": {
+                  "example": "any"
+                },
+                "IsActive": {
+                  "example": "any"
+                },
+                "CreatedBy": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/academics/Subject/DeleteSubjectsDetails": {
+      "delete": {
+        "tags": [
+          "Academics.Subject"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "SubjectId",
             "in": "query",
             "type": "string"
           },

@@ -183,7 +183,9 @@
     <Content Include="src\pages\organization\academics\setup\masters\MstSetupMedium\IndexAcadMstSetupMedium.js" />
     <Content Include="src\pages\organization\academics\setup\masters\AcadMstSetupSession.js" />
     <Content Include="src\pages\organization\academics\setup\masters\AcadMstSetupStudentCategory.js" />
-    <Content Include="src\pages\organization\academics\setup\masters\AcadMstSetupSubject.js" />
+    <Content Include="src\pages\organization\academics\setup\masters\MstSetupSubject\AddEditAcadMstSetupSubject.js" />
+    <Content Include="src\pages\organization\academics\setup\masters\MstSetupSubject\IndexAcadMstSetupSubject.js" />
+    <Content Include="src\pages\organization\academics\setup\masters\MstSetupSubject\AcadMstSetupSubject.js" />
     <Content Include="src\pages\organization\academics\setup\masters\AcadMstSetupClass.js" />
     <Content Include="src\pages\organization\academics\setup\masters\AcadMstSetupSection.js" />
     <Content Include="src\pages\organization\academics\setup\masters\MstSetupMedium\AcadMstSetupMedium.js" />
@@ -235,6 +237,7 @@
     <Content Include="src\util\common.vars.js" />
     <Content Include="src\util\ProtectedRoute.js" />
     <Content Include="src\util\useFormValidator.js" />
+    <Content Include="web.config" />
     <Content Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>

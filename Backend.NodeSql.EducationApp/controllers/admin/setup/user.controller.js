@@ -139,13 +139,11 @@ const AddEditUserDetails = async (req, res, next) => {
                         }
                         else {
                             UserLogo_Multipart = req.files.UserLogo;
+                            let fileName = UserLogo_Multipart.name;
+                            let extension = fileName.substr(fileName.lastIndexOf('.'), fileName.length - fileName.lastIndexOf('.')).toUpperCase();
                             //Size and format validations
-                            if (
-                                String(UserLogo_Multipart.name.split('.')[1]).toUpperCase() != "JPG" &&
-                                String(UserLogo_Multipart.name.split('.')[1]).toUpperCase() != "JPEG" &&
-                                String(UserLogo_Multipart.name.split('.')[1]).toUpperCase() != "PNG"
-                            ) {
-                                message = "Invalid User logo Image format? only (jpg,jpeg,png) images are required!";
+                            if (["PNG", "JPEG", "JPG"].includes(extension)) {
+                                message = "Invalid Subject logo Image format? only (jpg,jpeg,png) images are required!";
                                 bool = false;
                             }
                             else if ((UserLogo_Multipart.size / (1000 * 1000)) > 1) {
@@ -183,7 +181,10 @@ const AddEditUserDetails = async (req, res, next) => {
                 if (!fs.existsSync(RootDirectory)) {
                     fs.mkdirSync(RootDirectory, { recursive: true });
                 }
-                var fileName = date.format((new Date()), 'DDMMMYYYYhhmmss') + "." + UserLogo_Multipart.name.split('.')[1];
+                let fileName_orignal = SubjectImage_Multipart.name;
+                let extension = fileName_orignal.substr(fileName_orignal.lastIndexOf('.'), fileName_orignal.length - fileName_orignal.lastIndexOf('.')).toUpperCase();
+
+                var fileName = date.format((new Date()), 'DDMMMYYYYhhmmss') + extension;
                 var uploadedFileUrl = `${process.env.HOST_URL}/images/app_images/user_logo/` + fileName;
                 uploadFilePath = RootDirectory + fileName;
                 fs.writeFile(uploadFilePath, UserLogo_Multipart.data, { encoding: 'base64' }, function (err) {

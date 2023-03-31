@@ -89,7 +89,7 @@ const AddEditAcadMstSetupMedium = (props) => {
     const isComponentMounted = CommonFuncs.useIsComponentMounted();
     if (!isComponentMounted.current) {
         //After Component Load data
-        console.log(propData);
+        //console.log(propData);
     }
 
     //#region submit form data and call axios
@@ -188,7 +188,18 @@ const AddEditAcadMstSetupMedium = (props) => {
 
     //#region clear form data and call axios
     const btnClearMediumDetails = (event) => {
-        setMediumDetailsData(stateSchemaMediumDetails);
+        //Set default values
+        let keys = Object.keys(MediumDetailsData);
+        let obj = new Object();
+        let currentVal;
+        for (var i = 0; i < keys.length; i++) {
+            if (keys[i] === 'MediumId') { currentVal = 0 }
+            else if (keys[i] === 'MediumName') { currentVal = '' }
+            else if (keys[i] === 'IsActive') { currentVal = true }
+            obj[keys[i]] = MediumDetailsData[keys[i]];
+            obj[keys[i]].value = currentVal;
+        }
+        setMediumDetailsData(obj);
         handleOnClearMediumDetails(event);
     }
     //#endregion
@@ -302,20 +313,20 @@ const AddEditAcadMstSetupMedium = (props) => {
                                                 </label>
                                                 <br />
                                                 <div className="form-check form-check-inline">
-                                                    <input className="form-check-input" type="radio" name="IsActive" id="inlineRadio1"
+                                                    <input className="form-check-input" type="radio" name="IsActive" id="IsActiveTrue"
                                                         value="true"
-                                                        defaultChecked={MediumDetailsData.IsActive.value === true}
+                                                        checked={String(MediumDetailsData.IsActive.value) === String(true)}
                                                         onChange={e => { handleOnChangeMediumDetails(e); onInputChangeControllerMediumDetails(e) }}
                                                     />
-                                                    <label className="form-check-label" htmlFor="inlineRadio1">Active</label>
+                                                    <label className="form-check-label" htmlFor="IsActiveTrue">Active</label>
                                                 </div>
                                                 <div className="form-check form-check-inline">
-                                                    <input className="form-check-input" type="radio" name="IsActive" id="inlineRadio2"
+                                                    <input className="form-check-input" type="radio" name="IsActive" id="IsActiveFalse"
                                                         value="false"
-                                                        defaultChecked={MediumDetailsData.IsActive.value === false}
+                                                        checked={String(MediumDetailsData.IsActive.value) === String(false)}
                                                         onChange={e => { handleOnChangeMediumDetails(e); onInputChangeControllerMediumDetails(e) }}
                                                     />
-                                                    <label className="form-check-label" htmlFor="inlineRadio2">Inactive</label>
+                                                    <label className="form-check-label" htmlFor="IsActiveFalse">Inactive</label>
                                                 </div>
 
                                             </div>

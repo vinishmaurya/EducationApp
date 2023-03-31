@@ -197,7 +197,8 @@ const AddEditMstRole = (props) => {
     const fetchAllRoleList = async () => {
         //debugger;
         let apiUri = APIConfig.Admin.Common.GetAllRoleListUri;
-
+        apiUri = apiUri.replace('<CategoryId>', '')
+            .replace('<AccountId>', '')
         const instance = await axios.create({
             baseURL: process.env.REACT_APP_APIBaseUri,
             headers: {
@@ -227,7 +228,7 @@ const AddEditMstRole = (props) => {
             'method': 'GET',
             'url': apiUri ? apiUri : ""
         }).then((response) => {
-            //console.log(response);
+            console.log(response);
             if (response.data.Result) {
                 let DataList = [];
                 response.data.Data.map((data, i) => {
@@ -501,9 +502,9 @@ const AddEditMstRole = (props) => {
                         //}
                     }
                     setFinishRoleRightsDetailsData(obj);
-                    
+
                     fetchGetAllFormRoleMappings();
-                    
+
                 }
                 else {
                     setHasAPIError(!response.data.Result);

@@ -18,7 +18,7 @@ import AcadStudentDashboard from "../pages/organization/academics/dashboard/Acad
 import AcadTeacherDashboard from "../pages/organization/academics/dashboard/AcadTeacherDashboard";
 import AcadMstSetupMedium from "../pages/organization/academics/setup/masters/MstSetupMedium/AcadMstSetupMedium";
 import AcadMstSetupSection from "../pages/organization/academics/setup/masters/AcadMstSetupSection";
-import AcadMstSetupSubject from "../pages/organization/academics/setup/masters/AcadMstSetupSubject";
+import AcadMstSetupSubject from "../pages/organization/academics/setup/masters/MstSetupSubject/AcadMstSetupSubject";
 import AcadMstSetupClass from "../pages/organization/academics/setup/masters/AcadMstSetupClass";
 //Acedmic Master Mapings 
 import AcadMapClassSubject from "../pages/organization/academics/setup/masters-mapping/AcadMapClassSubject";

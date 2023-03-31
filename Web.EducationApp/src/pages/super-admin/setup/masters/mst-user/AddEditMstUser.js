@@ -166,7 +166,7 @@ const IndexMstUser = (props) => {
             }
         },
         UserLogo: {
-            required: (SaveNextAdditionalInfoData.UserLogo ? false : true)
+            required: ((propData ? propData.UserLogo : false) ? false : true)
         },
     };
 

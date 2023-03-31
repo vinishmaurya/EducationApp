@@ -22,6 +22,7 @@ const authRoute = require('./routes/admin/auth.route');
 
 //#region Academics Setup Routes
 const academicsMediumRoute = require('./routes/organization/academics/setup/masters/medium.route');
+const academicsSubjectRoute = require('./routes/organization/academics/setup/masters/subject.route');
 const academicsCommonRoute = require('./routes/organization/academics/setup/masters/common.route');
 //#endregion
 const swaggerDocument = require('./swagger_output.json');
@@ -109,7 +110,8 @@ app.use('/api', [
 ]);
 app.use('/api', [
     academicsCommonRoute,
-    academicsMediumRoute
+    academicsMediumRoute,
+    academicsSubjectRoute
 ]);
 //Invalid Uri
 app.use(function (req, res) {

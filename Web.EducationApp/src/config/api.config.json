@@ -56,14 +56,20 @@
   },
   "Academics": {
     "Common": {
-      "GetAllCountryListUri": "/admin/common/GetAllCountryList",
-      "GetAllStateListCountryIdUri": "/admin/common/GetAllStateListCountryId",
-      "GetAllCityListByStateUri": "/admin/common/GetAllCityListByState"
+      "GetAllCountryListUri": "/academics/common/GetAllCountryList",
+      "GetAllStateListCountryIdUri": "/academics/common/GetAllStateListCountryId",
+      "GetAllCityListByStateUri": "/academics/common/GetAllCityListByState",
+      "GetAllMediumListUri": "/academics/common/GetAllMediumList"
     },
     "Medium": {
       "AddEditMediumDetailsUri": "/academics/Medium/AddEditMediumDetails",
       "GetMediumDetailsUri": "/academics/Medium/GetMediumDetails?MediumId=<MediumId>&RowPerPage=<RowPerPage>&CurrentPage=<CurrentPage>&SearchBy=<SearchBy>&SearchValue=<SearchValue>",
       "DeleteMediumsDetailsUri": "/academics/Medium/DeleteMediumsDetails?MediumId=<MediumId>&DeletedBy=<DeletedBy>"
+    },
+    "Subject": {
+      "AddEditSubjectDetailsUri": "/academics/Subject/AddEditSubjectDetails",
+      "GetSubjectDetailsUri": "/academics/Subject/GetSubjectDetails?SubjectId=<SubjectId>&RowPerPage=<RowPerPage>&CurrentPage=<CurrentPage>&SearchBy=<SearchBy>&SearchValue=<SearchValue>",
+      "DeleteSubjectsDetailsUri": "/academics/Subject/DeleteSubjectsDetails?SubjectId=<SubjectId>&DeletedBy=<DeletedBy>"
     }
   }
 }
