@@ -183,5 +183,10 @@
     <Build Include="ACAD\Stored Procedures\USP_SvcDeleteMedium_1.sql" />
     <Build Include="ACAD\Stored Procedures\USP_SvcAddEditSubject.sql" />
     <Build Include="ACAD\Stored Procedures\USP_SvcAddEditMedium_1.sql" />
+    <Build Include="ACAD\Tables\MST_Section.sql" />
+    <Build Include="ACAD\Stored Procedures\USP_SvcGetSectionList.sql" />
+    <Build Include="ACAD\Stored Procedures\USP_SvcGetSectionDetails.sql" />
+    <Build Include="ACAD\Stored Procedures\USP_SvcDeleteSection.sql" />
+    <Build Include="ACAD\Stored Procedures\USP_SvcAddEditSection.sql" />
   </ItemGroup>
 </Project>

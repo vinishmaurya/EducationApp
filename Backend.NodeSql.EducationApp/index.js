@@ -21,6 +21,7 @@ const authRoute = require('./routes/admin/auth.route');
 //#endregion
 
 //#region Academics Setup Routes
+const academicsSectionRoute = require('./routes/organization/academics/setup/masters/section.route');
 const academicsMediumRoute = require('./routes/organization/academics/setup/masters/medium.route');
 const academicsSubjectRoute = require('./routes/organization/academics/setup/masters/subject.route');
 const academicsCommonRoute = require('./routes/organization/academics/setup/masters/common.route');
@@ -110,6 +111,7 @@ app.use('/api', [
 ]);
 app.use('/api', [
     academicsCommonRoute,
+    academicsSectionRoute,
     academicsMediumRoute,
     academicsSubjectRoute
 ]);

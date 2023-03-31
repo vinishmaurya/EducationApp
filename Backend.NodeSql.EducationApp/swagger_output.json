@@ -1265,6 +1265,116 @@
         }
       }
     },
+    "/academics/Section/GetSectionDetails": {
+      "get": {
+        "tags": [
+          "Academics.Section"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "SectionId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "RowPerPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "CurrentPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchBy",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchValue",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/academics/Section/AddEditSectionDetails": {
+      "post": {
+        "tags": [
+          "Academics.Section"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "SectionId": {
+                  "example": "any"
+                },
+                "SectionName": {
+                  "example": "any"
+                },
+                "IsActive": {
+                  "example": "any"
+                },
+                "CreatedBy": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/academics/Section/DeleteSectionsDetails": {
+      "delete": {
+        "tags": [
+          "Academics.Section"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "SectionId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "DeletedBy",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/academics/Medium/GetMediumDetails": {
       "get": {
         "tags": [
@@ -1421,7 +1531,7 @@
     "/academics/Subject/AddEditSubjectDetails": {
       "post": {
         "tags": [
-          "Academics.Subject"
+          "Admin.Subject"
         ],
         "description": "",
         "produces": [
@@ -1434,28 +1544,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "SubjectId": {
-                  "example": "any"
-                },
-                "MediumId": {
-                  "example": "any"
-                },
-                "SubjectName": {
-                  "example": "any"
-                },
-                "SubjectType": {
-                  "example": "any"
-                },
-                "SubjectCode": {
-                  "example": "any"
-                },
-                "BackgroundColorCode": {
-                  "example": "any"
-                },
-                "IsActive": {
-                  "example": "any"
-                },
-                "CreatedBy": {
+                "SubjectDetails": {
                   "example": "any"
                 }
               }

@@ -70,6 +70,11 @@
       "AddEditSubjectDetailsUri": "/academics/Subject/AddEditSubjectDetails",
       "GetSubjectDetailsUri": "/academics/Subject/GetSubjectDetails?SubjectId=<SubjectId>&RowPerPage=<RowPerPage>&CurrentPage=<CurrentPage>&SearchBy=<SearchBy>&SearchValue=<SearchValue>",
       "DeleteSubjectsDetailsUri": "/academics/Subject/DeleteSubjectsDetails?SubjectId=<SubjectId>&DeletedBy=<DeletedBy>"
+    },
+    "Section": {
+      "AddEditSectionDetailsUri": "/academics/Section/AddEditSectionDetails",
+      "GetSectionDetailsUri": "/academics/Section/GetSectionDetails?SectionId=<SectionId>&RowPerPage=<RowPerPage>&CurrentPage=<CurrentPage>&SearchBy=<SearchBy>&SearchValue=<SearchValue>",
+      "DeleteSectionsDetailsUri": "/academics/Section/DeleteSectionsDetails?SectionId=<SectionId>&DeletedBy=<DeletedBy>"
     }
   }
 }

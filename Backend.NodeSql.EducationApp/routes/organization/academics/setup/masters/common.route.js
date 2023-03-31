@@ -8,5 +8,6 @@ router.get('/academics/common/GetAllCountryList', setupController.GetAllCountryL
 router.get('/academics/common/GetAllStateListCountryId', setupController.GetAllStateListCountryId);
 router.get('/academics/common/GetAllCityListByState', setupController.GetAllCityListByState);
 router.get('/academics/common/GetAllMediumList', setupController.GetAllMediumList);
+router.get('/academics/common/GetAllSectionList', setupController.GetAllSectionList);
 
 module.exports = router
