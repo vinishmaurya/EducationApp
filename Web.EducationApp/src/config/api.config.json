@@ -60,7 +60,8 @@
       "GetAllStateListCountryIdUri": "/academics/common/GetAllStateListCountryId",
       "GetAllCityListByStateUri": "/academics/common/GetAllCityListByState",
       "GetAllMediumListUri": "/academics/common/GetAllMediumList",
-      "GetAllSectionListUri": "/academics/common/GetAllSectionList"
+      "GetAllSectionListUri": "/academics/common/GetAllSectionList",
+      "GetAllSessionListUri": "/academics/common/GetAllSessionList"
     },
     "Medium": {
       "AddEditMediumDetailsUri": "/academics/Medium/AddEditMediumDetails",
@@ -81,6 +82,11 @@
       "AddEditClassDetailsUri": "/academics/Class/AddEditClassDetails",
       "GetClassDetailsUri": "/academics/Class/GetClassDetails?ClassId=<ClassId>&RowPerPage=<RowPerPage>&CurrentPage=<CurrentPage>&SearchBy=<SearchBy>&SearchValue=<SearchValue>",
       "DeleteClassDetailsUri": "/academics/Class/DeleteClassDetails?ClassId=<ClassId>&DeletedBy=<DeletedBy>"
+    },
+    "Session": {
+      "AddEditSessionDetailsUri": "/academics/Session/AddEditSessionDetails",
+      "GetSessionDetailsUri": "/academics/Session/GetSessionDetails?SessionId=<SessionId>&RowPerPage=<RowPerPage>&CurrentPage=<CurrentPage>&SearchBy=<SearchBy>&SearchValue=<SearchValue>",
+      "DeleteSessionsDetailsUri": "/academics/Session/DeleteSessionsDetails?SessionId=<SessionId>&DeletedBy=<DeletedBy>"
     }
   }
 }

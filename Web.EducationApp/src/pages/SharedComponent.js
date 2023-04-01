@@ -43,7 +43,7 @@ import AcadAnnouncement from "../pages/organization/academics/AcadAnnouncement";
 //Exam
 import AcadMstExam from "../pages/organization/academics/master/AcadMstExam";
 //Time Table
-import AcadMstSetupSession from "../pages/organization/academics/setup/masters/AcadMstSetupSession";
+import AcadMstSetupSession from "../pages/organization/academics/setup/masters/MstSetupSession/AcadMstSetupSession";
 //System Settings
 import OrgMobileAppSetting from "../pages/super-admin/setup/settings/OrgMobileAppSetting";
 import OrgWebAppGeneralSetting from "../pages/super-admin/setup/settings/OrgWebAppGeneralSetting";

@@ -191,5 +191,10 @@
     <Build Include="ACAD\Stored Procedures\USP_SvcGetClassDetails.sql" />
     <Build Include="ACAD\Stored Procedures\USP_SvcDeleteClass.sql" />
     <Build Include="ACAD\Stored Procedures\USP_SvcAddEditClass.sql" />
+    <Build Include="ACAD\Tables\MST_Session.sql" />
+    <Build Include="ACAD\Stored Procedures\USP_SvcGetSessionList.sql" />
+    <Build Include="ACAD\Stored Procedures\USP_SvcGetSessionDetails.sql" />
+    <Build Include="ACAD\Stored Procedures\USP_SvcDeleteSession.sql" />
+    <Build Include="ACAD\Stored Procedures\USP_SvcAddEditSession.sql" />
   </ItemGroup>
 </Project>

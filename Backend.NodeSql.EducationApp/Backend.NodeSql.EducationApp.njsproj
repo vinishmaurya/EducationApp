@@ -39,6 +39,7 @@
     <Content Include="controllers\admin\setup\form.controller.js" />
     <Content Include="controllers\admin\setup\user.controller.js" />
     <Content Include="controllers\organization\academics\setup\masters\common.controller.js" />
+    <Content Include="controllers\organization\academics\setup\masters\session.controller.js" />
     <Content Include="controllers\organization\academics\setup\masters\section.controller.js" />
     <Content Include="controllers\organization\academics\setup\masters\class.controller.js" />
     <Content Include="controllers\organization\academics\setup\masters\subject.controller.js" />
@@ -62,6 +63,7 @@
     <Content Include="routes\admin\setup\role.route.js" />
     <Content Include="routes\admin\setup\user.route.js" />
     <Content Include="routes\organization\academics\setup\masters\common.route.js" />
+    <Content Include="routes\organization\academics\setup\masters\session.route.js" />
     <Content Include="routes\organization\academics\setup\masters\section.route.js" />
     <Content Include="routes\organization\academics\setup\masters\class.route.js" />
     <Content Include="routes\organization\academics\setup\masters\subject.route.js" />

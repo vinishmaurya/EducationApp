@@ -1282,6 +1282,23 @@
         }
       }
     },
+    "/academics/common/GetAllSessionList": {
+      "get": {
+        "tags": [
+          "Academics.Common"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/academics/Section/GetSectionDetails": {
       "get": {
         "tags": [
@@ -1504,44 +1521,335 @@
     },
     "/academics/Subject/GetSubjectDetails": {
       "get": {
+        "tags": [
+          "Academics.Subject"
+        ],
         "description": "",
-        "parameters": [],
-        "responses": {}
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "SubjectId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "RowPerPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "CurrentPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchBy",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchValue",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
     "/academics/Subject/AddEditSubjectDetails": {
       "post": {
+        "tags": [
+          "Admin.Subject"
+        ],
         "description": "",
-        "parameters": [],
-        "responses": {}
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "SubjectDetails": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
     "/academics/Subject/DeleteSubjectsDetails": {
       "delete": {
+        "tags": [
+          "Academics.Subject"
+        ],
         "description": "",
-        "parameters": [],
-        "responses": {}
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "SubjectId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "DeletedBy",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
     "/academics/Class/GetClassDetails": {
       "get": {
+        "tags": [
+          "Academics.Class"
+        ],
         "description": "",
-        "parameters": [],
-        "responses": {}
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "ClassId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "RowPerPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "CurrentPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchBy",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchValue",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
     "/academics/Class/AddEditClassDetails": {
       "post": {
+        "tags": [
+          "Academics.Class"
+        ],
         "description": "",
-        "parameters": [],
-        "responses": {}
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ClassId": {
+                  "example": "any"
+                },
+                "MediumId": {
+                  "example": "any"
+                },
+                "ClassName": {
+                  "example": "any"
+                },
+                "SectionIds": {
+                  "example": "any"
+                },
+                "IsActive": {
+                  "example": "any"
+                },
+                "CreatedBy": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "/academics/Class/DeleteClasssDetails": {
+    "/academics/Class/DeleteClassDetails": {
       "delete": {
+        "tags": [
+          "Academics.Class"
+        ],
         "description": "",
-        "parameters": [],
-        "responses": {}
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "ClassId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "DeletedBy",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/academics/Session/GetSessionDetails": {
+      "get": {
+        "tags": [
+          "Academics.Session"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "SessionId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "RowPerPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "CurrentPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchBy",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchValue",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/academics/Session/AddEditSessionDetails": {
+      "post": {
+        "tags": [
+          "Academics.Session"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "SessionId": {
+                  "example": "any"
+                },
+                "SessionName": {
+                  "example": "any"
+                },
+                "StartDate": {
+                  "example": "any"
+                },
+                "EndDate": {
+                  "example": "any"
+                },
+                "IsActive": {
+                  "example": "any"
+                },
+                "CreatedBy": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/academics/Session/DeleteSessionsDetails": {
+      "delete": {
+        "tags": [
+          "Academics.Session"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "SessionId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "DeletedBy",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     }
   },
