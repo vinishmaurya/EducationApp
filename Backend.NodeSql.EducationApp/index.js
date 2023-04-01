@@ -1,9 +1,9 @@
 const express = require('express');
-const mongoose = require('mongoose');
+//const mongoose = require('mongoose');
 const fileUpload = require('express-fileupload');
 const url = 'mongodb://127.0.0.1:27017/DEV_EducationAppDB';
 //const config = require('./config');
-mongoose.connect(url, { useNewUrlParser: true })
+//mongoose.connect(url, { useNewUrlParser: true })
 //const mongo_database = mongoose.connection;
 var cors = require('cors');
 //#region Admin Setup Routes
@@ -24,6 +24,7 @@ const authRoute = require('./routes/admin/auth.route');
 const academicsSectionRoute = require('./routes/organization/academics/setup/masters/section.route');
 const academicsMediumRoute = require('./routes/organization/academics/setup/masters/medium.route');
 const academicsSubjectRoute = require('./routes/organization/academics/setup/masters/subject.route');
+const academicsClassRoute = require('./routes/organization/academics/setup/masters/class.route');
 const academicsCommonRoute = require('./routes/organization/academics/setup/masters/common.route');
 //#endregion
 const swaggerDocument = require('./swagger_output.json');
@@ -113,7 +114,8 @@ app.use('/api', [
     academicsCommonRoute,
     academicsSectionRoute,
     academicsMediumRoute,
-    academicsSubjectRoute
+    academicsSubjectRoute,
+    academicsClassRoute
 ]);
 //Invalid Uri
 app.use(function (req, res) {

@@ -188,5 +188,8 @@
     <Build Include="ACAD\Stored Procedures\USP_SvcGetSectionDetails.sql" />
     <Build Include="ACAD\Stored Procedures\USP_SvcDeleteSection.sql" />
     <Build Include="ACAD\Stored Procedures\USP_SvcAddEditSection.sql" />
+    <Build Include="ACAD\Stored Procedures\USP_SvcGetClassDetails.sql" />
+    <Build Include="ACAD\Stored Procedures\USP_SvcDeleteClass.sql" />
+    <Build Include="ACAD\Stored Procedures\USP_SvcAddEditClass.sql" />
   </ItemGroup>
 </Project>

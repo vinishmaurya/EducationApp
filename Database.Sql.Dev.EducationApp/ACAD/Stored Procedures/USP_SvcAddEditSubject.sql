@@ -54,7 +54,7 @@ ELSE
 BEGIN        
 	SET @iSubjectExist = 
 	(
-		SELECT COUNT(*) FROM [ACAD].[MAP_AssignClassSubject](NOLOCK) 
+		SELECT COUNT(1) FROM [ACAD].[MAP_AssignClassSubject](NOLOCK) 
 		WHERE FK_SubjectId =@iPK_SubjectId AND 
 		IsActive=1 AND 
 		ISNULL(IsDeleted,0)=0

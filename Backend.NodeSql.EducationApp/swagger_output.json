@@ -1265,6 +1265,23 @@
         }
       }
     },
+    "/academics/common/GetAllSectionList": {
+      "get": {
+        "tags": [
+          "Academics.Common"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/academics/Section/GetSectionDetails": {
       "get": {
         "tags": [
@@ -1487,103 +1504,44 @@
     },
     "/academics/Subject/GetSubjectDetails": {
       "get": {
-        "tags": [
-          "Academics.Subject"
-        ],
         "description": "",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "SubjectId",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "RowPerPage",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "CurrentPage",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "SearchBy",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "SearchValue",
-            "in": "query",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
+        "parameters": [],
+        "responses": {}
       }
     },
     "/academics/Subject/AddEditSubjectDetails": {
       "post": {
-        "tags": [
-          "Admin.Subject"
-        ],
         "description": "",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "SubjectDetails": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
+        "parameters": [],
+        "responses": {}
       }
     },
     "/academics/Subject/DeleteSubjectsDetails": {
       "delete": {
-        "tags": [
-          "Academics.Subject"
-        ],
         "description": "",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "SubjectId",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "DeletedBy",
-            "in": "query",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/academics/Class/GetClassDetails": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/academics/Class/AddEditClassDetails": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/academics/Class/DeleteClasssDetails": {
+      "delete": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
       }
     }
   },

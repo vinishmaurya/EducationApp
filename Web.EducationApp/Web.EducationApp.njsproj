@@ -179,6 +179,9 @@
     <Content Include="src\pages\organization\academics\setup\masters-mapping\AcadMapSubjectTeacher.js" />
     <Content Include="src\pages\organization\academics\setup\masters-mapping\AcadMapClassTeacher.js" />
     <Content Include="src\pages\organization\academics\setup\masters-mapping\AcadMapClassSubject.js" />
+    <Content Include="src\pages\organization\academics\setup\masters\MstSetupClass\AddEditAcadMstSetupClass.js" />
+    <Content Include="src\pages\organization\academics\setup\masters\MstSetupClass\IndexAcadMstSetupClass.js" />
+    <Content Include="src\pages\organization\academics\setup\masters\MstSetupClass\AcadMstSetupClass.js" />
     <Content Include="src\pages\organization\academics\setup\masters\MstSetupMedium\AddEditAcadMstSetupMedium.js" />
     <Content Include="src\pages\organization\academics\setup\masters\MstSetupMedium\IndexAcadMstSetupMedium.js" />
     <Content Include="src\pages\organization\academics\setup\masters\AcadMstSetupSession.js" />
@@ -189,8 +192,6 @@
     <Content Include="src\pages\organization\academics\setup\masters\MstSetupSubject\AddEditAcadMstSetupSubject.js" />
     <Content Include="src\pages\organization\academics\setup\masters\MstSetupSubject\IndexAcadMstSetupSubject.js" />
     <Content Include="src\pages\organization\academics\setup\masters\MstSetupSubject\AcadMstSetupSubject.js" />
-    <Content Include="src\pages\organization\academics\setup\masters\AcadMstSetupClass.js" />
-    <Content Include="src\pages\organization\academics\setup\masters\AcadMstSetupSection.js" />
     <Content Include="src\pages\organization\academics\setup\masters\MstSetupMedium\AcadMstSetupMedium.js" />
     <Content Include="src\pages\organization\AdminDashboard.js" />
     <Content Include="src\pages\SharedComponent.js" />
@@ -273,6 +274,7 @@
     <Folder Include="src\pages\organization\academics\setup\masters\MstSetupMedium\" />
     <Folder Include="src\pages\organization\academics\setup\masters\MstSetupSubject\" />
     <Folder Include="src\pages\organization\academics\setup\masters\MstSetupSection\" />
+    <Folder Include="src\pages\organization\academics\setup\masters\MstSetupClass\" />
     <Folder Include="src\pages\super-admin\setup\masters\mst-city\" />
     <Folder Include="src\pages\super-admin\setup\masters\mst-state\" />
     <Folder Include="src\pages\super-admin\setup\masters\mst-country\" />

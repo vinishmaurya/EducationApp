@@ -19,7 +19,7 @@ import AcadTeacherDashboard from "../pages/organization/academics/dashboard/Acad
 import AcadMstSetupMedium from "../pages/organization/academics/setup/masters/MstSetupMedium/AcadMstSetupMedium";
 import AcadMstSetupSection from "../pages/organization/academics/setup/masters/MstSetupSection/AcadMstSetupSection";
 import AcadMstSetupSubject from "../pages/organization/academics/setup/masters/MstSetupSubject/AcadMstSetupSubject";
-import AcadMstSetupClass from "../pages/organization/academics/setup/masters/AcadMstSetupClass";
+import AcadMstSetupClass from "../pages/organization/academics/setup/masters/MstSetupClass/AcadMstSetupClass";
 //Acedmic Master Mapings 
 import AcadMapClassSubject from "../pages/organization/academics/setup/masters-mapping/AcadMapClassSubject";
 import AcadMapClassTeacher from "../pages/organization/academics/setup/masters-mapping/AcadMapClassTeacher";
