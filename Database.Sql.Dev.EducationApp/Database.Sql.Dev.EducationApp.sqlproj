@@ -196,5 +196,9 @@
     <Build Include="ACAD\Stored Procedures\USP_SvcGetSessionDetails.sql" />
     <Build Include="ACAD\Stored Procedures\USP_SvcDeleteSession.sql" />
     <Build Include="ACAD\Stored Procedures\USP_SvcAddEditSession.sql" />
+    <Build Include="ACAD\Stored Procedures\USP_SvcGetStudentCategoryList.sql" />
+    <Build Include="ACAD\Stored Procedures\USP_SvcGetStudentCategoryDetails.sql" />
+    <Build Include="ACAD\Stored Procedures\USP_SvcDeleteStudentCategory.sql" />
+    <Build Include="ACAD\Stored Procedures\USP_SvcAddEditStudentCategory.sql" />
   </ItemGroup>
 </Project>

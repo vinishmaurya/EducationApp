@@ -28,7 +28,7 @@ import AcadMapStudentClass from "../pages/organization/academics/setup/masters-m
 import AcadMapStudentPromote from "../pages/organization/academics/setup/masters-mapping/AcadMapStudentPromote";
 //Student
 import AcadStudentDetails from "../pages/organization/academics/master/student/AcadStudentDetails";
-import AcadMstSetupStudentCategory from "../pages/organization/academics/setup/masters/AcadMstSetupStudentCategory";
+import AcadMstSetupStudentCategory from "../pages/organization/academics/setup/masters/MstSetupStudentCategory/AcadMstSetupStudentCategory";
 import AcadMstStudentAssignment from "../pages/organization/academics/master/AcadMstStudentAssignment";
 //Teacher
 import AcadTeacherDetails from "../pages/organization/academics/master/teacher/AcadTeacherDetails";

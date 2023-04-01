@@ -27,6 +27,7 @@ const academicsSubjectRoute = require('./routes/organization/academics/setup/mas
 const academicsClassRoute = require('./routes/organization/academics/setup/masters/class.route');
 const academicsCommonRoute = require('./routes/organization/academics/setup/masters/common.route');
 const academicsSessionRoute = require('./routes/organization/academics/setup/masters/Session.route');
+const academicsStudentCategoryRoute = require('./routes/organization/academics/setup/masters/studentCategory.route');
 //#endregion
 const swaggerDocument = require('./swagger_output.json');
 const swaggerUi = require('swagger-ui-express');
@@ -112,12 +113,15 @@ app.use('/api', [
     mapFormAccountRoute,
 ]);
 app.use('/api', [
+    //#region Academics Setup Routes
     academicsCommonRoute,
     academicsSectionRoute,
     academicsMediumRoute,
     academicsSubjectRoute,
     academicsClassRoute,
-    academicsSessionRoute
+    academicsSessionRoute,
+    academicsStudentCategoryRoute
+    //#endregion
 ]);
 //Invalid Uri
 app.use(function (req, res) {

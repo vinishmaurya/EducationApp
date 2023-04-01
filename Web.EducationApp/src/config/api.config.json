@@ -61,7 +61,8 @@
       "GetAllCityListByStateUri": "/academics/common/GetAllCityListByState",
       "GetAllMediumListUri": "/academics/common/GetAllMediumList",
       "GetAllSectionListUri": "/academics/common/GetAllSectionList",
-      "GetAllSessionListUri": "/academics/common/GetAllSessionList"
+      "GetAllSessionListUri": "/academics/common/GetAllSessionList",
+      "GetAllStudentCategoryListUri": "/academics/common/GetAllStudentCategoryList"
     },
     "Medium": {
       "AddEditMediumDetailsUri": "/academics/Medium/AddEditMediumDetails",
@@ -87,6 +88,11 @@
       "AddEditSessionDetailsUri": "/academics/Session/AddEditSessionDetails",
       "GetSessionDetailsUri": "/academics/Session/GetSessionDetails?SessionId=<SessionId>&RowPerPage=<RowPerPage>&CurrentPage=<CurrentPage>&SearchBy=<SearchBy>&SearchValue=<SearchValue>",
       "DeleteSessionsDetailsUri": "/academics/Session/DeleteSessionsDetails?SessionId=<SessionId>&DeletedBy=<DeletedBy>"
+    },
+    "StudentCategory": {
+      "AddEditStudentCategoryDetailsUri": "/academics/StudentCategory/AddEditStudentCategoryDetails",
+      "GetStudentCategoryDetailsUri": "/academics/StudentCategory/GetStudentCategoryDetails?StudentCategoryId=<StudentCategoryId>&RowPerPage=<RowPerPage>&CurrentPage=<CurrentPage>&SearchBy=<SearchBy>&SearchValue=<SearchValue>",
+      "DeleteStudentCategorysDetailsUri": "/academics/StudentCategory/DeleteStudentCategorysDetails?StudentCategoryId=<StudentCategoryId>&DeletedBy=<DeletedBy>"
     }
   }
 }

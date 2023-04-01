@@ -45,6 +45,7 @@ const endpointsFiles =
         './routes/organization/academics/setup/masters/subject.route',
         './routes/organization/academics/setup/masters/class.route',
         './routes/organization/academics/setup/masters/session.route',
+        './routes/organization/academics/setup/masters/studentCategory.route',
         //#endregion
     ]; // root file where the route starts.
 // Extended: https://swagger.io/specification/#infoObject

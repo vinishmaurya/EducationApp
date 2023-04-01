@@ -2,7 +2,7 @@
  * --------------------------------------------------------------------------
  * By: Vinish
  * Datetime: 2023-03-11 01:01:53.570
- * Add Edit Section Details
+ * Add Edit Student Category Details
  * --------------------------------------------------------------------------
  */
 import axios from "axios";
@@ -14,7 +14,7 @@ import { $ } from 'react-jquery-plugin';
 import CommonFuncs from "../../../../../../util/common.funcs";
 require('dotenv').config();
 
-const AddEditAcadMstSetupSection = (props) => {
+const AddEditAcadMstSetupStudentCategory = (props) => {
     debugger;
     let propData = props.dataRow;
     //console.log(props);
@@ -23,22 +23,22 @@ const AddEditAcadMstSetupSection = (props) => {
     var name1to50Regex = /^[a-z A-Z]{1,50}$/;
     //#endregion
 
-    //#region Section details form: define state, schema & validations
+    //#region StudentCategory details form: define state, schema & validations
     // Define your state schema
-    const stateSchemaSectionDetails = {
-        SectionName: { value: propData ? propData.SectionName : '', error: "This Section name field is required!" },
+    const stateSchemaStudentCategoryDetails = {
+        StudentCategoryName: { value: propData ? propData.StudentCategoryName : '', error: "This student category name field is required!" },
         IsActive: { value: propData ? propData.IsActive : true, error: "This status field selection is required!!" }
     };
-    const [SectionDetailsData, setSectionDetailsData] = useState(stateSchemaSectionDetails);
-    // Create your own validationstateSchemaSectionDetails
-    // stateSchemaSectionDetails property should be the same in validationstateSchemaSectionDetails
+    const [StudentCategoryDetailsData, setStudentCategoryDetailsData] = useState(stateSchemaStudentCategoryDetails);
+    // Create your own validationstateSchemaStudentCategoryDetails
+    // stateSchemaStudentCategoryDetails property should be the same in validationstateSchemaStudentCategoryDetails
     // in-order a validation to works in your input.
-    const stateValidatorSchemaSectionDetails = {
-        SectionName: {
+    const stateValidatorSchemaStudentCategoryDetails = {
+        StudentCategoryName: {
             required: true,
             validator: {
                 func: value => name1to50Regex.test(value),
-                error: "Invalid Section name format."
+                error: "Invalid student category name format."
             }
         },
         IsActive: {
@@ -61,14 +61,14 @@ const AddEditAcadMstSetupSection = (props) => {
 
     //#region define custom forms validation hooks
     const {
-        values: valuesSectionDetails,
-        errors: errorsSectionDetails,
-        dirty: dirtySectionDetails,
-        handleOnChange: handleOnChangeSectionDetails,
-        handleOnSubmit: handleOnSubmitSectionDetails,
-        disable: disableSectionDetails,
-        handleOnClear: handleOnClearSectionDetails
-    } = useFormValidator(stateSchemaSectionDetails, stateValidatorSchemaSectionDetails, onSubmitFormSectionDetails);
+        values: valuesStudentCategoryDetails,
+        errors: errorsStudentCategoryDetails,
+        dirty: dirtyStudentCategoryDetails,
+        handleOnChange: handleOnChangeStudentCategoryDetails,
+        handleOnSubmit: handleOnSubmitStudentCategoryDetails,
+        disable: disableStudentCategoryDetails,
+        handleOnClear: handleOnClearStudentCategoryDetails
+    } = useFormValidator(stateSchemaStudentCategoryDetails, stateValidatorSchemaStudentCategoryDetails, onSubmitFormStudentCategoryDetails);
 
     //#endregion
 
@@ -77,9 +77,9 @@ const AddEditAcadMstSetupSection = (props) => {
     useEffect(() => {
         //debugger;
         console.log(propData);
-        //console.log(stateSchemaSectionDetails);
+        //console.log(stateSchemaStudentCategoryDetails);
         //#region set default value of forms use state hooks
-        setSectionDetailsData(stateSchemaSectionDetails);
+        setStudentCategoryDetailsData(stateSchemaStudentCategoryDetails);
         setCurrentId(propData ? propData.PK_ID : 0);
         //#endregion
 
@@ -93,22 +93,22 @@ const AddEditAcadMstSetupSection = (props) => {
     }
 
     //#region submit form data and call axios
-    //Step 1 : Section Details 
-    function onSubmitFormSectionDetails(event, valuesSectionDetails) {
+    //Step 1 : StudentCategory Details 
+    function onSubmitFormStudentCategoryDetails(event, valuesStudentCategoryDetails) {
         debugger;
         $("#divStatusRoot").hide();
         $("#divStatusAddEdit").show();
         event.preventDefault();
-        const btnPointer = document.querySelector('#btnSectionDetails');
+        const btnPointer = document.querySelector('#btnStudentCategoryDetails');
         btnPointer.innerHTML = 'Please wait..';
         btnPointer.setAttribute('disable', true);
         try {
-            let AddEditSectionDetailsUri = APIConfig.Academics.Section.AddEditSectionDetailsUri;
-            const formElement = document.querySelector('#SectionDetailsForm');
+            let AddEditStudentCategoryDetailsUri = APIConfig.Academics.StudentCategory.AddEditStudentCategoryDetailsUri;
+            const formElement = document.querySelector('#StudentCategoryDetailsForm');
             const formData = new FormData(formElement);
             const formDataJSON = Object.fromEntries(formData);
             formDataJSON["CreatedBy"] = Cookie.loggedInUserId;
-            formDataJSON["SectionId"] = CurrentId;
+            formDataJSON["StudentCategoryId"] = CurrentId;
 
             let reqBody = formDataJSON;
 
@@ -138,7 +138,7 @@ const AddEditAcadMstSetupSection = (props) => {
 
             instance({
                 'method': 'POST',
-                'url': AddEditSectionDetailsUri ? AddEditSectionDetailsUri : "",
+                'url': AddEditStudentCategoryDetailsUri ? AddEditStudentCategoryDetailsUri : "",
                 'data': reqBody
             }).then((response) => {
                 if (response.data && response.data.Result) {
@@ -150,10 +150,10 @@ const AddEditAcadMstSetupSection = (props) => {
                     setCurrentId(0);
 
                     //Clear form
-                    SectionDetailsData.SectionName.value = "";
-                    dirtySectionDetails.SectionName = false;
-                    SectionDetailsData.IsActive.value = true;
-                    handleOnClearSectionDetails(event);
+                    StudentCategoryDetailsData.StudentCategoryName.value = "";
+                    dirtyStudentCategoryDetails.StudentCategoryName = false;
+                    StudentCategoryDetailsData.IsActive.value = true;
+                    handleOnClearStudentCategoryDetails(event);
                     //Reload Grid
                     props.funcBackToIndex();
                 }
@@ -187,40 +187,40 @@ const AddEditAcadMstSetupSection = (props) => {
 
 
     //#region clear form data and call axios
-    const btnClearSectionDetails = (event) => {
+    const btnClearStudentCategoryDetails = (event) => {
         //Set default values
-        let keys = Object.keys(SectionDetailsData);
+        let keys = Object.keys(StudentCategoryDetailsData);
         let obj = new Object();
         let currentVal;
         for (var i = 0; i < keys.length; i++) {
-            if (keys[i] === 'SectionId') { currentVal = 0 }
-            else if (keys[i] === 'SectionName') { currentVal = '' }
+            if (keys[i] === 'StudentCategoryId') { currentVal = 0 }
+            else if (keys[i] === 'StudentCategoryName') { currentVal = '' }
             else if (keys[i] === 'IsActive') { currentVal = true }
-            obj[keys[i]] = SectionDetailsData[keys[i]];
+            obj[keys[i]] = StudentCategoryDetailsData[keys[i]];
             obj[keys[i]].value = currentVal;
         }
-        setSectionDetailsData(obj);
-        handleOnClearSectionDetails(event);
+        setStudentCategoryDetailsData(obj);
+        handleOnClearStudentCategoryDetails(event);
     }
     //#endregion
 
     //#region other form control functions
-    const onInputChangeControllerSectionDetails = (event) => {
+    const onInputChangeControllerStudentCategoryDetails = (event) => {
         //debugger;
         const target = event.target;
         const value = target.value;
         const name = target.name;
-        let keys = Object.keys(SectionDetailsData);
+        let keys = Object.keys(StudentCategoryDetailsData);
         let obj = new Object();
         for (var i = 0; i < keys.length; i++) {
             if (keys[i] != name) {
-                obj[keys[i]] = SectionDetailsData[keys[i]];
+                obj[keys[i]] = StudentCategoryDetailsData[keys[i]];
             } else {
-                obj[name] = SectionDetailsData[name];
+                obj[name] = StudentCategoryDetailsData[name];
                 obj[name].value = value;
             }
         }
-        setSectionDetailsData(obj);
+        setStudentCategoryDetailsData(obj);
     };
     //#endregion
 
@@ -279,31 +279,31 @@ const AddEditAcadMstSetupSection = (props) => {
                     <div className="card-body">
                         <h3 className="card-title">{props.pageTitle}</h3>
                         <ul className="nav nav-tabs nav-top-border no-hover-bg">
-                            <li className="nav-item"> <a className="nav-link active" id="base-tab11" data-toggle="tab" aria-controls="tab11" href="#tab11" aria-expanded="true">Create Section</a> </li>
+                            <li className="nav-item"> <a className="nav-link active" id="base-tab11" data-toggle="tab" aria-controls="tab11" href="#tab11" aria-expanded="true">Create Student Category</a> </li>
                         </ul>
                         <div className="tab-content px-1 py-1">
                             <div role="tabpanel" className="tab-pane active show" id="tab11" aria-expanded="true"
                                 aria-labelledby="base-tab11">
-                                <form onSubmit={handleOnSubmitSectionDetails} id="SectionDetailsForm">
+                                <form onSubmit={handleOnSubmitStudentCategoryDetails} id="StudentCategoryDetailsForm">
                                     <div className="row">
                                         <div className="col-12 mt-2">
                                             <div className="form-group">
-                                                <label className="label-control mb-2">Section Name{stateValidatorSchemaSectionDetails.SectionName.required && (<span className="red">*</span>)}</label>
+                                                <label className="label-control mb-2">Student Category Name{stateValidatorSchemaStudentCategoryDetails.StudentCategoryName.required && (<span className="red">*</span>)}</label>
                                                 <input
                                                     className={"form-control " +
-                                                        (errorsSectionDetails.SectionName && dirtySectionDetails.SectionName ? 'has-error' :
-                                                            (dirtySectionDetails.SectionName ? 'has-success' : ''))
+                                                        (errorsStudentCategoryDetails.StudentCategoryName && dirtyStudentCategoryDetails.StudentCategoryName ? 'has-error' :
+                                                            (dirtyStudentCategoryDetails.StudentCategoryName ? 'has-success' : ''))
                                                     }
                                                     data-val="true"
-                                                    maxLength="50" name="SectionName" placeholder="Section Name"
+                                                    maxLength="50" name="StudentCategoryName" placeholder="Student Category Name"
                                                     type="text"
-                                                    value={SectionDetailsData.SectionName.value}
-                                                    onChange={e => { handleOnChangeSectionDetails(e); onInputChangeControllerSectionDetails(e) }}
+                                                    value={StudentCategoryDetailsData.StudentCategoryName.value}
+                                                    onChange={e => { handleOnChangeStudentCategoryDetails(e); onInputChangeControllerStudentCategoryDetails(e) }}
                                                 />
 
                                             </div>
-                                            {errorsSectionDetails.SectionName && dirtySectionDetails.SectionName && (
-                                                <span className="error-label mt-2">{errorsSectionDetails.SectionName}</span>
+                                            {errorsStudentCategoryDetails.StudentCategoryName && dirtyStudentCategoryDetails.StudentCategoryName && (
+                                                <span className="error-label mt-2">{errorsStudentCategoryDetails.StudentCategoryName}</span>
                                             )}
                                         </div>
 
@@ -315,16 +315,16 @@ const AddEditAcadMstSetupSection = (props) => {
                                                 <div className="form-check form-check-inline">
                                                     <input className="form-check-input" type="radio" name="IsActive" id="IsActiveTrue"
                                                         value="true"
-                                                        checked={String(SectionDetailsData.IsActive.value) === String(true)}
-                                                        onChange={e => { handleOnChangeSectionDetails(e); onInputChangeControllerSectionDetails(e) }}
+                                                        checked={String(StudentCategoryDetailsData.IsActive.value) === String(true)}
+                                                        onChange={e => { handleOnChangeStudentCategoryDetails(e); onInputChangeControllerStudentCategoryDetails(e) }}
                                                     />
                                                     <label className="form-check-label" htmlFor="IsActiveTrue">Active</label>
                                                 </div>
                                                 <div className="form-check form-check-inline">
                                                     <input className="form-check-input" type="radio" name="IsActive" id="IsActiveFalse"
                                                         value="false"
-                                                        checked={String(SectionDetailsData.IsActive.value) === String(false)}
-                                                        onChange={e => { handleOnChangeSectionDetails(e); onInputChangeControllerSectionDetails(e) }}
+                                                        checked={String(StudentCategoryDetailsData.IsActive.value) === String(false)}
+                                                        onChange={e => { handleOnChangeStudentCategoryDetails(e); onInputChangeControllerStudentCategoryDetails(e) }}
                                                     />
                                                     <label className="form-check-label" htmlFor="IsActiveFalse">Inactive</label>
                                                 </div>
@@ -344,14 +344,14 @@ const AddEditAcadMstSetupSection = (props) => {
                                                     <div style={{ margin: '10px' }}>
                                                         <button type="submit"
                                                             className="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1"
-                                                            id="btnSectionDetails"
-                                                            disabled={disableSectionDetails}
+                                                            id="btnStudentCategoryDetails"
+                                                            disabled={disableStudentCategoryDetails}
                                                         >Submit</button>
                                                     </div>
                                                     <div style={{ margin: '10px' }}>
                                                         <button type="button"
                                                             className="btn btn-dark box-shadow-1 round btn-min-width mr-1 mb-1"
-                                                            onClick={btnClearSectionDetails}
+                                                            onClick={btnClearStudentCategoryDetails}
                                                         >Clear</button>
                                                     </div>
                                                 </div>
@@ -371,4 +371,4 @@ const AddEditAcadMstSetupSection = (props) => {
     );
 };
 
-export default AddEditAcadMstSetupSection;
+export default AddEditAcadMstSetupStudentCategory;

@@ -427,7 +427,7 @@ const AddEditAcadMstSetupSession = (props) => {
                                                             className="btn btn-primary box-shadow-1 round btn-min-width mr-1 mb-1"
                                                             id="btnSessionDetails"
                                                             disabled={disableSessionDetails}
-                                                        >Finish</button>
+                                                        >Submit</button>
                                                     </div>
                                                     <div style={{ margin: '10px' }}>
                                                         <button type="button"
