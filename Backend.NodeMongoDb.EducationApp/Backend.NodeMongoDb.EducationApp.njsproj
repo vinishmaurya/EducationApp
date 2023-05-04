@@ -1,0 +1,146 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <Name>Backend.NodeMongoDb.EducationApp</Name>
+    <RootNamespace>Backend.NodeMongoDb.EducationApp</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>c85500ff-4248-4993-97fd-a5a4888213c9</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>index.js</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <NodejsPort>1337</NodejsPort>
+    <StartWebBrowser>true</StartWebBrowser>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include=".env" />
+    <Content Include="config.js" />
+    <Content Include="controllers\admin\auth.controller.js" />
+    <Content Include="controllers\admin\setup\account.controller.js" />
+    <Content Include="controllers\admin\setup\city.controller.js" />
+    <Content Include="controllers\admin\setup\common.controller.js" />
+    <Content Include="controllers\admin\setup\country.controller.js" />
+    <Content Include="controllers\admin\setup\form.controller.js" />
+    <Content Include="controllers\admin\setup\map.form.account.controller.js" />
+    <Content Include="controllers\admin\setup\map.form.role.controller.js" />
+    <Content Include="controllers\admin\setup\role.controller.js" />
+    <Content Include="controllers\admin\setup\state.controller.js" />
+    <Content Include="controllers\admin\setup\user.controller.js" />
+    <Content Include="controllers\organization\academics\setup\masters\chapter.controller.js" />
+    <Content Include="controllers\organization\academics\setup\masters\chapterTopics.controller.js" />
+    <Content Include="controllers\organization\academics\setup\masters\class.controller.js" />
+    <Content Include="controllers\organization\academics\setup\masters\common.controller.js" />
+    <Content Include="controllers\organization\academics\setup\masters\medium.controller.js" />
+    <Content Include="controllers\organization\academics\setup\masters\section.controller.js" />
+    <Content Include="controllers\organization\academics\setup\masters\session.controller.js" />
+    <Content Include="controllers\organization\academics\setup\masters\studentCategory.controller.js" />
+    <Content Include="controllers\organization\academics\setup\masters\subject.controller.js" />
+    <Content Include="index.js" />
+    <Content Include="middleware\credentials.js" />
+    <Content Include="middleware\errorHandler.js" />
+    <Content Include="middleware\logEvents.js" />
+    <Content Include="middleware\verifyJWT.js" />
+    <Content Include="models\admin\setup\searchterm.model.js" />
+    <Content Include="models\admin\setup\form.model.js" />
+    <Content Include="models\admin\setup\user.model.js" />
+    <Content Include="models\serviceResult.model.js" />
+    <Content Include="routes\admin\auth.route.js" />
+    <Content Include="routes\admin\setup\account.route.js" />
+    <Content Include="routes\admin\setup\city.route.js" />
+    <Content Include="routes\admin\setup\common.route.js" />
+    <Content Include="routes\admin\setup\country.route.js" />
+    <Content Include="routes\admin\setup\form.route.js" />
+    <Content Include="routes\admin\setup\map.form.account.route.js" />
+    <Content Include="routes\admin\setup\map.form.role.route.js" />
+    <Content Include="routes\admin\setup\role.route.js" />
+    <Content Include="routes\admin\setup\state.route.js" />
+    <Content Include="routes\admin\setup\user.route.js" />
+    <Content Include="routes\organization\academics\setup\masters\chapter.route.js" />
+    <Content Include="routes\organization\academics\setup\masters\chapterTopics.route.js" />
+    <Content Include="routes\organization\academics\setup\masters\class.route.js" />
+    <Content Include="routes\organization\academics\setup\masters\common.route.js" />
+    <Content Include="routes\organization\academics\setup\masters\medium.route.js" />
+    <Content Include="routes\organization\academics\setup\masters\section.route.js" />
+    <Content Include="routes\organization\academics\setup\masters\session.route.js" />
+    <Content Include="routes\organization\academics\setup\masters\studentCategory.route.js" />
+    <Content Include="routes\organization\academics\setup\masters\subject.route.js" />
+    <Content Include="package.json" />
+    <Content Include="README.md" />
+    <Content Include="swagger.js" />
+    <Content Include="swagger_output.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="controllers\" />
+    <Folder Include="controllers\admin\" />
+    <Folder Include="controllers\admin\setup\" />
+    <Folder Include="controllers\organization\" />
+    <Folder Include="controllers\organization\academics\" />
+    <Folder Include="controllers\organization\academics\setup\" />
+    <Folder Include="controllers\organization\academics\setup\masters\" />
+    <Folder Include="middleware\" />
+    <Folder Include="models\" />
+    <Folder Include="models\admin\" />
+    <Folder Include="models\admin\setup\" />
+    <Folder Include="routes\" />
+    <Folder Include="routes\admin\" />
+    <Folder Include="routes\admin\setup\" />
+    <Folder Include="routes\organization\" />
+    <Folder Include="routes\organization\academics\" />
+    <Folder Include="routes\organization\academics\setup\" />
+    <Folder Include="routes\organization\academics\setup\masters\" />
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

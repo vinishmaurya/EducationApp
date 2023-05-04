@@ -1,0 +1,453 @@
+{
+	"info": {
+		"_postman_id": "66e4341b-3de9-42e9-9f70-13484484bf79",
+		"name": "EducationApp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Role",
+			"item": [
+				{
+					"name": "/api/admin/Role/GetRolesList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/admin/Role/GetRolesList'",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"Role",
+								"GetRolesList'"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/admin/Role/GetRoleDetails",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjc3MDc1ODUxLCJleHAiOjE2NzcwNzk0NTF9.RdvHuDSZCfhufedbc_-YhFQt_nXgvP4Yar4QpRmya94",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/admin/Role/GetRoleDetails/0/10/1/%20/%20",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"Role",
+								"GetRoleDetails",
+								"0",
+								"10",
+								"1",
+								"%20",
+								"%20"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/admin/Role/AddEditRoleDetails",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRhZG1pbiIsImlhdCI6MTY2Mzk1MDkxNiwiZXhwIjoxNjYzOTU0NTE2fQ.2-t1wWOmKqdzBLjNuhwNCA35Lyz_BmBRIPYA6xyFbN4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"PK_RoleId\": 0,\r\n  \"RoleName\": \"Test Node\",\r\n  \"HomePage\": 1,\r\n  \"IsActive\": true,\r\n  \"CreatedBy\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/admin/Role/AddEditRoleDetails",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"Role",
+								"AddEditRoleDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/admin/Role/DeleteRolesDetails",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"PK_RoleId\":1,\r\n    \"UserId\":\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/admin/Role/DeleteRolesDetails",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"Role",
+								"DeleteRolesDetails"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authenticate",
+			"item": [
+				{
+					"name": "/api/AuthenticateUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRhZG1pbiIsImlhdCI6MTY2MzkzNDI1NiwiZXhwIjoxNjYzOTM3ODU2fQ.Ic_mMDIIg-xLasE3wev-1BEj5wsRiWiPYOzpcD_OBx8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"UserName\": \"admin\",\r\n  \"Password\": \"Pass@123\",\r\n  \"GrantType\": \"Password\",\r\n  \"RefreshToken\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2000/api/AuthenticateUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2000",
+							"path": [
+								"api",
+								"AuthenticateUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/AuthenticatedUserInfo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjc2Nzk5MDY3LCJleHAiOjE2NzY3OTk2Njd9.CxlqvIunBWEcd08KxFoDtObb_Lkc0fXhmCllyrjS0As",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"UserName\": \"admin1\",\r\n  \"Password\": \"Pass@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2000/api/AuthenticatedUserInfo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2000",
+							"path": [
+								"api",
+								"AuthenticatedUserInfo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/AuthenticatedUserTokenValidation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:2000/api/AuthenticatedUserTokenValidation",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2000",
+							"path": [
+								"api",
+								"AuthenticatedUserTokenValidation"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Common",
+			"item": [
+				{
+					"name": "getAllCategoryList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.47.107:3000/api/admin/common/getAllCategoryList",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"47",
+								"107"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"common",
+								"getAllCategoryList"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Account",
+			"item": [
+				{
+					"name": "AddEditAccountDetails",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjc3MDgwMTEzLCJleHAiOjE2NzcwODM3MTN9.B6EVKqUm8_KAU9b1KxezLgI708C_e7Ty_ZjWnwYkRuE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "AccountLogo",
+									"type": "file",
+									"src": "/C:/Users/Vinish/Desktop/vadding/8wedding-envelope-front-saree-border_1.jpg"
+								},
+								{
+									"key": "AccountDetails",
+									"value": "{\n  \"AccountId\": \"0\",\n  \"AccountName\": \"any1\",\n  \"CategoryId\": \"1\",\n  \"ParentCategoryID\": \"1\",\n  \"ContactPerson\": \"any\",\n  \"MobileNo\": \"any1\",\n  \"AlternateMobileNo\": \"any\",\n  \"EmailId\": \"any1\",\n  \"AccountAddress\": \"any\",\n  \"ZipCode\": \"any\",\n  \"IsActive\": \"any\",\n  \"CountryID\": \"0\",\n  \"StateID\": \"0\",\n  \"CityID\": \"0\",\n  \"CreatedBy\":\"0\",\n  \"Username\":\"01\",\n  \"Password\":\"0\"\n}",
+									"type": "default"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2000/api/admin/Account/AddEditAccountDetails",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2000",
+							"path": [
+								"api",
+								"admin",
+								"Account",
+								"AddEditAccountDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAccountDetails",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjc3MDgyODgwLCJleHAiOjE2NzcwODY0ODB9.mIRItH7KIFykbaXGUo7az2saVSZNX2DTvHEbnYnCP-8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2000/api/admin/Account/GetAccountDetails?RowperPage=-231&CurrentPage=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2000",
+							"path": [
+								"api",
+								"admin",
+								"Account",
+								"GetAccountDetails"
+							],
+							"query": [
+								{
+									"key": "AccountId",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "RowperPage",
+									"value": "-231"
+								},
+								{
+									"key": "CurrentPage",
+									"value": "1"
+								},
+								{
+									"key": "SearchBy",
+									"value": " ",
+									"disabled": true
+								},
+								{
+									"key": "SearchValue",
+									"value": " ",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteAccountsDetails",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjc3MDgyODgwLCJleHAiOjE2NzcwODY0ODB9.mIRItH7KIFykbaXGUo7az2saVSZNX2DTvHEbnYnCP-8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:2000/api/admin/Account/DeleteAccountsDetails?AccountId=3&DeletedBy=0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2000",
+							"path": [
+								"api",
+								"admin",
+								"Account",
+								"DeleteAccountsDetails"
+							],
+							"query": [
+								{
+									"key": "AccountId",
+									"value": "3"
+								},
+								{
+									"key": "DeletedBy",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
