@@ -1,33 +1,23 @@
 const mongoose = require('mongoose');
 
-const adminMstFormClcts = new mongoose.Schema({
-    //FormId: {
-    //    type: String
-    //},
-    //FK_SolutionId: {
+const adminMstRoleClcts = new mongoose.Schema({
+    //PK_RoleId: {
     //    type: Number
     //},
-    FormName: {
+    RoleName: {
         type: String
     },
-    ComponentName: {
-        type: String
+    CategoryId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "admin_LkpCategory_Clcts"
     },
-    LandingComponentName: {
-        type: String
+    AccountId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "admin_MstAccount_Clcts"
     },
-    ParentFormId: {
+    LandingPage: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "admin_MstForm_Clcts"
-    },
-    //FK_MainId: {
-    //    type: Number
-    //},
-    LevelId: {
-        type: Number
-    },
-    SortId: {
-        type: Number
     },
     IsActive: {
         type: Boolean
@@ -47,23 +37,17 @@ const adminMstFormClcts = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "admin_MstUser_Clcts"
     },
-    CreatedDateTime: {
+    DeletedDateTime: {
         type: Date
     },
     UpdatedDateTime: {
         type: Date
     },
-    DeletedDateTime: {
+    CreatedDateTime: {
         type: Date
     },
-    ClassName: {
-        type: String
-    },
-    Area: {
-        type: String
-    },
-    PlatFormType: {
-        type: String
-    }
+    //FK_CustomerId: {
+    //    type: Number
+    //}
 })
-module.exports = mongoose.model('admin_MstForm_Clcts', adminMstFormClcts)
+module.exports = mongoose.model('admin_MstRole_Clcts', adminMstRoleClcts)

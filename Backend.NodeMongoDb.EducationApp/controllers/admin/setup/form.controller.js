@@ -6,6 +6,7 @@ const ServiceResult = require('../../../models/serviceResult.model');
 const adminMstFormClcts = require('../../../models/admin/setup/form.model');
 const adminMstUserClcts = require('../../../models/admin/setup/user.model');
 const adminMstSearchTermsClcts = require('../../../models/admin/setup/searchterm.model');
+const adminLkpFormHeaderListClcts = require('../../../models/admin/setup/formHeaderList.model');
 var validator = require('validator');
 
 const GetFormDetails = async (req, res, next) => {
@@ -44,44 +45,76 @@ const GetFormDetails = async (req, res, next) => {
             if (cSearchBy == 'FormName') {
                 DataList = await adminMstFormClcts.find(
                     {
-                        $or: [
+                        $and: [
                             { FormName: { $regex: cSearchValue, $options: 'i' } },
+                            { IsActive: true },
+                            { IsDeleted: false },
                         ],
                     }
-                ).sort({ CreatedDateTime: -1 }).skip(RowperPage * (CurrentPage - 1)).limit(RowperPage);
+                )
+                    .populate('ParentFormId', { "FormName": 1, "_id": 1 })   
+                    .sort({ CreatedDateTime: -1 })
+                    .skip(RowperPage * (CurrentPage - 1))
+                    .limit(RowperPage);
             }
             else if (cSearchBy == 'ComponentName') {
                 DataList = await adminMstFormClcts.find(
                     {
-                        $or: [
+                        $and: [
                             { ComponentName: { $regex: cSearchValue, $options: 'i' } },
+                            { IsActive: true },
+                            { IsDeleted: false },
                         ],
                     }
-                ).sort({ CreatedDateTime: -1 }).skip(RowperPage * (CurrentPage - 1)).limit(RowperPage);
+                )
+                    .populate('ParentFormId', { "FormName": 1, "_id": 1 })   
+                    .sort({ CreatedDateTime: -1 })
+                    .skip(RowperPage * (CurrentPage - 1))
+                    .limit(RowperPage);
             }
             else if (cSearchBy == 'Area') {
                 DataList = await adminMstFormClcts.find(
                     {
-                        $or: [
+                        $and: [
                             { Area: { $regex: cSearchValue, $options: 'i' } },
+                            { IsActive: true },
+                            { IsDeleted: false },
                         ],
                     }
-                ).sort({ CreatedDateTime: -1 }).skip(RowperPage * (CurrentPage - 1)).limit(RowperPage);
+                )
+                    .populate('ParentFormId', { "FormName": 1, "_id": 1 })   
+                    .sort({ CreatedDateTime: -1 })
+                    .skip(RowperPage * (CurrentPage - 1))
+                    .limit(RowperPage);
             }
             else if (cSearchBy == 'LandingComponentName') {
                 DataList = await adminMstFormClcts.find(
                     {
-                        $or: [
+                        $and: [
                             { LandingComponentName: { $regex: cSearchValue, $options: 'i' } },
+                            { IsActive: true },
+                            { IsDeleted: false },
                         ],
                     }
-                ).sort({ CreatedDateTime: -1 }).skip(RowperPage * (CurrentPage - 1)).limit(RowperPage);
+                )
+                    .populate('ParentFormId', { "FormName": 1, "_id": 1 })   
+                    .sort({ CreatedDateTime: -1 })
+                    .skip(RowperPage * (CurrentPage - 1))
+                    .limit(RowperPage);
             }
         }
         else {
-            var DataList = await adminMstFormClcts.find().sort({ CreatedDateTime: -1 }).skip(RowperPage * (CurrentPage - 1)).limit(RowperPage);
+            var DataList = await adminMstFormClcts
+                .find(
+                    { IsActive: true },
+                    { IsDeleted: false },
+                )
+                .populate('ParentFormId', { "FormName": 1, "_id": 1 })   
+                .sort({ CreatedDateTime: -1 })
+                .skip(RowperPage * (CurrentPage - 1))
+                .limit(RowperPage);
         }
-        var TotalItem = await adminMstFormClcts.find().count();
+        var TotalItem = DataList.length;
         var TotalCurrentMonth = await adminMstFormClcts.find({
             CreatedDateTime: {
                 "$gte": (new Date()).setHours(0, 0, 0, 0),
@@ -96,17 +129,8 @@ const GetFormDetails = async (req, res, next) => {
             TotalActive: TotalActive,
             TotalInActive: TotalInActive
         };
-        var HeaderList = {
-            "PK_ID": "PK_ID",
-            "SrNo": "#",
-            "FormName": "FormName",
-            "ComponentName": "Component Name",
-            "Area": "Area",
-            "ActionName": "Landing Component",
-            "CreatedDateTime": "Created Datetime",
-            "Status": "Status",
-            "Action": "Action"
-        };
+        var HeaderList = await adminLkpFormHeaderListClcts.findOne({ "FormCode": "FORM_MASTER" }, {"_id":0});
+
         var SearchTermList = await adminMstSearchTermsClcts.find({ "FormCode": "FORM_MASTER" });
         ServiceResult.Message = "Success!";
         ServiceResult.Description = null;
@@ -230,7 +254,7 @@ const AddEditFormDetails = async (req, res, next) => {
             if (!objUpdate) {
                 ServiceResult.Message = "Validation Error!";
                 ServiceResult.Result = false;
-                ServiceResult.Description = "Invalid form id to update details!";
+                ServiceResult.Description = "Invalid ID ? Form ID does not exists!";
                 ServiceResult.Data = null;
                 return res.send(ServiceResult);
             }
@@ -259,7 +283,7 @@ const AddEditFormDetails = async (req, res, next) => {
             });
             await objAdminMstFormClcts.save()
                 .then(item => {
-                    ServiceResult.Message = "Form details inserted successfully!";
+                    ServiceResult.Message = "New Form details inserted successfully!";
                     ServiceResult.Result = true;
                     ServiceResult.Description = null;
                     ServiceResult.Data = item;
@@ -417,6 +441,7 @@ const DeleteFormsDetails = async (req, res, next) => {
         await adminMstFormClcts.findByIdAndUpdate(
             iPK_FormId,
             {
+                IsActive: false,
                 IsDeleted: true,
                 DeletedBy: DeletedByUser ? DeletedByUser._id : null,
                 DeletedDateTime: (new Date())

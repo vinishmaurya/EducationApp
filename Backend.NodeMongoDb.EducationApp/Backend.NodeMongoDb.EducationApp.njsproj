@@ -55,8 +55,16 @@
     <Content Include="middleware\errorHandler.js" />
     <Content Include="middleware\logEvents.js" />
     <Content Include="middleware\verifyJWT.js" />
+    <Content Include="models\admin\setup\account.model.js" />
+    <Content Include="models\admin\setup\city.model.js" />
+    <Content Include="models\admin\setup\state.model.js" />
+    <Content Include="models\admin\setup\country.model.js" />
+    <Content Include="models\admin\setup\category.model.js" />
+    <Content Include="models\admin\setup\role.model.js" />
+    <Content Include="models\admin\setup\formHeaderList.model.js" />
     <Content Include="models\admin\setup\searchterm.model.js" />
     <Content Include="models\admin\setup\form.model.js" />
+    <Content Include="models\admin\setup\tokenFamily.model.js" />
     <Content Include="models\admin\setup\user.model.js" />
     <Content Include="models\serviceResult.model.js" />
     <Content Include="routes\admin\auth.route.js" />

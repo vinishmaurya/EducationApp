@@ -4,6 +4,17 @@ const sql = require('mssql');
 const ServiceResult = require('../../../models/serviceResult.model');
 const fs = require('fs-extra');
 const date = require('date-and-time');
+const adminMstUserClcts = require('../../../models/admin/setup/user.model');
+const adminMstTokenFamilyClcts = require('../../../models/admin/setup/tokenFamily.model');
+const adminMstRoleClcts = require('../../../models/admin/setup/Role.model');
+const adminMstAccountClcts = require('../../../models/admin/setup/account.model');
+const adminLkpCategoryClcts = require('../../../models/admin/setup/category.model');
+const adminMstCountryClcts = require('../../../models/admin/setup/country.model');
+const adminMstStateClcts = require('../../../models/admin/setup/state.model');
+const adminMstCityClcts = require('../../../models/admin/setup/city.model');
+const adminLkpFormHeaderListClcts = require('../../../models/admin/setup/formHeaderList.model');
+const adminMstSearchTermsClcts = require('../../../models/admin/setup/searchterm.model');
+var validator = require('validator');
 
 const GetUserDetails = async (req, res, next) => {
     /*  #swagger.tags = ['Admin.User']
@@ -27,68 +38,189 @@ const GetUserDetails = async (req, res, next) => {
             ServiceResult.Data = null;
             return res.send(ServiceResult);
         }
-        await sql.connect(config.sql, function (err) {
-            if (err) {
-                ServiceResult.Message = "Failed to generate api response!";
-                ServiceResult.Description = err.message;
+
+        if (iPK_UserId) {
+            if (!validator.isMongoId(iPK_UserId)) {
+                ServiceResult.Message = "Validation Error!";
+                ServiceResult.Description = '(UserId) query params must be a valid mongo id!';
                 ServiceResult.Result = false;
                 ServiceResult.Data = null;
                 return res.send(ServiceResult);
             }
-            // create Request object
-            var request = new sql.Request();
-            request.input('iPK_UserId', sql.BigInt, iPK_UserId);
-            request.input('iRowperPage', sql.BigInt, RowperPage);
-            request.input('iCurrentPage', sql.BigInt, CurrentPage);
-            request.input('cSearchBy', sql.VarChar(500), cSearchBy);
-            request.input('cSearchValue', sql.VarChar(500), cSearchValue);
-            request.execute("[dbo].[USP_SvcGetuserDetails]", function (err, recordset) {
-                if (err) {
-                    sql.close();
-                    ServiceResult.Message = "Failed to parse api response!";
-                    ServiceResult.Description = err.message;
-                    ServiceResult.Result = false;
-                    ServiceResult.Data = null;
-                    return res.send(ServiceResult);
-                }
-                sql.close();
+        }
+        var DataList = null;
+        if (cSearchBy && cSearchValue) {
+            if (cSearchBy == 'UserName') {
+                DataList = await adminMstUserClcts.find(
+                    {
+                        $and: [
+                            { UserName: { $regex: cSearchValue, $options: 'i' } },
+                            { IsActive: true },
+                            { IsDeleted: false },
+                        ],
+                    }
+                )
+                    .populate('CategoryId', { "CategoryName": 1, "_id": 1 })
+                    .populate('AccountId', { "AccountName": 1, "_id": 1 })
+                    .populate('RoleId', { "RoleName": 1, "_id": 1 })
+                    .populate('CountryId', { "CountryName": 1, "_id": 1 })
+                    .populate('StateId', { "StateName": 1, "_id": 1 })
+                    .populate('CityId', { "CityName": 1, "_id": 1 })
+                    .sort({ CreatedDateTime: -1 })
+                    .skip(RowperPage * (CurrentPage - 1))
+                    .limit(RowperPage);
+            }
+            else if (cSearchBy == 'MobileNo') {
+                DataList = await adminMstUserClcts.find(
+                    {
+                        $and: [
+                            { MobileNo: { $regex: cSearchValue, $options: 'i' } },
+                            { IsActive: true },
+                            { IsDeleted: false },
+                        ],
+                    }
+                )
+                    .populate('CategoryId', { "CategoryName": 1, "_id": 1 })
+                    .populate('AccountId', { "AccountName": 1, "_id": 1 })
+                    .populate('RoleId', { "RoleName": 1, "_id": 1 })
+                    .populate('CountryId', { "CountryName": 1, "_id": 1 })
+                    .populate('StateId', { "StateName": 1, "_id": 1 })
+                    .populate('CityId', { "CityName": 1, "_id": 1 })
+                    .sort({ CreatedDateTime: -1 })
+                    .skip(RowperPage * (CurrentPage - 1))
+                    .limit(RowperPage);
+            }
+            else if (cSearchBy == 'EmailId') {
+                DataList = await adminMstUserClcts.find(
+                    {
+                        $and: [
+                            { EmailId: { $regex: cSearchValue, $options: 'i' } },
+                            { IsActive: true },
+                            { IsDeleted: false },
+                        ],
+                    }
+                )
+                    .populate('CategoryId', { "CategoryName": 1, "_id": 1 })
+                    .populate('AccountId', { "AccountName": 1, "_id": 1 })
+                    .populate('RoleId', { "RoleName": 1, "_id": 1 })
+                    .populate('CountryId', { "CountryName": 1, "_id": 1 })
+                    .populate('StateId', { "StateName": 1, "_id": 1 })
+                    .populate('CityId', { "CityName": 1, "_id": 1 })
+                    .sort({ CreatedDateTime: -1 })
+                    .skip(RowperPage * (CurrentPage - 1))
+                    .limit(RowperPage);
+            }
+        }
+        else {
+            DataList = await adminMstUserClcts
+                .find(
+                    { IsActive: true },
+                    { IsDeleted: false }
+                )
+                .populate('CategoryId', { "CategoryName": 1, "_id": 1 })
+                .populate('AccountId', { "AccountName": 1, "_id": 1 })
+                .populate('RoleId', { "RoleName": 1, "_id": 1 })
+                .populate('CountryId', { "CountryName": 1, "_id": 1 })
+                .populate('StateId', { "StateName": 1, "_id": 1 })
+                .populate('CityId', { "CityName": 1, "_id": 1 })
+                .sort({ CreatedDateTime: -1 })
+                .skip(RowperPage * (CurrentPage - 1))
+                .limit(RowperPage);
+        }
+        var TotalItem = DataList.length;
+        var TotalCurrentMonth = await adminMstUserClcts.find({
+            CreatedDateTime: {
+                "$gte": (new Date()).setHours(0, 0, 0, 0),
+                "$lt": (new Date()).setHours(23, 59, 59, 999),
+            }
+        }).count();
+        var TotalActive = await adminMstUserClcts.find({ "IsActive": true }).count();
+        var TotalInActive = await adminMstUserClcts.find({ "IsActive": false }).count();
+        var CountArray = {
+            TotalItem: TotalItem,
+            TotalCurrentMonth: TotalCurrentMonth,
+            TotalActive: TotalActive,
+            TotalInActive: TotalInActive
+        };
+        var HeaderList = await adminLkpFormHeaderListClcts.findOne({ "FormCode": "USER_MASTER" }, { "_id": 0 });
 
-                if (recordset) {
-                    if (recordset.recordsets[0][0].Message_Id == 1) {
-                        try {
-                            ServiceResult.Message = recordset.recordsets[0][0].Message;
-                            ServiceResult.Description = null;
-                            ServiceResult.Result = true;
-                            ServiceResult.Data = {
-                                DataList: recordset.recordsets[1],
-                                CountArray: recordset.recordsets[2][0],
-                                HeaderList: recordset.recordsets[3][0],
-                                SearchTermList: recordset.recordsets[4],
-                            };
-                            return res.send(ServiceResult);
-                        } catch (error) {
-                            ServiceResult.Message = "Failed to parse api response!";
-                            ServiceResult.Description = error.message;
-                            ServiceResult.Result = false;
-                            ServiceResult.Data = null;
-                            return res.send(ServiceResult);
-                        }
-                    }
-                    else {
-                        ServiceResult.Message = recordset.recordsets[0][0].Message;
-                        ServiceResult.Result = false;
-                        ServiceResult.Data = null;
-                        return res.send(ServiceResult);
-                    }
-                }
-                else {
-                    ServiceResult.Message = "Failed to parse api response!";
-                    ServiceResult.Result = false;
-                    ServiceResult.Data = null;
-                    return res.send(ServiceResult);
-                }
-            });
-        });
+        var SearchTermList = await adminMstSearchTermsClcts.find({ "FormCode": "USER_MASTER" });
+        ServiceResult.Message = "Success!";
+        ServiceResult.Description = null;
+        ServiceResult.Result = true;
+        ServiceResult.Data = {
+            DataList: DataList,
+            CountArray: CountArray,
+            HeaderList: HeaderList,
+            SearchTermList: SearchTermList,
+        };
+        return res.send(ServiceResult);
+
+
+        //#region SQL DB
+        //await sql.connect(config.sql, function (err) {
+        //    if (err) {
+        //        ServiceResult.Message = "Failed to generate api response!";
+        //        ServiceResult.Description = err.message;
+        //        ServiceResult.Result = false;
+        //        ServiceResult.Data = null;
+        //        return res.send(ServiceResult);
+        //    }
+        //    // create Request object
+        //    var request = new sql.Request();
+        //    request.input('iPK_UserId', sql.BigInt, iPK_UserId);
+        //    request.input('iRowperPage', sql.BigInt, RowperPage);
+        //    request.input('iCurrentPage', sql.BigInt, CurrentPage);
+        //    request.input('cSearchBy', sql.VarChar(500), cSearchBy);
+        //    request.input('cSearchValue', sql.VarChar(500), cSearchValue);
+        //    request.execute("[dbo].[USP_SvcGetuserDetails]", function (err, recordset) {
+        //        if (err) {
+        //            sql.close();
+        //            ServiceResult.Message = "Failed to parse api response!";
+        //            ServiceResult.Description = err.message;
+        //            ServiceResult.Result = false;
+        //            ServiceResult.Data = null;
+        //            return res.send(ServiceResult);
+        //        }
+        //        sql.close();
+
+        //        if (recordset) {
+        //            if (recordset.recordsets[0][0].Message_Id == 1) {
+        //                try {
+        //                    ServiceResult.Message = recordset.recordsets[0][0].Message;
+        //                    ServiceResult.Description = null;
+        //                    ServiceResult.Result = true;
+        //                    ServiceResult.Data = {
+        //                        DataList: recordset.recordsets[1],
+        //                        CountArray: recordset.recordsets[2][0],
+        //                        HeaderList: recordset.recordsets[3][0],
+        //                        SearchTermList: recordset.recordsets[4],
+        //                    };
+        //                    return res.send(ServiceResult);
+        //                } catch (error) {
+        //                    ServiceResult.Message = "Failed to parse api response!";
+        //                    ServiceResult.Description = error.message;
+        //                    ServiceResult.Result = false;
+        //                    ServiceResult.Data = null;
+        //                    return res.send(ServiceResult);
+        //                }
+        //            }
+        //            else {
+        //                ServiceResult.Message = recordset.recordsets[0][0].Message;
+        //                ServiceResult.Result = false;
+        //                ServiceResult.Data = null;
+        //                return res.send(ServiceResult);
+        //            }
+        //        }
+        //        else {
+        //            ServiceResult.Message = "Failed to parse api response!";
+        //            ServiceResult.Result = false;
+        //            ServiceResult.Data = null;
+        //            return res.send(ServiceResult);
+        //        }
+        //    });
+        //});
+        //#Endregion
     } catch (error) {
         ServiceResult.Message = "API Internal Error!";
         ServiceResult.Result = false;
@@ -111,10 +243,10 @@ const AddEditUserDetails = async (req, res, next) => {
 
     try {
         //debugger;
-        
 
 
-        if (Object.keys(req.body) != "UserDetails") {
+
+        if (!Object.keys(req.body).includes("UserDetails")) {
             message = "No were data found for User details with form data key ('UserDetails')!";
             //res.status(200).json({ Message: "No files were uploaded for Id Type." });
             //return;
@@ -140,10 +272,10 @@ const AddEditUserDetails = async (req, res, next) => {
                         else {
                             UserLogo_Multipart = req.files.UserLogo;
                             let fileName = UserLogo_Multipart.name;
-                            let extension = fileName.substr(fileName.lastIndexOf('.'), fileName.length - fileName.lastIndexOf('.')).toUpperCase();
+                            let extension = fileName.substr(fileName.lastIndexOf('.') + 1, fileName.length - fileName.lastIndexOf('.')).toUpperCase();
                             //Size and format validations
-                            if (["PNG", "JPEG", "JPG"].includes(extension)) {
-                                message = "Invalid Subject logo Image format? only (jpg,jpeg,png) images are required!";
+                            if (!["PNG", "JPEG", "JPG"].includes(extension)) {
+                                message = "Invalid User logo Image format? only (jpg,jpeg,png) images are required!";
                                 bool = false;
                             }
                             else if ((UserLogo_Multipart.size / (1000 * 1000)) > 1) {
@@ -181,7 +313,7 @@ const AddEditUserDetails = async (req, res, next) => {
                 if (!fs.existsSync(RootDirectory)) {
                     fs.mkdirSync(RootDirectory, { recursive: true });
                 }
-                let fileName_orignal = SubjectImage_Multipart.name;
+                let fileName_orignal = UserLogo_Multipart.name;
                 let extension = fileName_orignal.substr(fileName_orignal.lastIndexOf('.'), fileName_orignal.length - fileName_orignal.lastIndexOf('.')).toUpperCase();
 
                 var fileName = date.format((new Date()), 'DDMMMYYYYhhmmss') + extension;
@@ -195,162 +327,310 @@ const AddEditUserDetails = async (req, res, next) => {
                 });
             }
             res.setHeader('Content-Type', 'application/json');
-            console.log(Body_UserDetails);
+            //console.log(Body_UserDetails);
 
-            await sql.connect(config.sql, function (err) {
-                try {
-                    if (err) {
-                        console.log(err);
-                        ServiceResult.Message = "Failed to parse api request!";
-                        ServiceResult.Description = JSON.stringify(err);
+            if (Body_UserDetails.StepCompleted == 'UserDetails') {
+                var RoleIdInfo = Body_UserDetails.RoleId ? await adminMstRoleClcts.findById(Body_UserDetails.RoleId) : "";
+                var CreatedByUserInfo = Body_UserDetails.CreatedBy ? await adminMstUserClcts.findById(Body_UserDetails.CreatedBy) : "";
+                var CategoryIdInfo = Body_UserDetails.CategoryId ? await adminLkpCategoryClcts.findById(Body_UserDetails.CategoryId) : "";
+                var AccountIdInfo = Body_UserDetails.AccountId ? await adminMstAccountClcts.findById(Body_UserDetails.AccountId) : "";
+
+                if (!Body_UserDetails.UserId) {
+                    const objAdminMstUserClcts = new adminMstUserClcts({
+                        FullName: Body_UserDetails.FullName,
+                        MobileNo: Body_UserDetails.MobileNo,
+                        EmailId: Body_UserDetails.EmailId,
+                        RoleId: RoleIdInfo ? RoleIdInfo._id : null,
+                        AccountId: AccountIdInfo ? AccountIdInfo._id : null,
+                        CategoryId: CategoryIdInfo ? CategoryIdInfo._id : null,
+                        StepCompleted: Body_UserDetails.StepCompleted,
+                        NextStep: Body_UserDetails.NextStep,
+                        CreatedBy: CreatedByUserInfo ? CreatedByUserInfo._id : null,
+                        CreatedDateTime: (new Date())
+                    });
+                    await objAdminMstUserClcts.save()
+                        .then(item => {
+                            ServiceResult.Message = "A new user ('" + Body_UserDetails.FullName + "') details created successfully, please complete all the steps!";
+                            ServiceResult.Result = true;
+                            ServiceResult.Description = null;
+                            ServiceResult.Data = item;
+                            return res.send(ServiceResult);
+                        })
+                        .catch(err => {
+                            ServiceResult.Message = "API Internal Error!";
+                            ServiceResult.Result = false;
+                            ServiceResult.Description = err.message;
+                            ServiceResult.Data = null;
+                            return res.send(ServiceResult);
+                        });
+                }
+                else {
+                    await adminMstUserClcts.findByIdAndUpdate(
+                        Body_UserDetails.UserId,
+                        {
+                            FullName: Body_UserDetails.FullName,
+                            MobileNo: Body_UserDetails.MobileNo,
+                            EmailId: Body_UserDetails.EmailId,
+                            RoleId: RoleIdInfo ? RoleIdInfo._id : null,
+                            AccountId: AccountIdInfo ? AccountIdInfo._id : null,
+                            CategoryId: CategoryIdInfo ? CategoryIdInfo._id : null,
+                            StepCompleted: Body_UserDetails.StepCompleted,
+                            NextStep: Body_UserDetails.NextStep,
+                            UpdatedBy: CreatedByUserInfo ? CreatedByUserInfo._id : null,
+                            UpdatedDateTime: (new Date())
+                        },
+                        { new: true, useFindAndModify: false }
+                    )
+                        .then(item => {
+                            ServiceResult.Message = "User details step updated successfully, please complete all the steps!";
+                            ServiceResult.Result = true;
+                            ServiceResult.Description = null;
+                            ServiceResult.Data = item;
+                            return res.send(ServiceResult);
+                        })
+                        .catch(err => {
+                            ServiceResult.Message = "API Internal Error!";
+                            ServiceResult.Result = false;
+                            ServiceResult.Description = err.message;
+                            ServiceResult.Data = null;
+                            return res.send(ServiceResult);
+                        });
+                }
+            }
+            else if (Body_UserDetails.StepCompleted == 'AdditionalInfo') {
+                var UpdatedByUserInfo = Body_UserDetails.UpdatedBy ? await adminMstUserClcts.findById(Body_UserDetails.UpdatedBy) : "";
+                var CountryIdInfo = Body_UserDetails.CountryId ? await adminMstCountryClcts.findById(Body_UserDetails.CountryId) : "";
+                var StateIdInfo = Body_UserDetails.StateId ? await adminMstStateClcts.findById(Body_UserDetails.StateId) : "";
+                var CityIdInfo = Body_UserDetails.CityId ? await adminMstCityClcts.findById(Body_UserDetails.CityId) : "";
+                await adminMstUserClcts.findByIdAndUpdate(
+                    Body_UserDetails.UserId,
+                    {
+                        Gender: Body_UserDetails.Gender
+                        , DateOfBirth: Body_UserDetails.DateOfBirth
+                        , AlternateEmailId: Body_UserDetails.AlternateEmailId
+                        , AlternateMobileNo: Body_UserDetails.AlternateMobileNo
+                        , CountryId: CountryIdInfo ? CountryIdInfo._id : null
+                        , StateId: StateIdInfo ? StateIdInfo._id : null
+                        , CityId: CityIdInfo ? CityIdInfo._id : null
+                        , ZipCode: Body_UserDetails.ZipCode
+                        , UserAddress: Body_UserDetails.UserAddress
+                        , UpdatedBy: UpdatedByUserInfo ? UpdatedByUserInfo._id : null
+                        , UpdatedDateTime: (new Date())
+                        , NextStep: Body_UserDetails.NextStep
+                        , StepCompleted: Body_UserDetails.StepCompleted
+                        , UserLogo: uploadedFileUrl
+                    },
+                    { new: true, useFindAndModify: false }
+                )
+                    .then(item => {
+                        ServiceResult.Message = "Additional info step updated successfully!";
+                        ServiceResult.Result = true;
+                        ServiceResult.Description = null;
+                        ServiceResult.Data = item;
+                        return res.send(ServiceResult);
+                    })
+                    .catch(err => {
+                        ServiceResult.Message = "API Internal Error!";
                         ServiceResult.Result = false;
+                        ServiceResult.Description = err.message;
                         ServiceResult.Data = null;
                         return res.send(ServiceResult);
-                    }
-                    // create Request object
-                    var request = new sql.Request();
-
-                    if (Body_UserDetails.StepCompleted == "UserDetails") {
-                        request.input('cFullName', sql.NVarChar(500), Body_UserDetails.FullName);
-                        request.input('cMobileNo', sql.NVarChar(500), Body_UserDetails.MobileNo);
-                        request.input('cEmailId', sql.NVarChar(500), Body_UserDetails.EmailId);
-                        request.input('iFK_RoleId', sql.BigInt, Body_UserDetails.RoleId);
-                        request.input('iFK_AccountId', sql.BigInt, Body_UserDetails.AccountId);
-                        request.input('iFK_CategoryId', sql.BigInt, Body_UserDetails.CategoryId);
-                    }
-                    else if (Body_UserDetails.StepCompleted == "AdditionalInfo") {
-                        request.input('bGender', sql.NVarChar(500), Body_UserDetails.Gender);
-                        request.input('cDateOfBirth', sql.NVarChar(500), Body_UserDetails.DateOfBirth);
-                        request.input('cAlternateEmailId', sql.NVarChar(500), Body_UserDetails.AlternateEmailId);
-                        request.input('iAlternateMobileNo', sql.NVarChar(500), Body_UserDetails.AlternateMobileNo);
-                        request.input('iFK_CountryId', sql.NVarChar(100), Body_UserDetails.CountryId);
-                        request.input('iFK_StateId', sql.NVarChar(100), Body_UserDetails.StateId);
-                        request.input('iFK_CityId', sql.NVarChar(100), Body_UserDetails.CityId);
-                        request.input('cZipCode', sql.NVarChar(100), Body_UserDetails.ZipCode);
-                        request.input('cUserAddress', sql.NVarChar(500), Body_UserDetails.UserAddress);
-                        request.input('cUserLogo', sql.NVarChar(100), uploadedFileUrl);
-                    }
-                    else if (Body_UserDetails.StepCompleted == "Credentials") {
-                        request.input('bIsActive', sql.BIT, Body_UserDetails.IsActive === "true" ? true : false);
-                        request.input('cUserName', sql.NVarChar(100), Body_UserDetails.Username);
-                        request.input('cUserPassword', sql.NVarChar(100), Body_UserDetails.Password);
-                    }
-                    request.input('iPK_UserId', sql.BigInt, Body_UserDetails.UserId);
-                    request.input('StepCompleted', sql.NVarChar(100), Body_UserDetails.StepCompleted);
-                    request.input('NextStep', sql.NVarChar(100), Body_UserDetails.NextStep);
-                    request.input('CreatedBy', sql.NVarChar(100), Body_UserDetails.CreatedBy);
-
-                    request.execute("[dbo].[USP_SvcAddEditUser]", function (err, recordset) {
-                        try {
-                            if (err) {
-                                console.log(err);
-                                sql.close();
-                                ServiceResult.Message = "Failed to parse api response!";
-                                ServiceResult.Description = err.message;
-                                ServiceResult.Result = false;
-                                ServiceResult.Data = null;
-                                if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
-                                    if (fs.existsSync(uploadFilePath)) {
-                                        fs.unlinkSync(uploadFilePath)
-                                    }
-                                }
-                                return res.send(ServiceResult);
-                            }
-                            sql.close();
-                            if (recordset) {
-                                if (recordset.recordsets[0][0].Message_Id == 1) {
-                                    try {
-                                        let Data = null;
-                                        if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
-                                            RootDirectory = require('path').resolve();
-                                            let UserLogoBeforeUpdate = recordset.recordsets[1][0].UserLogoBeforeUpdate;
-                                            let previousImage = (UserLogoBeforeUpdate)
-                                                .replace(process.env.HOST_URL, RootDirectory)
-                                                .replace('/images/', '/public/images/');
-                                            console.log(previousImage);
-                                            if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
-                                                if (fs.existsSync(previousImage)) {
-                                                    fs.unlinkSync(previousImage);
-                                                }
-                                            }
-                                        }
-                                        else if (Body_UserDetails.StepCompleted == "UserDetails") {
-                                            Data = recordset.recordsets[1][0];
-                                        }
-                                        //Success Case
-                                        ServiceResult.Message = recordset.recordsets[0][0].Message;
-                                        ServiceResult.Description = null;
-                                        ServiceResult.Result = true;
-                                        ServiceResult.Data = Data;
-                                        //Delete previoud image
-
-
-                                        return res.send(ServiceResult);
-                                    } catch (error) {
-                                        ServiceResult.Message = "Failed to parse api response!";
-                                        ServiceResult.Description = error.message;
-                                        ServiceResult.Result = false;
-                                        ServiceResult.Data = null;
-                                        if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
-                                            if (fs.existsSync(uploadFilePath)) {
-                                                fs.unlinkSync(uploadFilePath)
-                                            }
-                                        }
-                                        return res.send(ServiceResult);
-                                    }
-                                }
-                                else {
-                                    ServiceResult.Message = recordset.recordsets[0][0].Message;
-                                    ServiceResult.Result = false;
-                                    ServiceResult.Description = null;
-                                    ServiceResult.Data = null;
-                                    if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
-                                        if (fs.existsSync(uploadFilePath)) {
-                                            fs.unlinkSync(uploadFilePath)
-                                        }
-                                    }
-                                    return res.send(ServiceResult);
-                                }
-                            }
-                            else {
-                                ServiceResult.Message = "Failed to parse api response!";
-                                ServiceResult.Result = false;
-                                ServiceResult.Description = null;
-                                ServiceResult.Data = null;
-                                if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
-                                    if (fs.existsSync(uploadFilePath)) {
-                                        fs.unlinkSync(uploadFilePath)
-                                    }
-                                }
-                                return res.send(ServiceResult);
-                            }
-                        } catch (e) {
-                            ServiceResult.Message = 'API Internal Error!';
-                            ServiceResult.Description = null;
-                            ServiceResult.Result = false;
-                            ServiceResult.Data = null;
-                            ServiceResult.Description = JSON.stringify(e.message);
-                            if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
-                                if (fs.existsSync(uploadFilePath)) {
-                                    fs.unlinkSync(uploadFilePath)
-                                }
-                            }
-                            return res.send(ServiceResult);
-                        }
                     });
-                } catch (e) {
-                    ServiceResult.Message = "API Internal Error!";
-                    ServiceResult.Result = false;
-                    ServiceResult.Description = e.message;
-                    ServiceResult.Data = null;
-                    if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
-                        if (fs.existsSync(uploadFilePath)) {
-                            fs.unlinkSync(uploadFilePath)
-                        }
-                    }
-                    return res.send(ServiceResult);
-                }
-            });
+            }
+            else if (Body_UserDetails.StepCompleted == 'Credentials') {
+                var UpdatedByUserInfo = Body_UserDetails.UpdatedBy ? await adminMstUserClcts.findById(Body_UserDetails.UpdatedBy) : "";
+                await adminMstUserClcts.findByIdAndUpdate(
+                    Body_UserDetails.UserId,
+                    {
+                        UserName: Body_UserDetails.Username
+                        , UserPassword: Body_UserDetails.Password
+                        , IsActive: Body_UserDetails.IsActive
+                        , UpdatedBy: UpdatedByUserInfo ? UpdatedByUserInfo._id : null
+                        , UpdatedDateTime: (new Date())
+                        , NextStep: Body_UserDetails.NextStep
+                        , StepCompleted: Body_UserDetails.StepCompleted
+                    },
+                    { new: true, useFindAndModify: false }
+                )
+                    .then(item => {
+                        ServiceResult.Message = "Credentials step updated successfully!";
+                        ServiceResult.Result = true;
+                        ServiceResult.Description = null;
+                        ServiceResult.Data = item;
+                        return res.send(ServiceResult);
+                    })
+                    .catch(err => {
+                        ServiceResult.Message = "API Internal Error!";
+                        ServiceResult.Result = false;
+                        ServiceResult.Description = err.message;
+                        ServiceResult.Data = null;
+                        return res.send(ServiceResult);
+                    });
+            }
+            else {
+                ServiceResult.Message = "Validatio Error!";
+                ServiceResult.Description = "No were data found within User details form data key ('UserDetails') with key ('StepCompleted') value must be in ('UserDetails','AdditionalInfo','Credentials')!";
+                ServiceResult.Result = false;
+                ServiceResult.Data = null;
+                return res.send(ServiceResult);
+            }
+
+            //#region SQL DB
+            //await sql.connect(config.sql, function (err) {
+            //    try {
+            //        if (err) {
+            //            console.log(err);
+            //            ServiceResult.Message = "Failed to parse api request!";
+            //            ServiceResult.Description = JSON.stringify(err);
+            //            ServiceResult.Result = false;
+            //            ServiceResult.Data = null;
+            //            return res.send(ServiceResult);
+            //        }
+            //        // create Request object
+            //        var request = new sql.Request();
+
+            //        if (Body_UserDetails.StepCompleted == "UserDetails") {
+            //            request.input('cFullName', sql.NVarChar(500), Body_UserDetails.FullName);
+            //            request.input('cMobileNo', sql.NVarChar(500), Body_UserDetails.MobileNo);
+            //            request.input('cEmailId', sql.NVarChar(500), Body_UserDetails.EmailId);
+            //            request.input('iFK_RoleId', sql.BigInt, Body_UserDetails.RoleId);
+            //            request.input('iFK_AccountId', sql.BigInt, Body_UserDetails.AccountId);
+            //            request.input('iFK_CategoryId', sql.BigInt, Body_UserDetails.CategoryId);
+            //        }
+            //        else if (Body_UserDetails.StepCompleted == "AdditionalInfo") {
+            //            request.input('bGender', sql.NVarChar(500), Body_UserDetails.Gender);
+            //            request.input('cDateOfBirth', sql.NVarChar(500), Body_UserDetails.DateOfBirth);
+            //            request.input('cAlternateEmailId', sql.NVarChar(500), Body_UserDetails.AlternateEmailId);
+            //            request.input('iAlternateMobileNo', sql.NVarChar(500), Body_UserDetails.AlternateMobileNo);
+            //            request.input('iFK_CountryId', sql.NVarChar(100), Body_UserDetails.CountryId);
+            //            request.input('iFK_StateId', sql.NVarChar(100), Body_UserDetails.StateId);
+            //            request.input('iFK_CityId', sql.NVarChar(100), Body_UserDetails.CityId);
+            //            request.input('cZipCode', sql.NVarChar(100), Body_UserDetails.ZipCode);
+            //            request.input('cUserAddress', sql.NVarChar(500), Body_UserDetails.UserAddress);
+            //            request.input('cUserLogo', sql.NVarChar(100), uploadedFileUrl);
+            //        }
+            //        else if (Body_UserDetails.StepCompleted == "Credentials") {
+            //            request.input('bIsActive', sql.BIT, Body_UserDetails.IsActive === "true" ? true : false);
+            //            request.input('cUserName', sql.NVarChar(100), Body_UserDetails.Username);
+            //            request.input('cUserPassword', sql.NVarChar(100), Body_UserDetails.Password);
+            //        }
+            //        request.input('iPK_UserId', sql.BigInt, Body_UserDetails.UserId);
+            //        request.input('StepCompleted', sql.NVarChar(100), Body_UserDetails.StepCompleted);
+            //        request.input('NextStep', sql.NVarChar(100), Body_UserDetails.NextStep);
+            //        request.input('CreatedBy', sql.NVarChar(100), Body_UserDetails.CreatedBy);
+
+            //        request.execute("[dbo].[USP_SvcAddEditUser]", function (err, recordset) {
+            //            try {
+            //                if (err) {
+            //                    console.log(err);
+            //                    sql.close();
+            //                    ServiceResult.Message = "Failed to parse api response!";
+            //                    ServiceResult.Description = err.message;
+            //                    ServiceResult.Result = false;
+            //                    ServiceResult.Data = null;
+            //                    if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
+            //                        if (fs.existsSync(uploadFilePath)) {
+            //                            fs.unlinkSync(uploadFilePath)
+            //                        }
+            //                    }
+            //                    return res.send(ServiceResult);
+            //                }
+            //                sql.close();
+            //                if (recordset) {
+            //                    if (recordset.recordsets[0][0].Message_Id == 1) {
+            //                        try {
+            //                            let Data = null;
+            //                            if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
+            //                                RootDirectory = require('path').resolve();
+            //                                let UserLogoBeforeUpdate = recordset.recordsets[1][0].UserLogoBeforeUpdate;
+            //                                let previousImage = (UserLogoBeforeUpdate)
+            //                                    .replace(process.env.HOST_URL, RootDirectory)
+            //                                    .replace('/images/', '/public/images/');
+            //                                console.log(previousImage);
+            //                                if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
+            //                                    if (fs.existsSync(previousImage)) {
+            //                                        fs.unlinkSync(previousImage);
+            //                                    }
+            //                                }
+            //                            }
+            //                            else if (Body_UserDetails.StepCompleted == "UserDetails") {
+            //                                Data = recordset.recordsets[1][0];
+            //                            }
+            //                            //Success Case
+            //                            ServiceResult.Message = recordset.recordsets[0][0].Message;
+            //                            ServiceResult.Description = null;
+            //                            ServiceResult.Result = true;
+            //                            ServiceResult.Data = Data;
+            //                            //Delete previoud image
+
+
+            //                            return res.send(ServiceResult);
+            //                        } catch (error) {
+            //                            ServiceResult.Message = "Failed to parse api response!";
+            //                            ServiceResult.Description = error.message;
+            //                            ServiceResult.Result = false;
+            //                            ServiceResult.Data = null;
+            //                            if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
+            //                                if (fs.existsSync(uploadFilePath)) {
+            //                                    fs.unlinkSync(uploadFilePath)
+            //                                }
+            //                            }
+            //                            return res.send(ServiceResult);
+            //                        }
+            //                    }
+            //                    else {
+            //                        ServiceResult.Message = recordset.recordsets[0][0].Message;
+            //                        ServiceResult.Result = false;
+            //                        ServiceResult.Description = null;
+            //                        ServiceResult.Data = null;
+            //                        if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
+            //                            if (fs.existsSync(uploadFilePath)) {
+            //                                fs.unlinkSync(uploadFilePath)
+            //                            }
+            //                        }
+            //                        return res.send(ServiceResult);
+            //                    }
+            //                }
+            //                else {
+            //                    ServiceResult.Message = "Failed to parse api response!";
+            //                    ServiceResult.Result = false;
+            //                    ServiceResult.Description = null;
+            //                    ServiceResult.Data = null;
+            //                    if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
+            //                        if (fs.existsSync(uploadFilePath)) {
+            //                            fs.unlinkSync(uploadFilePath)
+            //                        }
+            //                    }
+            //                    return res.send(ServiceResult);
+            //                }
+            //            } catch (e) {
+            //                ServiceResult.Message = 'API Internal Error!';
+            //                ServiceResult.Description = null;
+            //                ServiceResult.Result = false;
+            //                ServiceResult.Data = null;
+            //                ServiceResult.Description = JSON.stringify(e.message);
+            //                if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
+            //                    if (fs.existsSync(uploadFilePath)) {
+            //                        fs.unlinkSync(uploadFilePath)
+            //                    }
+            //                }
+            //                return res.send(ServiceResult);
+            //            }
+            //        });
+            //    } catch (e) {
+            //        ServiceResult.Message = "API Internal Error!";
+            //        ServiceResult.Result = false;
+            //        ServiceResult.Description = e.message;
+            //        ServiceResult.Data = null;
+            //        if (Body_UserDetails.StepCompleted == "AdditionalInfo" && UserLogo_Multipart) {
+            //            if (fs.existsSync(uploadFilePath)) {
+            //                fs.unlinkSync(uploadFilePath)
+            //            }
+            //        }
+            //        return res.send(ServiceResult);
+            //    }
+            //});
+            //#endregion
         }
 
     } catch (error) {
@@ -380,64 +660,100 @@ const DeleteUsersDetails = async (req, res, next) => {
 
         var iPK_userId = req.query.UserId;
         var iUserId = req.query.DeletedBy;
-        if ((Number(iPK_userId) <= 0 || Number(iUserId) <= 0) || (isNaN(Number(iPK_userId)) || isNaN(Number(iUserId)))) {
+
+
+        if (!validator.isMongoId(iPK_userId) || !validator.isMongoId(iUserId)) {
             ServiceResult.Message = "Validation Error!";
-            ServiceResult.Description = '(UserId & DeletedBy) query params must be required a number & grater than zero!';
+            ServiceResult.Description = '(UserId & DeletedBy) query params must be a valid mongo id!';
             ServiceResult.Result = false;
             ServiceResult.Data = null;
             return res.send(ServiceResult);
         }
-        var poolPromise = new sql.ConnectionPool(config.sql);
-        await poolPromise.connect().then(function (pool) {
-            //the pool that is created and should be used
-            // create Request object
-            var request = new sql.Request(pool);
-            //the pool from the promise
-
-            request.input('iPK_userId', sql.BigInt, iPK_userId);
-            request.input('iUserId', sql.BigInt, iUserId);
-
-            request.execute("[dbo].[USP_SvcDeleteUser]", function (err, recordset) {
-                if (err) {
-                    sql.close();
-                    ServiceResult.Message = "Failed to parse api response!";
-                    ServiceResult.Description = err.message;
-                    ServiceResult.Result = false;
-                    ServiceResult.Data = null;
-                    return res.send(ServiceResult);
-                }
-                sql.close();
-                if (recordset) {
-                    if (recordset.recordsets[0][0].Message_Id == 1) {
-                        try {
-                            ServiceResult.Message = recordset.recordsets[0][0].Message;
-                            ServiceResult.Description = null;
-                            ServiceResult.Result = true;
-                            ServiceResult.Data = null;
-                            return res.send(ServiceResult);
-                        } catch (error) {
-                            ServiceResult.Message = "Failed to parse api response!";
-                            ServiceResult.Description = error.message;
-                            ServiceResult.Result = false;
-                            ServiceResult.Data = null;
-                            return res.send(ServiceResult);
-                        }
-                    }
-                    else {
-                        ServiceResult.Message = recordset.recordsets[0][0].Message;
-                        ServiceResult.Result = false;
-                        ServiceResult.Data = null;
-                        return res.send(ServiceResult);
-                    }
-                }
-                else {
-                    ServiceResult.Message = "Failed to parse api response!";
-                    ServiceResult.Result = false;
-                    ServiceResult.Data = null;
-                    return res.send(ServiceResult);
-                }
+        var DeletedByUser = iUserId ? await adminMstUserClcts.findById(iUserId) : "";
+        await adminMstUserClcts.findByIdAndUpdate(
+            iPK_userId,
+            {
+                IsActive: false,
+                IsDeleted: true,
+                DeletedBy: DeletedByUser ? DeletedByUser._id : null,
+                DeletedDateTime: (new Date())
+            },
+            { new: true, useFindAndModify: false }
+        )
+            .then(item => {
+                ServiceResult.Message = "User details deleted successfully!";
+                ServiceResult.Result = true;
+                ServiceResult.Description = null;
+                ServiceResult.Data = item;
+                return res.send(ServiceResult);
+            })
+            .catch(err => {
+                ServiceResult.Message = "API Internal Error!";
+                ServiceResult.Result = false;
+                ServiceResult.Description = err.message;
+                ServiceResult.Data = null;
+                return res.send(ServiceResult);
             });
-        });
+        //#region #SQL DB
+        //if ((Number(iPK_userId) <= 0 || Number(iUserId) <= 0) || (isNaN(Number(iPK_userId)) || isNaN(Number(iUserId)))) {
+        //    ServiceResult.Message = "Validation Error!";
+        //    ServiceResult.Description = '(UserId & DeletedBy) query params must be required a number & grater than zero!';
+        //    ServiceResult.Result = false;
+        //    ServiceResult.Data = null;
+        //    return res.send(ServiceResult);
+        //}
+        //var poolPromise = new sql.ConnectionPool(config.sql);
+        //await poolPromise.connect().then(function (pool) {
+        //    //the pool that is created and should be used
+        //    // create Request object
+        //    var request = new sql.Request(pool);
+        //    //the pool from the promise
+
+        //    request.input('iPK_userId', sql.BigInt, iPK_userId);
+        //    request.input('iUserId', sql.BigInt, iUserId);
+
+        //    request.execute("[dbo].[USP_SvcDeleteUser]", function (err, recordset) {
+        //        if (err) {
+        //            sql.close();
+        //            ServiceResult.Message = "Failed to parse api response!";
+        //            ServiceResult.Description = err.message;
+        //            ServiceResult.Result = false;
+        //            ServiceResult.Data = null;
+        //            return res.send(ServiceResult);
+        //        }
+        //        sql.close();
+        //        if (recordset) {
+        //            if (recordset.recordsets[0][0].Message_Id == 1) {
+        //                try {
+        //                    ServiceResult.Message = recordset.recordsets[0][0].Message;
+        //                    ServiceResult.Description = null;
+        //                    ServiceResult.Result = true;
+        //                    ServiceResult.Data = null;
+        //                    return res.send(ServiceResult);
+        //                } catch (error) {
+        //                    ServiceResult.Message = "Failed to parse api response!";
+        //                    ServiceResult.Description = error.message;
+        //                    ServiceResult.Result = false;
+        //                    ServiceResult.Data = null;
+        //                    return res.send(ServiceResult);
+        //                }
+        //            }
+        //            else {
+        //                ServiceResult.Message = recordset.recordsets[0][0].Message;
+        //                ServiceResult.Result = false;
+        //                ServiceResult.Data = null;
+        //                return res.send(ServiceResult);
+        //            }
+        //        }
+        //        else {
+        //            ServiceResult.Message = "Failed to parse api response!";
+        //            ServiceResult.Result = false;
+        //            ServiceResult.Data = null;
+        //            return res.send(ServiceResult);
+        //        }
+        //    });
+        //});
+        //#endregion
     } catch (error) {
         ServiceResult.Message = "API Internal Error!";
         ServiceResult.Result = false;
@@ -468,62 +784,101 @@ const AuthenticatedUserInfo = async (req, res, next) => {
 
         res.setHeader('Content-Type', 'application/json');
 
-        var poolPromise = new sql.ConnectionPool(config.sql);
-        await poolPromise.connect().then(function (pool) {
-            //the pool that is created and should be used
-            // create Request object
-            var request = new sql.Request(pool);
-            //the pool from the promise
+        var UserTokenFamily = await adminMstTokenFamilyClcts.findOne(
+            // Find documents matching of these values
+            {
+                $and: [
+                    { "AccessToken": accessToken },
+                    { 'IsActive': true },
+                    { 'IsDeleted': false }
+                ]
+            }
+        );
 
-            request.input('cAccessToken', sql.NVarChar(300), accessToken);
+        if (!UserTokenFamily) {
+            ServiceResult.Message = "Authenticaion Failed!";
+            ServiceResult.Description = "Unauthorized? Invalid credentials!";
+            ServiceResult.Result = false;
+            ServiceResult.Data = null;
+            return res.send(ServiceResult);
+        }
 
-            request.execute("[dbo].[USP_SvcAuthenticatedAPIUserInfo]", function (err, recordset) {
-                if (err) {
-                    sql.close();
-                    ServiceResult.Message = "Failed to parse api response!";
-                    ServiceResult.Description = err.message;
-                    ServiceResult.Result = false;
-                    ServiceResult.Data = null;
-                    return res.send(ServiceResult);
-                }
-                sql.close();
-                if (recordset) {
-                    if (recordset.recordsets[0][0].Message_Id == 1) {
+        var LoggedInUserInfo = await adminMstUserClcts.findById(UserTokenFamily.UserId);
 
-                        try {
-                            let formRoleMappingInfo = [];
-                            recordset.recordsets[2].map((column, i) => {
-                                formRoleMappingInfo.push(column);
-                            });
-                            ServiceResult.Message = recordset.recordsets[0][0].Message;
-                            ServiceResult.Description = recordset.recordsets[0][0].Message;
-                            ServiceResult.Result = true;
-                            ServiceResult.Data = {
-                                userInfo: recordset.recordsets[1][0],
-                                formRoleMappingInfo: formRoleMappingInfo,
-                            }
-                            return res.send(ServiceResult);
-                        } catch (error) {
-                            return res.status(400).send(error.message);
-                        }
-                    }
-                    else {
-                        ServiceResult.Message = recordset.recordsets[0][0].Message;
-                        ServiceResult.Result = false;
-                        ServiceResult.Data = null;
-                        return res.send(ServiceResult);
-                    }
-                }
-                else {
-                    ServiceResult.Message = "Failed to parse api response!";
-                    ServiceResult.Result = false;
-                    ServiceResult.Data = null;
-                    return res.send(ServiceResult);
-                }
-            });
-        });
+        let formRoleMappingInfo = [];
+        //recordset.recordsets[2].map((column, i) => {
+        //    formRoleMappingInfo.push(column);
+        //});
+        ServiceResult.Message = "Success!";
+        ServiceResult.Description = null;
+        ServiceResult.Result = true;
+        ServiceResult.Data = {
+            userInfo: LoggedInUserInfo,
+            formRoleMappingInfo: formRoleMappingInfo,
+        }
+        return res.send(ServiceResult);
+
+
+        //var poolPromise = new sql.ConnectionPool(config.sql);
+        //await poolPromise.connect().then(function (pool) {
+        //    //the pool that is created and should be used
+        //    // create Request object
+        //    var request = new sql.Request(pool);
+        //    //the pool from the promise
+
+        //    request.input('cAccessToken', sql.NVarChar(300), accessToken);
+
+        //    request.execute("[dbo].[USP_SvcAuthenticatedAPIUserInfo]", function (err, recordset) {
+        //        if (err) {
+        //            sql.close();
+        //            ServiceResult.Message = "Failed to parse api response!";
+        //            ServiceResult.Description = err.message;
+        //            ServiceResult.Result = false;
+        //            ServiceResult.Data = null;
+        //            return res.send(ServiceResult);
+        //        }
+        //        sql.close();
+        //        if (recordset) {
+        //            if (recordset.recordsets[0][0].Message_Id == 1) {
+
+        //                try {
+        //                    let formRoleMappingInfo = [];
+        //                    recordset.recordsets[2].map((column, i) => {
+        //                        formRoleMappingInfo.push(column);
+        //                    });
+        //                    ServiceResult.Message = recordset.recordsets[0][0].Message;
+        //                    ServiceResult.Description = recordset.recordsets[0][0].Message;
+        //                    ServiceResult.Result = true;
+        //                    ServiceResult.Data = {
+        //                        userInfo: recordset.recordsets[1][0],
+        //                        formRoleMappingInfo: formRoleMappingInfo,
+        //                    }
+        //                    return res.send(ServiceResult);
+        //                } catch (error) {
+        //                    return res.status(400).send(error.message);
+        //                }
+        //            }
+        //            else {
+        //                ServiceResult.Message = recordset.recordsets[0][0].Message;
+        //                ServiceResult.Result = false;
+        //                ServiceResult.Data = null;
+        //                return res.send(ServiceResult);
+        //            }
+        //        }
+        //        else {
+        //            ServiceResult.Message = "Failed to parse api response!";
+        //            ServiceResult.Result = false;
+        //            ServiceResult.Data = null;
+        //            return res.send(ServiceResult);
+        //        }
+        //    });
+        //});
     } catch (error) {
-        return res.status(400).send(error.message);
+        ServiceResult.Message = "API Internal Error!";
+        ServiceResult.Result = false;
+        ServiceResult.Description = error.message;
+        ServiceResult.Data = null;
+        return res.send(ServiceResult);
     }
 }
 
@@ -545,59 +900,103 @@ const AuthenticatedUserTokenValidation = async (req, res, next) => {
         ServiceResult.Data = null;
 
         res.setHeader('Content-Type', 'application/json');
-        //if (sql.pool) {
-        //console.log(sql.pool);
-        //}
 
-        var poolPromise = new sql.ConnectionPool(config.sql);
-        await poolPromise.connect().then(function (pool) {
-            //the pool that is created and should be used
-            // create Request object
-            var request = new sql.Request(pool);
-            //the pool from the promise
-
-
-            request.input('cAccessToken', sql.NVarChar(300), accessToken);
-
-            request.execute("[dbo].[USP_SvcAuthenticatedAPIUserTokenValidation]", function (err, recordset) {
-                if (err) {
-                    sql.close();
-                    ServiceResult.Message = "Failed to parse api response!";
-                    ServiceResult.Description = err.message;
-                    ServiceResult.Result = false;
-                    ServiceResult.Data = null;
-                    return res.send(ServiceResult);
-                }
-                sql.close();
-                if (recordset) {
-                    if (recordset.recordsets[0][0].Message_Id == 1) {
-                        try {
-                            ServiceResult.Message = recordset.recordsets[0][0].Message;
-                            ServiceResult.Description = null;
-                            ServiceResult.Result = true;
-                            ServiceResult.Data = recordset.recordsets[1];
-                            return res.send(ServiceResult);
-                        } catch (error) {
-                            return res.status(400).send(error.message);
+        var UserTokenFamily = await adminMstTokenFamilyClcts.findOne(
+            // Find documents matching of these values
+            {
+                $and: [
+                    { "AccessToken": accessToken },
+                    {
+                        'ExpiryDatetime': {
+                            "$gt": (new Date()),
                         }
-                    }
-                    else {
-                        ServiceResult.Message = recordset.recordsets[0][0].Message;
-                        ServiceResult.Result = false;
-                        ServiceResult.Data = null;
-                        return res.send(ServiceResult);
-                    }
-                }
-                else {
-                    ServiceResult.Message = "Failed to parse api response!";
-                    ServiceResult.Result = false;
-                    ServiceResult.Data = null;
-                    return res.send(ServiceResult);
-                }
-            });
-        });
+                    },
+                    { 'IPAddress': req.ip },
+                    { 'IsActive': true },
+                    { 'IsDeleted': false }
+                ]
+            },
+            //Excludes Fields
+            {
+                '_id': 0,
+                'UserId': 0,
+                'IPAddress': 0,
+                'RefreshToken': 0,
+                'RefreshTokenExpiryDatetime': 0,
+                'UserName': 0,
+                'CreatedDatetime': 0,
+                '__v': 0,
+                'IsActive': 0,
+                'IsDeleted': 0
+            }
+        );
+
+        if (!UserTokenFamily) {
+            ServiceResult.Message = "Authenticaion Failed!";
+            ServiceResult.Description = "Unauthorized? Invalid credentials!";
+            ServiceResult.Result = false;
+            ServiceResult.Data = null;
+            return res.send(ServiceResult);
+        }
+
+
+        ServiceResult.Message = "Success!";
+        ServiceResult.Description = null;
+        ServiceResult.Result = true;
+        ServiceResult.Data = UserTokenFamily
+        return res.send(ServiceResult);
+
+        //#region SQL DB
+        //var poolPromise = new sql.ConnectionPool(config.sql);
+        //await poolPromise.connect().then(function (pool) {
+        //    //the pool that is created and should be used
+        //    // create Request object
+        //    var request = new sql.Request(pool);
+        //    //the pool from the promise
+
+
+        //    request.input('cAccessToken', sql.NVarChar(300), accessToken);
+
+        //    request.execute("[dbo].[USP_SvcAuthenticatedAPIUserTokenValidation]", function (err, recordset) {
+        //        if (err) {
+        //            sql.close();
+        //            ServiceResult.Message = "Failed to parse api response!";
+        //            ServiceResult.Description = err.message;
+        //            ServiceResult.Result = false;
+        //            ServiceResult.Data = null;
+        //            return res.send(ServiceResult);
+        //        }
+        //        sql.close();
+        //        if (recordset) {
+        //            if (recordset.recordsets[0][0].Message_Id == 1) {
+        //                try {
+        //                    ServiceResult.Message = recordset.recordsets[0][0].Message;
+        //                    ServiceResult.Description = null;
+        //                    ServiceResult.Result = true;
+        //                    ServiceResult.Data = recordset.recordsets[1];
+        //                    return res.send(ServiceResult);
+        //                } catch (error) {
+        //                    return res.status(400).send(error.message);
+        //                }
+        //            }
+        //            else {
+        //                ServiceResult.Message = recordset.recordsets[0][0].Message;
+        //                ServiceResult.Result = false;
+        //                ServiceResult.Data = null;
+        //                return res.send(ServiceResult);
+        //            }
+        //        }
+        //        else {
+        //            ServiceResult.Message = "Failed to parse api response!";
+        //            ServiceResult.Result = false;
+        //            ServiceResult.Data = null;
+        //            return res.send(ServiceResult);
+        //        }
+        //    });
+        //});
+        //#endregion
     } catch (error) {
-        ServiceResult.Message = "Failed to connect db!";
+        ServiceResult.Message = "API Internal Error!";
         ServiceResult.Result = false;
         ServiceResult.Description = error.message;
         ServiceResult.Data = null;

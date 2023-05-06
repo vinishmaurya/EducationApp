@@ -7,20 +7,23 @@ const adminMstUserClcts = new mongoose.Schema({
     UserName: {
         type: String
     },
-    FK_CategoryId: {
-        type: Number
+    CategoryId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "admin_LkpCategory_Clcts"
     },
-    FK_RoleId: {
-        type: Number
+    RoleId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "admin_MstRole_Clcts"
     },
-    FK_CustomerId: {
-        type: Number
-    },
-    FK_AccountId: {
-        type: Number
+    //FK_CustomerId: {
+    //    type: Number
+    //},
+    AccountId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "admin_MstAccount_Clcts"
     },
     UserPassword: {
-        type: Date
+        type: String
     },
     MobileNo: {
         type: String
@@ -44,16 +47,19 @@ const adminMstUserClcts = new mongoose.Schema({
         type: String
     },
     ZipCode: {
-        type: Date
+        type: String
     },
-    FK_CountryId: {
-        type: Number
+    CountryId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "admin_MstCountry_Clcts"
     },
-    FK_StateId: {
-        type: Number
+    StateId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "admin_MstState_Clcts"
     },
-    FK_CityId: {
-        type: Number
+    CityId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "admin_MstCity_Clcts"
     },
     IsActive: {
         type: Boolean
@@ -62,16 +68,24 @@ const adminMstUserClcts = new mongoose.Schema({
         type: Boolean
     },
     CreatedBy: {
-        type: Number
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "admin_MstUser_Clcts"
     },
     UpdatedBy: {
-        type: Number
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "admin_MstUser_Clcts"
     },
-    CreatedDate: {
-        type: Date,
-        default: Date.now
+    DeletedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "admin_MstUser_Clcts"
+    },
+    CreatedDateTime: {
+        type: Date
     },
     UpdatedDateTime: {
+        type: Date
+    },
+    DeletedDateTime: {
         type: Date
     },
     FullName: {
@@ -96,8 +110,7 @@ const adminMstUserClcts = new mongoose.Schema({
         type: Boolean
     },
     LastWebLogInDatetime: {
-        type: Date,
-        default: Date.now
+        type: Date
     },
     RefreshToken: {
         type: String
@@ -116,6 +129,15 @@ const adminMstUserClcts = new mongoose.Schema({
     },
     LastAPITokenFetchDatetime: {
         type: Date
+    },
+    StepCompleted: {
+        type: String
+    },
+    NextStep: {
+        type: String
+    },
+    UserLogo: {
+        type: String
     }
 })
 module.exports = mongoose.model('admin_MstUser_Clcts', adminMstUserClcts)
