@@ -21,6 +21,7 @@ const MapFormRole = (props) => {
     //#region define regular expressions (regex)
     var name1to50Regex = /^[a-z A-Z]{1,50}$/;
     var numberRegex = /^[0-9]+$/;
+    var alphanumericRegex = /[A-Za-z0-9]$/;
     //#endregion
 
     //#region define use state hooks
@@ -41,9 +42,9 @@ const MapFormRole = (props) => {
     // Define your state schema
     const stateSchemaRoleRightsDetails = {
         MappingFor: { value: '', error: "This mapping for field selection is required!" },
-        AccountId: { value: 0, error: "This account field selection is required!" },
-        RoleId: { value: 0, error: "This role field selection is required!!" },
-        ParentFormId: { value: 0, error: "This parent form field selection is required!" }
+        AccountId: { value: "", error: "This account field selection is required!" },
+        RoleId: { value: "", error: "This role field selection is required!!" },
+        ParentFormId: { value: "", error: "This parent form field selection is required!" }
     };
     const [FinishRoleRightsDetailsData, setFinishRoleRightsDetailsData] = useState(stateSchemaRoleRightsDetails);
     // Create your own validationstateSchemaRoleRightsDetails
@@ -60,21 +61,21 @@ const MapFormRole = (props) => {
         AccountId: {
             required: true,
             validator: {
-                func: value => numberRegex.test(value),
+                func: value => alphanumericRegex.test(value),
                 error: "Invalid account format."
             }
         },
         RoleId: {
             required: true,
             validator: {
-                func: value => numberRegex.test(value),
+                func: value => alphanumericRegex.test(value),
                 error: "Invalid role format."
             }
         },
         ParentFormId: {
             required: false,
             validator: {
-                func: value => numberRegex.test(value),
+                func: value => alphanumericRegex.test(value),
                 error: "Invalid parent form format."
             }
         }
@@ -113,8 +114,8 @@ const MapFormRole = (props) => {
         //debugger;
         let apiUri = APIConfig.Admin.Common.GetAllRoleListUri;
         apiUri = apiUri.replace('<RoleName>', '')
-            .replace('<CategoryId>', 0)
-            .replace('<AccountId>', AccountId ? AccountId : 0);
+            .replace('<CategoryId>', '')
+            .replace('<AccountId>', AccountId ? AccountId : '');
         //console.log(apiUri);
         const instance = await axios.create({
             baseURL: process.env.REACT_APP_APIBaseUri,
@@ -205,7 +206,7 @@ const MapFormRole = (props) => {
 
 
     const fetchAllParentAccountList = async () => {
-        //debugger;
+        debugger;
         let apiUri = APIConfig.Admin.Common.AllAccountsListUri;
 
         const instance = await axios.create({
@@ -243,6 +244,7 @@ const MapFormRole = (props) => {
                     DataList.push({ ListValue: data.AccountId, ListText: data.AccountName });
                 });
                 setAllParentAccountList(DataList);
+                console.log(DataList);
             }
         }).catch((e) => {
             console.log(e);
@@ -533,7 +535,7 @@ const MapFormRole = (props) => {
                                         )}
                                     </div>
                                 </div>
-                                <div className="row mt-3 mb-3">
+                                <div className="row mt-1 mb-1">
                                     <div className="col-6">
                                         <div className="form-group">
                                             <label className="label-control mb-2">Role{stateValidatorSchemaRoleRightsDetails.RoleId.required && (<span className="red">*</span>)}</label>
@@ -587,7 +589,7 @@ const MapFormRole = (props) => {
                                 </div>
 
 
-                                <div className="row mt-3 mb-3">
+                                <div className="row mt-1 mb-1">
                                     <div className="col-md-12">
                                         <GridRoleRights
                                             DataList={FormRoleRightsDataList}

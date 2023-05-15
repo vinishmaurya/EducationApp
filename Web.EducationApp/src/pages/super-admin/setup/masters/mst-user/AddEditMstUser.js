@@ -23,6 +23,7 @@ const IndexMstUser = (props) => {
     var numberRegex = /^[0-9]+$/;
     var passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
     var usernameRegex = /^[a-z0-9_\.]+$/;
+    var alphanumericRegex = /[A-Za-z0-9]$/;
     //#endregion
 
     //#region User details form: define state, schema & validations
@@ -64,21 +65,21 @@ const IndexMstUser = (props) => {
         CategoryId: {
             required: true,
             validator: {
-                func: value => numberRegex.test(value),
+                func: value => alphanumericRegex.test(value),
                 error: "Invalid user category format."
             }
         },
         AccountId: {
             required: false,
             validator: {
-                func: value => numberRegex.test(value),
+                func: value => alphanumericRegex.test(value),
                 error: "Invalid account format."
             }
         },
         RoleId: {
             required: false,
             validator: {
-                func: value => numberRegex.test(value),
+                func: value => alphanumericRegex.test(value),
                 error: "Invalid role format."
             }
         },
@@ -95,8 +96,8 @@ const IndexMstUser = (props) => {
         UserAddress: { value: propData ? propData.UserAddress : '', error: "This User address field is required!" },
         ZipCode: { value: propData ? propData.ZipCode : '', error: "This zipcode field is required!" },
         CountryId: { value: propData ? propData.CountryId : '', error: "This country field selection is required!" },
-        StateId: { value: propData ? propData.CityId : '', error: "This state field selection is required!!" },
-        CityId: { value: propData ? propData.StateId : '', error: "This city field selection is required!!" },
+        StateId: { value: propData ? propData.StateId : '', error: "This state field selection is required!!" },
+        CityId: { value: propData ? propData.CityId : '', error: "This city field selection is required!!" },
         UserLogo: { value: File, error: "This User logo field is required!!" },
         UserLogoUrl: { value: propData ? propData.UserLogo : '', error: "" },
     };
@@ -147,21 +148,21 @@ const IndexMstUser = (props) => {
         CountryId: {
             required: false,
             validator: {
-                func: value => numberRegex.test(value),
+                func: value => alphanumericRegex.test(value),
                 error: "Invalid country format."
             }
         },
         StateId: {
             required: false,
             validator: {
-                func: value => numberRegex.test(value),
+                func: value => alphanumericRegex.test(value),
                 error: "Invalid state format."
             }
         },
         CityId: {
             required: false,
             validator: {
-                func: value => numberRegex.test(value),
+                func: value => alphanumericRegex.test(value),
                 error: "Invalid city format."
             }
         },
@@ -232,7 +233,7 @@ const IndexMstUser = (props) => {
     const [AllCountryList, setAllCountryList] = useState([]);
     const [AllStateList, setAllStateList] = useState([]);
     const [AllCityList, setAllCityList] = useState([]);
-    const [CurrentId, setCurrentId] = useState(propData ? propData.PK_ID : 0);
+    const [CurrentId, setCurrentId] = useState(propData ? propData.PK_ID : "");
 
     //#endregion
 
@@ -925,12 +926,12 @@ const IndexMstUser = (props) => {
 
     const funcChangeCountrySelection = (e) => {
         //alert('country changes');
-        let CountryId = Number(e.target.value);
+        let CountryId = e.target.value;
         fetchStateList(CountryId);
     }
     const funcChangeStateSelection = (e) => {
         //debugger;
-        let StateId = Number(e.target.value);
+        let StateId = e.target.value;
         fetchCityList(StateId);
     }
 

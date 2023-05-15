@@ -81,7 +81,7 @@ const IndexMstForm = (props) => {
     }
 
     function onChangePagingData(NextCurrentPage, NextRowPerPage) {
-        const FormId = 0;
+        const FormId = "";
         RowPerPage = !Number(NextRowPerPage) ? RowPerPage : NextRowPerPage;
         CurrentPage = !Number(NextCurrentPage) ? CurrentPage : NextCurrentPage;
 

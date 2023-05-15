@@ -19,7 +19,7 @@ const AdminLayout = ({ children, prop }) => {
             return navigate('/auth/login');
         }
         let menuItems = [];
-        
+        //debugger;
         let result = location.state.SideBar;
         let LoggedInUserRoleId = result.Data.userInfo.RoleId;
         if (result) {
@@ -27,15 +27,15 @@ const AdminLayout = ({ children, prop }) => {
             if (formRoleMappingInfo.length > 0) {
                 menuItems.push({ label: formRoleMappingInfo[0].RoleName });
                 var filteredParentForm = formRoleMappingInfo.filter(function (obj) {
-                    return (obj.ParentId === "0");
+                    return (obj.ParentId === "0" || !obj.ParentId);
                 });
                 var filteredChiledForm = formRoleMappingInfo.filter(function (obj) {
-                    return (obj.ParentId !== "0");
+                    return (obj.ParentId !== "0" && obj.ParentId);
                 });
                 for (var i = 0; i < filteredParentForm.length; i++) {
                     let child = [];
                     for (var j = 0; j < filteredChiledForm.length; j++) {
-                        if (filteredChiledForm[j].ParentId === filteredParentForm[i].PK_FormId) {
+                        if (filteredChiledForm[j].ParentId === filteredParentForm[i].FormId) {
                             let href = filteredChiledForm[j].SPA_ComponentHref ? filteredChiledForm[j].SPA_ComponentHref : (filteredChiledForm[j].ControllerName + "/" + filteredChiledForm[j].ActionName);
                             //console.log("test = " + href);
                             child.push(
@@ -52,7 +52,7 @@ const AdminLayout = ({ children, prop }) => {
             }
         }
         //debugger;
-        if (Number(LoggedInUserRoleId) === 1) {
+        if (Number(LoggedInUserRoleId) === 1 || LoggedInUserRoleId == '64567814541ebb5d68a1d506') {
             menuItems.push({
                 "label": "MAIN MENU"
             },

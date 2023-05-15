@@ -41,7 +41,7 @@ const GetSectionDetails = async (req, res, next) => {
                 if (err) {
                     sql.close();
                     ServiceResult.Message = "Failed to parse api response!";
-                    ServiceResult.Description = err.message;
+                    ServiceResult.Description = JSON.stringify(err);
                     ServiceResult.Result = false;
                     ServiceResult.Data = null;
                     return res.send(ServiceResult);
@@ -146,7 +146,7 @@ const AddEditSectionDetails = async (req, res, next) => {
                         console.log(err);
                         sql.close();
                         ServiceResult.Message = "Failed to parse api response!";
-                        ServiceResult.Description = err.message;
+                        ServiceResult.Description = JSON.stringify(err);
                         ServiceResult.Result = false;
                         ServiceResult.Data = null;
                         return res.send(ServiceResult);
@@ -230,7 +230,7 @@ const DeleteSectionsDetails = async (req, res, next) => {
                 if (err) {
                     sql.close();
                     ServiceResult.Message = "Failed to parse api response!";
-                    ServiceResult.Description = err.message;
+                    ServiceResult.Description = JSON.stringify(err);
                     ServiceResult.Result = false;
                     ServiceResult.Data = null;
                     return res.send(ServiceResult);

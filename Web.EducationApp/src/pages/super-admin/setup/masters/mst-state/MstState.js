@@ -36,7 +36,7 @@ const MstState = (props) => {
     const [HasAPISuccess, setHasAPISuccess] = useState(false);
     const [HasAPIMessage, setHasAPIMessage] = useState(null);
     const [HasAPIDescription, setHasAPIDescription] = useState(null);
-    const [StateId, setStateId] = useState(0);
+    const [StateId, setStateId] = useState("");
     const [RowPerPage, setRowPerPage] = useState(process.env.REACT_APP_DefaultRowPerPage);
     const [CurrentPage, setCurrentPage] = useState(process.env.REACT_APP_DefaultCurrentPage);
     const [SearchBy, setSearchBy] = useState("");
@@ -127,7 +127,7 @@ const MstState = (props) => {
         }
         else {
             //Back to index component
-            fetchParentDefaultData(0, RowPerPage, CurrentPage, '', '');////Trigger for reload index component
+            fetchParentDefaultData("", RowPerPage, CurrentPage, '', '');////Trigger for reload index component
             setMyInnerComponentName(data.innerComponentName);
             setMyComponent(data.landingComponent);
         }
@@ -175,7 +175,7 @@ const MstState = (props) => {
             //debugger;
             //console.log(response.data);
             if (response.data && response.data.Result) {
-                fetchParentDefaultData(0, RowPerPage, CurrentPage, '', '');////Trigger for reload index component
+                fetchParentDefaultData("", RowPerPage, CurrentPage, '', '');////Trigger for reload index component
 
                 //setDefaultDynamicAPIResponse(response.data.Data);
                 setHasAPISuccess(true);

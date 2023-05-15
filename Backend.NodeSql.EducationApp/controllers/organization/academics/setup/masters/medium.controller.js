@@ -41,7 +41,7 @@ const GetMediumDetails = async (req, res, next) => {
                 if (err) {
                     sql.close();
                     ServiceResult.Message = "Failed to parse api response!";
-                    ServiceResult.Description = err.message;
+                    ServiceResult.Description = JSON.stringify(err);
                     ServiceResult.Result = false;
                     ServiceResult.Data = null;
                     return res.send(ServiceResult);
@@ -143,10 +143,10 @@ const AddEditMediumDetails = async (req, res, next) => {
             request.execute("[ACAD].[USP_SvcAddEditMedium]", function (err, recordset) {
                 try {
                     if (err) {
-                        console.log(err);
+                        //console.log(err);
                         sql.close();
                         ServiceResult.Message = "Failed to parse api response!";
-                        ServiceResult.Description = err.message;
+                        ServiceResult.Description = JSON.stringify(err);
                         ServiceResult.Result = false;
                         ServiceResult.Data = null;
                         return res.send(ServiceResult);
@@ -230,7 +230,7 @@ const DeleteMediumsDetails = async (req, res, next) => {
                 if (err) {
                     sql.close();
                     ServiceResult.Message = "Failed to parse api response!";
-                    ServiceResult.Description = err.message;
+                    ServiceResult.Description = JSON.stringify(err);
                     ServiceResult.Result = false;
                     ServiceResult.Data = null;
                     return res.send(ServiceResult);

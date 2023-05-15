@@ -23,6 +23,7 @@ const AddEditMstForm = (props) => {
     //#region define regular expressions (regex)
     var name1to50Regex = /^[a-z A-Z]{1,50}$/;
     var numberRegex = /^[0-9]+$/;
+    var alphanumericRegex = /[A-Za-z0-9]$/;
     //#endregion
 
 
@@ -61,7 +62,7 @@ const AddEditMstForm = (props) => {
         ParentFormId: {
             required: false,
             validator: {
-                func: value => numberRegex.test(value),
+                func: value => alphanumericRegex.test(value),
                 error: "Invalid parent form selection format."
             }
         },
@@ -100,7 +101,7 @@ const AddEditMstForm = (props) => {
     const [Cookie, setCookie] = useCookies(['accessToken', 'refreshToken', 'loggedInUserId']);
     const [AllParentFormList, setAllParentFormList] = useState([]);
 
-    const [CurrentId, setCurrentId] = useState(propData ? propData.PK_ID : 0);
+    const [CurrentId, setCurrentId] = useState(propData ? propData.PK_ID : "");
 
     //#endregion
 
@@ -129,7 +130,7 @@ const AddEditMstForm = (props) => {
 
         //#region set default value of forms use state hooks
         setFormDetailsData(stateSchemaFormDetails);
-        setCurrentId(propData ? propData.PK_ID : 0);
+        setCurrentId(propData ? propData.PK_ID : "");
         //#endregion
     }, []);
 

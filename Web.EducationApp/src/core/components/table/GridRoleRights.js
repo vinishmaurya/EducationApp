@@ -41,6 +41,7 @@ const GridRoleRight = (props) => {
     }
     const funcBodyCheckBoxs = (rowId, uniqueKey) => {
         //debugger
+        console.log(column);
         let IsAllChecked = true;
         for (var i in column) {
             if (!props.DataList[rowId][column[i]] && column[i].toLocaleLowerCase() !== "all") { IsAllChecked = false; }

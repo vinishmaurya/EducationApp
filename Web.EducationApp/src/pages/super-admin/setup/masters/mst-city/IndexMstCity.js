@@ -82,7 +82,7 @@ const IndexMstCity = (props) => {
     }
 
     function onChangePagingData(NextCurrentPage, NextRowPerPage) {
-        const CityId = 0;
+        const CityId = "";
         RowPerPage = !Number(NextRowPerPage) ? RowPerPage : NextRowPerPage;
         CurrentPage = !Number(NextCurrentPage) ? CurrentPage : NextCurrentPage;
 

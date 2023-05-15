@@ -15,7 +15,7 @@ const adminMstRoleClcts = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "admin_MstAccount_Clcts"
     },
-    LandingPage: {
+    HomePage: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "admin_MstForm_Clcts"
     },

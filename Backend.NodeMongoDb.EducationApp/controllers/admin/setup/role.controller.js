@@ -10,6 +10,8 @@ const adminMstSearchTermsClcts = require('../../../models/admin/setup/searchterm
 const adminMstRoleClcts = require('../../../models/admin/setup/Role.model');
 const adminLkpFormHeaderListClcts = require('../../../models/admin/setup/formHeaderList.model');
 var validator = require('validator');
+const CommonFuncs = require('../../../common/common.funcs');
+
 // Network interfaces
 //var ifaces = require('os').networkInterfaces();
 
@@ -47,90 +49,184 @@ const GetRoleDetails = async (req, res, next) => {
             }
         }
         var DataList = null;
-        if (cSearchBy && cSearchValue) {
+        let pipeline = [];
+
+
+        pipeline.push(
+            {
+                $lookup: {
+                    from: "admin_lkpcategory_clcts",
+                    localField: "CategoryId",
+                    foreignField: "_id",
+                    as: "CategoryId"
+                }
+            },
+            {
+                $lookup: {
+                    from: "admin_mstaccount_clcts",
+                    localField: "AccountId",
+                    foreignField: "_id",
+                    as: "AccountId"
+                }
+            },
+            {
+                $lookup: {
+                    from: "admin_mstform_clcts",
+                    localField: "LandingPage",
+                    foreignField: "_id",
+                    as: "LandingPage"
+                }
+            },
+            {
+                $set: {
+                    CategoryId: { $arrayElemAt: ["$CategoryId._id", 0] },
+                    CategoryName: { $arrayElemAt: ["$CategoryId.CategoryName", 0] },
+                    AccountId: { $arrayElemAt: ["$AccountId._id", 0] },
+                    AccountName: { $arrayElemAt: ["$AccountId.AccountName", 0] },
+                    FormName: { $arrayElemAt: ["$LandingPage.FormName", 0] },
+                    LandingPage: { $arrayElemAt: ["$LandingPage._id", 0] },
+                }
+            },
+            {
+                $addFields: {
+                    "Status": {
+                        $switch: {
+                            branches: [
+                                {
+                                    case: {
+                                        $eq: [
+                                            "$IsActive",
+                                            true
+                                        ]
+                                    },
+                                    then: "Active"
+                                },
+                                {
+                                    case: {
+                                        $eq: [
+                                            "$IsActive",
+                                            false
+                                        ]
+                                    },
+                                    then: "Inactive"
+                                },
+
+                            ],
+                            default: {
+                                $toString: "$IsActive"
+                            }
+                        }
+                    }
+                }
+            },
+        );
+        /** An if check prior to forming query */
+        if (iPK_RoleId) {
+            pipeline.push({ $match: { _id: ObjectId(iPK_RoleId) } });
+        }
+        else if (cSearchBy && cSearchValue) {
             if (cSearchBy == 'RoleName') {
-                DataList = await adminMstRoleClcts.find(
-                    {
-                        $and: [
-                            { RoleName: { $regex: cSearchValue, $options: 'i' } },
-                            { IsActive: true },
-                            { IsDeleted: false },
-                        ],
-                    }
-                )
-                    .populate('CategoryId', { "CategoryName": 1, "_id": 1 })
-                    .populate('AccountId', { "AccountName": 1, "_id": 1 })
-                    .populate('LandingPage', { "FormName": 1, "_id": 1 })
-                    .sort({ CreatedDateTime: -1 })
-                    .skip(RowperPage * (CurrentPage - 1))
-                    .limit(RowperPage);
-            }
-            else if (cSearchBy == 'AccountName') {
-                DataList = await adminMstRoleClcts.find(
-                    {
-                        $and: [
-                            { AccountName: { $regex: cSearchValue, $options: 'i' } },
-                            { IsActive: true },
-                            { IsDeleted: false },
-                        ],
-                    }
-                )
-                    .populate('CategoryId', { "CategoryName": 1, "_id": 1 })
-                    .populate('AccountId', { "AccountName": 1, "_id": 1 })
-                    .populate('LandingPage', { "FormName": 1, "_id": 1 })
-                    .sort({ CreatedDateTime: -1 })
-                    .skip(RowperPage * (CurrentPage - 1))
-                    .limit(RowperPage);
+                pipeline.push({
+                    $match: { RoleName: { $regex: cSearchValue, $options: 'i' } }
+                });
             }
             else if (cSearchBy == 'FormName') {
-                DataList = await adminMstRoleClcts.find(
-                    {
-                        $and: [
-                            { FormName: { $regex: cSearchValue, $options: 'i' } },
-                            { IsActive: true },
-                            { IsDeleted: false },
-                        ],
+                pipeline.push({
+                    $match: { FormName: { $regex: cSearchValue, $options: 'i' } }
+                });
+            }
+            else if (cSearchBy == 'AccountName') {
+                pipeline.push({
+                    $match: { AccountName: { $regex: cSearchValue, $options: 'i' } }
+                });
+            }
+        }
+        pipeline.push(
+            {
+                "$set": {
+                    // Modify a field + add a new field
+                    "PK_ID": "$_id",
+                    CreatedDateTime: {
+                        $dateToString: {
+                            format: "%d/%m/%Y %H:%M:%S:%L%z",
+                            date: "$CreatedDateTime"
+                        }
                     }
-                )
-                    .populate('CategoryId', { "CategoryName": 1, "_id": 1 })
-                    .populate('AccountId', { "AccountName": 1, "_id": 1 })
-                    .populate('LandingPage', { "FormName": 1, "_id": 1 })
-                    .sort({ CreatedDateTime: -1 })
-                    .skip(RowperPage * (CurrentPage - 1))
-                    .limit(RowperPage);
-            }
-        }
-        else {
-            DataList = await adminMstRoleClcts
-                .find(
-                    { IsActive: true },
-                    { IsDeleted: false },
-                )
-                .populate('CategoryId', { "CategoryName": 1, "_id": 1 })
-                .populate('AccountId', { "AccountName": 1, "_id": 1 })
-                .populate('LandingPage', { "FormName": 1, "_id": 1 })
-                .sort({ CreatedDateTime: -1 })
-                .skip(RowperPage * (CurrentPage - 1))
-                .limit(RowperPage);
-        }
-        var TotalItem = DataList.length;
+                }
+            },
+
+            {
+                "$unset": [
+                    // Must now name all the other fields for those fields not to be retained
+                    "_id",
+                    "__v"
+                ]
+            },
+            { $sort: { CreatedDateTime: -1 } }
+        );
+        /*Default piplines*/
+        pipeline.push({
+            $match: { IsDeleted: { $in: [false, null] } }
+        });
+
+        pipeline.push({ $skip: Number(RowperPage) * (CurrentPage - 1) });
+        pipeline.push({ $limit: Number(RowperPage) });
+        DataList = await adminMstRoleClcts.aggregate(pipeline)
+            .then(items => {
+                return items;
+            })
+            .catch(err => {
+                ServiceResult.Message = "API Internal Error!";
+                ServiceResult.Result = false;
+                ServiceResult.Description = err.message;
+                ServiceResult.Data = null;
+                return res.send(ServiceResult);
+            });
+
+
         var TotalCurrentMonth = await adminMstRoleClcts.find({
-            CreatedDateTime: {
-                "$gte": (new Date()).setHours(0, 0, 0, 0),
-                "$lt": (new Date()).setHours(23, 59, 59, 999),
-            }
+            $and: [
+                { IsActive: true },
+                { IsDeleted: { $in: [false, null] } },
+                {
+                    '$match': {
+                        '$expr': {
+                            '$eq': [
+                                { "$dateToString": { format: "%Y-%m-%d", date: "$CreatedDateTime" } },
+                                { "$dateToString": { format: "%Y-%m-%d", date: new Date() } },
+                            ]
+                        }
+                    }
+                }
+            ]
         }).count();
-        var TotalActive = await adminMstRoleClcts.find({ "IsActive": true }).count();
-        var TotalInActive = await adminMstRoleClcts.find({ "IsActive": false }).count();
+        var TotalActive = await adminMstRoleClcts.find({
+            $and: [
+                { IsActive: true },
+                { IsDeleted: { $in: [false, null] } }
+            ]
+        }).count();
+
+        var TotalInActive = await adminMstRoleClcts.find({
+            $and: [
+                { IsActive: false },
+                { IsDeleted: { $in: [false, null] } }
+            ]
+        }).count();
+        var TotalItem = TotalActive + TotalInActive;
         var CountArray = {
             TotalItem: TotalItem,
             TotalCurrentMonth: TotalCurrentMonth,
             TotalActive: TotalActive,
             TotalInActive: TotalInActive
         };
-        var HeaderList = await adminLkpFormHeaderListClcts.findOne({ "FormCode": "ROLE_MASTER" }, { "_id": 0 });
+        var HeaderList = await adminLkpFormHeaderListClcts.findOne({ "FormCode": "ROLE_MASTER" }, { "_id": 0, FormCode: 0 });
 
         var SearchTermList = await adminMstSearchTermsClcts.find({ "FormCode": "ROLE_MASTER" });
+
+        //DataList = CommonFuncs.funcParseInnerObject(JSON.parse(JSON.stringify(DataList)));
+
+
         ServiceResult.Message = "Success!";
         ServiceResult.Description = null;
         ServiceResult.Result = true;
@@ -233,7 +329,7 @@ const AddEditRoleDetails = async (req, res, next) => {
         var cRoleName = req.body.RoleName;
         var FK_CategoryId = req.body.CategoryId;
         var FK_AccountId = req.body.AccountId;
-        var iHomePage = req.body.LandingPage;
+        var iHomePage = req.body.HomePage;
         var IsActive = req.body.IsActive;
         var CreatedBy = req.body.CreatedBy;
 
@@ -249,7 +345,7 @@ const AddEditRoleDetails = async (req, res, next) => {
 
         if (!cRoleName || !FK_CategoryId || !FK_AccountId || !iHomePage || !CreatedBy) {
             ServiceResult.Message = "Validation Error!";
-            ServiceResult.Description = '(RoleName, CategoryId, AccountId, LandingPage, CreatedBy) parameters must be required!';
+            ServiceResult.Description = '(RoleName, CategoryId, AccountId, HomePage, CreatedBy) parameters must be required!';
             ServiceResult.Result = false;
             ServiceResult.Data = null;
             return res.send(ServiceResult);
@@ -304,7 +400,7 @@ const AddEditRoleDetails = async (req, res, next) => {
                 RoleName: cRoleName,
                 CategoryId: CategoryIdInfo ? CategoryIdInfo._id : null,
                 AccountId: AccountIdInfo ? AccountIdInfo._id : null,
-                LandingPage: HomePageInfo ? HomePageInfo._id : null,
+                HomePage: HomePageInfo ? HomePageInfo._id : null,
                 IsActive: IsActive,
                 CreatedBy: CreatedByUser ? CreatedByUser._id : null,
                 CreatedDateTime: (new Date()),
@@ -332,7 +428,7 @@ const AddEditRoleDetails = async (req, res, next) => {
                     RoleName: cRoleName,
                     CategoryId: CategoryIdInfo ? CategoryIdInfo._id : null,
                     AccountId: AccountIdInfo ? AccountIdInfo._id : null,
-                    LandingPage: iHomePage,
+                    HomePage: iHomePage,
                     UpdatedBy: CreatedByUser ? CreatedByUser._id : null,
                     UpdatedDateTime: (new Date()),
                 },
@@ -342,7 +438,9 @@ const AddEditRoleDetails = async (req, res, next) => {
                     ServiceResult.Message = "Role details updated successfully!";
                     ServiceResult.Result = true;
                     ServiceResult.Description = null;
-                    ServiceResult.Data = item;
+                    ServiceResult.Data = {
+                        RoleId: item._id
+                    };
                     return res.send(ServiceResult);
                 })
                 .catch(err => {

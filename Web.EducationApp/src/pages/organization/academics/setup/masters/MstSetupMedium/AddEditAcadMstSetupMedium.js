@@ -76,7 +76,7 @@ const AddEditAcadMstSetupMedium = (props) => {
 
     useEffect(() => {
         //debugger;
-        console.log(propData);
+        //console.log(propData);
         //console.log(stateSchemaMediumDetails);
         //#region set default value of forms use state hooks
         setMediumDetailsData(stateSchemaMediumDetails);

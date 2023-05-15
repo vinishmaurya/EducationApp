@@ -22,7 +22,7 @@ const adminMstUserClcts = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "admin_MstAccount_Clcts"
     },
-    UserPassword: {
+    Password: {
         type: String
     },
     MobileNo: {

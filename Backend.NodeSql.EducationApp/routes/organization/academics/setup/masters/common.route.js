@@ -11,4 +11,5 @@ router.get('/academics/common/GetAllMediumList', setupController.GetAllMediumLis
 router.get('/academics/common/GetAllSectionList', setupController.GetAllSectionList);
 router.get('/academics/common/GetAllSessionList', setupController.GetAllSessionList);
 router.get('/academics/common/GetAllStudentCategoryList', setupController.GetAllStudentCategoryList);
+router.get('/academics/common/GetAllSubjectList', setupController.GetAllSubjectList);
 module.exports = router

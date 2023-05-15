@@ -14,6 +14,10 @@ const adminMstStateClcts = require('../../../models/admin/setup/state.model');
 const adminMstCityClcts = require('../../../models/admin/setup/city.model');
 const adminLkpFormHeaderListClcts = require('../../../models/admin/setup/formHeaderList.model');
 const adminMstSearchTermsClcts = require('../../../models/admin/setup/searchterm.model');
+const adminMapFormRoleClcts = require('../../../models/admin/setup/map.form.role.model');
+const CommonFuncs = require('../../../common/common.funcs');
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 var validator = require('validator');
 
 const GetUserDetails = async (req, res, next) => {
@@ -49,102 +53,196 @@ const GetUserDetails = async (req, res, next) => {
             }
         }
         var DataList = null;
-        if (cSearchBy && cSearchValue) {
-            if (cSearchBy == 'UserName') {
-                DataList = await adminMstUserClcts.find(
-                    {
-                        $and: [
-                            { UserName: { $regex: cSearchValue, $options: 'i' } },
-                            { IsActive: true },
-                            { IsDeleted: false },
-                        ],
+        let pipeline = [];
+
+
+        pipeline.push(
+            {
+                $lookup: {
+                    from: "admin_lkpcategory_clcts",
+                    localField: "CategoryId",
+                    foreignField: "_id",
+                    as: "CategoryId"
+                }
+            },
+            {
+                $lookup: {
+                    from: "admin_mstaccount_clcts",
+                    localField: "AccountId",
+                    foreignField: "_id",
+                    as: "AccountId"
+                }
+            },
+            {
+                $lookup: {
+                    from: "admin_mstrole_clcts",
+                    localField: "RoleId",
+                    foreignField: "_id",
+                    as: "RoleId"
+                }
+            },
+            {
+                $set: {
+                    CategoryId: { $arrayElemAt: ["$CategoryId._id", 0] },
+                    CategoryName: { $arrayElemAt: ["$CategoryId.CategoryName", 0] },
+                    AccountId: { $arrayElemAt: ["$AccountId._id", 0] },
+                    AccountName: { $arrayElemAt: ["$AccountId.AccountName", 0] },
+                    RoleName: { $arrayElemAt: ["$RoleId.RoleName", 0] },
+                    RoleId: { $arrayElemAt: ["$RoleId._id", 0] },
+                    UserPassword: "$Password",
+                }
+            },
+            {
+                $addFields: {
+                    "Status": {
+                        $switch: {
+                            branches: [
+                                {
+                                    case: {
+                                        $eq: [
+                                            "$IsActive",
+                                            true
+                                        ]
+                                    },
+                                    then: "Active"
+                                },
+                                {
+                                    case: {
+                                        $eq: [
+                                            "$IsActive",
+                                            false
+                                        ]
+                                    },
+                                    then: "Inactive"
+                                },
+
+                            ],
+                            default: {
+                                $toString: "$IsActive"
+                            }
+                        }
                     }
-                )
-                    .populate('CategoryId', { "CategoryName": 1, "_id": 1 })
-                    .populate('AccountId', { "AccountName": 1, "_id": 1 })
-                    .populate('RoleId', { "RoleName": 1, "_id": 1 })
-                    .populate('CountryId', { "CountryName": 1, "_id": 1 })
-                    .populate('StateId', { "StateName": 1, "_id": 1 })
-                    .populate('CityId', { "CityName": 1, "_id": 1 })
-                    .sort({ CreatedDateTime: -1 })
-                    .skip(RowperPage * (CurrentPage - 1))
-                    .limit(RowperPage);
+                }
+            },
+        );
+        /** An if check prior to forming query */
+        if (iPK_UserId) {
+            pipeline.push({ $match: { _id: ObjectId(iPK_UserId) } });
+        }
+        else if (cSearchBy && cSearchValue) {
+            if (cSearchBy == 'UserName') {
+                pipeline.push({
+                    $match: { UserName: { $regex: cSearchValue, $options: 'i' } }
+                });
             }
             else if (cSearchBy == 'MobileNo') {
-                DataList = await adminMstUserClcts.find(
-                    {
-                        $and: [
-                            { MobileNo: { $regex: cSearchValue, $options: 'i' } },
-                            { IsActive: true },
-                            { IsDeleted: false },
-                        ],
-                    }
-                )
-                    .populate('CategoryId', { "CategoryName": 1, "_id": 1 })
-                    .populate('AccountId', { "AccountName": 1, "_id": 1 })
-                    .populate('RoleId', { "RoleName": 1, "_id": 1 })
-                    .populate('CountryId', { "CountryName": 1, "_id": 1 })
-                    .populate('StateId', { "StateName": 1, "_id": 1 })
-                    .populate('CityId', { "CityName": 1, "_id": 1 })
-                    .sort({ CreatedDateTime: -1 })
-                    .skip(RowperPage * (CurrentPage - 1))
-                    .limit(RowperPage);
+                pipeline.push({
+                    $match: { MobileNo: { $regex: cSearchValue, $options: 'i' } }
+                });
             }
             else if (cSearchBy == 'EmailId') {
-                DataList = await adminMstUserClcts.find(
-                    {
-                        $and: [
-                            { EmailId: { $regex: cSearchValue, $options: 'i' } },
-                            { IsActive: true },
-                            { IsDeleted: false },
-                        ],
+                pipeline.push({
+                    $match: { EmailId: { $regex: cSearchValue, $options: 'i' } }
+                });
+            }
+            else if (cSearchBy == 'CategoryName') {
+                pipeline.push({
+                    $match: { CategoryName: { $regex: cSearchValue, $options: 'i' } }
+                });
+            }
+            else if (cSearchBy == 'AccountName') {
+                pipeline.push({
+                    $match: { AccountName: { $regex: cSearchValue, $options: 'i' } }
+                });
+            }
+            else if (cSearchBy == 'RoleName') {
+                pipeline.push({
+                    $match: { RoleName: { $regex: cSearchValue, $options: 'i' } }
+                });
+            }
+        }
+        pipeline.push(
+            {
+                "$set": {
+                    // Modify a field + add a new field
+                    "PK_ID": "$_id",
+                    CreatedDateTime: {
+                        $dateToString: {
+                            format: "%d/%m/%Y %H:%M:%S:%L%z",
+                            date: "$CreatedDateTime"
+                        }
                     }
-                )
-                    .populate('CategoryId', { "CategoryName": 1, "_id": 1 })
-                    .populate('AccountId', { "AccountName": 1, "_id": 1 })
-                    .populate('RoleId', { "RoleName": 1, "_id": 1 })
-                    .populate('CountryId', { "CountryName": 1, "_id": 1 })
-                    .populate('StateId', { "StateName": 1, "_id": 1 })
-                    .populate('CityId', { "CityName": 1, "_id": 1 })
-                    .sort({ CreatedDateTime: -1 })
-                    .skip(RowperPage * (CurrentPage - 1))
-                    .limit(RowperPage);
-            }
-        }
-        else {
-            DataList = await adminMstUserClcts
-                .find(
-                    { IsActive: true },
-                    { IsDeleted: false }
-                )
-                .populate('CategoryId', { "CategoryName": 1, "_id": 1 })
-                .populate('AccountId', { "AccountName": 1, "_id": 1 })
-                .populate('RoleId', { "RoleName": 1, "_id": 1 })
-                .populate('CountryId', { "CountryName": 1, "_id": 1 })
-                .populate('StateId', { "StateName": 1, "_id": 1 })
-                .populate('CityId', { "CityName": 1, "_id": 1 })
-                .sort({ CreatedDateTime: -1 })
-                .skip(RowperPage * (CurrentPage - 1))
-                .limit(RowperPage);
-        }
-        var TotalItem = DataList.length;
+                }
+            },
+
+            {
+                "$unset": [
+                    // Must now name all the other fields for those fields not to be retained
+                    "_id",
+                    "__v"
+                ]
+            },
+            { $sort: { CreatedDateTime: -1 } }
+        );
+        /*Default piplines*/
+        pipeline.push({
+            $match: { IsDeleted: { $in: [false, null] } }
+        });
+
+        pipeline.push({ $skip: Number(RowperPage) * (CurrentPage - 1) });
+        pipeline.push({ $limit: Number(RowperPage) });
+        DataList = await adminMstUserClcts.aggregate(pipeline)
+            .then(items => {
+                return items;
+            })
+            .catch(err => {
+                ServiceResult.Message = "API Internal Error!";
+                ServiceResult.Result = false;
+                ServiceResult.Description = err.message;
+                ServiceResult.Data = null;
+                return res.send(ServiceResult);
+            });
+
+
         var TotalCurrentMonth = await adminMstUserClcts.find({
-            CreatedDateTime: {
-                "$gte": (new Date()).setHours(0, 0, 0, 0),
-                "$lt": (new Date()).setHours(23, 59, 59, 999),
-            }
+            $and: [
+                { IsActive: true },
+                { IsDeleted: { $in: [false, null] } },
+                {
+                    '$match': {
+                        '$expr': {
+                            '$eq': [
+                                { "$dateToString": { format: "%Y-%m-%d", date: "$CreatedDateTime" } },
+                                { "$dateToString": { format: "%Y-%m-%d", date: new Date() } },
+                            ]
+                        }
+                    }
+                }
+            ]
         }).count();
-        var TotalActive = await adminMstUserClcts.find({ "IsActive": true }).count();
-        var TotalInActive = await adminMstUserClcts.find({ "IsActive": false }).count();
+        var TotalActive = await adminMstUserClcts.find({
+            $and: [
+                { IsActive: true },
+                { IsDeleted: { $in: [false, null] } }
+            ]
+        }).count();
+
+        var TotalInActive = await adminMstUserClcts.find({
+            $and: [
+                { IsActive: false },
+                { IsDeleted: { $in: [false, null] } }
+            ]
+        }).count();
+        var TotalItem = TotalActive + TotalInActive;
         var CountArray = {
             TotalItem: TotalItem,
             TotalCurrentMonth: TotalCurrentMonth,
             TotalActive: TotalActive,
             TotalInActive: TotalInActive
         };
-        var HeaderList = await adminLkpFormHeaderListClcts.findOne({ "FormCode": "USER_MASTER" }, { "_id": 0 });
-
+        var HeaderList = await adminLkpFormHeaderListClcts.findOne({ "FormCode": "USER_MASTER" }, { "_id": 0, FormCode: 0 });
         var SearchTermList = await adminMstSearchTermsClcts.find({ "FormCode": "USER_MASTER" });
+        DataList = CommonFuncs.funcParseInnerObject(JSON.parse(JSON.stringify(DataList)));
         ServiceResult.Message = "Success!";
         ServiceResult.Description = null;
         ServiceResult.Result = true;
@@ -438,12 +536,32 @@ const AddEditUserDetails = async (req, res, next) => {
                     });
             }
             else if (Body_UserDetails.StepCompleted == 'Credentials') {
+                //#region Validations
+                var UserInfo = await adminMstUserClcts.findOne(
+                    // Find documents matching of these values
+                    {
+                        $and: [
+                            { "UserName": Body_UserDetails.Username },
+                            { 'IsActive': true },
+                            { IsDeleted: { $in: [false, null] } }
+                        ]
+                    }
+                );
+
+                if (UserInfo) {
+                    ServiceResult.Message = "Validation Error!";
+                    ServiceResult.Result = false;
+                    ServiceResult.Description = "This Username ('" + Body_UserDetails.Username + "') already exists, please try to create different Username!";
+                    ServiceResult.Data = null;
+                    return res.send(ServiceResult);
+                }
+                //#endregion
                 var UpdatedByUserInfo = Body_UserDetails.UpdatedBy ? await adminMstUserClcts.findById(Body_UserDetails.UpdatedBy) : "";
                 await adminMstUserClcts.findByIdAndUpdate(
                     Body_UserDetails.UserId,
                     {
                         UserName: Body_UserDetails.Username
-                        , UserPassword: Body_UserDetails.Password
+                        , Password: Body_UserDetails.Password
                         , IsActive: Body_UserDetails.IsActive
                         , UpdatedBy: UpdatedByUserInfo ? UpdatedByUserInfo._id : null
                         , UpdatedDateTime: (new Date())
@@ -790,7 +908,7 @@ const AuthenticatedUserInfo = async (req, res, next) => {
                 $and: [
                     { "AccessToken": accessToken },
                     { 'IsActive': true },
-                    { 'IsDeleted': false }
+                    { IsDeleted: { $in: [false, null] } }
                 ]
             }
         );
@@ -802,13 +920,78 @@ const AuthenticatedUserInfo = async (req, res, next) => {
             ServiceResult.Data = null;
             return res.send(ServiceResult);
         }
+        var pipeline = [];
 
-        var LoggedInUserInfo = await adminMstUserClcts.findById(UserTokenFamily.UserId);
+        pipeline.push({ $match: { _id: ObjectId(UserTokenFamily.UserId) } });
+        pipeline.push(
+            {
+                "$set": {
+                    // Modify a field + add a new field
+                    "UserId": "$_id",
+                    CreatedDateTime: {
+                        $dateToString: {
+                            format: "%d/%m/%Y %H:%M:%S:%L%z",
+                            date: "$CreatedDateTime"
+                        }
+                    }
+                }
+            },
+            {
+                "$unset": [
+                    // Must now name all the other fields for those fields not to be retained
+                    "_id",
+                    "__v"
+                ]
+            },
+            { $sort: { CreatedDateTime: -1 } }
+        );
+        var LoggedInUserInfo = await adminMstUserClcts.aggregate(pipeline);
+        LoggedInUserInfo = LoggedInUserInfo ? LoggedInUserInfo[0] : null;
 
-        let formRoleMappingInfo = [];
-        //recordset.recordsets[2].map((column, i) => {
-        //    formRoleMappingInfo.push(column);
-        //});
+        pipeline = [];
+        pipeline.push({
+            $match: {
+                $and: [
+                    { "RoleId": LoggedInUserInfo.RoleId },
+                    { 'IsActive': true },
+                    { 'CanView': true }
+                ]
+            }
+        });
+        pipeline.push(
+            {
+                $lookup: {
+                    from: "admin_mstform_clcts",
+                    localField: "FormId",
+                    foreignField: "_id",
+                    as: "FormId",
+                }
+            },
+            {
+                $lookup: {
+                    from: "admin_mstrole_clcts",
+                    localField: "RoleId",
+                    foreignField: "_id",
+                    as: "RoleId"
+                }
+            },
+            {
+                $set: {
+                    FormId: { $arrayElemAt: ["$FormId._id", 0] },
+                    FormName: { $arrayElemAt: ["$FormId.FormName", 0] },
+                    ParentId: { $arrayElemAt: ["$FormId.ParentId", 0] },
+                    SolutionId: { $arrayElemAt: ["$FormId.SolutionId", 0] },
+                    Area: { $arrayElemAt: ["$FormId.Area", 0] },
+                    SPA_ComponentHref: { $arrayElemAt: ["$FormId.SPA_ComponentHref", 0] },
+                    ClassName: { $arrayElemAt: ["$FormId.ClassName", 0] },
+                    RoleId: { $arrayElemAt: ["$RoleId._id", 0] },
+                    HomePage: { $arrayElemAt: ["$RoleId.HomePage", 0] },
+                }
+            }
+        );
+
+        var formRoleMappingInfo = await adminMapFormRoleClcts.aggregate(pipeline);
+
         ServiceResult.Message = "Success!";
         ServiceResult.Description = null;
         ServiceResult.Result = true;

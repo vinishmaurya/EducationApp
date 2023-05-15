@@ -146,6 +146,18 @@
     "route": "/pages/organization/academics/setup/masters/AcadMstSetupClass"
   },
   {
+    "component": "AcadMstSetupChapter",
+    "title": "Chapter",
+    "componentPath": "../pages/organization/academics/setup/masters/AcadMstSetupChapter",
+    "route": "/pages/organization/academics/setup/masters/AcadMstSetupChapter"
+  },
+  {
+    "component": "AcadMstSetupChapterTopics",
+    "title": "Chapter Topics",
+    "componentPath": "../pages/organization/academics/setup/masters/AcadMstSetupChapterTopics",
+    "route": "/pages/organization/academics/setup/masters/AcadMstSetupChapterTopics"
+  },
+  {
     "component": "AcadMapClassSubject",
     "title": "Assign Class Subject",
     "componentPath": "../pages/organization/academics/setup/masters-mapping/AcadMapClassSubject",

@@ -60,7 +60,7 @@ const AddEditMstCountry = (props) => {
     const [Cookie, setCookie] = useCookies(['accessToken', 'refreshToken', 'loggedInUserId']);
     const [AllParentCountryList, setAllParentCountryList] = useState([]);
 
-    const [CurrentId, setCurrentId] = useState(propData ? propData.PK_ID : 0);
+    const [CurrentId, setCurrentId] = useState(propData ? propData.PK_ID : "");
 
     //#endregion
 
@@ -89,7 +89,7 @@ const AddEditMstCountry = (props) => {
 
         //#region set default value of Countrys use state hooks
         setCountryDetailsData(stateSchemaCountryDetails);
-        setCurrentId(propData ? propData.PK_ID : 0);
+        setCurrentId(propData ? propData.PK_ID : "");
         //#endregion
     }, []);
 

@@ -12,6 +12,7 @@ import MapFormAccount from "../pages/super-admin/setup/masters-mapping/MapFormAc
 import MapUserAccount from "../pages/super-admin/setup/masters-mapping/MapUserAccount";
 import MapFormRole from "../pages/super-admin/setup/masters-mapping/MapFormRole";
 import AdminDashboard from "../pages/organization/AdminDashboard";
+//Acedmic Setup Masters
 import AcadAdminDashboard from "../pages/organization/academics/dashboard/AcadAdminDashboard";
 import AcadParentDashboard from "../pages/organization/academics/dashboard/AcadParentDashboard";
 import AcadStudentDashboard from "../pages/organization/academics/dashboard/AcadStudentDashboard";
@@ -20,6 +21,8 @@ import AcadMstSetupMedium from "../pages/organization/academics/setup/masters/Ms
 import AcadMstSetupSection from "../pages/organization/academics/setup/masters/MstSetupSection/AcadMstSetupSection";
 import AcadMstSetupSubject from "../pages/organization/academics/setup/masters/MstSetupSubject/AcadMstSetupSubject";
 import AcadMstSetupClass from "../pages/organization/academics/setup/masters/MstSetupClass/AcadMstSetupClass";
+import AcadMstSetupChapter from "../pages/organization/academics/setup/masters/MstSetupChapter/AcadMstSetupChapter";
+import AcadMstSetupChapterTopics from "../pages/organization/academics/setup/masters/MstSetupChapterTopics/AcadMstSetupChapterTopics";
 //Acedmic Master Mapings 
 import AcadMapClassSubject from "../pages/organization/academics/setup/masters-mapping/AcadMapClassSubject";
 import AcadMapClassTeacher from "../pages/organization/academics/setup/masters-mapping/AcadMapClassTeacher";
@@ -134,6 +137,12 @@ const SharedComponent = ({ data }) => {
                         }
                         else if (data.component === "AcadMstSetupClass") {
                             return <AcadMstSetupClass data={data} />
+                        }
+                        else if (data.component === "AcadMstSetupChapter") {
+                            return <AcadMstSetupChapter data={data} />
+                        }
+                        else if (data.component === "AcadMstSetupChapterTopics") {
+                            return <AcadMstSetupChapterTopics data={data} />
                         }
                         else if (data.component === "AcadMapClassSubject") {
                             return <AcadMapClassSubject data={data} />

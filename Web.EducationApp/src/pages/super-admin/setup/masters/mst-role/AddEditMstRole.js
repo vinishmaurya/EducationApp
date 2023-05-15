@@ -29,6 +29,7 @@ const AddEditMstRole = (props) => {
     var numberRegex = /^[0-9]+$/;
     var passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
     var usernameRegex = /^[a-z0-9_\.]+$/;
+    var alphanumericRegex = /[A-Za-z0-9]$/;
     //#endregion
 
 
@@ -45,7 +46,7 @@ const AddEditMstRole = (props) => {
     const [FormRoleRightsHeaderList, setFormRoleRightsHeaderList] = useState([]);
     const [FormRoleRightsDataList, setFormRoleRightsDataList] = useState([]);
     const [AllRoleList, setAllRoleList] = useState([]);
-    const [CurrentId, setCurrentId] = useState(propData ? propData.PK_ID : 0);
+    const [CurrentId, setCurrentId] = useState(propData ? propData.PK_ID : "");
 
     //#endregion
 
@@ -55,7 +56,7 @@ const AddEditMstRole = (props) => {
         CategoryId: { value: propData ? propData.CategoryId : 0, error: "This role field selection is required!" },
         AccountId: { value: propData ? propData.AccountId : 0, error: "This account field selection is required!" },
         RoleName: { value: propData ? propData.RoleName : '', error: "This role name field is required!!" },
-        LandingPage: { value: propData ? propData.LandingPage : '', error: "This landing page field selection is required!" },
+        HomePage: { value: propData ? propData.HomePage : '', error: "This landing page field selection is required!" },
         IsActive: { value: propData ? propData.IsActive : true, error: "This status field selection is required!!" }
     };
     const [SaveNextRoleDetailsData, setSaveNextRoleDetailsData] = useState(stateSchemaRoleDetails);
@@ -66,14 +67,14 @@ const AddEditMstRole = (props) => {
         CategoryId: {
             required: true,
             validator: {
-                func: value => numberRegex.test(value),
+                func: value => alphanumericRegex.test(value),
                 error: "Invalid role format."
             }
         },
         AccountId: {
             required: true,
             validator: {
-                func: value => numberRegex.test(value),
+                func: value => alphanumericRegex.test(value),
                 error: "Invalid account format."
             }
         },
@@ -84,10 +85,10 @@ const AddEditMstRole = (props) => {
                 error: "Invalid role name format."
             }
         },
-        LandingPage: {
+        HomePage: {
             required: true,
             validator: {
-                func: value => numberRegex.test(value),
+                func: value => alphanumericRegex.test(value),
                 error: "Invalid landing page format."
             }
         },
@@ -101,9 +102,9 @@ const AddEditMstRole = (props) => {
     // Define your state schema
     const stateSchemaRoleRightsDetails = {
         MappingFor: { value: '', error: "This mapping for field selection is required!" },
-        AccountId: { value: propData ? propData.AccountId : 0, error: "This account field selection is required!" },
-        RoleId: { value: propData ? propData.PK_ID : 0, error: "This role field selection is required!!" },
-        ParentFormId: { value: 0, error: "This parent form field selection is required!" }
+        AccountId: { value: propData ? propData.AccountId : "", error: "This account field selection is required!" },
+        RoleId: { value: propData ? propData.PK_ID : "", error: "This role field selection is required!!" },
+        ParentFormId: { value: "", error: "This parent form field selection is required!" }
     };
     const [FinishRoleRightsDetailsData, setFinishRoleRightsDetailsData] = useState(stateSchemaRoleRightsDetails);
     // Create your own validationstateSchemaRoleRightsDetails
@@ -120,21 +121,21 @@ const AddEditMstRole = (props) => {
         AccountId: {
             required: false,
             validator: {
-                func: value => numberRegex.test(value),
+                func: value => alphanumericRegex.test(value),
                 error: "Invalid account format."
             }
         },
         RoleId: {
             required: false,
             validator: {
-                func: value => numberRegex.test(value),
+                func: value => alphanumericRegex.test(value),
                 error: "Invalid role format."
             }
         },
         ParentFormId: {
             required: false,
             validator: {
-                func: value => numberRegex.test(value),
+                func: value => alphanumericRegex.test(value),
                 error: "Invalid parent form format."
             }
         }
@@ -228,7 +229,7 @@ const AddEditMstRole = (props) => {
             'method': 'GET',
             'url': apiUri ? apiUri : ""
         }).then((response) => {
-            console.log(response);
+            //console.log(response);
             if (response.data.Result) {
                 let DataList = [];
                 response.data.Data.map((data, i) => {
@@ -280,6 +281,7 @@ const AddEditMstRole = (props) => {
                     DataList.push({ ListValue: data.FormId, ListText: data.FormName });
                 });
                 setAllParentFormList(DataList);
+
             }
         }).catch((e) => {
             console.log(e);
@@ -421,6 +423,7 @@ const AddEditMstRole = (props) => {
             if (response.data.Result) {
                 setFormRoleRightsHeaderList(response.data.Data.HeaderList);
                 setFormRoleRightsDataList(response.data.Data.DataList);
+                console.log(response.data);
             }
         }).catch((e) => {
             console.log(e);
@@ -827,7 +830,7 @@ const AddEditMstRole = (props) => {
                                                     )}
                                                 </div>
                                             </div>
-                                            <div className="row mt-3 mb-3">
+                                            <div className="row mt-1 mb-1">
                                                 <div className="col-6">
                                                     <div className="form-group">
                                                         <label className="label-control mb-2">Role Name{stateValidatorSchemaRoleDetails.RoleName.required && (<span className="red">*</span>)}</label>
@@ -850,26 +853,26 @@ const AddEditMstRole = (props) => {
                                                 </div>
                                                 <div className="col-6">
                                                     <div className="form-group">
-                                                        <label className="label-control mb-2">Landing Page{stateValidatorSchemaRoleDetails.LandingPage.required && (<span className="red">*</span>)}</label>
+                                                        <label className="label-control mb-2">Landing Page{stateValidatorSchemaRoleDetails.HomePage.required && (<span className="red">*</span>)}</label>
                                                         <select
                                                             className={"form-control " +
-                                                                (errorsRoleDetails.LandingPage && dirtyRoleDetails.LandingPage ? 'has-error' :
-                                                                    (dirtyRoleDetails.LandingPage ? 'has-success' : ''))
+                                                                (errorsRoleDetails.HomePage && dirtyRoleDetails.HomePage ? 'has-error' :
+                                                                (dirtyRoleDetails.HomePage ? 'has-success' : ''))
                                                             }
-                                                            name="LandingPage"
-                                                            value={SaveNextRoleDetailsData.LandingPage.value}
+                                                            name="HomePage"
+                                                            value={SaveNextRoleDetailsData.HomePage.value}
                                                             onChange={e => { handleOnChangeRoleDetails(e); onInputChangeControllerRoleDetails(e) }}
                                                         >
                                                             {CommonFuncs.funcBindSelectOptons(AllParentFormList)}
                                                         </select>
                                                     </div>
-                                                    {errorsRoleDetails.LandingPage && dirtyRoleDetails.LandingPage && (
-                                                        <span className="error-label mt-2">{errorsRoleDetails.LandingPage}</span>
+                                                    {errorsRoleDetails.HomePage && dirtyRoleDetails.HomePage && (
+                                                        <span className="error-label mt-2">{errorsRoleDetails.HomePage}</span>
                                                     )}
                                                 </div>
                                             </div>
 
-                                            <div className="row mt-3 mb-3">
+                                            <div className="row mt-1 mb-1">
 
                                                 <div className="col-6">
                                                     <div className="form-group">
@@ -986,7 +989,7 @@ const AddEditMstRole = (props) => {
                                                     )}
                                                 </div>
                                             </div>
-                                            <div className="row mt-3 mb-3">
+                                            <div className="row mt-1 mb-1">
                                                 <div className="col-6">
                                                     <div className="form-group">
                                                         <label className="label-control mb-2">Role{stateValidatorSchemaRoleRightsDetails.RoleId.required && (<span className="red">*</span>)}</label>
@@ -1041,7 +1044,7 @@ const AddEditMstRole = (props) => {
                                             </div>
 
 
-                                            <div className="row mt-3 mb-3">
+                                            <div className="row mt-1 mb-1">
                                                 <div className="col-md-12">
                                                     <GridRoleRights
                                                         DataList={FormRoleRightsDataList}

@@ -81,7 +81,7 @@ const IndexMstUser = (props) => {
     }
 
     function onChangePagingData(NextCurrentPage, NextRowPerPage) {
-        const UserId = 0;
+        const UserId = "";
         RowPerPage = !Number(NextRowPerPage) ? RowPerPage : NextRowPerPage;
         CurrentPage = !Number(NextCurrentPage) ? CurrentPage : NextCurrentPage;
 

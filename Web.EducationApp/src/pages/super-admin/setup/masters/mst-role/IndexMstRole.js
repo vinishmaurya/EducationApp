@@ -82,7 +82,7 @@ const IndexMstRole = (props) => {
     }
 
     function onChangePagingData(NextCurrentPage, NextRowPerPage) {
-        const RoleId = 0;
+        const RoleId = "";
         RowPerPage = !Number(NextRowPerPage) ? RowPerPage : NextRowPerPage;
         CurrentPage = !Number(NextCurrentPage) ? CurrentPage : NextCurrentPage;
 
@@ -105,6 +105,7 @@ const IndexMstRole = (props) => {
     function onClickHandelDeleteClick(childEvent) {
         //debugger;
         let rowData = $(childEvent.currentTarget).attr('row-data');
+        //console.log(rowData);
         props.funcDeleteRecord(rowData);
     }
 

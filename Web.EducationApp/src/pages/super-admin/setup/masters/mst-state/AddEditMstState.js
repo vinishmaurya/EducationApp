@@ -24,6 +24,7 @@ const AddEditMstState = (props) => {
     //#region define regular expressions (regex)
     var name1to50Regex = /^[a-z A-Z]{1,50}$/;
     var numberRegex = /^[0-9]+$/;
+    var alphanumericRegex = /[A-Za-z0-9]$/;
     //#endregion
 
 
@@ -42,7 +43,7 @@ const AddEditMstState = (props) => {
         CountryId: {
             required: true,
             validator: {
-                func: value => numberRegex.test(value),
+                func: value => alphanumericRegex.test(value),
                     error: "Invalid country format."
             }
         },
@@ -50,7 +51,7 @@ const AddEditMstState = (props) => {
             required: true,
             validator: {
                 func: value => name1to50Regex.test(value),
-                error: "Invalid State name Stateat."
+                error: "Invalid State name State."
             }
         },
         IsActive: {
@@ -68,7 +69,7 @@ const AddEditMstState = (props) => {
     const [Cookie, setCookie] = useCookies(['accessToken', 'refreshToken', 'loggedInUserId']);
     const [AllParentStateList, setAllParentStateList] = useState([]);
     const [AllCountryList, setAllCountryList] = useState([]);
-    const [CurrentId, setCurrentId] = useState(propData ? propData.PK_ID : 0);
+    const [CurrentId, setCurrentId] = useState(propData ? propData.PK_ID : "");
 
     //#endregion
 
@@ -98,7 +99,7 @@ const AddEditMstState = (props) => {
 
         //#region set default value of States use state hooks
         setStateDetailsData(stateSchemaStateDetails);
-        setCurrentId(propData ? propData.PK_ID : 0);
+        setCurrentId(propData ? propData.PK_ID : "");
         //#endregion
     }, []);
     //#region bind funcs to call axios

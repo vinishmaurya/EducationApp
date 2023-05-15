@@ -22,11 +22,15 @@ const GridTable = (props) => {
     }, []);
     //console.log(props.DataList);
     // get table column
-    const column = Object.keys(props.HeaderList);
-    const header = Object.values(props.HeaderList);
+    const column = props.HeaderList ? Object.keys(props.HeaderList) : [];
+    const header = props.HeaderList ? Object.values(props.HeaderList) : [];
     //console.log(column);
     // get table heading data
     const ThData = () => {
+        if (header.length <= 0) {
+            let uniqueKey = CommonFuncs.funcUniqueKey(1);
+            return <th className="text-center" key={uniqueKey}>Opps, Header List Not Found!</th>
+        }
         return header.map((data, i) => {
             //console.log(data);
             let uniqueKey = CommonFuncs.funcUniqueKey(1);
@@ -118,11 +122,18 @@ const GridTable = (props) => {
                                 );
                             }
                             else {
-                                if (v === "Status" && data[v].toUpperCase() === 'ACTIVE') {
-                                    return <td key={uniqueKey13} align="center" className="success text-success">{data[v]}</td>
+                                if (v === "Status") {
+                                    if ((data[v] ? data[v].toUpperCase() : "") === 'ACTIVE') {
+                                        return <td key={uniqueKey13} align="center" className="success text-success">{data[v]}</td>
+                                    }
+                                    else
+                                    //if (data[v].toUpperCase() === 'INACTIVE')
+                                    {
+                                        return <td key={uniqueKey13} align="center" className="danger text-danger">Inactive </td>
+                                    }
                                 }
-                                else if (v === "Status" && data[v].toUpperCase() === 'INACTIVE') {
-                                    return <td key={uniqueKey13} align="center" className="danger text-danger">{data[v]}</td>
+                                else if (v === "SrNo") {
+                                    return <td key={uniqueKey13} align="center" className="danger">{i + 1}</td>
                                 }
                                 else {
                                     return <td key={uniqueKey13} className="text-center">{data[v]}</td>
@@ -175,7 +186,7 @@ const GridTable = (props) => {
         <>
             {(() => {
 
-               
+
                 return (
                     <>
                         {

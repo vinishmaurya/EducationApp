@@ -114,7 +114,7 @@ const AddEditUserDetails = async (req, res, next) => {
         
 
 
-        if (Object.keys(req.body) != "UserDetails") {
+        if (!Object.keys(req.body).includes("UserDetails")) {
             message = "No were data found for User details with form data key ('UserDetails')!";
             //res.status(200).json({ Message: "No files were uploaded for Id Type." });
             //return;
@@ -140,10 +140,10 @@ const AddEditUserDetails = async (req, res, next) => {
                         else {
                             UserLogo_Multipart = req.files.UserLogo;
                             let fileName = UserLogo_Multipart.name;
-                            let extension = fileName.substr(fileName.lastIndexOf('.'), fileName.length - fileName.lastIndexOf('.')).toUpperCase();
+                            let extension = fileName.substr(fileName.lastIndexOf('.') + 1, fileName.length - fileName.lastIndexOf('.')).toUpperCase();
                             //Size and format validations
-                            if (["PNG", "JPEG", "JPG"].includes(extension)) {
-                                message = "Invalid Subject logo Image format? only (jpg,jpeg,png) images are required!";
+                            if (!["PNG", "JPEG", "JPG"].includes(extension)) {
+                                message = "Invalid User logo Image format? only (jpg,jpeg,png) images are required!";
                                 bool = false;
                             }
                             else if ((UserLogo_Multipart.size / (1000 * 1000)) > 1) {
@@ -181,7 +181,7 @@ const AddEditUserDetails = async (req, res, next) => {
                 if (!fs.existsSync(RootDirectory)) {
                     fs.mkdirSync(RootDirectory, { recursive: true });
                 }
-                let fileName_orignal = SubjectImage_Multipart.name;
+                let fileName_orignal = UserLogo_Multipart.name;
                 let extension = fileName_orignal.substr(fileName_orignal.lastIndexOf('.'), fileName_orignal.length - fileName_orignal.lastIndexOf('.')).toUpperCase();
 
                 var fileName = date.format((new Date()), 'DDMMMYYYYhhmmss') + extension;

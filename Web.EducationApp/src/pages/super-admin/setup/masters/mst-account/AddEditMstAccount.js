@@ -28,6 +28,7 @@ const AddEditMstAccount = (props) => {
     var emailRegex = /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/;
     var phoneRegex = /\+(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d|2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\W*\d\W*\d\W*\d\W*\d\W*\d\W*\d\W*\d\W*\d\W*(\d{1,2})$/;
     var numberRegex = /^[0-9]+$/;
+    var alphanumericRegex = /[A-Za-z0-9]$/;
     var passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
     var usernameRegex = /^[a-z0-9_\.]+$/;
     //#endregion
@@ -35,7 +36,7 @@ const AddEditMstAccount = (props) => {
     //#region account details form: define state, schema & validations
     // Define your state schema
     const stateSchemaAccountDetails = {
-        CategoryId: { value: propData ? propData.FK_CategoryId : '', error: "This account category field selection is required!" },
+        CategoryId: { value: propData ? propData.CategoryId : '', error: "This account category field selection is required!" },
         AccountName: { value: propData ? propData.AccountName : '', error: "This account name field is required!" },
         ParentAccountId: { value: propData ? propData.ParentAccountId : '', error: "This parent account field selection is required!" },
         ContactPerson: { value: propData ? propData.ContactPerson : '', error: "This contact person field is required!!" },
@@ -52,7 +53,7 @@ const AddEditMstAccount = (props) => {
         CategoryId: {
             required: true,
             validator: {
-                func: value => numberRegex.test(value),
+                func: value => alphanumericRegex.test(value),
                 error: "Invalid account category format."
             }
         },
@@ -66,7 +67,7 @@ const AddEditMstAccount = (props) => {
         ParentAccountId: {
             required: false,
             validator: {
-                func: value => numberRegex.test(value),
+                func: value => alphanumericRegex.test(value),
                 error: "Invalid parent account format."
             }
         },
@@ -113,9 +114,9 @@ const AddEditMstAccount = (props) => {
     const stateSchemaAdditionalInfo = {
         AccountAddress: { value: propData ? propData.AccountAddress : '', error: "This account address field is required!" },
         ZipCode: { value: propData ? propData.ZipCode : '', error: "This zipcode field is required!" },
-        CountryId: { value: propData ? propData.FK_CountryId : '', error: "This country field selection is required!" },
-        StateId: { value: propData ? propData.FK_CityId : '', error: "This state field selection is required!!" },
-        CityId: { value: propData ? propData.FK_StateId : '', error: "This city field selection is required!!" },
+        CountryId: { value: propData ? propData.CountryId : '', error: "This country field selection is required!" },
+        StateId: { value: propData ? propData.StateId : '', error: "This state field selection is required!!" },
+        CityId: { value: propData ? propData.CityId : '', error: "This city field selection is required!!" },
         AccountLogo: { value: File, error: "This account logo field selection is required!!" },
         AccountLogoUrl: { value: propData ? propData.AccountLogo : '', error: "" },
     };
@@ -138,21 +139,21 @@ const AddEditMstAccount = (props) => {
         CountryId: {
             required: true,
             validator: {
-                func: value => numberRegex.test(value),
+                func: value => alphanumericRegex.test(value),
                 error: "Invalid country format."
             }
         },
         StateId: {
             required: true,
             validator: {
-                func: value => numberRegex.test(value),
+                func: value => alphanumericRegex.test(value),
                 error: "Invalid state format."
             }
         },
         CityId: {
             required: true,
             validator: {
-                func: value => numberRegex.test(value),
+                func: value => alphanumericRegex.test(value),
                 error: "Invalid city format."
             }
         },
@@ -222,7 +223,7 @@ const AddEditMstAccount = (props) => {
     const [AllCountryList, setAllCountryList] = useState([]);
     const [AllStateList, setAllStateList] = useState([]);
     const [AllCityList, setAllCityList] = useState([]);
-    const [CurrentId, setCurrentId] = useState(propData ? propData.PK_ID : 0);
+    const [CurrentId, setCurrentId] = useState(propData ? propData.PK_ID : "");
 
     //#endregion
 
@@ -282,15 +283,15 @@ const AddEditMstAccount = (props) => {
         if (!flagNextStep) {
             $("#AccountDetails").trigger('click');
         }
-        if (propData && propData.hasOwnProperty('FK_CountryId')) {
-            fetchStateList(propData.FK_CountryId);
+        if (propData && propData.hasOwnProperty('CountryId')) {
+            fetchStateList(propData.CountryId);
         }
 
-        if (propData && propData.hasOwnProperty('FK_StateId')) {
-            fetchCityList(propData.FK_StateId);
+        if (propData && propData.hasOwnProperty('StateId')) {
+            fetchCityList(propData.StateId);
         }
-        if (propData && propData.hasOwnProperty('FK_CategoryId')) {
-            fetchAllParentAccountList(propData.FK_CategoryId);
+        if (propData && propData.hasOwnProperty('CategoryId')) {
+            fetchAllParentAccountList(propData.CategoryId);
         }
         //#endregion
     }, []);
@@ -861,12 +862,14 @@ const AddEditMstAccount = (props) => {
     
     const funcChangeCountrySelection = (e) => {
         //alert('country changes');
-        let CountryId = Number(e.target.value);
+        //let CountryId = Number(e.target.value);
+        let CountryId = e.target.value;
         fetchStateList(CountryId);
     }
     const funcChangeStateSelection = (e) => {
         //debugger;
-        let StateId = Number(e.target.value);
+        //let StateId = Number(e.target.value);
+        let StateId = e.target.value;
         fetchCityList(StateId);
     }
     //#endregion

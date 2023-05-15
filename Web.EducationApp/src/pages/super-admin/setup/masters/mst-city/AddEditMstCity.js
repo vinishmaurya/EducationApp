@@ -24,6 +24,7 @@ const AddEditMstCity = (props) => {
     //#region define regular expressions (regex)
     var name1to50Regex = /^[a-z A-Z]{1,50}$/;
     var numberRegex = /^[0-9]+$/;
+    var alphanumericRegex = /[A-Za-z0-9]$/;
     //#endregion
 
 
@@ -43,14 +44,14 @@ const AddEditMstCity = (props) => {
         CountryId: {
             required: true,
             validator: {
-                func: value => numberRegex.test(value),
+                func: value => alphanumericRegex.test(value),
                     error: "Invalid country format."
             }
         },
         StateId: {
             required: true,
             validator: {
-                func: value => numberRegex.test(value),
+                func: value => alphanumericRegex.test(value),
                 error: "Invalid state format."
             }
         },
@@ -76,7 +77,7 @@ const AddEditMstCity = (props) => {
     const [Cookie, setCookie] = useCookies(['accessToken', 'refreshToken', 'loggedInUserId']);
     const [AllStateList, setAllStateList] = useState([]);
     const [AllCountryList, setAllCountryList] = useState([]);
-    const [CurrentId, setCurrentId] = useState(propData ? propData.PK_ID : 0);
+    const [CurrentId, setCurrentId] = useState(propData ? propData.PK_ID : "");
 
     //#endregion
 
@@ -105,7 +106,7 @@ const AddEditMstCity = (props) => {
 
         //#region set default value of States use state hooks
         setCityDetailsData(stateSchemaCityDetails);
-        setCurrentId(propData ? propData.PK_ID : 0);
+        setCurrentId(propData ? propData.PK_ID : "");
         if (propData && propData.hasOwnProperty('CountryId')) {
             fetchStateList(propData.CountryId);
         }
@@ -312,7 +313,7 @@ const AddEditMstCity = (props) => {
     }
     const funcChangeCountrySelection = (e) => {
         //alert('country changes');
-        let CountryId = Number(e.target.value);
+        let CountryId = e.target.value;
         fetchStateList(CountryId);
     }
     return (

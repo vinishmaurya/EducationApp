@@ -91,9 +91,9 @@ const AuthenticateUser = async (req, res, next) => {
             LoggedInUserInfo = await adminMstUserClcts.findOne({
                 $and: [
                     { "UserName": cUserName },
-                    { 'UserPassword': cPassword },
+                    { 'Password': cPassword },
                     { 'IsActive': true },
-                    { 'IsDeleted': false }
+                    { IsDeleted: { $in: [false, null] } }
                 ]
             });
             //var temp = LoggedInUserInfo1._id;
@@ -135,14 +135,14 @@ const AuthenticateUser = async (req, res, next) => {
             try {
 
                 const now = new Date();
-                const dataFormat = "YYYY-DD/MM hh:mm:ss A";
+                let dataFormat = "YYYY-MM-DD[T00:00:00.000Z]";
                 var UserTokenFamily = await adminMstTokenFamilyClcts.findOne(
                     // Find documents matching of these values
                     {
                         $and: [
                             { "UserId": LoggedInUserInfo._id },
                             { 'IsActive': true },
-                            { 'IsDeleted': false }
+                            { IsDeleted: { $in: [false, null] } }
                         ]
                     }
                 );
@@ -207,6 +207,7 @@ const AuthenticateUser = async (req, res, next) => {
                 }
 
                 if (IsLoggedIn) {
+                    dataFormat = "DD/MM/YYYY HH:MM:SS";
                     let tokenInfo = {
                         accessToken: accessToken,
                         tokenGeneratedDatetime: date.format(now, dataFormat),

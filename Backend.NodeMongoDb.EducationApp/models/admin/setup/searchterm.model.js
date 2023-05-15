@@ -9,6 +9,9 @@ const adminMstSearchTermsClcts = new mongoose.Schema({
     },
     FormCode: {
         type: String
+    },
+    IsDefaultSelection: {
+        type: Boolean
     }
 })
 module.exports = mongoose.model('admin_MstSearchTerms_Clcts', adminMstSearchTermsClcts)

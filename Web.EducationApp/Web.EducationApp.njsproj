@@ -42,6 +42,9 @@
     <Content Include="public\manifest.json" />
     <Content Include="public\robots.txt" />
     <Content Include="README.md" />
+    <Content Include="src\assets\images\pdf.png" />
+    <Content Include="src\assets\images\video.png" />
+    <Content Include="src\assets\images\youtube-video.png" />
     <Content Include="src\config\api.config.json" />
     <Content Include="src\context\UFContext.js" />
     <Content Include="src\core\components\card\PageHeaderCount.js">
@@ -168,8 +171,6 @@
     <Content Include="src\pages\organization\academics\master\student\AcadMstAddEditStudentAdmission.js" />
     <Content Include="src\pages\organization\academics\master\teacher\AcadTeacherIndex.js" />
     <Content Include="src\pages\organization\academics\master\timeTable\AcadTimeTableIndex.js" />
-    <Content Include="src\pages\organization\academics\setup\masters\AcadMstAddEditLessonTopic.js" />
-    <Content Include="src\pages\organization\academics\setup\masters\AcadMstAddEditLesson.js" />
     <Content Include="src\pages\organization\academics\master\teacher\AcadMstAddEditTeacher.js" />
     <Content Include="src\pages\organization\academics\master\teacher\AcadTeacherDetails.js" />
     <Content Include="src\pages\organization\academics\master\timeTable\AcadMstAddEditTimeTable.js" />
@@ -182,6 +183,12 @@
     <Content Include="src\pages\organization\academics\setup\masters\MstSetupClass\AddEditAcadMstSetupClass.js" />
     <Content Include="src\pages\organization\academics\setup\masters\MstSetupClass\IndexAcadMstSetupClass.js" />
     <Content Include="src\pages\organization\academics\setup\masters\MstSetupClass\AcadMstSetupClass.js" />
+    <Content Include="src\pages\organization\academics\setup\masters\MstSetupChapterTopics\AcadMstSetupChapterTopics.js" />
+    <Content Include="src\pages\organization\academics\setup\masters\MstSetupChapterTopics\AddEditAcadMstSetupChapterTopics.js" />
+    <Content Include="src\pages\organization\academics\setup\masters\MstSetupChapterTopics\IndexAcadMstSetupChapterTopics.js" />
+    <Content Include="src\pages\organization\academics\setup\masters\MstSetupChapter\AcadMstSetupChapter.js" />
+    <Content Include="src\pages\organization\academics\setup\masters\MstSetupChapter\AddEditAcadMstSetupChapter.js" />
+    <Content Include="src\pages\organization\academics\setup\masters\MstSetupChapter\IndexAcadMstSetupChapter.js" />
     <Content Include="src\pages\organization\academics\setup\masters\MstSetupMedium\AddEditAcadMstSetupMedium.js" />
     <Content Include="src\pages\organization\academics\setup\masters\MstSetupMedium\IndexAcadMstSetupMedium.js" />
     <Content Include="src\pages\organization\academics\setup\masters\MstSetupSession\AcadMstSetupSession.js" />
@@ -281,6 +288,8 @@
     <Folder Include="src\pages\organization\academics\setup\masters\MstSetupClass\" />
     <Folder Include="src\pages\organization\academics\setup\masters\MstSetupSession\" />
     <Folder Include="src\pages\organization\academics\setup\masters\MstSetupStudentCategory\" />
+    <Folder Include="src\pages\organization\academics\setup\masters\MstSetupChapter\" />
+    <Folder Include="src\pages\organization\academics\setup\masters\MstSetupChapterTopics\" />
     <Folder Include="src\pages\super-admin\setup\masters\mst-city\" />
     <Folder Include="src\pages\super-admin\setup\masters\mst-state\" />
     <Folder Include="src\pages\super-admin\setup\masters\mst-country\" />

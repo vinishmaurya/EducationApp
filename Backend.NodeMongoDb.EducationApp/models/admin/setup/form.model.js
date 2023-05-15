@@ -16,7 +16,7 @@ const adminMstFormClcts = new mongoose.Schema({
     LandingComponentName: {
         type: String
     },
-    ParentFormId: {
+    ParentId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "admin_MstForm_Clcts"
     },
@@ -63,6 +63,9 @@ const adminMstFormClcts = new mongoose.Schema({
         type: String
     },
     PlatFormType: {
+        type: String
+    },
+    SPA_ComponentHref: {
         type: String
     }
 })

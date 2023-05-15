@@ -23,10 +23,10 @@ const GetAllCountryList = async (req, res, next) => {
 
             request.execute("[dbo].[USP_SvcGetCountryList]", function (err, recordset) {
                 if (err) {
-                    console.log(err);
+                    //console.log(err);
                     sql.close();
                     ServiceResult.Message = "Failed to parse api response!";
-                    ServiceResult.Description = err.message;
+                    ServiceResult.Description = JSON.stringify(err);
                     ServiceResult.Result = false;
                     ServiceResult.Data = null;
                     return res.send(ServiceResult);
@@ -100,10 +100,10 @@ const GetAllStateListCountryId = async (req, res, next) => {
 
             request.execute("[dbo].[USP_SvcGetStateDetailsByCountryId]", function (err, recordset) {
                 if (err) {
-                    console.log(err);
+                    //console.log(err);
                     sql.close();
                     ServiceResult.Message = "Failed to parse api response!";
-                    ServiceResult.Description = err.message;
+                    ServiceResult.Description = JSON.stringify(err);
                     ServiceResult.Result = false;
                     ServiceResult.Data = null;
                     return res.send(ServiceResult);
@@ -171,10 +171,10 @@ const GetAllCityListByState = async (req, res, next) => {
 
             request.execute("[dbo].[USP_SvcGetCityDetailsByStateId]", function (err, recordset) {
                 if (err) {
-                    console.log(err);
+                    //console.log(err);
                     sql.close();
                     ServiceResult.Message = "Failed to parse api response!";
-                    ServiceResult.Description = err.message;
+                    ServiceResult.Description = JSON.stringify(err);
                     ServiceResult.Result = false;
                     ServiceResult.Data = null;
                     return res.send(ServiceResult);
@@ -242,10 +242,10 @@ const GetAllMediumList = async (req, res, next) => {
 
             request.execute("[ACAD].[USP_SvcGetMediumList]", function (err, recordset) {
                 if (err) {
-                    console.log(err);
+                    //console.log(err);
                     sql.close();
                     ServiceResult.Message = "Failed to parse api response!";
-                    ServiceResult.Description = err.message;
+                    ServiceResult.Description = JSON.stringify(err);
                     ServiceResult.Result = false;
                     ServiceResult.Data = null;
                     return res.send(ServiceResult);
@@ -314,10 +314,10 @@ const GetAllSectionList = async (req, res, next) => {
 
             request.execute("[ACAD].[USP_SvcGetSectionList]", function (err, recordset) {
                 if (err) {
-                    console.log(err);
+                    //console.log(err);
                     sql.close();
                     ServiceResult.Message = "Failed to parse api response!";
-                    ServiceResult.Description = err.message;
+                    ServiceResult.Description = JSON.stringify(err);
                     ServiceResult.Result = false;
                     ServiceResult.Data = null;
                     return res.send(ServiceResult);
@@ -386,10 +386,10 @@ const GetAllSessionList = async (req, res, next) => {
 
             request.execute("[ACAD].[USP_SvcGetSessionList]", function (err, recordset) {
                 if (err) {
-                    console.log(err);
+                    //console.log(err);
                     sql.close();
                     ServiceResult.Message = "Failed to parse api response!";
-                    ServiceResult.Description = err.message;
+                    ServiceResult.Description = JSON.stringify(err);
                     ServiceResult.Result = false;
                     ServiceResult.Data = null;
                     return res.send(ServiceResult);
@@ -461,7 +461,7 @@ const GetAllStudentCategoryList = async (req, res, next) => {
                     console.log(err);
                     sql.close();
                     ServiceResult.Message = "Failed to parse api response!";
-                    ServiceResult.Description = err.message;
+                    ServiceResult.Description = JSON.stringify(err);
                     ServiceResult.Result = false;
                     ServiceResult.Data = null;
                     return res.send(ServiceResult);
@@ -508,6 +508,81 @@ const GetAllStudentCategoryList = async (req, res, next) => {
     }
 }
 
+
+
+
+const GetAllSubjectList = async (req, res, next) => {
+    /*  #swagger.tags = ['Academics.Common']
+        #swagger.description = ''
+    */
+    ServiceResult.Message = null;
+    ServiceResult.Description = null;
+    ServiceResult.Result = null;
+    ServiceResult.Data = null;
+    try {
+        res.setHeader('Content-Type', 'application/json');
+
+        var poolPromise = new sql.ConnectionPool(config.sql);
+        await poolPromise.connect().then(function (pool) {
+            //the pool that is created and should be used
+            // create Request object
+            var request = new sql.Request(pool);
+            //the pool from the promise
+
+            request.execute("[ACAD].[USP_SvcGetSubjectList]", function (err, recordset) {
+                if (err) {
+                    //console.log(err);
+                    sql.close();
+                    ServiceResult.Message = "Failed to parse api response!";
+                    ServiceResult.Description = JSON.stringify(err);
+                    ServiceResult.Result = false;
+                    ServiceResult.Data = null;
+                    return res.send(ServiceResult);
+                }
+                sql.close();
+                if (recordset) {
+                    if (recordset.recordsets[0][0].Message_Id == 1) {
+                        try {
+                            ServiceResult.Message = recordset.recordsets[0][0].Message;
+                            ServiceResult.Description = null;
+                            ServiceResult.Result = true;
+                            ServiceResult.Data = recordset.recordsets[1];
+                            return res.send(ServiceResult);
+                        } catch (error) {
+                            ServiceResult.Message = "Failed to parse api response!";
+                            ServiceResult.Description = error.message;
+                            ServiceResult.Result = false;
+                            ServiceResult.Data = null;
+                            return res.send(ServiceResult);
+                        }
+                    }
+                    else {
+                        ServiceResult.Message = recordset.recordsets[0][0].Message;
+                        ServiceResult.Result = false;
+                        ServiceResult.Data = null;
+                        return res.send(ServiceResult);
+                    }
+                }
+                else {
+                    ServiceResult.Message = "Failed to parse api response!";
+                    ServiceResult.Result = false;
+                    ServiceResult.Data = null;
+                    return res.send(ServiceResult);
+                }
+
+            });
+        });
+    } catch (error) {
+        ServiceResult.Message = "Failed to connect db!";
+        ServiceResult.Result = false;
+        ServiceResult.Description = error.message;
+        ServiceResult.Data = null;
+        return res.send(ServiceResult);
+    }
+}
+
+
+
 module.exports = {
     GetAllCountryList,
     GetAllStateListCountryId,
@@ -515,5 +590,6 @@ module.exports = {
     GetAllMediumList,
     GetAllSectionList,
     GetAllSessionList,
-    GetAllStudentCategoryList
+    GetAllStudentCategoryList,
+    GetAllSubjectList
 }

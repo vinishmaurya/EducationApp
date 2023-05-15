@@ -5,7 +5,7 @@
     "description": "Description",
     "version": "1.0.0"
   },
-  "host": "192.168.1.3:2000",
+  "host": "localhost:2000",
   "basePath": "/api/",
   "schemes": [
     "http"
@@ -1316,6 +1316,23 @@
         }
       }
     },
+    "/academics/common/GetAllSubjectList": {
+      "get": {
+        "tags": [
+          "Academics.Common"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/academics/Section/GetSectionDetails": {
       "get": {
         "tags": [
@@ -1582,7 +1599,7 @@
     "/academics/Subject/AddEditSubjectDetails": {
       "post": {
         "tags": [
-          "Admin.Subject"
+          "Academics.Subject"
         ],
         "description": "",
         "produces": [
@@ -1963,6 +1980,238 @@
         "parameters": [
           {
             "name": "StudentCategoryId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "DeletedBy",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/academics/Chapter/GetChapterDetails": {
+      "get": {
+        "tags": [
+          "Academics.Chapter"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "ChapterId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "RowPerPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "CurrentPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchBy",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchValue",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/academics/Chapter/AddEditChapterDetails": {
+      "post": {
+        "tags": [
+          "Academics.Chapter"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ChapterId": {
+                  "example": "any"
+                },
+                "MediumId": {
+                  "example": "any"
+                },
+                "ChapterName": {
+                  "example": "any"
+                },
+                "SectionIds": {
+                  "example": "any"
+                },
+                "IsActive": {
+                  "example": "any"
+                },
+                "CreatedBy": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/academics/Chapter/DeleteChaptersDetails": {
+      "delete": {
+        "tags": [
+          "Academics.Chapter"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "ChapterId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "DeletedBy",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/academics/ChapterTopics/GetChapterTopicsDetails": {
+      "get": {
+        "tags": [
+          "Academics.ChapterTopics"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "ChapterTopicsId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "RowPerPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "CurrentPage",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchBy",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "SearchValue",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/academics/ChapterTopics/AddEditChapterTopicsDetails": {
+      "post": {
+        "tags": [
+          "Academics.ChapterTopics"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ChapterTopicsId": {
+                  "example": "any"
+                },
+                "MediumId": {
+                  "example": "any"
+                },
+                "ChapterTopicsName": {
+                  "example": "any"
+                },
+                "SectionIds": {
+                  "example": "any"
+                },
+                "IsActive": {
+                  "example": "any"
+                },
+                "CreatedBy": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/academics/ChapterTopics/DeleteChapterTopicssDetails": {
+      "delete": {
+        "tags": [
+          "Academics.ChapterTopics"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "ChapterTopicsId",
             "in": "query",
             "type": "string"
           },

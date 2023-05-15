@@ -8,6 +8,7 @@ const adminMstUserClcts = require('../../../models/admin/setup/user.model');
 const adminMstSearchTermsClcts = require('../../../models/admin/setup/searchterm.model');
 const adminLkpFormHeaderListClcts = require('../../../models/admin/setup/formHeaderList.model');
 var validator = require('validator');
+const CommonFuncs = require('../../../common/common.funcs');
 
 const GetFormDetails = async (req, res, next) => {
     /*  #swagger.tags = ['Admin.Form']
@@ -41,97 +42,168 @@ const GetFormDetails = async (req, res, next) => {
             }
         }
         var DataList = null;
-        if (cSearchBy && cSearchValue) {
-            if (cSearchBy == 'FormName') {
-                DataList = await adminMstFormClcts.find(
-                    {
-                        $and: [
-                            { FormName: { $regex: cSearchValue, $options: 'i' } },
-                            { IsActive: true },
-                            { IsDeleted: false },
-                        ],
+        let pipeline = [];
+
+
+        pipeline.push(
+            {
+                $lookup: {
+                    from: "admin_mstform_clcts",
+                    localField: "ParentId",
+                    foreignField: "_id",
+                    as: "ParentId"
+                }
+            },
+            {
+                $set: {
+                    ParentId: { $arrayElemAt: ["$ParentId._id", 0] },
+                    ParentFormName: { $arrayElemAt: ["$ParentId.FormName", 0] },
+                    ComponentPath: "$SPA_ComponentHref",
+                    ActionName: "$LandingComponentName",
+                }
+            },
+            {
+                $addFields: {
+                    "Status": {
+                        $switch: {
+                            branches: [
+                                {
+                                    case: {
+                                        $eq: [
+                                            "$IsActive",
+                                            true
+                                        ]
+                                    },
+                                    then: "Active"
+                                },
+                                {
+                                    case: {
+                                        $eq: [
+                                            "$IsActive",
+                                            false
+                                        ]
+                                    },
+                                    then: "Inactive"
+                                },
+
+                            ],
+                            default: {
+                                $toString: "$IsActive"
+                            }
+                        }
                     }
-                )
-                    .populate('ParentFormId', { "FormName": 1, "_id": 1 })   
-                    .sort({ CreatedDateTime: -1 })
-                    .skip(RowperPage * (CurrentPage - 1))
-                    .limit(RowperPage);
+                }
+            },
+        );
+        /** An if check prior to forming query */
+        if (iPK_FormId) {
+            pipeline.push({ $match: { _id: ObjectId(iPK_FormId) } });
+        }
+        else if (cSearchBy && cSearchValue) {
+            if (cSearchBy == 'FormName') {
+                pipeline.push({
+                    $match: { FormName: { $regex: cSearchValue, $options: 'i' } }
+                });
             }
             else if (cSearchBy == 'ComponentName') {
-                DataList = await adminMstFormClcts.find(
-                    {
-                        $and: [
-                            { ComponentName: { $regex: cSearchValue, $options: 'i' } },
-                            { IsActive: true },
-                            { IsDeleted: false },
-                        ],
-                    }
-                )
-                    .populate('ParentFormId', { "FormName": 1, "_id": 1 })   
-                    .sort({ CreatedDateTime: -1 })
-                    .skip(RowperPage * (CurrentPage - 1))
-                    .limit(RowperPage);
+                pipeline.push({
+                    $match: { ComponentName: { $regex: cSearchValue, $options: 'i' } }
+                });
             }
             else if (cSearchBy == 'Area') {
-                DataList = await adminMstFormClcts.find(
-                    {
-                        $and: [
-                            { Area: { $regex: cSearchValue, $options: 'i' } },
-                            { IsActive: true },
-                            { IsDeleted: false },
-                        ],
-                    }
-                )
-                    .populate('ParentFormId', { "FormName": 1, "_id": 1 })   
-                    .sort({ CreatedDateTime: -1 })
-                    .skip(RowperPage * (CurrentPage - 1))
-                    .limit(RowperPage);
+                pipeline.push({
+                    $match: { Area: { $regex: cSearchValue, $options: 'i' } }
+                });
             }
             else if (cSearchBy == 'LandingComponentName') {
-                DataList = await adminMstFormClcts.find(
-                    {
-                        $and: [
-                            { LandingComponentName: { $regex: cSearchValue, $options: 'i' } },
-                            { IsActive: true },
-                            { IsDeleted: false },
-                        ],
+                pipeline.push({
+                    $match: { LandingComponentName: { $regex: cSearchValue, $options: 'i' } }
+                });
+            }
+        }
+        pipeline.push(
+            {
+                "$set": {
+                    // Modify a field + add a new field
+                    "PK_ID": "$_id",
+                    CreatedDateTime: {
+                        $dateToString: {
+                            format: "%d/%m/%Y %H:%M:%S:%L%z",
+                            date: "$CreatedDateTime"
+                        }
                     }
-                )
-                    .populate('ParentFormId', { "FormName": 1, "_id": 1 })   
-                    .sort({ CreatedDateTime: -1 })
-                    .skip(RowperPage * (CurrentPage - 1))
-                    .limit(RowperPage);
-            }
-        }
-        else {
-            var DataList = await adminMstFormClcts
-                .find(
-                    { IsActive: true },
-                    { IsDeleted: false },
-                )
-                .populate('ParentFormId', { "FormName": 1, "_id": 1 })   
-                .sort({ CreatedDateTime: -1 })
-                .skip(RowperPage * (CurrentPage - 1))
-                .limit(RowperPage);
-        }
-        var TotalItem = DataList.length;
+                }
+            },
+
+            {
+                "$unset": [
+                    // Must now name all the other fields for those fields not to be retained
+                    "_id",
+                    "__v"
+                ]
+            },
+            { $sort: { CreatedDateTime: -1 } }
+        );
+        /*Default piplines*/
+        pipeline.push({
+            $match: { IsDeleted: { $in: [false, null] } }
+        });
+
+        pipeline.push({ $skip: Number(RowperPage) * (CurrentPage - 1) });
+        pipeline.push({ $limit: Number(RowperPage) });
+        DataList = await adminMstFormClcts.aggregate(pipeline)
+            .then(items => {
+                return items;
+            })
+            .catch(err => {
+                ServiceResult.Message = "API Internal Error!";
+                ServiceResult.Result = false;
+                ServiceResult.Description = err.message;
+                ServiceResult.Data = null;
+                return res.send(ServiceResult);
+            });
+
+
         var TotalCurrentMonth = await adminMstFormClcts.find({
-            CreatedDateTime: {
-                "$gte": (new Date()).setHours(0, 0, 0, 0),
-                "$lt": (new Date()).setHours(23, 59, 59, 999),
-            }
+            $and: [
+                { IsActive: true },
+                { IsDeleted: { $in: [false, null] } },
+                {
+                    '$match': {
+                        '$expr': {
+                            '$eq': [
+                                { "$dateToString": { format: "%Y-%m-%d", date: "$CreatedDateTime" } },
+                                { "$dateToString": { format: "%Y-%m-%d", date: new Date() } },
+                            ]
+                        }
+                    }
+                }
+            ]
         }).count();
-        var TotalActive = await adminMstFormClcts.find({ "IsActive": true }).count();
-        var TotalInActive = await adminMstFormClcts.find({ "IsActive": false }).count();
+        var TotalActive = await adminMstFormClcts.find({
+            $and: [
+                { IsActive: true },
+                { IsDeleted: { $in: [false, null] } }
+            ]
+        }).count();
+
+        var TotalInActive = await adminMstFormClcts.find({
+            $and: [
+                { IsActive: false },
+                { IsDeleted: { $in: [false, null] } }
+            ]
+        }).count();
+        var TotalItem = TotalActive + TotalInActive;
         var CountArray = {
             TotalItem: TotalItem,
             TotalCurrentMonth: TotalCurrentMonth,
             TotalActive: TotalActive,
             TotalInActive: TotalInActive
         };
-        var HeaderList = await adminLkpFormHeaderListClcts.findOne({ "FormCode": "FORM_MASTER" }, {"_id":0});
+        var HeaderList = await adminLkpFormHeaderListClcts.findOne({ "FormCode": "FORM_MASTER" }, { "_id": 0, FormCode: 0});
 
         var SearchTermList = await adminMstSearchTermsClcts.find({ "FormCode": "FORM_MASTER" });
+
         ServiceResult.Message = "Success!";
         ServiceResult.Description = null;
         ServiceResult.Result = true;
@@ -272,7 +344,7 @@ const AddEditFormDetails = async (req, res, next) => {
                 ComponentName: ComponentName,
                 LandingComponentName: LandingComponentName,
                 SPA_ComponentHref: SPA_ComponentHref,
-                ParentFormId: ParentForm ? ParentForm._id : null,
+                ParentId: ParentForm ? ParentForm._id : null,
                 //FK_SolutionId    : iFK_SolutionId,
                 ClassName: cClassName,
                 Area: cArea,
@@ -306,7 +378,7 @@ const AddEditFormDetails = async (req, res, next) => {
                     ComponentName: ComponentName,
                     SPA_ComponentHref: SPA_ComponentHref,
                     LandingComponentName: LandingComponentName,
-                    ParentFormId: ParentForm ? ParentForm._id : null,
+                    ParentId: ParentForm ? ParentForm._id : null,
                     //FK_SolutionId    : iFK_SolutionId,
                     ClassName: cClassName,
                     Area: cArea,

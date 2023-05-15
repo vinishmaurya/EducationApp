@@ -82,7 +82,7 @@ const IndexMstCountry = (props) => {
     }
 
     function onChangePagingData(NextCurrentPage, NextRowPerPage) {
-        const CountryId = 0;
+        const CountryId = "";
         RowPerPage = !Number(NextRowPerPage) ? RowPerPage : NextRowPerPage;
         CurrentPage = !Number(NextCurrentPage) ? CurrentPage : NextCurrentPage;
 

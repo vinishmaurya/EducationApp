@@ -42,7 +42,7 @@ const GetSubjectDetails = async (req, res, next) => {
                 if (err) {
                     sql.close();
                     ServiceResult.Message = "Failed to parse api response!";
-                    ServiceResult.Description = err.message;
+                    ServiceResult.Description = JSON.stringify(err);
                     ServiceResult.Result = false;
                     ServiceResult.Data = null;
                     return res.send(ServiceResult);
@@ -97,7 +97,7 @@ const GetSubjectDetails = async (req, res, next) => {
 
 
 const AddEditSubjectDetails = async (req, res, next) => {
-    /*  #swagger.tags = ['Admin.Subject']
+    /*  #swagger.tags = ['Academics.Subject']
         #swagger.description = ''
     */
     var uploadFilePath = null;
@@ -202,10 +202,10 @@ const AddEditSubjectDetails = async (req, res, next) => {
                 request.execute("[ACAD].[USP_SvcAddEditSubject]", function (err, recordset) {
                     try {
                         if (err) {
-                            console.log(err);
+                            //console.log(err);
                             sql.close();
                             ServiceResult.Message = "Failed to parse api response!";
-                            ServiceResult.Description = err.message;
+                            ServiceResult.Description = JSON.stringify(err);
                             ServiceResult.Result = false;
                             ServiceResult.Data = null;
                             if (fs.existsSync(uploadFilePath)) {
@@ -333,7 +333,7 @@ const DeleteSubjectsDetails = async (req, res, next) => {
                 if (err) {
                     sql.close();
                     ServiceResult.Message = "Failed to parse api response!";
-                    ServiceResult.Description = err.message;
+                    ServiceResult.Description = JSON.stringify(err);
                     ServiceResult.Result = false;
                     ServiceResult.Data = null;
                     return res.send(ServiceResult);

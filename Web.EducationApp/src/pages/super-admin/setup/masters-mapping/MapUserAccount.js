@@ -4,7 +4,7 @@ const MapUserAccount = () => {
             <div className="card card-demo">
                 <div className="card-body">
                     <div className="content-demo">
-                        <div class="content-body">
+                        <div cassName="content-body">
 
                             <div className="row">
                                 <div className="col-6">
@@ -22,7 +22,7 @@ const MapUserAccount = () => {
                                     <div className="form-group">
                                         <label className="label-control mb-2">Select Account<span
                                             className="red">*</span></label>
-                                        <select class="form-control select2 select2-hidden-accessible" data-val="true" data-val-number="The field Role For must be a number." data-val-required="Please Select Role For" id="RoleForId" name="RoleForId" tabindex="-1" aria-hidden="true"><option value="">--select--</option>
+                                        <select cassName="form-control select2 select2-hidden-accessible" data-val="true" data-val-number="The field Role For must be a number." data-val-required="Please Select Role For" id="RoleForId" name="RoleForId" tabIndex="-1" aria-hidden="true"><option value="">--select--</option>
                                             <option value="2">Admin</option>
                                             <option value="1">Super Admin</option>
                                             <option value="2">Gyanmitras Admin</option></select>
@@ -36,13 +36,13 @@ const MapUserAccount = () => {
                                         className="red">*</span>
                                     </label>
                                     <br />
-                                    <div class="form-check form-check-inline">
+                                    <div cassName="form-check form-check-inline">
                                         <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
-                                        <label className="form-check-label" for="inlineRadio1">Active</label>
+                                        <label className="form-check-label" htmlFor="inlineRadio1">Active</label>
                                     </div>
                                     <div className="form-check form-check-inline">
                                         <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" />
-                                        <label className="form-check-label" for="inlineRadio2">Inactive</label>
+                                        <label className="form-check-label" htmlFor="inlineRadio2">Inactive</label>
                                     </div>
 
                                 </div>

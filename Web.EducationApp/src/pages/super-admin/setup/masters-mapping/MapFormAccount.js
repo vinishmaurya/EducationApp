@@ -20,6 +20,7 @@ require('dotenv').config();
 const MapFormAccount = (props) => {
     //#region define regular expressions (regex)
     var numberRegex = /^[0-9]+$/;
+    var alphanumericRegex = /[A-Za-z0-9]$/;
     //#endregion
 
     //#region define use state hooks
@@ -50,14 +51,14 @@ const MapFormAccount = (props) => {
         AccountId: {
             required: true,
             validator: {
-                func: value => numberRegex.test(value),
+                func: value => alphanumericRegex.test(value),
                 error: "Invalid account format."
             }
         },
         ParentFormId: {
             required: false,
             validator: {
-                func: value => numberRegex.test(value),
+                func: value => alphanumericRegex.test(value),
                 error: "Invalid parent form format."
             }
         }

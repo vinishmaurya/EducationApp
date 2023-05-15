@@ -6,7 +6,7 @@
       "GetAllStateListCountryIdUri": "/admin/common/GetAllStateListCountryId",
       "GetAllCityListByStateUri": "/admin/common/GetAllCityListByState",
       "GetAllParentFormsListUri": "/admin/common/GetAllParentFormsList",
-      "AllAccountsListUri": "/admin/common/AllAccountsListByCategory",
+      "AllAccountsListUri": "/admin/common/GetAllAccountList",
       "AllAccountsListByCategoryUri": "/admin/common/AllAccountsListByCategory?CategoryId=<CategoryId>&IsParentAccount=<IsParentAccount>",
       "GetAllRoleListUri": "/admin/common/GetAllRoleList?RoleName<RoleName>&CategoryId=<CategoryId>&AccountId=<AccountId>"
     },
@@ -62,7 +62,8 @@
       "GetAllMediumListUri": "/academics/common/GetAllMediumList",
       "GetAllSectionListUri": "/academics/common/GetAllSectionList",
       "GetAllSessionListUri": "/academics/common/GetAllSessionList",
-      "GetAllStudentCategoryListUri": "/academics/common/GetAllStudentCategoryList"
+      "GetAllStudentCategoryListUri": "/academics/common/GetAllStudentCategoryList",
+      "GetAllSubjectListUri": "/academics/common/GetAllSubjectList"
     },
     "Medium": {
       "AddEditMediumDetailsUri": "/academics/Medium/AddEditMediumDetails",
@@ -93,6 +94,16 @@
       "AddEditStudentCategoryDetailsUri": "/academics/StudentCategory/AddEditStudentCategoryDetails",
       "GetStudentCategoryDetailsUri": "/academics/StudentCategory/GetStudentCategoryDetails?StudentCategoryId=<StudentCategoryId>&RowPerPage=<RowPerPage>&CurrentPage=<CurrentPage>&SearchBy=<SearchBy>&SearchValue=<SearchValue>",
       "DeleteStudentCategorysDetailsUri": "/academics/StudentCategory/DeleteStudentCategorysDetails?StudentCategoryId=<StudentCategoryId>&DeletedBy=<DeletedBy>"
+    },
+    "Chapter": {
+      "AddEditChapterDetailsUri": "/academics/Chapter/AddEditChapterDetails",
+      "GetChapterDetailsUri": "/academics/Chapter/GetChapterDetails?ChapterId=<ChapterId>&RowPerPage=<RowPerPage>&CurrentPage=<CurrentPage>&SearchBy=<SearchBy>&SearchValue=<SearchValue>",
+      "DeleteChaptersDetailsUri": "/academics/Chapter/DeleteChaptersDetails?ChapterId=<ChapterId>&DeletedBy=<DeletedBy>"
+    },
+    "ChapterTopics": {
+      "AddEditChapterTopicsDetailsUri": "/academics/ChapterTopics/AddEditChapterTopicsDetails",
+      "GetChapterTopicsDetailsUri": "/academics/ChapterTopics/GetChapterTopicsDetails?ChapterTopicsId=<ChapterTopicsId>&RowPerPage=<RowPerPage>&CurrentPage=<CurrentPage>&SearchBy=<SearchBy>&SearchValue=<SearchValue>",
+      "DeleteChapterTopicssDetailsUri": "/academics/ChapterTopics/DeleteChapterTopicssDetails?ChapterTopicsId=<ChapterTopicsId>&DeletedBy=<DeletedBy>"
     }
   }
 }
